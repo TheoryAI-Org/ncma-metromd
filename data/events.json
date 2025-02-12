@@ -1,0 +1,86 @@
+{
+  "upcomingEvents": [],
+  "pastEvents": [
+    {
+      "id": "january-dinner-meeting",
+      "title": "NCMA MetroMD January Dinner Meeting",
+      "date": "2025-01-16",
+      "startTime": "16:45",
+      "endTime": "20:00",
+      "description": "Check ticket prices on event",
+      "imageUrl": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F926804463%2F2037253955163%2F1%2Foriginal.20250103-111049?crop=focalpoint&fit=crop&h=230&w=460&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=b99aceef8c520cbb37c6383dd7c5a6ea"
+    },
+    {
+      "id": "november-dinner-meeting",
+      "title": "NCMA MetroMD Salute to Veterans November Dinner",
+      "date": "2024-11-21",
+      "startTime": "17:30",
+      "endTime": "20:00",
+      "description": "Check ticket prices on event",
+      "imageUrl": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F891585763%2F2037253955163%2F1%2Foriginal.20241104-212011?crop=focalpoint&fit=crop&h=230&w=460&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=5ce71c598e70775b420fa3613e94e917"
+    },
+    {
+      "id": "cmbok-far-connection",
+      "title": "The CMBOK and FAR Connection",
+      "date": "2024-10-31",
+      "startTime": "18:00",
+      "endTime": "20:00",
+      "description": "Check ticket prices on event",
+      "imageUrl": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F889230873%2F2037253955163%2F1%2Foriginal.20241031-210615?crop=focalpoint&fit=crop&h=203&w=407&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.503258857446&fp-y=0.4268957796&s=b23d89300005c3c63a3984fc1921bca8"
+    },
+    {
+      "id": "october-dinner-meeting",
+      "title": "NCMA MetroMD October 17th Dinner Meeting",
+      "date": "2024-10-17",
+      "startTime": "17:30",
+      "endTime": "20:00",
+      "description": "Check ticket prices on event",
+      "imageUrl": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F801673929%2F2037253955163%2F1%2Foriginal.20240704-121503?h=230&w=460&auto=format%2Ccompress&q=75&sharp=10&s=b9ec79e008c18f9c159d32f7bffcd7be"
+    },
+    {
+      "id": "august-dinner-meeting",
+      "title": "NCMA MetroMD August 15th Dinner Meeting",
+      "date": "2024-08-15",
+      "startTime": "17:30",
+      "endTime": "20:00",
+      "description": "Check ticket prices on event",
+      "imageUrl": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F801673929%2F2037253955163%2F1%2Foriginal.20240704-121503?h=230&w=460&auto=format%2Ccompress&q=75&sharp=10&s=b9ec79e008c18f9c159d32f7bffcd7be"
+    },
+    {
+      "id": "june-dinner-meeting",
+      "title": "NCMA MetroMD June Dinner Meeting",
+      "date": "2024-06-27",
+      "startTime": "17:30",
+      "endTime": "20:00",
+      "description": "Check ticket prices on event",
+      "imageUrl": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F751254979%2F2037253955163%2F1%2Foriginal.20240424-123723?h=230&w=460&auto=format%2Ccompress&q=75&sharp=10&rect=0,670,6000,3000&s=91186dc881c3e86302280568d5ff2348"
+    },
+    {
+      "id": "may-dinner-meeting",
+      "title": "NCMA MetroMD May Dinner Meeting",
+      "date": "2024-05-16",
+      "startTime": "17:30",
+      "endTime": "20:00",
+      "description": "Check ticket prices on event",
+      "imageUrl": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F751254979%2F2037253955163%2F1%2Foriginal.20240424-123723?h=230&w=460&auto=format%2Ccompress&q=75&sharp=10&rect=0,670,6000,3000&s=91186dc881c3e86302280568d5ff2348"
+    },
+    {
+      "id": "april-dinner-meeting",
+      "title": "NCMA MetroMD April Dinner Meeting",
+      "date": "2024-04-18",
+      "startTime": "17:30",
+      "endTime": "20:00",
+      "description": "Check ticket prices on event",
+      "imageUrl": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F736019939%2F2037254317683%2F1%2Foriginal.png?h=230&w=460&auto=format%2Ccompress&q=75&sharp=10&rect=0,0,940,470&s=b431d01ac3e68cfac9c61d90f815ebaa"
+    },
+    {
+      "id": "march-kick-off",
+      "title": "NCMA MetroMD Kick-Off",
+      "date": "2024-03-21",
+      "startTime": "18:00",
+      "endTime": "20:00",
+      "description": "Check ticket prices on event",
+      "imageUrl": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F709976759%2F2037253955163%2F1%2Foriginal.20240302-202102?h=230&w=460&auto=format%2Ccompress&q=75&sharp=10&rect=1,0,1544,772&s=84aac4d11d57e2e6270c26ce73f13e6f"
+    }
+  ]
+}
