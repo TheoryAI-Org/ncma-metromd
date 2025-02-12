@@ -37,11 +37,20 @@ export const metadata: Metadata = {
     siteName: "NCMA MetroMD Chapter",
     title: "NCMA MetroMD Chapter | National Contract Management Association",
     description: "The NCMA MetroMD Chapter serves contract management professionals in the Maryland metropolitan area. Join us for professional development, networking, and certification opportunities.",
+    images: [
+      {
+        url: "/images/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "NCMA MetroMD Chapter"
+      }
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "NCMA MetroMD Chapter",
     description: "The NCMA MetroMD Chapter serves contract management professionals in the Maryland metropolitan area.",
+    images: ["/images/og-image.png"],
   },
   robots: {
     index: true,
