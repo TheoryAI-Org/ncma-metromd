@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 export function CertsContent() {
@@ -19,7 +18,7 @@ export function CertsContent() {
             >
               Click here
             </Link>{" "}
-            to find out more about NCMA's certification programs!
+            to find out more about NCMA&apos;s certification programs!
           </p>
 
           <div className="space-y-12">
@@ -28,7 +27,7 @@ export function CertsContent() {
                 CERTIFIED PROFESSIONAL CONTRACTS MANAGER (CPCM)
               </h2>
               <p className="text-gray-700">
-                A Certified Professional Contracts Manager (CPCM) certification demonstrates that you have met NCMA's highest standards for education, training, and experience, and have demonstrated your knowledge of the contract management competencies in the Contract Management Body of Knowledge. It is NCMA's senior and most prestigious certification.
+                A Certified Professional Contracts Manager (CPCM) certification demonstrates that you have met NCMA&apos;s highest standards for education, training, and experience, and have demonstrated your knowledge of the contract management competencies in the Contract Management Body of Knowledge. It is NCMA&apos;s senior and most prestigious certification.
               </p>
             </div>
 

@@ -1,4 +1,5 @@
 import { EventCard } from "@/components/event-card";
+import eventsData from "@/data/events.json";
 
 type Event = {
   id: string;
@@ -16,16 +17,10 @@ type EventsData = {
 };
 
 export function EventsGrid() {
-  let eventsData: EventsData;
-  try {
-    eventsData = require("@/data/events.json");
-  } catch (error) {
-    console.error("Error loading events data:", error);
-    eventsData = { upcomingEvents: [], pastEvents: [] };
-  }
-
-  const upcomingCount = eventsData.upcomingEvents.length;
-  const pastCount = eventsData.pastEvents.length;
+  // Type assertion for the imported JSON
+  const data = eventsData as EventsData;
+  const upcomingCount = data.upcomingEvents.length;
+  const pastCount = data.pastEvents.length;
 
   return (
     <section className="py-16 bg-white">
@@ -38,7 +33,7 @@ export function EventsGrid() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {eventsData.upcomingEvents.map((event) => (
+              {data.upcomingEvents.map((event) => (
                 <EventCard
                   key={event.id}
                   title={event.title}
@@ -61,7 +56,7 @@ export function EventsGrid() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {eventsData.pastEvents.map((event) => (
+              {data.pastEvents.map((event) => (
                 <EventCard
                   key={event.id}
                   title={event.title}

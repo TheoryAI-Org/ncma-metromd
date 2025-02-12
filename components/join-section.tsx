@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 export function JoinSection() {
@@ -17,7 +16,7 @@ export function JoinSection() {
             Register today from the NCMA Headquarters sign-up form.
           </p>
           <p className="text-[#4A4A4A] italic text-sm md:text-base">
-            Remember to put "MetroMD" as your Chapter Preference!
+            Remember to put &quot;MetroMD&quot; as your Chapter Preference!
           </p>
         </div>
         <a
