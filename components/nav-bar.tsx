@@ -37,7 +37,7 @@ export function NavBar() {
         {/* Mobile Navigation */}
         <Sheet>
           <SheetTrigger asChild className="md:hidden">
-            <Button variant="ghost" size="icon" className="text-white">
+            <Button variant="ghost" size="icon" className="bg-[#1B365D] text-white hover:bg-[#2A4A7F]">
               <Menu className="h-6 w-6" />
               <span className="sr-only">Open menu</span>
             </Button>
