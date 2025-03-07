@@ -11,6 +11,11 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "NCMA MetroMD Chapter | National Contract Management Association",
   description: "The NCMA MetroMD Chapter serves contract management professionals in the Maryland metropolitan area. Join us for professional development, networking, and certification opportunities.",
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
+  },
   keywords: [
     "NCMA",
     "National Contract Management Association",
