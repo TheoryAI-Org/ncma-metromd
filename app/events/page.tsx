@@ -1,14 +1,18 @@
 import { NavBar } from "@/components/nav-bar";
 import { EventsHero } from "@/components/events-hero";
-import { EventsGrid } from "@/components/events-grid";
 import { JoinSection } from "@/components/join-section";
+import { fetchEventbriteEvents } from "@/lib/eventbrite";
+import { EventsGridServer } from "@/components/events-grid-server";
 
-export default function EventsPage() {
+export default async function EventsPage() {
+  // Fetch events from Eventbrite
+  const { upcomingEvents, pastEvents } = await fetchEventbriteEvents();
+
   return (
     <main>
       <NavBar />
       <EventsHero />
-      <EventsGrid />
+      <EventsGridServer upcomingEvents={upcomingEvents} pastEvents={pastEvents} />
       <JoinSection />
     </main>
   );

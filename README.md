@@ -20,6 +20,21 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Eventbrite API Integration
+
+This project uses the Eventbrite API to fetch and display events. To set up the integration:
+
+1. Create an Eventbrite account and register an application at [Eventbrite Developer](https://www.eventbrite.com/platform/api)
+2. Get your API key from the Eventbrite Developer dashboard
+3. Find your organization ID from your Eventbrite account
+4. Create a `.env.local` file in the root directory based on `.env.local.example`
+5. Add your Eventbrite API key and organization ID to the `.env.local` file
+
+```
+EVENTBRITE_API_KEY=your_eventbrite_api_key_here
+EVENTBRITE_ORGANIZATION_ID=your_eventbrite_organization_id_here
+```
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

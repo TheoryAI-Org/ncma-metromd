@@ -8,6 +8,7 @@ interface EventCardProps {
   endTime: string;
   description: string;
   imageUrl: string;
+  eventUrl?: string;
 }
 
 export function EventCard({
@@ -17,6 +18,7 @@ export function EventCard({
   endTime,
   description,
   imageUrl,
+  eventUrl = "#",
 }: EventCardProps) {
   const eventDate = new Date(date);
   const formattedDate = eventDate.toLocaleDateString("en-US", {
@@ -37,7 +39,7 @@ export function EventCard({
   };
 
   return (
-    <Link href="#" className="block group">
+    <Link href={eventUrl} className="block group" target="_blank" rel="noopener noreferrer">
       <div className="relative aspect-video overflow-hidden rounded-lg bg-gray-100">
         {imageUrl ? (
           <Image
