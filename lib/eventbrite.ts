@@ -3,10 +3,6 @@ import { Event } from '@/types/event';
 // Eventbrite API base URL
 const EVENTBRITE_API_BASE_URL = 'https://www.eventbriteapi.com/v3';
 
-// You'll need to set this in your environment variables
-const EVENTBRITE_API_KEY = process.env.EVENTBRITE_API_KEY;
-const EVENTBRITE_ORGANIZATION_ID = process.env.EVENTBRITE_ORGANIZATION_ID;
-
 // Eventbrite event interface
 interface EventbriteEvent {
   id: string;
@@ -33,8 +29,14 @@ export async function fetchEventbriteEvents(): Promise<{
   upcomingEvents: Event[];
   pastEvents: Event[];
 }> {
+  // Get environment variables
+  const EVENTBRITE_API_KEY = process.env.EVENTBRITE_API_KEY;
+  const EVENTBRITE_ORGANIZATION_ID = process.env.EVENTBRITE_ORGANIZATION_ID;
+
+  // Check if environment variables are set
   if (!EVENTBRITE_API_KEY || !EVENTBRITE_ORGANIZATION_ID) {
-    throw new Error('Eventbrite API key or Organization ID not set');
+    console.warn('Eventbrite API key or Organization ID not set');
+    return { upcomingEvents: [], pastEvents: [] };
   }
 
   try {
