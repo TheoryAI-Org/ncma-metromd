@@ -10,6 +10,11 @@ const nextConfig = {
       },
     ],
   },
+  serverRuntimeConfig: {
+    // Will only be available on the server side
+    eventbriteApiKey: process.env.EVENTBRITE_API_KEY,
+    eventbriteOrganizationId: process.env.EVENTBRITE_ORGANIZATION_ID,
+  },
 }
 
 module.exports = nextConfig

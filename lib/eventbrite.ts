@@ -1,4 +1,8 @@
 import { Event } from '@/types/event';
+import getConfig from 'next/config';
+
+// Get server runtime config
+const { serverRuntimeConfig } = getConfig() || {};
 
 // Eventbrite API base URL
 const EVENTBRITE_API_BASE_URL = 'https://www.eventbriteapi.com/v3';
@@ -29,24 +33,20 @@ export async function fetchEventbriteEvents(): Promise<{
   upcomingEvents: Event[];
   pastEvents: Event[];
 }> {
-  // Get environment variables
-  const EVENTBRITE_API_KEY = process.env.EVENTBRITE_API_KEY;
-  const EVENTBRITE_ORGANIZATION_ID = process.env.EVENTBRITE_ORGANIZATION_ID;
+  // Get API credentials from server runtime config
+  const EVENTBRITE_API_KEY = serverRuntimeConfig?.eventbriteApiKey;
+  const EVENTBRITE_ORGANIZATION_ID = serverRuntimeConfig?.eventbriteOrganizationId;
 
-  console.log('Environment variables:', { 
+  console.log('Server runtime config:', { 
     apiKeyExists: !!EVENTBRITE_API_KEY,
     apiKeyLength: EVENTBRITE_API_KEY?.length,
     orgIdExists: !!EVENTBRITE_ORGANIZATION_ID,
-    orgId: EVENTBRITE_ORGANIZATION_ID,
-    // Log all environment variables for debugging
-    envKeys: Object.keys(process.env).filter(key => 
-      key.includes('EVENTBRITE') || key.includes('NEXT_PUBLIC')
-    )
+    configKeys: serverRuntimeConfig ? Object.keys(serverRuntimeConfig) : []
   });
 
-  // Check if environment variables are set
+  // Check if API credentials are set
   if (!EVENTBRITE_API_KEY || !EVENTBRITE_ORGANIZATION_ID) {
-    console.warn('Eventbrite API key or Organization ID not set');
+    console.warn('Eventbrite API key or Organization ID not set in server runtime config');
     return { upcomingEvents: [], pastEvents: [] };
   }
 
