@@ -12,5 +12,9 @@ export async function GET() {
     orgIdExists: !!EVENTBRITE_ORGANIZATION_ID,
     orgIdLength: EVENTBRITE_ORGANIZATION_ID?.length || 0,
     nodeEnv: process.env.NODE_ENV,
+    // List all environment variable keys for debugging (without values)
+    envKeys: Object.keys(process.env).filter(key => 
+      key.includes('EVENTBRITE') || key.includes('NEXT_PUBLIC')
+    )
   });
 } 

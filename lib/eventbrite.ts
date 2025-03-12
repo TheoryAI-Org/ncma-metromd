@@ -37,7 +37,11 @@ export async function fetchEventbriteEvents(): Promise<{
     apiKeyExists: !!EVENTBRITE_API_KEY,
     apiKeyLength: EVENTBRITE_API_KEY?.length,
     orgIdExists: !!EVENTBRITE_ORGANIZATION_ID,
-    orgId: EVENTBRITE_ORGANIZATION_ID
+    orgId: EVENTBRITE_ORGANIZATION_ID,
+    // Log all environment variables for debugging
+    envKeys: Object.keys(process.env).filter(key => 
+      key.includes('EVENTBRITE') || key.includes('NEXT_PUBLIC')
+    )
   });
 
   // Check if environment variables are set
