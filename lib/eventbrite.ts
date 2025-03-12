@@ -40,9 +40,9 @@ export async function fetchEventbriteEvents(): Promise<{
   }
 
   try {
-    // Fetch all events for the organization
+    // Fetch all events for the organization - Note the trailing slash after 'events/'
     const response = await fetch(
-      `${EVENTBRITE_API_BASE_URL}/organizations/${EVENTBRITE_ORGANIZATION_ID}/events?status=live,started,ended,completed&order_by=start_desc`,
+      `${EVENTBRITE_API_BASE_URL}/organizations/${EVENTBRITE_ORGANIZATION_ID}/events/?status=live,started,ended,completed&order_by=start_desc`,
       {
         headers: {
           'Authorization': `Bearer ${EVENTBRITE_API_KEY}`,
