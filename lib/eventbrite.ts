@@ -33,6 +33,13 @@ export async function fetchEventbriteEvents(): Promise<{
   const EVENTBRITE_API_KEY = process.env.EVENTBRITE_API_KEY;
   const EVENTBRITE_ORGANIZATION_ID = process.env.EVENTBRITE_ORGANIZATION_ID;
 
+  console.log('Environment variables:', { 
+    apiKeyExists: !!EVENTBRITE_API_KEY,
+    apiKeyLength: EVENTBRITE_API_KEY?.length,
+    orgIdExists: !!EVENTBRITE_ORGANIZATION_ID,
+    orgId: EVENTBRITE_ORGANIZATION_ID
+  });
+
   // Check if environment variables are set
   if (!EVENTBRITE_API_KEY || !EVENTBRITE_ORGANIZATION_ID) {
     console.warn('Eventbrite API key or Organization ID not set');
@@ -40,9 +47,13 @@ export async function fetchEventbriteEvents(): Promise<{
   }
 
   try {
+    // Construct the API URL
+    const apiUrl = `${EVENTBRITE_API_BASE_URL}/organizations/${EVENTBRITE_ORGANIZATION_ID}/events/?status=live,started,ended,completed&order_by=start_desc`;
+    console.log('Fetching events from:', apiUrl);
+
     // Fetch all events for the organization - Note the trailing slash after 'events/'
     const response = await fetch(
-      `${EVENTBRITE_API_BASE_URL}/organizations/${EVENTBRITE_ORGANIZATION_ID}/events/?status=live,started,ended,completed&order_by=start_desc`,
+      apiUrl,
       {
         headers: {
           'Authorization': `Bearer ${EVENTBRITE_API_KEY}`,
@@ -51,11 +62,19 @@ export async function fetchEventbriteEvents(): Promise<{
       }
     );
 
+    console.log('API response status:', response.status);
+    
     if (!response.ok) {
-      throw new Error(`Eventbrite API error: ${response.status}`);
+      const errorText = await response.text();
+      console.error('API error response:', errorText);
+      throw new Error(`Eventbrite API error: ${response.status} - ${errorText}`);
     }
 
     const data = await response.json();
+    console.log('API response data:', { 
+      pagination: data.pagination,
+      eventCount: data.events?.length || 0
+    });
     
     // Transform Eventbrite events to our application format
     const events = data.events.map((event: EventbriteEvent) => ({
@@ -82,6 +101,12 @@ export async function fetchEventbriteEvents(): Promise<{
     const pastEvents = events.filter((event: Event) => {
       const eventEndDate = new Date(`${event.date}T${event.endTime}`);
       return eventEndDate < new Date();
+    });
+
+    console.log('Processed events:', {
+      totalEvents: events.length,
+      upcomingCount: upcomingEvents.length,
+      pastCount: pastEvents.length
     });
 
     return {
