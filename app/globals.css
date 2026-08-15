@@ -2,77 +2,370 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
+/* ══════════════════════════════════════════════════════════════════════════
+   Broadsheet — design tokens ported from the redesign bundle.
+   Retune the look here; components consume these through Tailwind utilities
+   (see tailwind.config.ts) or the component classes further down.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+@layer base {
+  :root {
+    --color-bg: #f3f2f2;
+    --color-surface: #eae9e9;
+    --color-text: #201e1d;
+    --color-accent: #0088b0;
+    --color-accent-2: #d6006c;
+    --color-divider: color-mix(in srgb, #201e1d 16%, transparent);
+
+    /* Tonal ramps — generated in OKLCH on one shared lightness scale, so the
+       same step of any role matches the others in visual value. */
+    --color-neutral-100: #f8f4f4;
+    --color-neutral-200: #eae7e7;
+    --color-neutral-300: #d7d3d3;
+    --color-neutral-400: #bab6b6;
+    --color-neutral-500: #9b9797;
+    --color-neutral-600: #7d7979;
+    --color-neutral-700: #605d5d;
+    --color-neutral-800: #444141;
+    --color-neutral-900: #2d2b2b;
+
+    --color-accent-100: #e9f8ff;
+    --color-accent-200: #cbeeff;
+    --color-accent-300: #99e0ff;
+    --color-accent-400: #62c5ee;
+    --color-accent-500: #38a6cf;
+    --color-accent-600: #1186ac;
+    --color-accent-700: #006786;
+    --color-accent-800: #004961;
+    --color-accent-900: #0a303e;
+
+    --color-accent-2-100: #fff1f4;
+    --color-accent-2-200: #ffdee6;
+    --color-accent-2-300: #ffc0d0;
+    --color-accent-2-400: #ff90b1;
+    --color-accent-2-500: #ff458e;
+    --color-accent-2-600: #d82071;
+    --color-accent-2-700: #aa0b56;
+    --color-accent-2-800: #790e3d;
+    --color-accent-2-900: #4b1528;
+
+    --radius-sm: 1px;
+    --radius-md: 2px;
+    --radius-lg: 4px;
+
+    /* Elevation — soft ink-tinted shadows against the paper ground. */
+    --shadow-sm: 0 1px 2px color-mix(in srgb, #2d2b2b 14%, transparent);
+    --shadow-md: 0 3px 10px color-mix(in srgb, #2d2b2b 16%, transparent);
+    --shadow-lg: 0 12px 32px color-mix(in srgb, #2d2b2b 22%, transparent);
+
+    /* shadcn/ui token layer — components/ui/* consume these through Tailwind
+       (bg-background, border-border, …). Re-pointed at the Broadsheet palette
+       above so Sheet/Button/Card render on-system instead of shadcn grey. */
+    --background: 0 4% 95%;
+    --foreground: 20 5% 12%;
+    --card: 0 4% 95%;
+    --card-foreground: 20 5% 12%;
+    --popover: 0 4% 95%;
+    --popover-foreground: 20 5% 12%;
+    --primary: 194 100% 26%;
+    --primary-foreground: 0 4% 95%;
+    --secondary: 0 2% 92%;
+    --secondary-foreground: 20 5% 12%;
+    --muted: 0 2% 92%;
+    --muted-foreground: 0 2% 48%;
+    --accent: 0 2% 92%;
+    --accent-foreground: 20 5% 12%;
+    --destructive: 330 100% 42%;
+    --destructive-foreground: 0 4% 95%;
+    --border: 0 5% 84%;
+    --input: 0 5% 84%;
+    --ring: 194 100% 35%;
+    --radius: 2px;
+  }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-source-serif), Georgia, serif;
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-source-serif), Georgia, serif;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  a {
+    color: var(--color-accent-700);
+  }
+  a:hover {
+    color: var(--color-accent);
+  }
+
+  * {
+    @apply border-border;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════════════
+   Component classes — the parts of the system that are awkward as utilities
+   (multi-state buttons, form controls, editorial type roles). Layout stays in
+   Tailwind so responsive behaviour lives with the markup.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+@layer components {
+  /* — page gutter — */
+  .pg {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  @media (min-width: 1180px) {
+    .pg {
+      padding: 0 40px;
+    }
+  }
+
+  /* — editorial type roles — */
+  .kick {
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent-700);
+  }
+  .lede {
+    font-size: 19px;
+    line-height: 1.55;
+    max-width: 60ch;
+  }
+  @media (min-width: 768px) {
+    .lede {
+      font-size: 21px;
+    }
+  }
+  .bio {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--color-neutral-800);
+    max-width: 68ch;
+  }
+  .text-muted {
+    color: color-mix(in srgb, var(--color-text) 55%, transparent);
+  }
+
+  /* — buttons — */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    padding: 10px 20px;
+    font-family: inherit;
+    font-size: 15px;
+    line-height: 1;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.15s ease, color 0.15s ease,
+      border-color 0.15s ease;
+  }
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .btn-primary {
+    background: var(--color-accent-700);
+    color: var(--color-bg);
+  }
+  .btn-primary:hover {
+    background: var(--color-accent-800);
+    color: var(--color-bg);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--color-text);
+    border-color: var(--color-divider);
+  }
+  .btn-secondary:hover {
+    background: var(--color-surface);
+    color: var(--color-text);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-accent-700);
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .btn-ghost:hover {
+    color: var(--color-accent);
+  }
+  .btn-icon {
+    padding: 6px;
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
+    background: transparent;
+    color: var(--color-text);
+  }
+  .btn-icon:hover {
+    background: var(--color-surface);
+  }
+  .btn-block {
+    display: flex;
+    width: 100%;
+  }
+
+  /* — tags — */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    border-radius: var(--radius-sm);
+    padding: 3px 9px;
+    font-size: 13px;
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+  .tag-neutral {
+    background: var(--color-surface);
+    color: var(--color-neutral-700);
+  }
+  .tag-accent {
+    background: var(--color-accent-100);
+    color: var(--color-accent-800);
+  }
+  .tag-accent-2 {
+    background: var(--color-accent-2-100);
+    color: var(--color-accent-2-800);
+  }
+  .tag-outline {
+    border: 1px solid var(--color-divider);
+    color: var(--color-neutral-700);
+  }
+
+  /* — form controls — */
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .field > label {
+    font-size: 14px;
+    color: var(--color-neutral-700);
+  }
+  .input {
+    width: 100%;
+    background: var(--color-bg);
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-md);
+    padding: 10px 12px;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--color-text);
+  }
+  .input::placeholder {
+    color: var(--color-neutral-500);
+  }
+  .input:focus {
+    outline: 2px solid var(--color-accent);
+    outline-offset: -1px;
+  }
+  textarea.input {
+    min-height: 120px;
+    resize: vertical;
+  }
+  .seg {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .seg-opt {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-md);
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .seg-opt:has(input:checked) {
+    border-color: var(--color-accent);
+    background: var(--color-accent-100);
+    color: var(--color-accent-800);
+  }
+
+  /* — surfaces — */
+  .card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-divider);
+    border-radius: var(--radius-md);
+  }
+  .elev-sm {
+    box-shadow: var(--shadow-sm);
+  }
+  .elev-md {
+    box-shadow: var(--shadow-md);
+  }
+  .elev-lg {
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* — table — */
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  .table th {
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-neutral-600);
+    padding: 10px 12px 10px 0;
+    border-bottom: 1px solid var(--color-divider);
+  }
+  .table td {
+    padding: 14px 12px 14px 0;
+    border-bottom: 1px solid var(--color-divider);
+    vertical-align: top;
+  }
+
+  /* — nav — */
+  .navlink {
+    background: none;
+    border: 0;
+    font: inherit;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 2px 0;
+    color: var(--color-text);
+    white-space: nowrap;
+    text-decoration: none;
+  }
+  .navlink:hover {
+    color: var(--color-accent-700);
+  }
+  .navlink[data-on="true"] {
+    color: var(--color-accent-700);
+    box-shadow: inset 0 -1px 0 var(--color-accent);
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
-  }
-}
-
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
-  }
-  .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
   }
 }
