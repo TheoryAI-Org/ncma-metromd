@@ -83,7 +83,10 @@ export default function InsightsPage() {
         {rest.map((article) => {
           const author = authorOf(article.authorSlug);
           return (
-            <div key={article.slug} className="grid grid-cols-[110px_1fr] gap-6">
+            <div
+              key={article.slug}
+              className="grid grid-cols-[80px_1fr] gap-4 sm:grid-cols-[110px_1fr] sm:gap-6"
+            >
               <Headshot
                 src={author.photo}
                 alt={author.name}
