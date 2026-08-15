@@ -1,13 +1,55 @@
-import { ContactHero } from "@/components/contact-hero";
+import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact-form";
-import { JoinSection } from "@/components/join-section";
+import { SocialLinks } from "@/components/social-links";
+import { BOARD } from "@/data/board";
+
+export const metadata: Metadata = {
+  title: "Contact | NCMA MetroMD Chapter",
+  description:
+    "Reach the NCMA MetroMD board about membership, programs, training, sponsorship or the newsletter.",
+};
+
+/** Which board member fields which kind of enquiry. */
+const contacts = [
+  { topic: "Membership", slug: "hanks" },
+  { topic: "Programs", slug: "anderson" },
+  { topic: "Training", slug: "akinrogunde" },
+  { topic: "Sponsorship", slug: "hopson" },
+  { topic: "Newsletter", slug: "belaineh" },
+];
 
 export default function ContactPage() {
   return (
-    <>
-      <ContactHero />
-      <ContactForm />
-      <JoinSection />
-    </>
+    <div className="pg pb-[88px] pt-12">
+      <div className="kick">Say hello</div>
+      <h1 className="mb-6 mt-4 text-4xl leading-[1.05] tracking-[-0.02em] sm:text-5xl lg:text-[64px]">
+        Contact
+      </h1>
+
+      <div className="mt-10 grid grid-cols-1 gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
+        <ContactForm />
+
+        <div>
+          <h2 className="text-[21px]">Reach the board directly</h2>
+          <div className="mt-3 flex flex-col gap-2 text-base">
+            {contacts.map(({ topic, slug }) => {
+              const member = BOARD.find((m) => m.slug === slug)!;
+              return (
+                <div key={topic}>
+                  {topic} ·{" "}
+                  <a href={`mailto:${member.email}`}>{member.name}</a>
+                </div>
+              );
+            })}
+          </div>
+
+          <h2 className="mt-9 text-[21px]">Follow the chapter</h2>
+          <SocialLinks className="mt-3" />
+          <div className="mt-3 text-[13px] text-neutral-600">
+            LinkedIn, Instagram and Eventbrite are live.
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
