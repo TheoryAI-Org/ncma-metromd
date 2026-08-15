@@ -1,7 +1,13 @@
 import { Event } from '@/types/event';
+import eventsSnapshot from '@/data/events.json';
 
 // Eventbrite API base URL
 const EVENTBRITE_API_BASE_URL = 'https://www.eventbriteapi.com/v3';
+
+// Past meetings are a matter of record and do not change, so a stale snapshot
+// beats an empty table when the API is unreachable or unconfigured. Upcoming
+// events are deliberately NOT backfilled — an empty list there is a real state.
+const PAST_EVENTS_FALLBACK: Event[] = eventsSnapshot.pastEvents;
 
 // Eventbrite event interface
 interface EventbriteEvent {
@@ -46,7 +52,7 @@ export async function fetchEventbriteEvents(): Promise<{
   // Check if API credentials are set
   if (!EVENTBRITE_API_KEY || !EVENTBRITE_ORGANIZATION_ID) {
     console.warn('Eventbrite API key or Organization ID not set');
-    return { upcomingEvents: [], pastEvents: [] };
+    return { upcomingEvents: [], pastEvents: PAST_EVENTS_FALLBACK };
   }
 
   try {
@@ -114,10 +120,12 @@ export async function fetchEventbriteEvents(): Promise<{
 
     return {
       upcomingEvents,
-      pastEvents: pastEvents.slice(0, 10), // Limit past events to 10
+      pastEvents: pastEvents.length > 0
+        ? pastEvents.slice(0, 10) // Limit past events to 10
+        : PAST_EVENTS_FALLBACK,
     };
   } catch (error) {
     console.error('Error fetching Eventbrite events:', error);
-    return { upcomingEvents: [], pastEvents: [] };
+    return { upcomingEvents: [], pastEvents: PAST_EVENTS_FALLBACK };
   }
 } 
