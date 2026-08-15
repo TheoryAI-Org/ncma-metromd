@@ -37,3 +37,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# design source bundle (assets extracted into public/images)
+/NCMA Metro Maryland Website Redesign/
+/NCMA Metro Maryland Website Redesign.zip
