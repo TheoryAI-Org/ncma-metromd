@@ -1,46 +1,47 @@
-import { EventsHero } from "@/components/events-hero";
-import { JoinSection } from "@/components/join-section";
+import type { Metadata } from "next";
+import { EventsContent } from "@/components/events-content";
 import { fetchEventbriteEvents } from "@/lib/eventbrite";
-import { EventsGridServer } from "@/components/events-grid-server";
-import { Event } from "@/types/event";
+import type { Event } from "@/types/event";
 
-// Set export const dynamic = 'force-dynamic' to ensure the page is rendered at request time
-export const dynamic = 'force-dynamic';
+export const metadata: Metadata = {
+  title: "Events | NCMA MetroMD Chapter",
+  description:
+    "Monthly dinner meetings, training sessions and the spring kick-off. Tickets go through Eventbrite.",
+};
+
+// Rendered at request time so the Eventbrite listing is never stale.
+export const dynamic = "force-dynamic";
 
 export default async function EventsPage() {
   let upcomingEvents: Event[] = [];
   let pastEvents: Event[] = [];
   let errorMessage: string | null = null;
 
-  console.log('Rendering EventsPage component');
-
   try {
-    console.log('Fetching events from Eventbrite');
-    // Fetch events from Eventbrite
-    const events = await fetchEventbriteEvents();
-    upcomingEvents = events.upcomingEvents;
-    pastEvents = events.pastEvents;
-    
-    console.log('Events fetched successfully', {
-      upcomingCount: upcomingEvents.length,
-      pastCount: pastEvents.length
-    });
+    ({ upcomingEvents, pastEvents } = await fetchEventbriteEvents());
   } catch (error) {
-    console.error("Error fetching events:", error);
-    errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
-    // Continue with empty arrays if there's an error
+    errorMessage = error instanceof Error ? error.message : "Unknown error";
   }
 
   return (
-    <>
-      <EventsHero />
+    <div className="pg pb-[88px] pt-12">
+      <div className="kick">Calendar</div>
+      <h1 className="mb-6 mt-4 text-4xl leading-[1.05] tracking-[-0.02em] sm:text-5xl lg:text-[64px]">
+        Events
+      </h1>
+      <p className="lede">
+        Monthly dinner meetings, training sessions and the spring kick-off.
+        Tickets go through Eventbrite and the listing here updates from the live
+        feed.
+      </p>
+
       {errorMessage && (
-        <div className="max-w-7xl mx-auto px-4 py-8 text-center">
-          <p className="text-red-500">Error loading events: {errorMessage}</p>
-        </div>
+        <p className="mt-8 text-magenta-700">
+          Error loading events: {errorMessage}
+        </p>
       )}
-      <EventsGridServer upcomingEvents={upcomingEvents} pastEvents={pastEvents} />
-      <JoinSection />
-    </>
+
+      <EventsContent upcomingEvents={upcomingEvents} pastEvents={pastEvents} />
+    </div>
   );
 }
