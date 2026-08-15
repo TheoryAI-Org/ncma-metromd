@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Source_Serif_4 } from "next/font/google";
+import { NavBar } from "@/components/nav-bar";
+import { SiteFooter } from "@/components/site-footer";
 import "./globals.css";
 
 const sourceSerif = Source_Serif_4({
@@ -11,6 +13,7 @@ const sourceSerif = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://ncmametromd.org"),
   title: "NCMA MetroMD Chapter | National Contract Management Association",
   description: "The NCMA MetroMD Chapter serves contract management professionals in the Maryland metropolitan area. Join us for professional development, networking, and certification opportunities.",
   icons: {
@@ -73,7 +76,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${sourceSerif.variable} font-sans antialiased`}>
-        {children}
+        <div className="min-h-screen bg-paper text-ink">
+          <NavBar />
+          <main>{children}</main>
+          <SiteFooter />
+        </div>
       </body>
     </html>
   );

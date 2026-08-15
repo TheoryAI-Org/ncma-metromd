@@ -1,4 +1,3 @@
-import { NavBar } from "@/components/nav-bar";
 import { EventsHero } from "@/components/events-hero";
 import { JoinSection } from "@/components/join-section";
 import { fetchEventbriteEvents } from "@/lib/eventbrite";
@@ -33,8 +32,7 @@ export default async function EventsPage() {
   }
 
   return (
-    <main>
-      <NavBar />
+    <>
       <EventsHero />
       {errorMessage && (
         <div className="max-w-7xl mx-auto px-4 py-8 text-center">
@@ -43,6 +41,6 @@ export default async function EventsPage() {
       )}
       <EventsGridServer upcomingEvents={upcomingEvents} pastEvents={pastEvents} />
       <JoinSection />
-    </main>
+    </>
   );
 }

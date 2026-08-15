@@ -1,66 +1,132 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import Image from "next/image"
-import { Menu } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { Menu } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 const navigation = [
-  { name: "Home", href: "/" },
+  { name: "Our chapter", href: "/our-chapter" },
+  { name: "Board", href: "/board" },
+  { name: "Insights", href: "/insights" },
   { name: "Events", href: "/events" },
-  { name: "Certs", href: "/certs" },
-  { name: "Why Join?", href: "/why-join" },
-  // { name: "Our Chapter", href: "/our-chapter" },
-  // { name: "Job Postings", href: "/job-postings" },
-  // { name: "News", href: "/news" },
+  { name: "Certifications", href: "/certs" },
+  { name: "Sponsors", href: "/sponsors" },
   { name: "Contact", href: "/contact" },
-]
+];
 
 export function NavBar() {
+  const pathname = usePathname();
+  const isOn = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
+
   return (
-    <nav className="bg-white text-[#1B365D] px-4 py-2 shadow-sm">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
-          <Image src="/images/ncma-metromd-logo.png" alt="NCMA MetroMD Logo" width={120} height={40} className="h-10 w-auto" />
+    <div className="sticky top-0 z-30 bg-paper">
+      <div className="pg flex flex-wrap items-center gap-x-6 gap-y-3 pb-[18px] pt-5">
+        <Link href="/" className="mr-auto flex flex-none items-center">
+          <Image
+            src="/images/ncma-metromd-logo.png"
+            alt="NCMA Metro Maryland"
+            width={105}
+            height={46}
+            priority
+            className="h-[46px] w-[105px] min-w-[105px] flex-none object-contain"
+          />
         </Link>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-6">
+        {/* Desktop navigation — the full set only fits from lg up. */}
+        <nav className="hidden flex-wrap items-center justify-end gap-x-[22px] gap-y-2 lg:flex">
           {navigation.map((item) => (
-            <Link key={item.name} href={item.href} className="hover:text-[#2A4A7F] transition-colors text-sm">
+            <Link
+              key={item.href}
+              href={item.href}
+              className="navlink"
+              data-on={isOn(item.href)}
+            >
               {item.name}
             </Link>
           ))}
-        </div>
+          <Link
+            href="/login"
+            className="navlink text-neutral-600"
+            data-on={isOn("/login")}
+          >
+            Sign in
+          </Link>
+          <a
+            className="btn btn-primary"
+            href="https://www.ncmahq.org/membership"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Join us
+          </a>
+        </nav>
 
-        {/* Mobile Navigation */}
-        <Sheet>
-          <SheetTrigger asChild className="md:hidden">
-            <Button variant="ghost" size="icon" className="bg-[#1B365D] text-white hover:bg-[#2A4A7F]">
-              <Menu className="h-6 w-6" />
-              <span className="sr-only">Open menu</span>
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-            <SheetHeader>
-              <SheetTitle>Menu</SheetTitle>
-            </SheetHeader>
-            <div className="flex flex-col gap-4 mt-6">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="text-lg font-medium hover:text-[#8DABC4] transition-colors"
+        {/* Mobile navigation — the redesign ships no mobile nav, so the
+            existing Sheet menu is kept and restyled. */}
+        <div className="flex items-center gap-3 lg:hidden">
+          <a
+            className="btn btn-primary hidden sm:inline-flex"
+            href="https://www.ncmahq.org/membership"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Join us
+          </a>
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" aria-label="Open menu">
+                <Menu className="h-6 w-6" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[300px] bg-paper sm:w-[380px]">
+              <SheetHeader>
+                <SheetTitle className="text-left text-xl">Menu</SheetTitle>
+              </SheetHeader>
+              <div className="mt-8 flex flex-col gap-5">
+                {navigation.map((item) => (
+                  <SheetClose asChild key={item.href}>
+                    <Link
+                      href={item.href}
+                      className="navlink text-lg"
+                      data-on={isOn(item.href)}
+                    >
+                      {item.name}
+                    </Link>
+                  </SheetClose>
+                ))}
+                <SheetClose asChild>
+                  <Link
+                    href="/login"
+                    className="navlink text-lg text-neutral-600"
+                    data-on={isOn("/login")}
+                  >
+                    Sign in
+                  </Link>
+                </SheetClose>
+                <a
+                  className="btn btn-primary mt-2 sm:hidden"
+                  href="https://www.ncmahq.org/membership"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-          </SheetContent>
-        </Sheet>
+                  Join us
+                </a>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
-    </nav>
-  )
+    </div>
+  );
 }
-
