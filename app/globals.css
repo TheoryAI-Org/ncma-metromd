@@ -10,8 +10,8 @@
 
 @layer base {
   :root {
-    --color-bg: #f3f2f2;
-    --color-surface: #eae9e9;
+    --color-bg: #ffffff;
+    --color-surface: #f3f2f2;
     --color-text: #201e1d;
     --color-accent: #0088b0;
     --color-accent-2: #d6006c;
@@ -61,22 +61,22 @@
     /* shadcn/ui token layer — components/ui/* consume these through Tailwind
        (bg-background, border-border, …). Re-pointed at the Broadsheet palette
        above so Sheet/Button/Card render on-system instead of shadcn grey. */
-    --background: 0 4% 95%;
+    --background: 0 0% 100%;
     --foreground: 20 5% 12%;
-    --card: 0 4% 95%;
+    --card: 0 0% 100%;
     --card-foreground: 20 5% 12%;
-    --popover: 0 4% 95%;
+    --popover: 0 0% 100%;
     --popover-foreground: 20 5% 12%;
     --primary: 194 100% 26%;
-    --primary-foreground: 0 4% 95%;
-    --secondary: 0 2% 92%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 4% 95%;
     --secondary-foreground: 20 5% 12%;
-    --muted: 0 2% 92%;
+    --muted: 0 4% 95%;
     --muted-foreground: 0 2% 48%;
-    --accent: 0 2% 92%;
+    --accent: 0 4% 95%;
     --accent-foreground: 20 5% 12%;
     --destructive: 330 100% 42%;
-    --destructive-foreground: 0 4% 95%;
+    --destructive-foreground: 0 0% 100%;
     --border: 0 5% 84%;
     --input: 0 5% 84%;
     --ring: 194 100% 35%;
@@ -200,6 +200,27 @@
   .btn-secondary:hover {
     background: var(--color-surface);
     color: var(--color-text);
+  }
+  /* The membership CTA is the design's one sanctioned exception to the cyan
+     primary — see .claude/specs/01-design-system.md. */
+  .btn-membership {
+    background: #c8551b;
+    border-color: #c8551b;
+    color: #f3f2f2;
+  }
+  .btn-membership:hover {
+    background: #a8450f;
+    border-color: #a8450f;
+    color: #f3f2f2;
+  }
+  .btn-tint {
+    background: var(--color-accent-100);
+    border-color: var(--color-accent-300);
+    color: var(--color-accent-900);
+  }
+  .btn-tint:hover {
+    background: var(--color-accent-200);
+    color: var(--color-accent-900);
   }
   .btn-ghost {
     background: transparent;
