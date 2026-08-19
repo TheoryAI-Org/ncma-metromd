@@ -31,9 +31,17 @@ that matters most.
       **different** positions and sectors, under distinct slugs.
 - [ ] Every `photo` path exists on disk. Open the directory and check; do not
       trust the string.
-- [ ] Bios are verbatim — spot-check three against the prototype, including the
-      `™` in Jennifer Hanks's and the curly quotes in Dr. Cynthia Pace's
-      organization.
+- [ ] Bios are verbatim against `.claude/design-reference/bios.json` — spot-check
+      three, including the `™` in Jennifer Hanks's and the curly quotes in Dr.
+      Cynthia Pace's organization.
+- [ ] Bio block structure survives: Parson has 4 paragraphs **plus** a 4-item
+      bulleted list, Robinson 3 paragraphs, Sheckles 3. Nothing flattened into one
+      string, and Parson's list is rendered.
+- [ ] Card name size follows the per-body hierarchy — officers 30px, directors
+      28px, advisors 24px. A single flat 28px is a deviation.
+- [ ] Titles that legitimately changed with the design were not "corrected" back
+      to the repo's old values — see the table in `02-board-roster.md`. Akinrogunde
+      and Anderson move from Officers to Directors; that is intended.
 - [ ] No dead links: no LinkedIn anchor without a URL, no `mailto:` without an
       address, no "Read bio" without a bio.
 - [ ] Every external link has `target="_blank"` **and** `rel="noopener noreferrer"`.

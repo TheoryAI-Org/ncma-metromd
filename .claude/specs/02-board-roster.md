@@ -34,17 +34,65 @@ export interface BoardMember {
   linkedin?: string;
   /** Path under /public. Omitted until the member submits a headshot. */
   photo?: string;
-  bio?: string;
+  /** Bio content as ordered blocks. Four of the twelve bios have more than one. */
+  bio?: BioBlock[];
 }
+
+/**
+ * Bio bodies are structured rather than HTML so the site renders them in its own
+ * type styles. Matches the block model the deferred admin panel will store as
+ * JSONB — see .claude/specs/05-deferred.md.
+ */
+export type BioBlock =
+  | { type: "p"; text: string }
+  | { type: "ul"; items: string[] };
 ```
 
 Every field except `slug`, `body`, `name`, `position`, and `sector` is optional and
 **must** be absent, not empty-string, when the roster has no value. The card keys
 its rendering off presence.
 
-`affiliation` and `role` are gone. Update every consumer: `app/page.tsx`,
-`app/contact/page.tsx`, `app/insights/page.tsx`, `app/insights/[slug]/page.tsx`,
-`components/board-card.tsx`, `data/insights.ts`.
+`affiliation` and `role` are gone. Every consumer, already traced:
+
+| File | Line | Uses | Becomes |
+| --- | --- | --- | --- |
+| `components/board-card.tsx` | 33, 34 | `member.role`, `member.affiliation` | `position`, `organization` |
+| `app/page.tsx` | 210 | `member.role` (board preview kicker) | `position` |
+| `app/page.tsx` | 244 | `author.role` (article byline) | `position` |
+| `app/insights/page.tsx` | 68, 107 | `author.role` | `position` |
+| `app/insights/[slug]/page.tsx` | 53 | `author.role` | `position` |
+| `app/board/page.tsx` | 25 | `BOARD.map` over the flat list | `boardBody(...)` per section |
+| `app/contact/page.tsx` | 36 | `BOARD.find` by slug | unchanged, but see below |
+
+`organization` is optional — every site that renders it must handle its absence.
+`app/insights/page.tsx` and `app/page.tsx` render `role` unconditionally today;
+`position` is required so those stay safe, but do not paper over `organization`
+with `?? ""`. Omit the element.
+
+**Slug continuity — verified, no regression.** `data/insights.ts` references five
+author slugs (`akinrogunde`, `hanks`, `belaineh`, `sistrunk`, `sheckles`) and
+`app/contact/page.tsx` references five (`hanks`, `anderson`, `akinrogunde`,
+`hopson`, `belaineh`). All ten exist in the new roster with the same slugs, so no
+`.find()!` starts returning `undefined`. Keep it that way: if you rename any of
+those slugs, fix the referrers in the same commit.
+
+**Expected copy changes downstream, which are correct and not regressions.**
+Several people's titles differ between the repo's current data and the design, and
+the design wins. The visible effect is that article bylines and contact lines
+change text:
+
+| slug | Repo today | Design |
+| --- | --- | --- |
+| akinrogunde | VP, Training & Education | Director — Training |
+| sheckles | Director of Networking | Director — Networking |
+| sistrunk | Treasurer | VP — Treasurer |
+| hanks | Board Chair, President | President |
+| anderson | VP, Programs | Director — Programs |
+| hopson | VP, Operations | VP — Operations |
+| parson | Training & Education / Professional Development | Director — Training & Education |
+
+Note that Dr. Patricia Akinrogunde and Renita Anderson move from Officers to
+Directors, and Joye Sistrunk gains the VP prefix. Do not "correct" these back.
 
 Two derived exports the pages need:
 
@@ -74,10 +122,28 @@ section so a future addition sorts correctly:
 ### The roster
 
 Positions, sectors, organizations and emails are verbatim. `LI` = the card has a
-LinkedIn URL; copy the exact href from the prototype. `Bio` = a `<p class="bio">`
-exists in that card's dialog; **copy the bio text verbatim**, including em dashes,
-curly quotes and the `™` in Jennifer Hanks's. Do not paraphrase, summarise, or
-re-punctuate.
+LinkedIn URL; copy the exact href from the prototype. `Bio` = the card's dialog
+holds bio copy.
+
+**Do not transcribe the bios by hand.** They are already extracted verbatim from
+the prototype into `.claude/design-reference/bios.json`, keyed by prototype card id
+(`v2-bd-hanks`, `v2-dir-parson`, …), each with the member's name and a `bio` array
+of blocks in document order. Read that file and copy the strings across exactly —
+em dashes, curly quotes, and the `™` in Jennifer Hanks's included. Do not
+paraphrase, re-punctuate, or re-wrap.
+
+Twelve members have bios. **Four have structure that must not be flattened:**
+
+| slug | Blocks |
+| --- | --- |
+| parson | 4 paragraphs, then a 4-item bulleted list |
+| robinson | 3 paragraphs |
+| sheckles | 3 paragraphs |
+| the other nine | 1 paragraph |
+
+The repo's current `data/board.ts` flattens Parson's and Sheckles's bios into one
+string each, and drops Parson's list entirely. That is a loss of structure the
+design has — fix it, do not preserve it.
 
 Jennifer Hanks and Richard Hanks each appear twice — once as an officer, once as
 an advisor — with **different** positions and sectors. Dr. John Wilkinson likewise
@@ -193,6 +259,10 @@ she renders an empty frame. Note this in the report.
 
 Structure, top to bottom, per the handoff and prototype:
 
+**Heading level.** The prototype uses `<h4>` for the card name, which skips `h3`
+after the section `<h2>`. Use `<h3>` — same visual size, correct document outline.
+This is an intentional improvement over the prototype, not a deviation.
+
 1. **Headshot** — 4:5 frame, `bg-surface`, `object-cover`. Empty (no placeholder
    text, just the surface fill) when there is no photo. `components/headshot.tsx`
    already does this; change its default `placeholder` to render **nothing** for
@@ -203,9 +273,19 @@ Structure, top to bottom, per the handoff and prototype:
    `text-cyan-700`, `mt-3`, `target="_blank" rel="noopener noreferrer"`,
    `aria-label="<Name> on LinkedIn"`. **Omit the element entirely** when there is
    no URL — never a dead link.
-3. **Name** — `<h3>`, **28px**, `font-weight: 700`, `letter-spacing: -0.01em`,
-   `line-height: 1.15`, margin `10px 0 4px`. Tailwind:
-   `text-[28px] font-bold tracking-[-0.01em] leading-[1.15] mt-2.5 mb-1`.
+3. **Name** — `<h3>`, `font-weight: 700`, `letter-spacing: -0.01em`,
+   `line-height: 1.15`, margin `10px 0 4px`. **The size varies by body** — this is
+   a deliberate hierarchy, see `01-design-system.md`:
+
+   | Body | Size |
+   | --- | --- |
+   | officers | 30px |
+   | directors | 28px |
+   | advisors | 24px |
+
+   Derive it from `member.body` inside the card rather than threading a prop
+   through every call site. Tailwind: `font-bold tracking-[-0.01em]
+   leading-[1.15] mt-2.5 mb-1` plus the mapped size class.
    When there is no LinkedIn icon the name takes the icon's top margin instead
    (the existing `mt-4` fallback is right).
 4. **Position** — card kicker: 12px, uppercase, `letter-spacing: 0.06em`,
@@ -241,8 +321,18 @@ Match these values:
 - Close button: `btn btn-icon absolute top-4 right-4`, glyph `×`,
   `aria-label="Close"`.
 - Title: `<Dialog.Title>` at 32px, `max-w-[32ch]`, `mb-5`.
-- Body: `.bio` styling. Bios are single paragraphs in the data; if one ever
-  contains a blank line, split on it and give each paragraph `mt-5`.
+- Body: render `member.bio.map(...)` over the blocks. A `p` block becomes
+  `<p class="bio">`; a `ul` block becomes `<ul class="bio">` with `pl-5` and
+  `list-disc`, one `<li>` per item. Every block after the first carries `mt-5`
+  (the handoff's "`margin-top: 20px` between them"). Do not join blocks into one
+  string and do not drop the list.
+
+`<Dialog.Description>` renders a single `<p>`, so multi-paragraph bios cannot go
+inside it. Put the paragraphs in a plain `<div>` and either point
+`aria-describedby` at that div or drop `Dialog.Description` and give
+`Dialog.Content` an `aria-describedby={undefined}` — Radix warns when a described-by
+target is missing, and a nested `<p>` inside a `<p>` is invalid HTML that React
+will not render as intended.
 
 `z-[200]` matters: the nav is `z-30` and Radix portals to `body`, so the overlay
 must sit above it.

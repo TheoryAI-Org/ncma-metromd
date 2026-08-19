@@ -112,8 +112,14 @@ here so the designer can confirm.
 
 Also noted, not drift but worth the designer's eye:
 
-- **Card name size.** Prototype board cards use `font-size: 30px`; the README's
-  type table says "Card name h4 — 28px". Follow the README: **28px**.
+- **Card name size is a per-section hierarchy, and it is deliberate.** The
+  README's type table gives one value ("Card name h4 — 28px"), but the prototype
+  sizes the name by which body the card is in, perfectly consistently — 13 of 13
+  officers at 30px, 18 of 18 directors at 28px, 10 of 10 advisors at 24px. Nothing
+  that uniform is an accident, and it reads as intended emphasis: officers largest,
+  advisors smallest. **Port the hierarchy**, not the README's single value. This is
+  the one place where the prototype overrides the README, and it does so because
+  the consistency proves intent where the drift entries above prove the opposite.
 - **Board h1 size.** Prototype uses 64px; the README's table says "Page h1 44–56px".
   The existing implementation already clamps to `lg:text-[64px]` and matches every
   other page h1 on the site, so **keep 64px** for internal consistency and treat
