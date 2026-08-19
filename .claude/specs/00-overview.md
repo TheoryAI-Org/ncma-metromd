@@ -36,6 +36,8 @@ exists and is broadly correct:
 | 8 | Home "This season" and board preview copy still say "Nine volunteers" | `03` |
 | 9 | Insights subscribe block lacks the Government/Industry/Student segmented control | `03` |
 | 10 | Board page carries two invented sections not in the design | `03` |
+| 11 | `/events` shows no venue beneath each title — `Event` has no venue field and the API request does not expand it | `03` |
+| 12 | `lib/eventbrite.ts` caps past events at 10 while the design lists 23, and logs the API key length and env var names on every request | `03` |
 
 ## Decisions taken (confirmed with the repo owner, 2026-08-20)
 
@@ -83,7 +85,11 @@ until the reviewer returns PASS or PASS WITH NITS.
 | T7 Home page corrections | `03` | `app/page.tsx` |
 | T8 Sponsors page — four levels | `03` | `app/sponsors/page.tsx`, `components/sponsor-grid.tsx` |
 | T9 Insights subscribe control | `03` | `components/newsletter-form.tsx` |
+| T11 Events venue line + Eventbrite hygiene | `03` | `types/event.ts`, `lib/eventbrite.ts`, `components/events-content.tsx`, `data/events.json` |
 | T10 Responsive and focus sweep | `03` | as needed |
 
-T1 and T2 come first: T1 changes what every page renders against, and T2 is what
-proves the rest did no harm.
+Order matters at both ends. **T1 and T2 come first** — T1 changes what every page
+renders against, and T2 is what proves the rest did no harm. **T10 comes last**,
+whatever its number: it is a sweep over everything the other tasks touched, so it
+cannot run before they are done. The rows in between are listed in dependency
+order (data before the component that renders it, component before the page).

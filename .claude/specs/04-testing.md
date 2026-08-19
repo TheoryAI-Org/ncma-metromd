@@ -62,20 +62,32 @@ after. If one starts failing, that is the regression signal.
 `lib/eventbrite.ts` is the highest-risk file in the repo: it is the only external
 dependency, and its token is not issued, so the fallback path is the *live* path.
 
-- With no `EVENTBRITE_PRIVATE_TOKEN` set, `fetchEventbriteEvents()` resolves and
-  returns events from `data/events.json` — it does not throw and does not return
-  empty.
-- Events are split into `upcomingEvents` and `pastEvents` against a fixed "now"
-  (inject or freeze the clock — do not let the test depend on today's date).
-- `upcomingEvents` is ascending by date; `pastEvents` is descending.
-- When `fetch` rejects, the function still resolves via the fallback rather than
-  propagating.
-- Every returned event satisfies the `Event` type: non-empty `id` and `title`, a
-  parseable `date`.
+The credentials are `EVENTBRITE_API_KEY` and `EVENTBRITE_ORGANIZATION_ID`, not
+`EVENTBRITE_PRIVATE_TOKEN`. Neither is set in development.
 
-Read `lib/eventbrite.ts` first and test what it actually does. If its real
-behaviour differs from the above, **test the real behaviour and report the
-difference** — do not change the implementation to match this spec.
+Assert the behaviour the implementation actually has, which is:
+
+- With either credential missing, `fetchEventbriteEvents()` resolves to
+  `{ upcomingEvents: [], pastEvents: <the 9 rows from data/events.json> }`. It does
+  **not** throw, and `upcomingEvents` is deliberately empty rather than backfilled
+  — the code comment says so explicitly, and an empty upcoming list is a real
+  state, not a failure.
+- With credentials set and `fetch` mocked to reject, it still resolves to the same
+  fallback shape. It never propagates. Confirm this, because
+  `app/events/page.tsx` wraps the call in a `try/catch` that sets an
+  `errorMessage` — that branch is unreachable today, and a test proves it.
+- With credentials set and `fetch` mocked to return a non-ok status, same fallback.
+- With credentials set and a mocked successful payload, events are split into
+  `upcomingEvents` and `pastEvents` on `date + endTime` against **now**. Freeze the
+  clock (`vi.setSystemTime`) so the test does not depend on today's date.
+- Every mapped event satisfies the `Event` type: non-empty `id` and `title`, a
+  `date` of `YYYY-MM-DD`, `startTime`/`endTime` of `HH:MM`.
+- A successful payload whose past events are empty falls back to the snapshot for
+  `pastEvents` while keeping the live `upcomingEvents`.
+
+If the real behaviour differs from any of the above, **test the real behaviour and
+report the difference** — do not change the implementation to match this spec.
+Behaviour changes belong to T11.
 
 ### `test/pages.test.tsx` — route smoke tests
 

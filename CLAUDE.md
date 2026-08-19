@@ -53,11 +53,21 @@ Rules that are easy to get wrong:
 
 ## Eventbrite integration — do not regress
 
-`lib/eventbrite.ts` fetches the chapter's org feed (`80017286413`) and falls back
-to `data/events.json` when `EVENTBRITE_PRIVATE_TOKEN` is absent — which is the
-normal state today, since the token has not been issued. `/` and `/events` are
-`force-dynamic` because of it. Any change here needs a test, and both pages must
-still render with no token set.
+`lib/eventbrite.ts` fetches the chapter's org feed and falls back to
+`data/events.json` when credentials are absent — which is the normal state today,
+since the token has not been issued. `/` and `/events` are `force-dynamic` because
+of it.
+
+The env vars are **`EVENTBRITE_API_KEY`** and **`EVENTBRITE_ORGANIZATION_ID`** (see
+`.env.local.example`). The org id is `80017286413`.
+
+`fetchEventbriteEvents()` never throws — it catches and returns the fallback. Code
+that wraps it in `try/catch` to show an error is therefore unreachable. Any change
+here needs a test, and both pages must still render with no credentials set.
+
+`app/api/events/route.ts` duplicates the same fetch-and-map logic with its own
+local types. Nothing in `app/` calls it. Leave it alone unless a task says
+otherwise; do not "fix" the duplication opportunistically.
 
 ## Working agreements
 

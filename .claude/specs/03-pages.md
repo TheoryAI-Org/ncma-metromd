@@ -186,6 +186,55 @@ does not navigate or throw.
 
 ---
 
+## T11 — `/events`: the venue line
+
+`/events` is already the closest page to the design — the past-meetings table has
+the right columns, the right `.table` styling, and an `overflow-x-auto` wrapper.
+One design requirement is missing, and it needs a data change to satisfy.
+
+The handoff describes the events table as "date, title with venue beneath (14px,
+`--color-neutral-700`), time, and a link to Eventbrite", and the prototype renders
+it that way — e.g. "The Westin Washington National Harbor" under the dinner
+meetings. **`types/event.ts` has no venue field and `lib/eventbrite.ts` never maps
+one**, so the line cannot render today.
+
+1. **Add `venue?: string`** to the `Event` interface. Optional — the design itself
+   shows several rows with no venue (the December training, the January dinner).
+2. **Map it from the API.** Eventbrite does not return venue on the events list by
+   default; the request needs `expand=venue`, and the mapped value is
+   `event.venue?.name`. Add `expand=venue` to the query string in
+   `lib/eventbrite.ts` and extend the local `EventbriteEvent` interface. Leave
+   `app/api/events/route.ts` alone — nothing calls it.
+3. **Render it** in `components/events-content.tsx`, in the table body only:
+   beneath the title, `text-sm text-neutral-700 mt-0.5`, and only when present.
+   The prototype's markup is
+   `<div style="font-size:14px;color:var(--color-neutral-700);margin-top:2px">`.
+   Do **not** add it to `EventRows` (the upcoming list) — the design's upcoming
+   section does not show venue.
+4. **Backfill the fallback.** `data/events.json` holds 9 past events with no venue.
+   The prototype's table gives the venue for the meetings it lists; copy the venue
+   across for rows whose title and date match, and leave the rest without one. Do
+   not invent a venue for a row the design does not give one for. The design's
+   table is at `.claude/design-reference/site-v2.html` lines 952–976.
+
+Two further problems in `lib/eventbrite.ts`, both in scope because this task edits
+the file:
+
+5. **Raise the past-events cap.** `pastEvents.slice(0, 10)` silently truncates,
+   while the design's table shows 23 rows and the handoff calls the page a full
+   archive ("Past meetings"). Remove the slice. If a cap is wanted later it should
+   be a paged UI, not a silent drop.
+6. **Remove the console logging.** The function logs on every request, including
+   the API key's length and the names of every `EVENTBRITE`/`NEXT_PUBLIC` env var
+   present. That is noise in production logs and needless detail about the
+   deployment's configuration. Delete the `console.log` calls. **Keep** the
+   `console.warn` for missing credentials and the `console.error` in the catch —
+   those are the two cases an operator needs to see.
+
+Do not otherwise restructure the function. Its fallback contract is what the T2
+tests pin down; if you change a return shape, the tests must change with it and the
+report must say so.
+
 ## T10 — Responsive and focus sweep
 
 Not a rebuild; a pass over what T1–T9 touched.
