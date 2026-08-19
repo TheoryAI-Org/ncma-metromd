@@ -1,0 +1,149 @@
+<style>
+  :root{--color-bg:#ffffff;--color-surface:#f3f2f2}
+  body{background:#ffffff}
+  doc-page:not(:defined){visibility:hidden}
+  doc-page{font-family:var(--font-body)}
+  a{color:var(--color-accent-700);text-decoration:none}
+  a:hover{color:var(--color-accent-900);text-decoration:underline}
+</style>
+
+<doc-page margin="0.85in">
+
+  <div slot="footer" style="display:flex;justify-content:space-between;font-size:10pt;color:var(--color-neutral-700);padding-top:10px">
+    <span><a href="https://www.ncmametromd.org/">NCMA Metro Maryland Chapter</a></span>
+    <span>Admin panel specification</span>
+  </div>
+
+  <div style="font-size:11pt;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-700)">Developer specification</div>
+  <h1 style="font-size:34pt;line-height:1.05;margin:10px 0 0;max-width:20ch">Content admin panel</h1>
+  <p style="font-size:13pt;line-height:1.5;margin:18px 0 0;max-width:62ch;color:var(--color-neutral-800)">A custom authoring interface on ncmametromd.org that lets chapter officers publish and maintain site content without touching code. Built into the existing Next.js application, backed by the project&rsquo;s own database.</p>
+
+  <h2 style="font-size:19pt;margin:44px 0 0">1. Scope</h2>
+  <p style="font-size:12pt;line-height:1.6;margin:12px 0 0;max-width:66ch">Six content types are managed through the panel. Every public page that currently holds hand-edited copy reads from the database instead.</p>
+
+  <div style="margin-top:20px;display:grid;gap:14px">
+    <div style="display:grid;grid-template-columns:1.6in 1fr;gap:20px;break-inside:avoid">
+      <div style="font-size:11pt;font-weight:600">Insights articles</div>
+      <div style="font-size:11pt;line-height:1.55;color:var(--color-neutral-800)">Title, standfirst, body, author (linked to a board member), category, read time, hero image, publish date, featured flag.</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1.6in 1fr;gap:20px;break-inside:avoid">
+      <div style="font-size:11pt;font-weight:600">Newsletter issues</div>
+      <div style="font-size:11pt;line-height:1.55;color:var(--color-neutral-800)">Issue number, date, subject line, body, linked articles, send status. Archive page renders past issues.</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1.6in 1fr;gap:20px;break-inside:avoid">
+      <div style="font-size:11pt;font-weight:600">Board bios &amp; headshots</div>
+      <div style="font-size:11pt;line-height:1.55;color:var(--color-neutral-800)">Name, board position, organization, sector label, email, LinkedIn URL, bio, headshot, display order, body (Directors or Advisors), active flag.</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1.6in 1fr;gap:20px;break-inside:avoid">
+      <div style="font-size:11pt;font-weight:600">Events</div>
+      <div style="font-size:11pt;line-height:1.55;color:var(--color-neutral-800)">Title, date and time, location, description, registration URL, image. Coexists with the Eventbrite feed &mdash; see &sect;7.</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1.6in 1fr;gap:20px;break-inside:avoid">
+      <div style="font-size:11pt;font-weight:600">Sponsors</div>
+      <div style="font-size:11pt;line-height:1.55;color:var(--color-neutral-800)">Organization name, tier, logo, website URL, display order, active flag.</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1.6in 1fr;gap:20px;break-inside:avoid">
+      <div style="font-size:11pt;font-weight:600">Homepage copy</div>
+      <div style="font-size:11pt;line-height:1.55;color:var(--color-neutral-800)">Named text blocks (hero headline, chapter description, membership pitch, calendar note) editable in place. No structural layout changes from the panel.</div>
+    </div>
+  </div>
+
+  <h2 style="font-size:19pt;margin:40px 0 0">2. Roles and access</h2>
+  <p style="font-size:12pt;line-height:1.6;margin:12px 0 0;max-width:66ch">Access is limited to a small set of chapter officers. Two roles, assigned per user.</p>
+
+  <div style="margin-top:18px;display:grid;gap:14px">
+    <div style="display:grid;grid-template-columns:1.6in 1fr;gap:20px;break-inside:avoid">
+      <div style="font-size:11pt;font-weight:600">Editor</div>
+      <div style="font-size:11pt;line-height:1.55;color:var(--color-neutral-800)">Creates and edits any content type. Can save drafts and submit for review. Cannot publish, delete, or manage users.</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1.6in 1fr;gap:20px;break-inside:avoid">
+      <div style="font-size:11pt;font-weight:600">Administrator</div>
+      <div style="font-size:11pt;line-height:1.55;color:var(--color-neutral-800)">Everything an Editor can do, plus publish, unpublish, delete, reorder rosters, and invite or remove panel users. Expected holders: President, VP Communications.</div>
+    </div>
+  </div>
+
+  <h2 style="font-size:19pt;margin:40px 0 0">3. Publishing workflow</h2>
+  <p style="font-size:12pt;line-height:1.6;margin:12px 0 0;max-width:66ch">Every item carries a status: <strong>Draft</strong>, <strong>In review</strong>, <strong>Published</strong>, or <strong>Archived</strong>. Role determines what a save can do.</p>
+  <ul style="font-size:11.5pt;line-height:1.65;margin:14px 0 0;max-width:66ch;color:var(--color-neutral-800);padding-left:20px">
+    <li>An Editor saving a finished item moves it to <em>In review</em> and notifies administrators by email.</li>
+    <li>An Administrator can publish directly from any state, skipping review.</li>
+    <li>Published items remain editable; edits create a new draft revision that does not affect the live page until published again.</li>
+    <li>Unpublishing returns an item to Archived and removes it from the public site without deleting it.</li>
+    <li>Every save records author, timestamp, and a restorable revision.</li>
+  </ul>
+
+  <h2 style="font-size:19pt;margin:40px 0 0">4. Editor requirements</h2>
+  <p style="font-size:12pt;line-height:1.6;margin:12px 0 0;max-width:66ch">Article and newsletter bodies need full layout control. The editor stores structured content (a block model, not raw HTML) so the public site can render it in the chapter&rsquo;s type styles rather than inheriting pasted formatting.</p>
+  <ul style="font-size:11.5pt;line-height:1.65;margin:14px 0 0;max-width:66ch;color:var(--color-neutral-800);padding-left:20px">
+    <li>Headings (two levels), paragraphs, ordered and unordered lists, bold, italic, links.</li>
+    <li>Pull quotes as a distinct block, with optional attribution.</li>
+    <li>Images as a block with caption and alt text; drag to upload, drag to reposition within the flow.</li>
+    <li>Full-width and inset image variants.</li>
+    <li>Paste from Word and Google Docs strips foreign styling and maps to the block model.</li>
+    <li>Live preview that renders the article exactly as the public page will.</li>
+    <li>Autosave every few seconds with an explicit last-saved indicator.</li>
+  </ul>
+
+  <h2 style="font-size:19pt;margin:40px 0 0">5. Screens</h2>
+  <div style="margin-top:18px;display:grid;gap:14px">
+    <div style="display:grid;grid-template-columns:1.6in 1fr;gap:20px;break-inside:avoid">
+      <div style="font-size:11pt;font-weight:600">Sign in</div>
+      <div style="font-size:11pt;line-height:1.55;color:var(--color-neutral-800)">Email and password, or a magic link. No public registration &mdash; accounts are created by invitation only.</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1.6in 1fr;gap:20px;break-inside:avoid">
+      <div style="font-size:11pt;font-weight:600">Dashboard</div>
+      <div style="font-size:11pt;line-height:1.55;color:var(--color-neutral-800)">Items awaiting review, recent drafts, upcoming events, and a count of board members with missing bios or headshots.</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1.6in 1fr;gap:20px;break-inside:avoid">
+      <div style="font-size:11pt;font-weight:600">Content lists</div>
+      <div style="font-size:11pt;line-height:1.55;color:var(--color-neutral-800)">One per content type: searchable table with status, author, last edited. Bulk publish and archive. Drag to reorder where order matters (board roster, sponsors).</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1.6in 1fr;gap:20px;break-inside:avoid">
+      <div style="font-size:11pt;font-weight:600">Item editor</div>
+      <div style="font-size:11pt;line-height:1.55;color:var(--color-neutral-800)">Fields on the left, live preview on the right. Status control, revision history, and publish actions in a persistent header.</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1.6in 1fr;gap:20px;break-inside:avoid">
+      <div style="font-size:11pt;font-weight:600">Media library</div>
+      <div style="font-size:11pt;line-height:1.55;color:var(--color-neutral-800)">Uploaded images with alt text, searchable and reusable across content types.</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1.6in 1fr;gap:20px;break-inside:avoid">
+      <div style="font-size:11pt;font-weight:600">Users</div>
+      <div style="font-size:11pt;line-height:1.55;color:var(--color-neutral-800)">Administrator only. Invite by email, assign role, revoke access.</div>
+    </div>
+  </div>
+
+  <h2 style="font-size:19pt;margin:40px 0 0">6. Technical notes</h2>
+  <ul style="font-size:11.5pt;line-height:1.65;margin:12px 0 0;max-width:66ch;color:var(--color-neutral-800);padding-left:20px">
+    <li>Built into the existing Next.js application at <code>/admin</code>, deployed with the site on Vercel.</li>
+    <li>Database: Postgres (Vercel Postgres or Supabase). Content tables plus a revisions table keyed by item and version.</li>
+    <li>Authentication: session-based, with all <code>/admin</code> routes and mutation endpoints protected server-side. Role checked on the server, never only in the UI.</li>
+    <li>Image uploads to blob storage with automatic resizing; headshots normalized to a 4:5 crop to match the current roster layout.</li>
+    <li>Public pages read published content at request time or through incremental revalidation, so a publish appears within seconds without a redeploy.</li>
+    <li>Seed the database from the current site content as part of the initial migration &mdash; the thirteen directors, ten advisors, and existing bios already exist in the redesign files.</li>
+  </ul>
+
+  <h2 style="font-size:19pt;margin:40px 0 0">7. Supabase setup</h2>
+  <p style="font-size:12pt;line-height:1.6;margin:12px 0 0;max-width:66ch">The backing service is Supabase: Postgres, authentication, and file storage in one project. A companion document, <em>Supabase schema</em>, carries the SQL to create every table, trigger, and security policy described here.</p>
+  <ul style="font-size:11.5pt;line-height:1.65;margin:14px 0 0;max-width:66ch;color:var(--color-neutral-800);padding-left:20px">
+    <li><strong>Project.</strong> One Supabase project per environment &mdash; production, and a staging project for testing migrations before they touch live content.</li>
+    <li><strong>Authentication.</strong> Supabase Auth with email magic links. Public sign-up disabled; officers are invited from the dashboard or the panel&rsquo;s Users screen. A <code>profiles</code> table extends <code>auth.users</code> with the Editor or Administrator role.</li>
+    <li><strong>Authorization.</strong> Row-level security on every table, so permissions hold even if a request bypasses the interface. Anonymous visitors read only rows with status <code>published</code>; staff read all rows; publishing and deletion require the administrator role.</li>
+    <li><strong>Storage.</strong> Three public buckets &mdash; <code>headshots</code>, <code>media</code>, <code>logos</code> &mdash; with uploads restricted to signed-in staff. Headshots are resized and cropped to 4:5 on upload to match the roster layout.</li>
+    <li><strong>Next.js integration.</strong> Use <code>@supabase/ssr</code> so sessions work in server components and middleware. Public pages query with the anon key and rely on RLS; the admin panel uses the signed-in user&rsquo;s session. Never expose the service-role key to the browser.</li>
+    <li><strong>Environment variables.</strong> <code>NEXT_PUBLIC_SUPABASE_URL</code> and <code>NEXT_PUBLIC_SUPABASE_ANON_KEY</code> in Vercel for both preview and production; <code>SUPABASE_SERVICE_ROLE_KEY</code> server-side only, for admin operations such as inviting users.</li>
+    <li><strong>Publishing freshness.</strong> Public pages revalidate on a short interval or on demand via a webhook from Supabase, so a publish appears within seconds without a redeploy.</li>
+    <li><strong>Migrations.</strong> Keep schema changes in the repo under <code>supabase/migrations</code> and apply them through the Supabase CLI, not by hand in the dashboard.</li>
+  </ul>
+
+  <h2 style="font-size:19pt;margin:40px 0 0">8. Open questions</h2>
+  <ul style="font-size:11.5pt;line-height:1.65;margin:12px 0 0;max-width:66ch;color:var(--color-neutral-800);padding-left:20px">
+    <li><strong>Events and Eventbrite.</strong> The repo already pulls events from the Eventbrite API. Decide whether the panel replaces that feed, supplements it with chapter-only listings, or edits presentation while Eventbrite remains the source of record.</li>
+    <li><strong>Newsletter delivery.</strong> The panel authors and archives issues but does not send email. Confirm the sending platform (Mailchimp, Constant Contact, Resend) and whether the panel should push an issue to it or export for manual send.</li>
+    <li><strong>Board member self-service.</strong> Current scope limits access to officers. If board members should edit their own bios later, plan the role now &mdash; it is cheaper than retrofitting.</li>
+    <li><strong>Approval notifications.</strong> Confirm whether review requests go to a shared chapter address or to individual administrators.</li>
+  </ul>
+
+</doc-page>
+</x-dc>
+</body>
+</html>

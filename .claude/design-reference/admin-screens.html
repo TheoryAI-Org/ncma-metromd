@@ -1,0 +1,270 @@
+<style>
+  :root{--color-bg:#ffffff;--color-surface:#f3f2f2}
+  body{background:#ffffff}
+  body{margin:0;background:var(--color-bg)}
+  a{color:var(--color-accent-700);text-decoration:none}
+  a:hover{color:var(--color-accent-900)}
+</style>
+
+
+<div style="max-width:1180px;margin:0 auto;padding:48px 40px 96px;font-family:var(--font-body)">
+
+  <div style="font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-700)">Developer reference</div>
+  <h1 style="font-size:56px;line-height:1.05;letter-spacing:-0.02em;margin:14px 0 0">Admin panel screens</h1>
+  <p style="font-size:19px;line-height:1.55;max-width:58ch;margin:18px 0 0;color:var(--color-neutral-800)">Interface mockups for the six screens in the specification. Layout, hierarchy and control placement are the intent; exact spacing is the developer&rsquo;s to refine.</p>
+
+  <div style="display:flex;gap:10px;margin-top:34px;flex-wrap:wrap">
+    <button class="btn btn-secondary" onClick="{{ show1 }}">Dashboard</button>
+    <button class="btn btn-secondary" onClick="{{ show2 }}">Articles list</button>
+    <button class="btn btn-secondary" onClick="{{ show3 }}">Article editor</button>
+    <button class="btn btn-secondary" onClick="{{ show4 }}">Board roster</button>
+    <button class="btn btn-secondary" onClick="{{ show5 }}">Media library</button>
+    <button class="btn btn-secondary" onClick="{{ show6 }}">Users</button>
+  </div>
+
+  <sc-if value="{{ on1 }}" hint-placeholder-val="{{ true }}">
+  <div style="margin-top:32px">
+    <div style="font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-700)">Screen 1</div>
+    <h2 style="font-size:34px;margin:8px 0 20px">Dashboard</h2>
+
+    <div style="border:1px solid var(--color-neutral-300);background:#fff">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:24px;padding:16px 24px;border-bottom:1px solid var(--color-neutral-300)">
+        <div style="display:flex;gap:26px;align-items:baseline;flex-wrap:wrap;min-width:0">
+          <div style="font-size:19px;font-weight:600">NCMA MetroMD</div>
+          <div style="font-size:14px;color:var(--color-accent-700);box-shadow:inset 0 -2px 0 var(--color-accent)">Dashboard</div>
+          <div style="font-size:14px;color:var(--color-neutral-700)">Articles</div>
+          <div style="font-size:14px;color:var(--color-neutral-700)">Newsletters</div>
+          <div style="font-size:14px;color:var(--color-neutral-700)">Board</div>
+          <div style="font-size:14px;color:var(--color-neutral-700)">Events</div>
+          <div style="font-size:14px;color:var(--color-neutral-700)">Sponsors</div>
+          <div style="font-size:14px;color:var(--color-neutral-700)">Media</div>
+        </div>
+        <div style="font-size:14px;color:var(--color-neutral-700);flex:none;white-space:nowrap">B. Belaineh &middot; Admin</div>
+      </div>
+
+      <div style="padding:32px 24px">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">
+          <div style="border:1px solid var(--color-neutral-300);padding:18px 20px">
+            <div style="font-size:38px;line-height:1">3</div>
+            <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-accent-700);margin-top:6px">Awaiting review</div>
+          </div>
+          <div style="border:1px solid var(--color-neutral-300);padding:18px 20px">
+            <div style="font-size:38px;line-height:1">7</div>
+            <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);margin-top:6px">Drafts</div>
+          </div>
+          <div style="border:1px solid var(--color-neutral-300);padding:18px 20px">
+            <div style="font-size:38px;line-height:1">2</div>
+            <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);margin-top:6px">Upcoming events</div>
+          </div>
+          <div style="border:1px solid var(--color-neutral-300);padding:18px 20px">
+            <div style="font-size:38px;line-height:1;color:var(--color-accent-2-700)">6</div>
+            <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-accent-2-700);margin-top:6px">Missing bios</div>
+          </div>
+        </div>
+
+        <h3 style="font-size:22px;margin:38px 0 14px">Awaiting your review</h3>
+        <table class="table" style="width:100%">
+          <thead><tr><th>Title</th><th>Type</th><th>Author</th><th>Submitted</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>Building a training calendar around the FAR overhaul</td><td>Article</td><td>Dr. Cynthia Pace</td><td>2 days ago</td><td style="text-align:right"><span class="tag tag-accent">In review</span></td></tr>
+            <tr><td>September chapter newsletter</td><td>Newsletter</td><td>B. Belaineh</td><td>4 days ago</td><td style="text-align:right"><span class="tag tag-accent">In review</span></td></tr>
+            <tr><td>Antavia Grimsley &mdash; biography</td><td>Board bio</td><td>A. Grimsley</td><td>6 days ago</td><td style="text-align:right"><span class="tag tag-accent">In review</span></td></tr>
+          </tbody>
+        </table>
+
+        <h3 style="font-size:22px;margin:38px 0 14px">Needs attention</h3>
+        <p style="font-size:16px;color:var(--color-neutral-700);max-width:64ch;margin:0">Six board members have no biography on file and five have no headshot. Open the board roster to see who, or send a reminder from that screen.</p>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ on2 }}" hint-placeholder-val="{{ false }}">
+  <div style="margin-top:32px">
+    <div style="font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-700)">Screen 2</div>
+    <h2 style="font-size:34px;margin:8px 0 20px">Articles list</h2>
+
+    <div style="border:1px solid var(--color-neutral-300);background:#fff;padding:28px 24px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <input class="input" type="text" placeholder="Search articles" style="width:260px">
+          <div class="seg"><label class="seg-opt"><input type="radio" name="st" checked="">All</label><label class="seg-opt"><input type="radio" name="st">Draft</label><label class="seg-opt"><input type="radio" name="st">In review</label><label class="seg-opt"><input type="radio" name="st">Published</label></div>
+        </div>
+        <button class="btn btn-primary">New article</button>
+      </div>
+
+      <table class="table" style="width:100%;margin-top:24px">
+        <thead><tr><th>Title</th><th>Author</th><th>Category</th><th>Status</th><th>Last edited</th></tr></thead>
+        <tbody>
+          <tr><td>Building a training calendar around the FAR overhaul</td><td>Dr. Cynthia Pace</td><td>Training</td><td><span class="tag tag-accent">In review</span></td><td>2 days ago</td></tr>
+          <tr><td>What CMMC means for small primes</td><td>Lester L. Ingol</td><td>Compliance</td><td><span class="tag tag-neutral">Draft</span></td><td>5 days ago</td></tr>
+          <tr><td>Notes from the September dinner meeting</td><td>Chyanne Thomas</td><td>Chapter</td><td><span class="tag tag-outline">Published</span></td><td>2 weeks ago</td></tr>
+          <tr><td>Bridging policy and execution</td><td>Jennifer Hanks</td><td>Leadership</td><td><span class="tag tag-outline">Published</span></td><td>1 month ago</td></tr>
+          <tr><td>AI in GovCon: a practitioner&rsquo;s view</td><td>B. Belaineh</td><td>Technology</td><td><span class="tag tag-neutral">Draft</span></td><td>1 month ago</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:15px;color:var(--color-neutral-700);margin-top:14px;max-width:64ch">The same table pattern serves newsletters, events and sponsors. Where display order matters &mdash; board roster, sponsors &mdash; rows gain a drag handle in the first column.</p>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ on3 }}" hint-placeholder-val="{{ false }}">
+  <div style="margin-top:32px">
+    <div style="font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-700)">Screen 3</div>
+    <h2 style="font-size:34px;margin:8px 0 20px">Article editor</h2>
+
+    <div style="border:1px solid var(--color-neutral-300);background:#fff">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 24px;border-bottom:1px solid var(--color-neutral-300);gap:20px;flex-wrap:wrap">
+        <div style="display:flex;gap:14px;align-items:center">
+          <span style="font-size:15px;color:var(--color-neutral-700)">&larr; Articles</span>
+          <span class="tag tag-neutral">Draft</span>
+          <span style="font-size:14px;color:var(--color-neutral-600)">Saved 12 seconds ago</span>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-ghost">Revisions</button>
+          <button class="btn btn-secondary">Submit for review</button>
+          <button class="btn btn-primary">Publish</button>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr">
+        <div style="padding:28px 24px;border-right:1px solid var(--color-neutral-300)">
+          <div class="field" style="margin-bottom:16px"><label>Title</label><input class="input" type="text" value="Building a training calendar around the FAR overhaul"></div>
+          <div class="field" style="margin-bottom:16px"><label>Standfirst</label><input class="input" type="text" placeholder="Two or three sentences framing the piece"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <div class="field"><label>Author</label><input class="input" type="text" value="Dr. Cynthia Pace"></div>
+            <div class="field"><label>Category</label><input class="input" type="text" value="Training &amp; education"></div>
+          </div>
+
+          <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-accent-700);margin:26px 0 10px">Body</div>
+          <div style="border:1px solid var(--color-neutral-300)">
+            <div style="display:flex;gap:6px;padding:8px 10px;border-bottom:1px solid var(--color-neutral-300);flex-wrap:wrap">
+              <button class="btn btn-ghost" style="padding:4px 10px;font-weight:700">B</button>
+              <button class="btn btn-ghost" style="padding:4px 10px;font-style:italic">I</button>
+              <button class="btn btn-ghost" style="padding:4px 10px">Link</button>
+              <button class="btn btn-ghost" style="padding:4px 10px">H2</button>
+              <button class="btn btn-ghost" style="padding:4px 10px">H3</button>
+              <button class="btn btn-ghost" style="padding:4px 10px">List</button>
+              <button class="btn btn-ghost" style="padding:4px 10px">Quote</button>
+              <button class="btn btn-ghost" style="padding:4px 10px">Image</button>
+            </div>
+            <div style="padding:18px 16px;min-height:280px;font-size:15px;line-height:1.7;color:var(--color-neutral-800)">
+              <p style="margin:0 0 14px">The chapter&rsquo;s training year is built around four questions members keep asking, and each one becomes a session.</p>
+              <div style="border-left:3px solid var(--color-accent);padding-left:14px;margin:18px 0;font-style:italic;font-size:17px">Pull quote block &mdash; drag to reposition, or click to add attribution.</div>
+              <div style="background:var(--color-neutral-100);padding:26px;text-align:center;font-size:14px;color:var(--color-neutral-600);margin:18px 0">Image block &mdash; drop a file, or choose from the media library</div>
+              <p style="margin:0">Caption and alt text are required before an image block can publish.</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="padding:28px 24px;background:var(--color-neutral-100)">
+          <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Live preview</div>
+          <div style="background:#fff;padding:28px 26px;margin-top:12px">
+            <div style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-700)">Training &amp; education</div>
+            <h3 style="font-size:30px;line-height:1.1;letter-spacing:-0.01em;margin:12px 0 14px">Building a training calendar around the FAR overhaul</h3>
+            <p style="font-size:16px;line-height:1.7;color:var(--color-neutral-800);margin:0 0 14px">The chapter&rsquo;s training year is built around four questions members keep asking, and each one becomes a session.</p>
+            <div style="font-size:20px;font-style:italic;line-height:1.5;margin:20px 0;max-width:34ch">Pull quote block &mdash; drag to reposition, or click to add attribution.</div>
+            <div style="aspect-ratio:16/9;background:var(--color-neutral-200)"></div>
+            <p style="font-size:16px;line-height:1.7;color:var(--color-neutral-800);margin:14px 0 0">Caption and alt text are required before an image block can publish.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ on4 }}" hint-placeholder-val="{{ false }}">
+  <div style="margin-top:32px">
+    <div style="font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-700)">Screen 4</div>
+    <h2 style="font-size:34px;margin:8px 0 20px">Board roster</h2>
+
+    <div style="border:1px solid var(--color-neutral-300);background:#fff;padding:28px 24px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">
+        <div class="seg"><label class="seg-opt"><input type="radio" name="bd" checked="">Directors</label><label class="seg-opt"><input type="radio" name="bd">Advisors</label></div>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-secondary">Email members missing bios</button>
+          <button class="btn btn-primary">Add member</button>
+        </div>
+      </div>
+
+      <table class="table" style="width:100%;margin-top:24px">
+        <thead><tr><th style="width:28px"></th><th>Name</th><th>Position</th><th>Sector</th><th>Bio</th><th>Headshot</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--color-neutral-500)">&#8942;&#8942;</td><td>Jennifer Hanks</td><td>President</td><td>Industry</td><td>Yes</td><td>Yes</td><td><span class="tag tag-outline">Published</span></td></tr>
+          <tr><td style="color:var(--color-neutral-500)">&#8942;&#8942;</td><td>Chyanne Thomas</td><td>President-Elect</td><td>Industry</td><td>Yes</td><td>Yes</td><td><span class="tag tag-outline">Published</span></td></tr>
+          <tr><td style="color:var(--color-neutral-500)">&#8942;&#8942;</td><td>Patience Ibik</td><td>VP &mdash; Secretary</td><td>Industry</td><td style="color:var(--color-accent-2-700)">Missing</td><td style="color:var(--color-accent-2-700)">Missing</td><td><span class="tag tag-neutral">Draft</span></td></tr>
+          <tr><td style="color:var(--color-neutral-500)">&#8942;&#8942;</td><td>Joye Sistrunk, CPA</td><td>VP &mdash; Treasurer</td><td>Industry</td><td>Yes</td><td>Yes</td><td><span class="tag tag-outline">Published</span></td></tr>
+          <tr><td style="color:var(--color-neutral-500)">&#8942;&#8942;</td><td>Richard Hanks</td><td>VP &mdash; Strategic Initiatives</td><td>Industry</td><td style="color:var(--color-accent-2-700)">Missing</td><td>Yes</td><td><span class="tag tag-neutral">Draft</span></td></tr>
+          <tr><td style="color:var(--color-neutral-500)">&#8942;&#8942;</td><td>COL Dawn Moore</td><td>VP &mdash; Government Relations</td><td>Government (Federal)</td><td style="color:var(--color-accent-2-700)">Missing</td><td>Yes</td><td><span class="tag tag-neutral">Draft</span></td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:15px;color:var(--color-neutral-700);margin-top:16px;max-width:64ch">Drag rows to set the order shown on the public page. A member stays in Draft until both bio and headshot are on file, so incomplete entries never reach the site by accident.</p>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ on5 }}" hint-placeholder-val="{{ false }}">
+  <div style="margin-top:32px">
+    <div style="font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-700)">Screen 5</div>
+    <h2 style="font-size:34px;margin:8px 0 20px">Media library</h2>
+
+    <div style="border:1px solid var(--color-neutral-300);background:#fff;padding:28px 24px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">
+        <input class="input" type="text" placeholder="Search by filename or alt text" style="width:300px">
+        <button class="btn btn-primary">Upload</button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:20px;margin-top:24px">
+        <div><div style="aspect-ratio:4/5;background:var(--color-neutral-200)"></div><div style="font-size:13px;margin-top:8px">hanks-jennifer.jpg</div><div style="font-size:12px;color:var(--color-neutral-600)">Headshots</div></div>
+        <div><div style="aspect-ratio:4/5;background:var(--color-neutral-200)"></div><div style="font-size:13px;margin-top:8px">thomas-chyanne.png</div><div style="font-size:12px;color:var(--color-neutral-600)">Headshots</div></div>
+        <div><div style="aspect-ratio:4/5;background:var(--color-neutral-200)"></div><div style="font-size:13px;margin-top:8px">moore-dawn.jpeg</div><div style="font-size:12px;color:var(--color-neutral-600)">Headshots</div></div>
+        <div><div style="aspect-ratio:4/5;background:var(--color-neutral-200)"></div><div style="font-size:13px;margin-top:8px">national-harbor.jpg</div><div style="font-size:12px;color:var(--color-neutral-600)">Media</div></div>
+        <div style="border:1px dashed var(--color-neutral-400);aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;color:var(--color-neutral-600);padding:12px">Drop files here</div>
+      </div>
+
+      <p style="font-size:15px;color:var(--color-neutral-700);margin-top:20px;max-width:64ch">Selecting an image opens a panel for alt text, caption and usage &mdash; which articles or roster entries reference it. Files in use cannot be deleted without confirmation.</p>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ on6 }}" hint-placeholder-val="{{ false }}">
+  <div style="margin-top:32px">
+    <div style="font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-700)">Screen 6</div>
+    <h2 style="font-size:34px;margin:8px 0 20px">Users</h2>
+
+    <div style="border:1px solid var(--color-neutral-300);background:#fff;padding:28px 24px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">
+        <p style="font-size:16px;color:var(--color-neutral-700);margin:0;max-width:52ch">Administrator only. Accounts are created by invitation &mdash; there is no public sign-up.</p>
+        <button class="btn btn-primary">Invite user</button>
+      </div>
+
+      <table class="table" style="width:100%;margin-top:24px">
+        <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Last active</th><th></th></tr></thead>
+        <tbody>
+          <tr><td>Bethlehem Belaineh</td><td>be@theoryai.co</td><td><span class="tag tag-accent-2">Administrator</span></td><td>Today</td><td style="text-align:right;color:var(--color-neutral-600)">Manage</td></tr>
+          <tr><td>Jennifer Hanks</td><td>jahanks@mmcgovsolutions.com</td><td><span class="tag tag-accent-2">Administrator</span></td><td>Yesterday</td><td style="text-align:right;color:var(--color-neutral-600)">Manage</td></tr>
+          <tr><td>Chyanne Thomas</td><td>cthomas@aurelus.io</td><td><span class="tag tag-neutral">Editor</span></td><td>3 days ago</td><td style="text-align:right;color:var(--color-neutral-600)">Manage</td></tr>
+          <tr><td>Dr. Cynthia Pace</td><td>cpace@leadershipguru.com</td><td><span class="tag tag-neutral">Editor</span></td><td>1 week ago</td><td style="text-align:right;color:var(--color-neutral-600)">Manage</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#0088b0"/><text x="100" y="118" font-family="Georgia, serif" font-size="48" fill="#f3f2f2" text-anchor="middle">Admin</text></svg></template></x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { screen: 1 };
+  renderVals() {
+    const s = this.state.screen, v = {};
+    for (let i = 1; i <= 6; i++) {
+      v['on' + i] = s === i;
+      v['show' + i] = () => this.setState({ screen: i });
+    }
+    return v;
+  }
+}
+</script>
+</body>
+</html>

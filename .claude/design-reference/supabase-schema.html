@@ -1,0 +1,219 @@
+<style>
+  :root{--color-bg:#ffffff;--color-surface:#f3f2f2}
+  body{background:#ffffff}
+  doc-page:not(:defined){visibility:hidden}
+  doc-page{font-family:var(--font-body)}
+  a{color:var(--color-accent-700);text-decoration:none}
+  a:hover{color:var(--color-accent-900);text-decoration:underline}
+  pre{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:8.5pt;line-height:1.5;background:var(--color-neutral-100);padding:14px 16px;overflow-wrap:break-word;white-space:pre-wrap;break-inside:avoid;margin:12px 0 0}
+</style>
+
+<doc-page margin="0.7in">
+
+  <div slot="footer" style="display:flex;justify-content:space-between;font-size:10pt;color:var(--color-neutral-700);padding-top:10px">
+    <span><a href="https://www.ncmametromd.org/">NCMA Metro Maryland Chapter</a></span>
+    <span>Supabase schema</span>
+  </div>
+
+  <div style="font-size:11pt;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-700)">Developer reference</div>
+  <h1 style="font-size:32pt;line-height:1.05;margin:10px 0 0;max-width:20ch">Supabase schema</h1>
+  <p style="font-size:12.5pt;line-height:1.5;margin:16px 0 0;max-width:62ch;color:var(--color-neutral-800)">Run these statements in order against a new Supabase project (SQL Editor, or as a migration). They create the content tables, the role model, revision history, and row-level security policies for the admin panel.</p>
+
+  <h2 style="font-size:17pt;margin:36px 0 0">1. Enumerated types</h2>
+  <pre>create type content_status as enum ('draft', 'in_review', 'published', 'archived');
+create type user_role     as enum ('editor', 'admin');
+create type board_body    as enum ('directors', 'advisors');</pre>
+
+  <h2 style="font-size:17pt;margin:32px 0 0">2. Profiles and roles</h2>
+  <p style="font-size:11.5pt;line-height:1.6;margin:10px 0 0;max-width:64ch;color:var(--color-neutral-800)">Extends Supabase&rsquo;s built-in <code>auth.users</code>. Accounts are created by invitation from the Supabase dashboard or the admin panel; there is no public sign-up.</p>
+  <pre>create table profiles (
+  id          uuid primary key references auth.users on delete cascade,
+  email       text not null,
+  full_name   text,
+  role        user_role not null default 'editor',
+  created_at  timestamptz not null default now()
+);
+
+create or replace function is_admin() returns boolean
+language sql security definer stable as $$
+  select exists (
+    select 1 from profiles
+    where id = auth.uid() and role = 'admin'
+  );
+$$;
+
+create or replace function is_staff() returns boolean
+language sql security definer stable as $$
+  select exists (select 1 from profiles where id = auth.uid());
+$$;</pre>
+
+  <h2 style="font-size:17pt;margin:32px 0 0">3. Board members</h2>
+  <pre>create table board_members (
+  id            uuid primary key default gen_random_uuid(),
+  body          board_body not null,
+  full_name     text not null,
+  position      text not null,
+  organization  text,
+  sector        text,
+  email         text,
+  linkedin_url  text,
+  bio           text,
+  headshot_path text,
+  sort_order    int not null default 0,
+  status        content_status not null default 'draft',
+  updated_by    uuid references profiles(id),
+  updated_at    timestamptz not null default now()
+);
+
+create index on board_members (body, sort_order);</pre>
+
+  <h2 style="font-size:17pt;margin:32px 0 0">4. Articles and newsletters</h2>
+  <p style="font-size:11.5pt;line-height:1.6;margin:10px 0 0;max-width:64ch;color:var(--color-neutral-800)">Bodies are stored as structured JSON blocks, not HTML, so the public site renders them in the chapter&rsquo;s own type styles.</p>
+  <pre>create table articles (
+  id           uuid primary key default gen_random_uuid(),
+  slug         text unique not null,
+  title        text not null,
+  standfirst   text,
+  body         jsonb not null default '[]'::jsonb,
+  author_id    uuid references board_members(id),
+  category     text,
+  read_minutes int,
+  hero_path    text,
+  featured     boolean not null default false,
+  status       content_status not null default 'draft',
+  published_at timestamptz,
+  updated_by   uuid references profiles(id),
+  updated_at   timestamptz not null default now()
+);
+
+create table newsletters (
+  id            uuid primary key default gen_random_uuid(),
+  issue_number  int unique,
+  subject       text not null,
+  body          jsonb not null default '[]'::jsonb,
+  article_ids   uuid[] default '{}',
+  sent_at       timestamptz,
+  status        content_status not null default 'draft',
+  updated_by    uuid references profiles(id),
+  updated_at    timestamptz not null default now()
+);</pre>
+
+  <h2 style="font-size:17pt;margin:32px 0 0">5. Events, sponsors, homepage copy</h2>
+  <pre>create table events (
+  id               uuid primary key default gen_random_uuid(),
+  title            text not null,
+  starts_at        timestamptz not null,
+  ends_at          timestamptz,
+  location         text,
+  description      text,
+  registration_url text,
+  image_path       text,
+  eventbrite_id    text,
+  status           content_status not null default 'draft',
+  updated_by       uuid references profiles(id),
+  updated_at       timestamptz not null default now()
+);
+
+create table sponsors (
+  id          uuid primary key default gen_random_uuid(),
+  name        text not null,
+  tier        text,
+  logo_path   text,
+  website_url text,
+  sort_order  int not null default 0,
+  status      content_status not null default 'draft',
+  updated_at  timestamptz not null default now()
+);
+
+create table site_copy (
+  key        text primary key,
+  value      text not null,
+  updated_by uuid references profiles(id),
+  updated_at timestamptz not null default now()
+);</pre>
+
+  <h2 style="font-size:17pt;margin:32px 0 0">6. Revision history</h2>
+  <p style="font-size:11.5pt;line-height:1.6;margin:10px 0 0;max-width:64ch;color:var(--color-neutral-800)">One table covers every content type. The trigger snapshots a row on each update, so any version can be restored.</p>
+  <pre>create table revisions (
+  id          bigserial primary key,
+  table_name  text not null,
+  record_id   uuid not null,
+  snapshot    jsonb not null,
+  changed_by  uuid references profiles(id),
+  changed_at  timestamptz not null default now()
+);
+
+create index on revisions (table_name, record_id, changed_at desc);
+
+create or replace function record_revision() returns trigger
+language plpgsql security definer as $$
+begin
+  insert into revisions (table_name, record_id, snapshot, changed_by)
+  values (tg_table_name, old.id, to_jsonb(old), auth.uid());
+  return new;
+end;
+$$;
+
+create trigger rev_articles      before update on articles
+  for each row execute function record_revision();
+create trigger rev_newsletters   before update on newsletters
+  for each row execute function record_revision();
+create trigger rev_board_members before update on board_members
+  for each row execute function record_revision();
+create trigger rev_events        before update on events
+  for each row execute function record_revision();</pre>
+
+  <h2 style="font-size:17pt;margin:32px 0 0">7. Row-level security</h2>
+  <p style="font-size:11.5pt;line-height:1.6;margin:10px 0 0;max-width:64ch;color:var(--color-neutral-800)">The public reads only published rows. Signed-in staff read everything and may write drafts. Publishing, deleting, and user management are restricted to administrators. Apply the same three-policy pattern to each content table.</p>
+  <pre>alter table board_members enable row level security;
+alter table articles      enable row level security;
+alter table newsletters   enable row level security;
+alter table events        enable row level security;
+alter table sponsors      enable row level security;
+alter table site_copy     enable row level security;
+alter table profiles      enable row level security;
+alter table revisions     enable row level security;
+
+-- pattern, repeated per content table
+create policy public_read on articles
+  for select using (status = 'published');
+
+create policy staff_read on articles
+  for select using (is_staff());
+
+create policy staff_write on articles
+  for insert with check (is_staff());
+
+create policy staff_update on articles
+  for update using (is_staff())
+  with check (is_admin() or status &lt;&gt; 'published');
+
+create policy admin_delete on articles
+  for delete using (is_admin());
+
+-- profiles: read own row; only admins manage roles
+create policy own_profile on profiles
+  for select using (id = auth.uid() or is_admin());
+create policy admin_manage_profiles on profiles
+  for all using (is_admin()) with check (is_admin());</pre>
+
+  <h2 style="font-size:17pt;margin:32px 0 0">8. Storage buckets</h2>
+  <pre>insert into storage.buckets (id, name, public)
+values ('headshots', 'headshots', true),
+       ('media',     'media',     true),
+       ('logos',     'logos',     true);
+
+create policy staff_upload on storage.objects
+  for insert to authenticated
+  with check (bucket_id in ('headshots','media','logos') and is_staff());
+
+create policy public_view on storage.objects
+  for select using (bucket_id in ('headshots','media','logos'));</pre>
+
+  <h2 style="font-size:17pt;margin:32px 0 0">9. Seeding</h2>
+  <p style="font-size:11.5pt;line-height:1.6;margin:10px 0 0;max-width:64ch;color:var(--color-neutral-800)">The redesign files already hold the thirteen directors and ten advisors with positions, organizations, sector labels, emails, LinkedIn URLs, and the bios received so far. Extract those into an insert script rather than re-entering them by hand, and set <code>status</code> to <code>published</code> for members whose bio and headshot are confirmed, <code>draft</code> for the rest.</p>
+
+</doc-page>
+</x-dc>
+</body>
+</html>

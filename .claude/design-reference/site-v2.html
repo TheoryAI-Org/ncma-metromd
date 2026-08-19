@@ -1,0 +1,1427 @@
+<style>
+  body { margin: 0; background: #ffffff; }
+  .pg { max-width: 1180px; margin: 0 auto; padding: 0 40px; }
+  .navlink { background: none; border: 0; font: inherit; font-size: 16px; cursor: pointer; padding: 2px 0; color: var(--color-text); white-space: nowrap; }
+  .navlink:hover { color: var(--color-accent-700); }
+  .navlink[data-on="true"] { color: var(--color-accent-700); box-shadow: inset 0 -1px 0 var(--color-accent); }
+  .btn { white-space: nowrap; }
+  .kick { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-700); }
+  .lede { font-size: 21px; line-height: 1.55; max-width: 60ch; }
+  .bio { font-size: 16px; line-height: 1.7; color: var(--color-neutral-800); max-width: 68ch; }
+  .bmeta a { font-size: 14px; color: var(--color-accent-700); text-decoration: none; word-break: break-word; }
+  .bmeta a:hover { text-decoration: underline; }
+  a { color: var(--color-accent-700); }
+  a:hover { color: var(--color-accent); }
+  @media (max-width: 1180px) { .pg { padding: 0 24px; } }
+</style>
+<style>
+  :root { --color-bg: #ffffff; --color-surface: #f3f2f2; }
+  body { background: #ffffff; }
+</style>
+
+
+<div style="height: 100vh; overflow-y: auto; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); position: relative">
+
+  <div style="position:sticky;top:0;background:var(--color-bg);z-index:5">
+    <div class="pg" style="display:flex;align-items:center;gap:26px;padding-top:20px;padding-bottom:18px;flex-wrap:wrap">
+      <button class="navlink" style="margin-right:auto;padding:0;display:flex;align-items:center;flex:none" onClick="{{ goHome }}"><img src="public/images/ncma-metromd-logo.png" alt="NCMA Metro Maryland" style="height:46px;width:105px;flex:none;min-width:105px;object-fit:contain"></button>
+      <nav style="display:flex;gap:22px;align-items:center;flex-wrap:wrap;justify-content:flex-end">
+        <button class="navlink" data-on="{{ onAbout }}" onClick="{{ goAbout }}">Our chapter</button>
+        <button class="navlink" data-on="{{ onBoard }}" onClick="{{ goBoard }}">Board</button>
+        <button class="navlink" onClick="{{ goAdvisors }}">Advisory</button>
+        <button class="navlink" data-on="{{ onInsights }}" onClick="{{ goInsights }}">Insights</button>
+        <button class="navlink" data-on="{{ onEvents }}" onClick="{{ goEvents }}">Events</button>
+        <button class="navlink" data-on="{{ onCerts }}" onClick="{{ goCerts }}">Certifications</button>
+        <button class="navlink" data-on="{{ onSponsors }}" onClick="{{ goSponsors }}">Sponsors</button>
+        <button class="navlink" data-on="{{ onContact }}" onClick="{{ goContact }}">Contact</button>
+        <button class="navlink" data-on="{{ onLogin }}" onClick="{{ goLogin }}" style="color:var(--color-neutral-600)">Sign in</button>
+        <a class="btn btn-primary" href="https://www.ncmahq.org/membership" target="_blank" rel="noopener noreferrer">Join us</a>
+      </nav>
+    </div>
+  </div>
+
+  <sc-if value="{{ onHome }}" hint-placeholder-val="{{ true }}">
+  <div>
+    <div class="pg" style="display:grid;grid-template-columns:1.45fr 1fr;gap:64px;padding-top:56px;padding-bottom:72px;align-items:end">
+      <div>
+        <div class="kick">MetroMD Chapter</div>
+        <p class="lede">The National Contract Management Association (NCMA) is a professional association with 100 chapters and over 20,000 members dedicated to the profession of contract management.</p>
+        <p class="lede">We are the MetroMD Chapter of NCMA, located in the Washington Metropolitan area. Our region is the heart of the biotech industry and the government agencies that support and promote the biotech and medical industry.</p>
+        <div style="display:flex;gap:14px;margin-top:30px;flex-wrap:wrap">
+          <a class="btn btn-primary" href="https://www.ncmahq.org/membership" target="_blank" rel="noopener noreferrer" style="background:#c8551b;border-color:#c8551b;color:#f3f2f2" style-hover="background:#a8450f;border-color:#a8450f">Become a Member</a>
+          <button class="btn btn-secondary" onClick="{{ goAbout }}" style="background:var(--color-accent-100);border-color:var(--color-accent-300);color:var(--color-accent-900)" style-hover="background:var(--color-accent-200)">New here? Start with our chapter</button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:52px">
+          <div><div class="kick">When</div><div style="font-size:19px;margin-top:8px">Third Thursday, 5:30 PM</div></div>
+          <div><div class="kick">Where</div><div style="font-size:19px;margin-top:8px">Metro Maryland, venue rotates</div></div>
+          <div><div class="kick">Who comes</div><div style="font-size:19px;margin-top:8px">1102s, PMs, small business</div></div>
+        </div>
+      </div>
+      <div>
+        <div style="width:100%;aspect-ratio:4/5;background:var(--color-surface)">
+          <image-slot id="v2-hero" shape="rect" fit="cover" src="public/images/ncma-metromd-hero.jpeg" placeholder="Chapter photo"></image-slot>
+        </div>
+        <div style="font-size:13px;margin-top:10px;color:var(--color-neutral-600)">Drop a newer chapter photograph here to replace it.</div>
+      </div>
+    </div>
+
+    <div class="pg" style="display:grid;grid-template-columns:1fr 1.4fr;gap:64px;padding-bottom:80px">
+      <div>
+        <h2 style="font-size:42px;letter-spacing:-0.015em;margin-bottom:12px">This season</h2>
+        <p style="font-size:17px;color:var(--color-neutral-700)">Tickets go through Eventbrite and the calendar runs March through January. Members save on every dinner.</p>
+        <button class="btn btn-ghost" style="padding-left:0" onClick="{{ goEvents }}">Full calendar →</button>
+        <a class="btn btn-ghost" style="padding-left:0" href="https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413" target="_blank" rel="noopener noreferrer">Chapter page on Eventbrite →</a>
+        <div class="kick" style="margin-top:32px">Follow the chapter</div>
+        <div style="display:flex;gap:16px;align-items:center;margin-top:12px">
+          <a href="https://www.linkedin.com/company/ncma-metromd/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style="display:inline-flex;color:var(--color-accent-700)"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+          <a href="https://www.instagram.com/ncmametromd/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" style="display:inline-flex;color:var(--color-accent-700)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor" stroke="none"></circle></svg></a>
+          <a href="https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413" target="_blank" rel="noopener noreferrer" aria-label="Eventbrite" style="display:inline-flex;color:var(--color-accent-700)"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4.6 20 3v3.4L7.6 7.7v3.1L19 10v3.3l-11.4.7v3.2L20 16.6V20L4 18.4z"></path></svg></a>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:28px">
+        <div style="display:grid;grid-template-columns:150px 1fr auto;gap:24px;align-items:baseline">
+          <div style="font-size:16px;color:var(--color-neutral-600)">Date TBC</div>
+          <div>
+            <div style="font-size:24px">September Dinner Meeting</div>
+            <div style="font-size:16px;color:var(--color-neutral-700)">Speaker and venue to be announced · 5:30–8:00 PM</div>
+          </div>
+          <span class="tag tag-outline">Registration soon</span>
+        </div>
+        <div style="display:grid;grid-template-columns:150px 1fr auto;gap:24px;align-items:baseline">
+          <div style="font-size:16px;color:var(--color-neutral-600)">Date TBC</div>
+          <div>
+            <div style="font-size:24px">Certification Study Session</div>
+            <div style="font-size:16px;color:var(--color-neutral-700)">CFCM and CCMA preparation, virtual</div>
+          </div>
+          <span class="tag tag-neutral">Members only</span>
+        </div>
+        <div style="display:grid;grid-template-columns:150px 1fr auto;gap:24px;align-items:baseline">
+          <div style="font-size:16px;color:var(--color-neutral-600)">Jan 16, 2025</div>
+          <div>
+            <div style="font-size:24px">NCMA MetroMD January Dinner Meeting</div>
+            <div style="font-size:16px;color:var(--color-neutral-700)">Most recent meeting · 4:45–8:00 PM</div>
+          </div>
+          <span class="tag tag-neutral">Past</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pg" style="padding-bottom:80px">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:32px">
+        <div>
+          <h2 style="font-size:42px;letter-spacing:-0.015em;margin:0">Your board</h2>
+          <p style="max-width:62ch;margin-top:10px;font-size:17px;color:var(--color-neutral-700)">Volunteers — agency veterans and small business owners — who plan the programs and answer their own email.</p>
+        </div>
+        <button class="btn btn-ghost" onClick="{{ goBoard }}">Meet everyone →</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:36px">
+        <div>
+          <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-hb-1" shape="rect" src="public/images/board-hanks.jpeg" placeholder="Headshot"></image-slot></div>
+          <div style="font-size:22px;margin-top:14px">Jennifer Hanks</div>
+          <div class="kick" style="margin-top:4px">Board Chair, President</div>
+        </div>
+        <div>
+          <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-hb-2" shape="rect" src="public/images/board-thomas.png" placeholder="Headshot"></image-slot></div>
+          <div style="font-size:22px;margin-top:14px">Chyanne Thomas</div>
+          <div class="kick" style="margin-top:4px">President-Elect</div>
+        </div>
+        <div>
+          <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-hb-3" shape="rect" placeholder="Headshot" src="public/images/board-ibik.jpeg"></image-slot></div>
+          <div style="font-size:22px;margin-top:14px">Patience Ibik</div>
+          <div class="kick" style="margin-top:4px">VP, Secretary</div>
+        </div>
+        <div>
+          <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-hb-4" shape="rect" src="public/images/board-belaineh.png" placeholder="Headshot"></image-slot></div>
+          <div style="font-size:22px;margin-top:14px">Bethlehem Belaineh</div>
+          <div class="kick" style="margin-top:4px">VP, Communications</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pg" style="padding-bottom:80px">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:32px">
+        <h2 style="font-size:42px;letter-spacing:-0.015em;margin:0">Insights</h2>
+        <button class="btn btn-ghost" onClick="{{ goInsights }}">All articles →</button>
+      </div>
+      <p style="max-width:62ch;margin-top:10px;font-size:17px;color:var(--color-neutral-700)">Board members writing about the work: the FAR overhaul, certification, and building a career in acquisition.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:48px;margin-top:36px">
+        <div>
+          <div class="kick">Training &amp; education</div>
+          <h3 style="font-size:27px;margin:12px 0 12px;line-height:1.2">Building a training calendar around the FAR overhaul</h3>
+          <div style="font-size:16px">Dr. Patricia Akinrogunde</div>
+          <div style="font-size:14px;color:var(--color-neutral-600)">VP, Training &amp; Education · Draft</div>
+        </div>
+        <div>
+          <div class="kick">Acquisition</div>
+          <h3 style="font-size:27px;margin:12px 0 12px;line-height:1.2">From contracting officer to founder, and what carried over</h3>
+          <div style="font-size:16px">Jennifer Hanks</div>
+          <div style="font-size:14px;color:var(--color-neutral-600)">Board Chair, President · Draft</div>
+        </div>
+        <div>
+          <div class="kick">Technology</div>
+          <h3 style="font-size:27px;margin:12px 0 12px;line-height:1.2">Where AI actually helps a procurement shop</h3>
+          <div style="font-size:16px">Bethlehem Belaineh</div>
+          <div style="font-size:14px;color:var(--color-neutral-600)">VP, Communications · Draft</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pg" style="padding-bottom:88px">
+      <h2 style="font-size:34px;letter-spacing:-0.015em;margin:0 0 8px">Thank you to our generous sponsors</h2>
+      <p style="font-size:17px;color:var(--color-neutral-700);margin-bottom:32px">Sponsorship keeps dinner affordable for government attendees.</p>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:40px;align-items:center">
+        <div style="aspect-ratio:3/2;background:var(--color-surface)"><image-slot id="v2-hs-1" shape="rect" placeholder="Sponsor logo"></image-slot></div>
+        <div style="aspect-ratio:3/2;background:var(--color-surface)"><image-slot id="v2-hs-2" shape="rect" placeholder="Sponsor logo"></image-slot></div>
+        <div style="aspect-ratio:3/2;background:var(--color-surface)"><image-slot id="v2-hs-3" shape="rect" placeholder="Sponsor logo"></image-slot></div>
+        <div style="aspect-ratio:3/2;background:var(--color-surface)"><image-slot id="v2-hs-4" shape="rect" placeholder="Sponsor logo"></image-slot></div>
+        <div style="aspect-ratio:3/2;background:var(--color-surface)"><image-slot id="v2-hs-5" shape="rect" placeholder="Sponsor logo"></image-slot></div>
+      </div>
+      <button class="btn btn-secondary" style="margin-top:28px" onClick="{{ goSponsors }}">Become a sponsor</button>
+    </div>
+
+    <div class="pg" style="padding-bottom:96px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start">
+      <div>
+        <h2 style="font-size:34px;letter-spacing:-0.015em;margin:0 0 8px">Join our mailing list</h2>
+        <p style="font-size:17px;color:var(--color-neutral-700);max-width:46ch">Sign up to receive news and updates about chapter events and training.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="field"><label>First name</label><input class="input" type="text" placeholder="First name"></div>
+        <div class="field"><label>Last name</label><input class="input" type="text" placeholder="Last name"></div>
+        <div class="field" style="grid-column:1/-1"><label>Email address</label><input class="input" type="email" placeholder="you@agency.gov"></div>
+        <div style="grid-column:1/-1;display:flex;align-items:center;gap:16px">
+          <button class="btn btn-primary">Sign up</button>
+          <span style="font-size:14px;color:var(--color-neutral-600)">We respect your privacy.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pg" style="padding-bottom:96px;display:grid;grid-template-columns:1.4fr 1fr;gap:64px;align-items:end">
+      <h2 style="font-size:56px;line-height:1.06;letter-spacing:-0.02em;margin:0">Join the leading association for contract management professionals in North America.</h2>
+      <div>
+        <p style="font-size:17px">Register from the NCMA Headquarters sign-up form. Remember to put “MetroMD” as your Chapter Preference.</p>
+        <a class="btn btn-primary" href="https://www.ncmahq.org/membership" target="_blank" rel="noopener noreferrer">Join now</a>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ onAbout }}" hint-placeholder-val="{{ false }}">
+  <div class="pg" style="padding-top:48px;padding-bottom:88px">
+    <div class="kick">Our chapter</div>
+    <h1 style="font-size:64px;letter-spacing:-0.02em;margin:18px 0 22px;line-height:1.05">Chartered in 2024, and still filling the room</h1>
+    <p class="lede">The NCMA MetroMD Chapter serves contract management professionals in the Maryland metropolitan area. We were founded to give the Maryland acquisition community its own place to meet — a hub for industry collaboration, professional development, and mentorship, empowering contracting professionals to connect, grow, and lead across government and industry.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:56px;margin-top:64px">
+      <div>
+        <h3 style="font-size:26px">What we do</h3>
+        <p style="font-size:16px;color:var(--color-neutral-700)">Monthly dinner meetings with a speaker, virtual training sessions, certification study support and a kick-off each spring. Programming is planned by the board and shaped by what members ask for.</p>
+      </div>
+      <div>
+        <h3 style="font-size:26px">Who belongs here</h3>
+        <p style="font-size:16px;color:var(--color-neutral-700)">Federal contracting officers and specialists, program and project staff, small business owners, and anyone who touches acquisition in Maryland. First-timers are welcome at any dinner — you do not have to be a member to come.</p>
+      </div>
+      <div>
+        <h3 style="font-size:26px">How to get involved</h3>
+        <p style="font-size:16px;color:var(--color-neutral-700)">Come to a meeting, then take a committee seat. Members run study groups, edit the newsletter, host speakers and help with sponsorship. Say the word and the board will find you a place.</p>
+      </div>
+    </div>
+
+    <h2 style="font-size:42px;letter-spacing:-0.015em;margin:80px 0 28px">Why join NCMA</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:40px 56px">
+      <div>
+        <h4 style="font-size:21px;margin-bottom:8px">Industry Connections</h4>
+        <p style="font-size:16px;color:var(--color-neutral-700);margin:0">Drive higher performance by attending events and education sessions which bring government and industry together to engage and learn from each other.</p>
+      </div>
+      <div>
+        <h4 style="font-size:21px;margin-bottom:8px">Certification</h4>
+        <p style="font-size:16px;color:var(--color-neutral-700);margin:0">Professional designations of distinction, NCMA certifications carry the respect of your peers in the profession.</p>
+      </div>
+      <div>
+        <h4 style="font-size:21px;margin-bottom:8px">Events</h4>
+        <p style="font-size:16px;color:var(--color-neutral-700);margin:0">Monthly meetings, talks and training opportunities.</p>
+      </div>
+      <div>
+        <h4 style="font-size:21px;margin-bottom:8px">Peer Networking</h4>
+        <p style="font-size:16px;color:var(--color-neutral-700);margin:0">Learn from peers, ask questions, share ideas and discuss challenges.</p>
+      </div>
+      <div>
+        <h4 style="font-size:21px;margin-bottom:8px">Publications</h4>
+        <p style="font-size:16px;color:var(--color-neutral-700);margin:0">Magazines, professional journals and NCMA books to help you stay ahead of the industry.</p>
+      </div>
+      <div>
+        <h4 style="font-size:21px;margin-bottom:8px">Training</h4>
+        <p style="font-size:16px;color:var(--color-neutral-700);margin:0">Live or “on demand,” learn from subject matter experts about the “hottest” topics in the industry.</p>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:40px;margin-top:72px">
+      <div>
+        <h3 style="font-size:28px;margin-bottom:4px">Ready to join?</h3>
+        <div style="font-size:16px;color:var(--color-neutral-700)">Register through NCMA Headquarters and put “MetroMD” as your Chapter Preference.</div>
+      </div>
+      <a class="btn btn-primary" href="https://www.ncmahq.org/membership" target="_blank" rel="noopener noreferrer">Join now</a>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ onBoard }}" hint-placeholder-val="{{ false }}">
+  <div class="pg" style="padding-top:48px;padding-bottom:88px">
+    <div class="kick" style="font-size: 40px; font-family: Times New Roman">Leadership</div>
+    <h1 style="font-size: 64px; letter-spacing: -0.02em; margin: 18px 0 22px; line-height: 1.05; font-weight: 600; text-decoration-line: none; font-style: italic; color: #D97C36">Meet the board</h1>
+    <p class="lede">Volunteers run this chapter: former contracting officers, engineers, CPAs and founders. Their contact details are here on purpose — reach out.</p>
+
+    <h2 style="font-size:44px;margin:64px 0 0;max-width:24ch">Officers &amp; Vice Presidents</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:56px 48px;margin-top:56px">
+
+<div>
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-bd-hanks" shape="rect" src="public/images/board-hanks.jpeg" placeholder="Headshot"></image-slot></div>
+        <a href="https://www.linkedin.com/in/jahanks/" target="_blank" rel="noopener noreferrer" aria-label="Jennifer Hanks on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+        <h4 style="font-size:30px;font-weight:700;letter-spacing:-0.01em;margin:10px 0 4px">Jennifer Hanks</h4>
+        <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">President</div>
+        <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+        <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">Founder &amp; CEO, MMC Government Solutions</div>
+        <div class="bmeta" style="display:flex;flex-direction:column;gap:3px;margin-top:8px"><a href="mailto:jahanks@mmcgovsolutions.com">jahanks@mmcgovsolutions.com</a></div>
+        <button class="btn btn-ghost" style="margin-top:10px;padding-left:0" onClick="{{ tog1 }}">Read bio</button>
+        <sc-if value="{{ open1 }}" hint-placeholder-val="{{ false }}">
+          <div onClick="{{ tog1 }}" style="position:fixed;inset:0;z-index:200;background:rgba(32,30,29,0.55);display:flex;align-items:center;justify-content:center;padding:32px">
+            <div onClick="{{ stop }}" style="background:var(--color-bg);max-width:760px;width:100%;max-height:82vh;overflow:auto;padding:44px 48px 48px;box-shadow:var(--shadow-lg);position:relative">
+              <button class="btn btn-icon" onClick="{{ tog1 }}" aria-label="Close" style="position:absolute;top:16px;right:16px">×</button>
+              <h3 style="font-size:32px;margin:0 0 20px;max-width:32ch">Jennifer Hanks</h3>
+              <p class="bio" style="max-width:none">Jennifer Hanks serves as CEO of MMC Government Solutions, a mission-driven firm that Empowers the Possible by advancing excellence, efficiency, and innovation across the federal enterprise. Having managed a portfolio exceeding $6 billion across 10 agencies and operations in 8 countries, MMC leads digital transformation initiatives at the intersection of procurement efficiency and human capital development. Leveraging its patent-pending Thermal Intelligence™ technology, MMC is charting new territory towards acquisition modernization. A former federal contracting officer, Jennifer brings nearly two decades of experience in acquisition management and a deep understanding of the challenges faced by today's procurement professionals. She is widely recognized for her ability to bridge policy and execution, translating workforce and operational challenges into sustainable, scalable solutions that drive measurable impact. Beyond her role at MMC, Jennifer is a respected leader within the National Contract Management Association (NCMA). As co-founder of the NCMA Metro Maryland Chapter, launched in 2024, she helped establish a vibrant hub for industry collaboration, professional development, and mentorship empowering contracting professionals to connect, grow, and lead across government and industry. A classically trained violist, Jennifer holds an M.S. in Management from The Catholic University of America, a Master's Certificate in Government Contracting from The George Washington University, and a B.M. in Music from the University of Miami. She resides in Maryland with her husband, Richard, and their three daughters.</p>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+
+      <div>
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-bd-thomas" shape="rect" src="public/images/board-thomas.png" placeholder="Headshot"></image-slot></div>
+        <a href="https://www.linkedin.com/in/mschyannet/" target="_blank" rel="noopener noreferrer" aria-label="Chyanne Thomas on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+        <h4 style="font-size:30px;font-weight:700;letter-spacing:-0.01em;margin:10px 0 4px">Chyanne Thomas</h4>
+        <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">President-Elect</div>
+        <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+        <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">Founder &amp; CEO, Aurelus Solutions LLC · Army Veteran</div>
+        <div class="bmeta" style="display:flex;flex-direction:column;gap:3px;margin-top:8px"><a href="mailto:cthomas@aurelus.io">cthomas@aurelus.io</a></div>
+        <button class="btn btn-ghost" style="margin-top:10px;padding-left:0" onClick="{{ tog2 }}">Read bio</button>
+        <sc-if value="{{ open2 }}" hint-placeholder-val="{{ false }}">
+          <div onClick="{{ tog2 }}" style="position:fixed;inset:0;z-index:200;background:rgba(32,30,29,0.55);display:flex;align-items:center;justify-content:center;padding:32px">
+            <div onClick="{{ stop }}" style="background:var(--color-bg);max-width:760px;width:100%;max-height:82vh;overflow:auto;padding:44px 48px 48px;box-shadow:var(--shadow-lg);position:relative">
+              <button class="btn btn-icon" onClick="{{ tog2 }}" aria-label="Close" style="position:absolute;top:16px;right:16px">×</button>
+              <h3 style="font-size:32px;margin:0 0 20px;max-width:32ch">Chyanne Thomas</h3>
+              <p class="bio" style="max-width:none">Chyanne Thomas serves as the Vice President of Marketing and Communications for the NCMA MetroMD Chapter, leading strategic branding, outreach, and member engagement efforts. A U.S. Army Veteran and CEO of Aurelus Solutions LLC, she brings over a decade of leadership experience. As an Amazon #1 Best-Selling Author and personal coach her passion is to empower others to lead and live with purpose through personal transformation.</p>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+
+      <div>
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-bd-ibik" shape="rect" placeholder="Headshot"></image-slot></div>
+        <a href="https://www.linkedin.com/in/patience-ibik-bb2339a1/" target="_blank" rel="noopener noreferrer" aria-label="Patience Ibik on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+        <h4 style="font-size:30px;font-weight:700;letter-spacing:-0.01em;margin:10px 0 4px">Patience Ibik</h4>
+        <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">VP — Secretary</div>
+        <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+        <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">Resolute Consulting</div>
+        <a href="mailto:patience.ibik@gmail.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">patience.ibik@gmail.com</a>
+      </div>
+
+      <div>
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-bd-belaineh" shape="rect" src="public/images/board-belaineh.png" placeholder="Headshot"></image-slot></div>
+        <a href="https://www.linkedin.com/in/bbelaineh" target="_blank" rel="noopener noreferrer" aria-label="Bethlehem Belaineh on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+        <h4 style="font-size:30px;font-weight:700;letter-spacing:-0.01em;margin:10px 0 4px">Bethlehem Belaineh</h4>
+        <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">VP — Communications</div>
+        <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+        <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">Founder &amp; CEO, Theory AI</div>
+        <div class="bmeta" style="display:flex;flex-direction:column;gap:3px;margin-top:8px"><a href="mailto:be@theoryai.co">be@theoryai.co</a></div>
+        <button class="btn btn-ghost" style="margin-top:10px;padding-left:0" onClick="{{ tog6 }}">Read bio</button>
+        <sc-if value="{{ open6 }}" hint-placeholder-val="{{ false }}">
+          <div onClick="{{ tog6 }}" style="position:fixed;inset:0;z-index:200;background:rgba(32,30,29,0.55);display:flex;align-items:center;justify-content:center;padding:32px">
+            <div onClick="{{ stop }}" style="background:var(--color-bg);max-width:760px;width:100%;max-height:82vh;overflow:auto;padding:44px 48px 48px;box-shadow:var(--shadow-lg);position:relative">
+              <button class="btn btn-icon" onClick="{{ tog6 }}" aria-label="Close" style="position:absolute;top:16px;right:16px">×</button>
+              <h3 style="font-size:32px;margin:0 0 20px;max-width:32ch">Bethlehem Belaineh</h3>
+              <p class="bio" style="max-width:none">Bethlehem is the Founder &amp; CEO of Theory AI, a dynamic technology consulting firm, and agoras health based in Washington, DC. Through her work with her startups, Bethlehem leads the development and launch of workflow automation, gamification, and other exciting products that speed up business needs and enhance user engagement for customers and stakeholders across diverse contexts and markets. Theory AI delivers AI-native Market Research, Product/Software Development, and Management Consulting services that address complex challenges in healthcare, education, and federal sectors to a wide variety of clients ranging from Government Technology firms to High-Growth startups. A thought leader in the Artificial Intelligence (AI) space, and with over a decade of experience in product management and strategy, Bethlehem holds multiple SCRUM certifications, such as ScrumMaster (CSM) and Scrum Product Owner (CSPO), and Advanced Scrum Product Owner (A-CSPO). Bethlehem holds a Bachelor of Science (BS) in Biological Physics, Economics from Brandeis University, a Master of Engineering degree in Data Analytics Engineering (MEng) from George Mason University and is working on completing her Masters of Information Systems (MIS) from George Mason University as well as a Masters of Business Administration (MBA) from Northwestern University.</p>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+
+            <div>
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-bd-frazier" shape="rect" placeholder="Headshot"></image-slot></div>
+        <a href="https://www.linkedin.com/in/monique-frazier-mba/" target="_blank" rel="noopener noreferrer" aria-label="Monique Frazier on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+        <h4 style="font-size:30px;font-weight:700;letter-spacing:-0.01em;margin:10px 0 4px">Monique Frazier</h4>
+        <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">VP — University Outreach</div>
+        <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+        <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">Infosys Public Services</div>
+        <a href="mailto:monique.frazier@infosys.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">monique.frazier@infosys.com</a>
+      </div>
+
+      <div>
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-bd-grimsley" shape="rect" placeholder="Headshot"></image-slot></div>
+        <a href="https://www.linkedin.com/in/antaviagrimsley/" target="_blank" rel="noopener noreferrer" aria-label="Antavia Grimsley on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+        <h4 style="font-size:30px;font-weight:700;letter-spacing:-0.01em;margin:10px 0 4px">Antavia Grimsley</h4>
+        <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">VP — Programs</div>
+        <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-accent-2-700)">Government (Federal)</div>
+        <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">Elite Veteran Enterprises, LLC</div>
+        <a href="mailto:antavia@eliteveteranenterprises.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">antavia@eliteveteranenterprises.com</a>
+      </div>
+
+      <div>
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-bd-hanksrd" shape="rect" placeholder="Headshot"></image-slot></div>
+        <a href="https://www.linkedin.com/in/richarddhanksmmc/" target="_blank" rel="noopener noreferrer" aria-label="Richard Hanks on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+        <h4 style="font-size:30px;font-weight:700;letter-spacing:-0.01em;margin:10px 0 4px">Richard Hanks</h4>
+        <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">VP — Strategic Initiatives</div>
+        <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700)">Industry, Former Government (State/Local)</div>
+        <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">MMC Government Solutions</div>
+        <a href="mailto:rdhanks@mmcgovsolutions.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">rdhanks@mmcgovsolutions.com</a>
+      </div>
+
+      <div>
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-bd-hopson" shape="rect" src="public/images/board-hopson.jpeg" placeholder="Headshot"></image-slot></div>
+        <a href="https://linkedin.com/in/sonya-hopson-97817020" target="_blank" rel="noopener noreferrer" aria-label="Sonya Hopson on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+        <h4 style="font-size:30px;font-weight:700;letter-spacing:-0.01em;margin:10px 0 4px">Sonya Hopson</h4>
+        <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">VP — Operations</div>
+        <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700)">Industry, Former Government (Federal)</div>
+        <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">Founder &amp; CEO, Sage Services Group LLC</div>
+        <div class="bmeta" style="display:flex;flex-direction:column;gap:3px;margin-top:8px"><a href="mailto:sonya@sageservicesgroupllc.com">sonya@sageservicesgroupllc.com</a></div>
+        <button class="btn btn-ghost" style="margin-top:10px;padding-left:0" onClick="{{ tog3 }}">Read bio</button>
+        <sc-if value="{{ open3 }}" hint-placeholder-val="{{ false }}">
+          <div onClick="{{ tog3 }}" style="position:fixed;inset:0;z-index:200;background:rgba(32,30,29,0.55);display:flex;align-items:center;justify-content:center;padding:32px">
+            <div onClick="{{ stop }}" style="background:var(--color-bg);max-width:760px;width:100%;max-height:82vh;overflow:auto;padding:44px 48px 48px;box-shadow:var(--shadow-lg);position:relative">
+              <button class="btn btn-icon" onClick="{{ tog3 }}" aria-label="Close" style="position:absolute;top:16px;right:16px">×</button>
+              <h3 style="font-size:32px;margin:0 0 20px;max-width:32ch">Sonya Hopson</h3>
+              <p class="bio" style="max-width:none">Sonya is the CEO of Sage Services Group LLC, a professional services firm. For 15 years, Sage has provided training, human capital, engineering, and project management services to more than 20 government and commercial clients. Over the last 15 years, Sage's strategic guidance on mission critical projects has propelled organizations to optimal operational performance and sustained organizational effectiveness. Sonya is a graduate of Norfolk State (Physics), UMD (Mechanical Engineering), and George Washington University (Education Leadership). She is an active volunteer in the following organizations DECA, NCMA, NMSDC, WBENC, as well as her church and her sorority.</p>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+
+      <div>
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-bd-ingol" shape="rect" src="public/images/board-ingol.jpeg" placeholder="Headshot"></image-slot></div>
+        <a href="https://www.linkedin.com/in/lester-l-ingol-b09591a1/" target="_blank" rel="noopener noreferrer" aria-label="Lester L. Ingol on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+        <h4 style="font-size:30px;font-weight:700;letter-spacing:-0.01em;margin:10px 0 4px">Lester L. Ingol</h4>
+        <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">VP — Membership</div>
+        <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700)">Industry, Former Government (Federal)</div>
+        <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">Chief Operating Officer, Blue Line Global, LLC</div>
+        <button class="btn btn-ghost" style="margin-top:10px;padding-left:0" onClick="{{ tog13 }}">Read bio</button>
+        <sc-if value="{{ open13 }}" hint-placeholder-val="{{ false }}">
+          <div onClick="{{ tog13 }}" style="position:fixed;inset:0;z-index:200;background:rgba(32,30,29,0.55);display:flex;align-items:center;justify-content:center;padding:32px">
+            <div onClick="{{ stop }}" style="background:var(--color-bg);max-width:760px;width:100%;max-height:82vh;overflow:auto;padding:44px 48px 48px;box-shadow:var(--shadow-lg);position:relative">
+              <button class="btn btn-icon" onClick="{{ tog13 }}" aria-label="Close" style="position:absolute;top:16px;right:16px">×</button>
+              <h3 style="font-size:32px;margin:0 0 20px;max-width:32ch">Lester L. Ingol</h3>
+              <p class="bio" style="max-width:none">Lester L. Ingol serves as the Chief Operating Officer of Blue Line Global, LLC, where he leads the firm’s strategic and operational execution across its diverse mission portfolio. In this capacity, he drives organizational performance, operational excellence, and sustainable growth, ensuring alignment between enterprise objectives and client impact. Mr. Ingol is known for cultivating high-performing teams, instituting disciplined management frameworks, and applying mission-focused leadership grounded in decades of federal service. Prior to joining Blue Line Global, Mr. Ingol held multiple senior executive roles within the Federal Emergency Management Agency (FEMA), including Assistant Administrator for the Office of Business Management and Acting Chief Security Officer. Overseeing a $9 billion budget, he led complex portfolios in procurement, logistics, workforce development, and continuity readiness, shaping enterprise resilience and fiscal accountability. As Deputy Head of the Contracting Activity, he directed a $3.76 billion acquisition portfolio and nearly 10,000 annual procurement transactions, modernizing acquisition governance and performance oversight. A U.S. Marine Corps veteran and former U.S. Army Contracting Officer, Mr. Ingol has supported national responses to crises from Hurricane Katrina to the COVID-19 pandemic. He holds a Master’s in Management and Leadership from Webster University, a Bachelor’s in Management from Park University, and is a Senior Executive Fellow of Harvard University’s Kennedy School of Government and an alumnus of The Brookings Institution Executive Leadership Program.</p>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+
+      <div>
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-bd-mcgraw" shape="rect" placeholder="Headshot"></image-slot></div>
+        <a href="https://www.linkedin.com/in/darrell-mcgraw-6b30911/" target="_blank" rel="noopener noreferrer" aria-label="Darrell McGraw on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+        <h4 style="font-size:30px;font-weight:700;letter-spacing:-0.01em;margin:10px 0 4px">Darrell McGraw</h4>
+        <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">VP — Development (Fundraising)</div>
+        <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+        <div style="font-size:14px;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">President &amp; CEO, Q2 Consulting Solutions LLC</div>
+        <button class="btn btn-ghost" style="margin-top:10px;padding-left:0" onClick="{{ tog11 }}">Read bio</button>
+        <sc-if value="{{ open11 }}" hint-placeholder-val="{{ false }}">
+          <div onClick="{{ tog11 }}" style="position:fixed;inset:0;z-index:200;background:rgba(32,30,29,0.55);display:flex;align-items:center;justify-content:center;padding:32px">
+            <div onClick="{{ stop }}" style="background:var(--color-bg);max-width:760px;width:100%;max-height:82vh;overflow:auto;padding:44px 48px 48px;box-shadow:var(--shadow-lg);position:relative">
+              <button class="btn btn-icon" onClick="{{ tog11 }}" aria-label="Close" style="position:absolute;top:16px;right:16px">×</button>
+              <h3 style="font-size:32px;margin:0 0 20px;max-width:32ch">Darrell McGraw</h3>
+              <p class="bio" style="max-width:none">Mr. McGraw is President and CEO of Q2 Consulting Solutions LLC, a certified 8(a) company and Maryland State certified MBE, DBE, and SBE. He is an experienced executive and entrepreneur with over 25 years of technical management consulting experience with Fortune 500 companies including KPMG, Booz Allen Hamilton, and Accenture. He has been instrumental in bridging the gaps between technology and professional services for Federal clients to include digital and transformational efforts. Mr. McGraw holds a Master of Science (MS) in Information Systems Technology from George Washington University and a Bachelor of Art (BS) in Economics from the University of Maryland. He is also a certified Project Management Professional (PMP), Scheduling Professional (PMI-SP), LSS Green Belt, ITIL and Scum Master. In his spare time, he loves to give back to the community via non-profits, providing executive level guidance, governance, partnerships and management consulting advisory support as well as an active member of his Church – Mt. Calvary Baptist Church in Rockville Md.</p>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+
+            <div>
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-bd-moore" shape="rect" src="public/images/board-moore.jpeg" placeholder="Headshot"></image-slot></div>
+        <a href="https://www.linkedin.com/in/dawn-moore-6595074b/" target="_blank" rel="noopener noreferrer" aria-label="COL Dawn Moore on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+        <h4 style="font-size:30px;font-weight:700;letter-spacing:-0.01em;margin:10px 0 4px">COL Dawn Moore</h4>
+        <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">VP — Government Relations &amp; Policy</div>
+        <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-accent-2-700);margin-top:6px">Government (Federal)</div>
+        <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">Office of the Chief, Army Reserve</div>
+        <a href="mailto:dawn_eakins@yahoo.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">dawn_eakins@yahoo.com</a>
+      </div>
+
+      <div>
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-bd-pace" shape="rect" placeholder="Headshot"></image-slot></div>
+        <a href="https://www.linkedin.com/in/dr-cynthia-pace-50a5b936a/" target="_blank" rel="noopener noreferrer" aria-label="Dr. Cynthia Pace on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+        <h4 style="font-size:30px;font-weight:700;letter-spacing:-0.01em;margin:10px 0 4px">Dr. Cynthia Pace</h4>
+        <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">VP — Training &amp; Education</div>
+        <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+        <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">C. O. Pace, “The Leadership Guru,” LLC</div>
+        <a href="mailto:cpace@leadershipguru.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">cpace@leadershipguru.com</a>
+      </div>
+
+      <div>
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-bd-sistrunk" shape="rect" src="public/images/board-sistrunk.jpeg" placeholder="Headshot"></image-slot></div>
+        <a href="https://www.linkedin.com/in/joyessistrunkcpa" target="_blank" rel="noopener noreferrer" aria-label="Joye Sistrunk on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+        <h4 style="font-size:30px;font-weight:700;letter-spacing:-0.01em;margin:10px 0 4px">Joye Sistrunk, CPA</h4>
+        <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">VP — Treasurer</div>
+        <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+        <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">President &amp; CEO, Premier Group Services, Inc.</div>
+        <div class="bmeta" style="display:flex;flex-direction:column;gap:3px;margin-top:8px"><a href="mailto:accounting@pgs-cpa.com">accounting@pgs-cpa.com</a></div>
+        <button class="btn btn-ghost" style="margin-top:10px;padding-left:0" onClick="{{ tog7 }}">Read bio</button>
+        <sc-if value="{{ open7 }}" hint-placeholder-val="{{ false }}">
+          <div onClick="{{ tog7 }}" style="position:fixed;inset:0;z-index:200;background:rgba(32,30,29,0.55);display:flex;align-items:center;justify-content:center;padding:32px">
+            <div onClick="{{ stop }}" style="background:var(--color-bg);max-width:760px;width:100%;max-height:82vh;overflow:auto;padding:44px 48px 48px;box-shadow:var(--shadow-lg);position:relative">
+              <button class="btn btn-icon" onClick="{{ tog7 }}" aria-label="Close" style="position:absolute;top:16px;right:16px">×</button>
+              <h3 style="font-size:32px;margin:0 0 20px;max-width:32ch">Joye Sistrunk, CPA</h3>
+              <p class="bio" style="max-width:none">Joye Sistrunk, CPA, is founder and CEO of Premier Group Services, Inc., a Forbes Top 200 CPA firm established in 2005. As an Air Force Reserves veteran with degrees in Accounting and International Business, she brings unique expertise in federal compliance and procurement to lead a team of over 40 professionals delivering audit and advisory services nationwide. Under Joye's leadership, Premier Group has become a trusted partner to federal agencies, Offices of Inspector General, and government contractors, including DOE OIG, EPA, USTDA, and AmeriCorps. The firm specializes in GAGAS-compliant financial statement audits, federal grant compliance reviews, single audits, cybersecurity assessments, and performance audits. Premier Group holds multiple small business certifications—WOSB, EDWOSB, SDB, VOSB, and SDVOSB—reflecting Joye's commitment to expanding opportunities for diverse businesses in federal contracting. Her military service instilled values of integrity, discipline, and mission focus that shape the firm's culture and approach to client service. Joye's expertise in federal regulations, combined with her entrepreneurial vision, has positioned Premier Group as a premier provider of compliance and audit services. Her leadership demonstrates how technical excellence, combined with deep understanding of government operations, creates lasting value for public sector clients and strengthens accountability in federal programs.</p>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+
+    </div>
+
+    <div style="margin-top:120px">
+      <div class="kick">Directors</div>
+      <h2 style="font-size:44px;margin:10px 0 0;max-width:24ch">Directors</h2>
+      <p class="lede" style="margin-top:20px;max-width:62ch">Directors lead the chapter’s standing programs — training, networking, operations and outreach — alongside the officers.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:56px 48px;margin-top:56px">
+<div>
+          <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-dir-akinrogunde" shape="rect" placeholder="Headshot"></image-slot></div>
+          <a href="https://www.linkedin.com/in/patricia-o-a-6285251a/" target="_blank" rel="noopener noreferrer" aria-label="Dr. Patricia Akinrogunde on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+          <h4 style="font-size:28px;font-weight:700;letter-spacing:-0.01em;line-height:1.15;margin:10px 0 4px">Dr. Patricia Akinrogunde</h4>
+          <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">Director — Training</div>
+          <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Government (Federal)</div>
+          <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">Founder &amp; CEO, The Triple Joy Group, LLC</div>
+          <button class="btn btn-ghost" style="margin-top:10px;padding-left:0" onClick="{{ tog15 }}">Read bio</button>
+          <sc-if value="{{ open15 }}" hint-placeholder-val="{{ false }}">
+            <div onClick="{{ tog15 }}" style="position:fixed;inset:0;z-index:200;background:rgba(32,30,29,0.55);display:flex;align-items:center;justify-content:center;padding:32px">
+              <div onClick="{{ stop }}" style="background:var(--color-bg);max-width:760px;width:100%;max-height:82vh;overflow:auto;padding:44px 48px 48px;box-shadow:var(--shadow-lg);position:relative">
+                <button class="btn btn-icon" onClick="{{ tog15 }}" aria-label="Close" style="position:absolute;top:16px;right:16px">×</button>
+                <h3 style="font-size:32px;margin:0 0 20px;max-width:32ch">Dr. Patricia Akinrogunde</h3>
+                <p class="bio" style="max-width:none">Dr. Patricia Akinrogunde is a seasoned Federal Contracting Professional with over 15 years of experience in acquisition, procurement policy, and program management across multiple HUD portfolios. She currently serves as Vice President of Education for the NCMA Metro Maryland Chapter, leading efforts to advance professional development and training initiatives. Beyond federal service, Dr. Akinrogunde is the Founder and CEO of The Triple Joy Group, LLC, a leadership development and consulting firm specializing in DISC workshops, executive coaching, and organizational growth. She is passionate about empowering individuals and teams to lead with authenticity, purpose, and joy.</p>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+
+        <div>
+          <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-dir-alexander" shape="rect" placeholder="Headshot"></image-slot></div>
+          <a href="https://www.linkedin.com/in/stella-alexander-sergeeff-0b407534b/" target="_blank" rel="noopener noreferrer" aria-label="Stella Alexander-Sergeeff on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+          <h4 style="font-size:28px;font-weight:700;letter-spacing:-0.01em;line-height:1.15;margin:10px 0 4px">Stella Alexander-Sergeeff</h4>
+          <div class="kick" style="font-size:12px;letter-spacing:0.06em">Director — Mentoring</div>
+          <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+        </div>
+
+<div>
+          <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-dir-anderson" shape="rect" placeholder="Headshot"></image-slot></div>
+          <a href="https://www.linkedin.com/in/renita-anderson-46b47111/" target="_blank" rel="noopener noreferrer" aria-label="Renita Anderson on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+          <h4 style="font-size:28px;font-weight:700;letter-spacing:-0.01em;line-height:1.15;margin:10px 0 4px">Renita Anderson</h4>
+          <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">Director — Programs</div>
+          <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+          <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">CEO, Defense Technology Integration (DTI), LLC</div>
+          <a href="mailto:randerson@deftechno.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">randerson@deftechno.com</a>
+          <button class="btn btn-ghost" style="margin-top:10px;padding-left:0" onClick="{{ tog16 }}">Read bio</button>
+          <sc-if value="{{ open16 }}" hint-placeholder-val="{{ false }}">
+            <div onClick="{{ tog16 }}" style="position:fixed;inset:0;z-index:200;background:rgba(32,30,29,0.55);display:flex;align-items:center;justify-content:center;padding:32px">
+              <div onClick="{{ stop }}" style="background:var(--color-bg);max-width:760px;width:100%;max-height:82vh;overflow:auto;padding:44px 48px 48px;box-shadow:var(--shadow-lg);position:relative">
+                <button class="btn btn-icon" onClick="{{ tog16 }}" aria-label="Close" style="position:absolute;top:16px;right:16px">×</button>
+                <h3 style="font-size:32px;margin:0 0 20px;max-width:32ch">Renita Anderson</h3>
+                <p class="bio" style="max-width:none">CEO, Defense Technology Integration (DTI), LLC, a professional services Information Technology (IT) firm. She is a Senior Executive results-driven Systems Engineer providing strategy for critical IT enterprise services to Federal Government and Private Sector customers. Services include cybersecurity, network engineering, AI, service desk, program management, system administration, data analytics, database administration, technical writing, data center, acquisition support, and scientific research services. Ms. Anderson previously served as the Deputy Branch Chief of Management at FDIC, Chief Information Officer at the Federal Retirement Thrift Investment Board, Deputy Director for Management and Operations at NIH, managing a $300 million Agency-wide Information Technology program for 19 years, Program Manager at NASA and Avionics Test Engineer at the Naval Air Test Patuxent River. Ms. Anderson received her B.S. in Electrical Engineering from Norfolk State University and M.S. from Johns Hopkins Whiting School of Engineering.</p>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+
+        <div>
+          <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-dir-bracey" shape="rect" placeholder="Headshot"></image-slot></div>
+          <h4 style="font-size:28px;font-weight:700;letter-spacing:-0.01em;line-height:1.15;margin:10px 0 4px">Dr. LaShonda Bracey</h4>
+          <div class="kick" style="font-size:12px;letter-spacing:0.06em">Director — Social Media</div>
+          <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+          <a href="mailto:info@lashondabracey.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">info@lashondabracey.com</a>
+        </div>
+
+        <div>
+          <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-dir-canery" shape="rect" placeholder="Headshot"></image-slot></div>
+          <h4 style="font-size:28px;font-weight:700;letter-spacing:-0.01em;line-height:1.15;margin:10px 0 4px">Jon Canery</h4>
+          <div class="kick" style="font-size:12px;letter-spacing:0.06em">Director — Media</div>
+          <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+          <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">Coalmine Photography</div>
+          <a href="mailto:jon.canery@coalminephotography.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">jon.canery@coalminephotography.com</a>
+        </div>
+
+        <div>
+          <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-dir-clark" shape="rect" src="public/images/board-clark.jpg" placeholder="Headshot"></image-slot></div>
+          <h4 style="font-size:28px;font-weight:700;letter-spacing:-0.01em;line-height:1.15;margin:10px 0 4px">Major Clark</h4>
+          <div class="kick" style="font-size:12px;letter-spacing:0.06em">Director — University Outreach</div>
+          <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+          <a href="mailto:majclk3@verizon.net" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">majclk3@verizon.net</a>
+        </div>
+
+        <div>
+          <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-dir-gray" shape="rect" placeholder="Headshot"></image-slot></div>
+          <h4 style="font-size:28px;font-weight:700;letter-spacing:-0.01em;line-height:1.15;margin:10px 0 4px">Sharlyn Gray</h4>
+          <div class="kick" style="font-size:12px;letter-spacing:0.06em">Director — Chapter Volunteers</div>
+          <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+          <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">Q.O.L Security Solutions</div>
+          <a href="mailto:qolsecsolutions@outlook.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">qolsecsolutions@outlook.com</a>
+        </div>
+
+        <div>
+          <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-dir-irby" shape="rect" placeholder="Headshot"></image-slot></div>
+          <h4 style="font-size:28px;font-weight:700;letter-spacing:-0.01em;line-height:1.15;margin:10px 0 4px">Serapis Irby</h4>
+          <div class="kick" style="font-size:12px;letter-spacing:0.06em">Director — Recruitment</div>
+          <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+          <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">Oasis Global Solutions</div>
+          <a href="mailto:serapisg@gmail.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">serapisg@gmail.com</a>
+        </div>
+
+        <div>
+          <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-dir-jones" shape="rect" placeholder="Headshot"></image-slot></div>
+          <h4 style="font-size:28px;font-weight:700;letter-spacing:-0.01em;line-height:1.15;margin:10px 0 4px">QC Jones</h4>
+          <div class="kick" style="font-size:12px;letter-spacing:0.06em">Director — Government Relations &amp; Policy</div>
+          <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+          <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">Nolan Mackenzie</div>
+          <a href="mailto:qcjones@nolanmac.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">qcjones@nolanmac.com</a>
+        </div>
+
+        <div>
+          <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-dir-mills" shape="rect" placeholder="Headshot"></image-slot></div>
+          <h4 style="font-size:28px;font-weight:700;letter-spacing:-0.01em;line-height:1.15;margin:10px 0 4px">Vanetta Mills</h4>
+          <div class="kick" style="font-size:12px;letter-spacing:0.06em">Director — Records</div>
+          <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+        </div>
+
+<div>
+          <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-dir-parson" shape="rect" placeholder="Headshot"></image-slot></div>
+          <a href="https://www.linkedin.com/in/drstephanieparson/" target="_blank" rel="noopener noreferrer" aria-label="Dr. Stephanie Parson on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+          <h4 style="font-size:28px;font-weight:700;letter-spacing:-0.01em;line-height:1.15;margin:10px 0 4px">Dr. Stephanie Parson</h4>
+          <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">Director — Training &amp; Education</div>
+          <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+          <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">President &amp; CEO, Crowned Grace International</div>
+          <a href="mailto:saparson@crownedgrace.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">saparson@crownedgrace.com</a>
+          <button class="btn btn-ghost" style="margin-top:10px;padding-left:0" onClick="{{ tog17 }}">Read bio</button>
+          <sc-if value="{{ open17 }}" hint-placeholder-val="{{ false }}">
+            <div onClick="{{ tog17 }}" style="position:fixed;inset:0;z-index:200;background:rgba(32,30,29,0.55);display:flex;align-items:center;justify-content:center;padding:32px">
+              <div onClick="{{ stop }}" style="background:var(--color-bg);max-width:760px;width:100%;max-height:82vh;overflow:auto;padding:44px 48px 48px;box-shadow:var(--shadow-lg);position:relative">
+                <button class="btn btn-icon" onClick="{{ tog17 }}" aria-label="Close" style="position:absolute;top:16px;right:16px">×</button>
+                <h3 style="font-size:32px;margin:0 0 20px;max-width:32ch">Dr. Stephanie Parson</h3>
+                <p class="bio" style="max-width:none">Dr. Stephanie Parson is a visionary leader, business strategist and executive coach with a proven track record in organizational transformation, leadership development and conflict resolution.</p>
+                <p class="bio" style="max-width:none;margin-top:20px">As president and CEO of Crowned Grace International (CGINTL), she leads a global consulting firm specializing in mission support, information technology (IT) services and organizational change. Since 2003, CGINTL has supported federal agencies – including the U.S. Department of Defense, FEMA and the U.S. Army – as well as private sector clients across 17 countries. The firm’s excellence earned it recognition as an Inc. 5000 awardee.</p>
+                <p class="bio" style="max-width:none;margin-top:20px">With over 20 years of Fortune 100 executive experience, Dr. Parson helps businesses and government agencies streamline operations, develop leadership and drive sustainable growth. She has personally coached over 300 global executives and trained more than 7,000 professionals in leadership, business strategy and performance optimization.</p><div style="margin-top:24px"><div style="font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-700)">Corporate &amp; Military Experience</div><p class="bio" style="max-width:none;margin-top:10px">Before founding CGINTL, Dr. Parson held executive roles at major corporations:</p><ul style="font-size:17px;line-height:1.65;margin:12px 0 0;padding-left:20px;color:var(--color-neutral-800)"><li>Vice President, Walt Disney World – Led IT strategy, procurement and training. She established Disney’s first strategic planning process and Program Management Office, boosting efficiency and revenue.</li><li>Vice President and CIO, Parsons Brinckerhoff (now WSP) – Oversaw global IT strategy for an 8,000-employee engineering firm with 200+ offices worldwide.</li><li>Director, Seagram Spirits and Wine Company – Managed a $15M operations budget and a $24M capital budget, leading global IT teams.</li><li>U.S. Air Force Veteran – A decorated officer before transitioning to the corporate sector.</li></ul></div>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+
+        <div>
+          <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-dir-queen" shape="rect" placeholder="Headshot"></image-slot></div>
+          <h4 style="font-size:28px;font-weight:700;letter-spacing:-0.01em;line-height:1.15;margin:10px 0 4px">Dr. Oliver Queen</h4>
+          <div class="kick" style="font-size:12px;letter-spacing:0.06em">Director — Program Operations</div>
+          <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-accent-2-700);margin-top:6px">Government (Federal)</div>
+          <a href="mailto:oliver.queen74@gmail.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">oliver.queen74@gmail.com</a>
+        </div>
+
+<div>
+          <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-dir-robinson" shape="rect" placeholder="Headshot"></image-slot></div>
+          <a href="https://www.linkedin.com/in/brandon-r-06440859/" target="_blank" rel="noopener noreferrer" aria-label="Brandon Robinson on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+          <h4 style="font-size:28px;font-weight:700;letter-spacing:-0.01em;line-height:1.15;margin:10px 0 4px">Brandon Robinson</h4>
+          <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">Director — Operations</div>
+          <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+          <button class="btn btn-ghost" style="margin-top:10px;padding-left:0" onClick="{{ tog14 }}">Read bio</button>
+          <sc-if value="{{ open14 }}" hint-placeholder-val="{{ false }}">
+            <div onClick="{{ tog14 }}" style="position:fixed;inset:0;z-index:200;background:rgba(32,30,29,0.55);display:flex;align-items:center;justify-content:center;padding:32px">
+              <div onClick="{{ stop }}" style="background:var(--color-bg);max-width:760px;width:100%;max-height:82vh;overflow:auto;padding:44px 48px 48px;box-shadow:var(--shadow-lg);position:relative">
+                <button class="btn btn-icon" onClick="{{ tog14 }}" aria-label="Close" style="position:absolute;top:16px;right:16px">×</button>
+                <h3 style="font-size:32px;margin:0 0 20px;max-width:32ch">Brandon Robinson</h3>
+                <p class="bio" style="max-width:none">Brandon is a dynamic Talent Acquisition, Operations, and DEI leader with more than 15 years of experience driving strategic recruitment, workforce planning, employee engagement, and operational excellence across government, nonprofit, healthcare, education, and corporate sectors. Throughout his career, he has successfully led high-volume, full-cycle recruiting initiatives while partnering with executive leadership, hiring managers, and cross-functional teams to identify and secure top talent that supports organizational growth and performance. His expertise includes talent pipeline development, HR operations, onboarding, project coordination, compensation analysis, and implementing data-driven recruiting strategies that foster inclusive and high-performing workplace cultures.</p>
+                <p class="bio" style="max-width:none;margin-top:20px">Brandon has extensive experience managing recruitment efforts for roles ranging from entry-level professionals to executive leadership positions within federal government, healthcare, technology, and nonprofit organizations. He is skilled at developing targeted sourcing strategies, improving recruitment processes, enhancing candidate experiences, and implementing diversity-focused hiring initiatives that strengthen employee engagement and retention. He leverages ATS platforms, recruitment analytics, and relationship-building strategies to deliver measurable hiring outcomes in fast-paced environments.</p>
+                <p class="bio" style="max-width:none;margin-top:20px">In addition to talent acquisition, Brandon’s background includes operations management, education, program leadership, and executive support, which has strengthened his ability to lead teams, manage complex projects, and build collaborative partnerships. He is recognized for his strong communication skills, stakeholder engagement, leadership development, and ability to align talent strategies with organizational objectives while consistently delivering results that exceed expectations.</p>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+
+        <div>
+          <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-dir-scott" shape="rect" placeholder="Headshot"></image-slot></div>
+          <h4 style="font-size:28px;font-weight:700;letter-spacing:-0.01em;line-height:1.15;margin:10px 0 4px">Tracy Scott</h4>
+          <div class="kick" style="font-size:12px;letter-spacing:0.06em">Director — Association Relations</div>
+          <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+          <a href="mailto:tracy.r.scott1@gmail.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">tracy.r.scott1@gmail.com</a>
+        </div>
+
+<div>
+          <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-dir-sheckles" shape="rect" src="public/images/board-sheckles.jpeg" placeholder="Headshot"></image-slot></div>
+          <a href="https://www.linkedin.com/in/megan-mj-sheckles-shrm-cp-7670496/" target="_blank" rel="noopener noreferrer" aria-label="Megan Sheckles on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+          <h4 style="font-size:28px;font-weight:700;letter-spacing:-0.01em;line-height:1.15;margin:10px 0 4px">Megan Sheckles</h4>
+          <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">Director — Networking</div>
+          <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+          <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">Founder &amp; CEO, Powered by MJ LLC</div>
+          <a href="mailto:info@mjpowered.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">info@mjpowered.com</a>
+          <button class="btn btn-ghost" style="margin-top:10px;padding-left:0" onClick="{{ tog18 }}">Read bio</button>
+          <sc-if value="{{ open18 }}" hint-placeholder-val="{{ false }}">
+            <div onClick="{{ tog18 }}" style="position:fixed;inset:0;z-index:200;background:rgba(32,30,29,0.55);display:flex;align-items:center;justify-content:center;padding:32px">
+              <div onClick="{{ stop }}" style="background:var(--color-bg);max-width:760px;width:100%;max-height:82vh;overflow:auto;padding:44px 48px 48px;box-shadow:var(--shadow-lg);position:relative">
+                <button class="btn btn-icon" onClick="{{ tog18 }}" aria-label="Close" style="position:absolute;top:16px;right:16px">×</button>
+                <h3 style="font-size:32px;margin:0 0 20px;max-width:32ch">Megan Sheckles</h3>
+                <p class="bio" style="max-width:none">Megan (MJ) Sheckles, a serial CEO who exudes a passion for people and a mission to help individuals and businesses thrive by unlocking their full potential of growth and excellence. Megan to create Powered by MJ LLC, an HR Solutions firm that provides fractional HR support, talent acquisition management and HR operations/employee relations to small businesses that are ready to prioritize their greatest asset—their people. Her expertise is backed by certifications, including the Society of Human Resources Management - Certified Professional (SHRM-CP) designation, HR Management certification from George Mason University, the Executive Strategic Inclusion Practitioner certification from Georgetown University, and an Organizational Development certification from Northwestern University.</p>
+                <p class="bio" style="max-width:none;margin-top:20px">Being a serial CEO, her expertise doesn’t stop at HR. She also runs MJ Events Management LLC, a boutique event management company in DC, MD, VA and Kentucky markets, specializing in weddings, group travel, corporate and government contracting. Lastly, Megan’s most loved Founder/CEO title is with Get Moving With MJ LLC, where she specializes in real estate investing, mentorship and is an multi award-winning licensed realtor servicing DC, Maryland and Virginia.</p>
+                <p class="bio" style="max-width:none;margin-top:20px">When Megan isn’t leading businesses, she is supporting her alma mater, University of Louisville, as their Chapter President in DC, MD and VA, partnering and developing personally and professionally as an inductee of The BOW Collective, a black women-owned entrepreneurship organization as well as indulging in her love of travel, spa days, and reading.</p>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+
+        <div>
+          <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-dir-uddin" shape="rect" placeholder="Headshot"></image-slot></div>
+          <a href="https://www.linkedin.com/in/akil-uddin-54b88718/" target="_blank" rel="noopener noreferrer" aria-label="Akil Uddin on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+          <h4 style="font-size:28px;font-weight:700;letter-spacing:-0.01em;line-height:1.15;margin:10px 0 4px">Akil Uddin</h4>
+          <div class="kick" style="font-size:12px;letter-spacing:0.06em">Director — Website Administration &amp; Technology</div>
+          <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+          <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">AIN LLC</div>
+          <a href="mailto:akil@ainintel.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">akil@ainintel.com</a>
+        </div>
+
+        <div>
+          <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-dir-venable" shape="rect" placeholder="Headshot"></image-slot></div>
+          <a href="https://www.linkedin.com/in/christivenable/" target="_blank" rel="noopener noreferrer" aria-label="Christi Venable on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+          <h4 style="font-size:28px;font-weight:700;letter-spacing:-0.01em;line-height:1.15;margin:10px 0 4px">Christi Venable</h4>
+          <div class="kick" style="font-size:12px;letter-spacing:0.06em">Director — Wellness</div>
+          <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+          <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">Smile Therapy Services</div>
+          <a href="mailto:cvenable@smiletherapyservices.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">cvenable@smiletherapyservices.com</a>
+        </div>
+
+        <div>
+          <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-dir-wilkinsonj" shape="rect" placeholder="Headshot"></image-slot></div>
+          <a href="https://www.linkedin.com/in/dr-john-w-wilkinson-pmp-cpcm-cfcm-2a55324/" target="_blank" rel="noopener noreferrer" aria-label="Dr. John Wilkinson on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+          <h4 style="font-size:28px;font-weight:700;letter-spacing:-0.01em;line-height:1.15;margin:10px 0 4px">Dr. John Wilkinson</h4>
+          <div class="kick" style="font-size:12px;letter-spacing:0.06em">Director — Fellows</div>
+          <div style="font-size:11px;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+          <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">tHInc, LLC</div>
+          <a href="mailto:jwilkinson@thinc-llc.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">jwilkinson@thinc-llc.com</a>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="advisors" style="margin-top:120px;scroll-margin-top:96px">
+      <div class="kick" style="font-size: 40px">Advisory</div>
+      <h2 style="font-size: 44px; margin: 10px 0 0; max-width: 24ch; color: #E8960D">Board of Advisors</h2>
+      <p class="lede" style="margin-top:20px;max-width:62ch">Senior practitioners from industry and government who counsel the chapter on strategy, partnerships, and professional development.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:56px 48px;margin-top:56px">
+      <div>
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-adv-hanksj" shape="rect" placeholder="Headshot"></image-slot></div>
+        <a href="https://www.linkedin.com/in/jahanks/" target="_blank" rel="noopener noreferrer" aria-label="Jennifer Hanks on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+        <h4 style="font-size:24px;margin:6px 0 2px">Jennifer Hanks</h4>
+        <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">Board of Advisors — President</div>
+        <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">MMC Government Solutions</div>
+        <div style="font-size:12px;letter-spacing:0.06em;white-space:nowrap;text-transform:uppercase;color:var(--color-neutral-700);margin-top:6px">Industry, Former Government (Federal)</div>
+        <a href="mailto:jahanks@mmcgovsolutions.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">jahanks@mmcgovsolutions.com</a>
+      </div>
+
+      <div>
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-adv-hanksr" shape="rect" placeholder="Headshot"></image-slot></div>
+        <a href="https://www.linkedin.com/in/richarddhanksmmc/" target="_blank" rel="noopener noreferrer" aria-label="Richard Hanks on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+        <h4 style="font-size:24px;margin:6px 0 2px">Richard Hanks</h4>
+        <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">Board of Advisors — Chairperson</div>
+        <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">MMC Government Solutions</div>
+        <div style="font-size:12px;letter-spacing:0.06em;white-space:nowrap;text-transform:uppercase;color:var(--color-neutral-700);margin-top:6px">Industry, Former State/Local Government</div>
+        <a href="mailto:rdhanks@mmcgovsolutions.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">rdhanks@mmcgovsolutions.com</a>
+      </div>
+
+      <div>
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-adv-bizzell" shape="rect" placeholder="Headshot"></image-slot></div>
+        <a href="https://www.linkedin.com/in/antonbizzell/" target="_blank" rel="noopener noreferrer" aria-label="Dr. Anton C. Bizzell on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+        <h4 style="font-size:24px;margin:6px 0 2px">Dr. Anton C. Bizzell</h4>
+        <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">Board of Advisors</div>
+        <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">Bizzell Group</div>
+        <div style="font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-neutral-700);margin-top:6px">Industry, Former Government (Federal)</div>
+        <a href="mailto:abizzell@bizzellus.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">abizzell@bizzellus.com</a>
+      </div>
+
+      <div>
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-adv-chappell" shape="rect" placeholder="Headshot"></image-slot></div>
+        <a href="https://www.linkedin.com/in/brittneychappell/" target="_blank" rel="noopener noreferrer" aria-label="Brittney Chappell on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+        <h4 style="font-size:24px;margin:6px 0 2px">Brittney Chappell</h4>
+        <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">Board of Advisors</div>
+        <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">Alpha and Omega</div>
+        <div style="font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-2-700);margin-top:6px">Industry, Former Government (Federal)</div>
+        <a href="mailto:bvc0425@gmail.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">bvc0425@gmail.com</a>
+      </div>
+
+      <div>
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-adv-marcinowski" shape="rect" placeholder="Headshot"></image-slot></div>
+        <a href="https://www.linkedin.com/in/tracy-marcinowski-910b729/" target="_blank" rel="noopener noreferrer" aria-label="Traci Marcinowski on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+        <h4 style="font-size:24px;margin:6px 0 2px">Traci Marcinowski</h4>
+        <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">Board of Advisors</div>
+        <div style="font-size:14px;white-space:nowrap;color:var(--color-neutral-700);margin-top:6px">Strategic Acquisition Solutions, LLC</div>
+        <div style="font-size:12px;letter-spacing:0.06em;white-space:nowrap;text-transform:uppercase;color:var(--color-neutral-700);margin-top:6px">Industry, Former Government (Federal)</div>
+        <a href="mailto:tmarcinowski@strategicacqsolutions.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">tmarcinowski@strategicacqsolutions.com</a>
+      </div>
+
+      <div>
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-adv-mccollum" shape="rect" placeholder="Headshot"></image-slot></div>
+        <a href="https://www.linkedin.com/in/ray-mccollum-mspm-cpcm-10a9a63/" target="_blank" rel="noopener noreferrer" aria-label="Ray McCollum on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+        <h4 style="font-size:24px;margin:6px 0 2px">Ray McCollum</h4>
+        <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">Board of Advisors</div>
+        <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">National Science Foundation</div>
+        <div style="font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-2-700);margin-top:6px">Government</div>
+        <a href="mailto:raymccollum@gmail.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">raymccollum@gmail.com</a>
+      </div>
+
+      <div>
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-adv-mitchellc" shape="rect" placeholder="Headshot"></image-slot></div>
+        <a href="https://www.linkedin.com/in/calvin-j-mitchell-jr-cfcm-a705348/" target="_blank" rel="noopener noreferrer" aria-label="Calvin J. Mitchell on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+        <h4 style="font-size:24px;margin:6px 0 2px">Calvin J. Mitchell</h4>
+        <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">Board of Advisors</div>
+        <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">GDIT</div>
+        <div style="font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-2-700);margin-top:6px">Industry, Former Government (Federal)</div>
+        <a href="mailto:calvin.mitchell@gdit.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">calvin.mitchell@gdit.com</a>
+      </div>
+
+      <div>
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-adv-smithj" shape="rect" placeholder="Headshot"></image-slot></div>
+        <a href="https://www.linkedin.com/in/jimmy-d-smith-72a285273/" target="_blank" rel="noopener noreferrer" aria-label="Jimmy D. Smith on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+        <h4 style="font-size:24px;margin:6px 0 2px">Jimmy D. Smith</h4>
+        <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">Board of Advisors</div>
+        <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">PEI / Smith Consulting</div>
+        <div style="font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+        <a href="mailto:jsmith@smithadvisoryconsulting.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">jsmith@smithadvisoryconsulting.com</a>
+      </div>
+
+      <div>
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-adv-tsui" shape="rect" placeholder="Headshot"></image-slot></div>
+        <a href="https://www.linkedin.com/in/alexatsui/" target="_blank" rel="noopener noreferrer" aria-label="Alexa Tsui on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+        <h4 style="font-size:24px;margin:6px 0 2px">Alexa Tsui</h4>
+        <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">Board of Advisors</div>
+        <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">G2xchange</div>
+        <div style="font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-neutral-700);margin-top:6px">Industry</div>
+        <a href="mailto:alexa@g2xchange.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">alexa@g2xchange.com</a>
+      </div>
+
+      <div>
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-adv-wilkinson" shape="rect" placeholder="Headshot"></image-slot></div>
+        <a href="https://www.linkedin.com/in/dr-john-w-wilkinson-pmp-cpcm-cfcm-2a55324/" target="_blank" rel="noopener noreferrer" aria-label="Dr. John W. Wilkinson on LinkedIn" style="display:inline-flex;margin-top:12px;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+        <h4 style="font-size:24px;margin:6px 0 2px">Dr. John W. Wilkinson</h4>
+        <div class="kick" style="white-space:nowrap;font-size:12px;letter-spacing:0.06em">Board of Advisors</div>
+        <div style="font-size:16px;color:var(--color-neutral-700);margin-top:6px">tHInc, LLC</div>
+        <div style="font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-neutral-700);margin-top:6px">Industry, Former Government (Federal)</div>
+        <a href="mailto:jwilkinson@thinc-llc.com" style="display:inline-block;font-size:15px;margin-top:8px;color:var(--color-accent-700);overflow-wrap:anywhere">jwilkinson@thinc-llc.com</a>
+      </div>
+
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:56px">
+      <div>
+        <h3 style="font-size:28px">Serve on the board</h3>
+        <p style="font-size:16px;color:var(--color-neutral-700)">Officers are elected annually and committee seats open through the year — programs, newsletter, certification study groups, sponsorship.</p>
+        <button class="btn btn-secondary" onClick="{{ goContact }}">Express interest</button>
+      </div>
+      <div>
+        <h3 style="font-size:28px">Write for Insights</h3>
+        <p style="font-size:16px;color:var(--color-neutral-700)">Board members and members publish short practice pieces. Pitches are one paragraph.</p>
+        <button class="btn btn-secondary" onClick="{{ goInsights }}">Read Insights</button>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ onInsights }}" hint-placeholder-val="{{ false }}">
+  <div class="pg" style="padding-top:48px;padding-bottom:88px">
+    <div class="kick" style="font-size: 40px">Thought leadership</div>
+    <h1 style="font-size: 50px; letter-spacing: -0.02em; margin: 18px 0 22px; line-height: 1.05; font-style: italic">Insights</h1>
+    <p class="lede">Articles from the MetroMD board and membership on what is changing in acquisition and what it means at the desk. Each piece carries a byline, a headshot and a full article page.</p>
+    <p style="font-size:15px;color:var(--color-neutral-700);margin-top:16px"><span class="tag tag-accent-2">Draft slate</span> &nbsp;Titles below are proposed from each author's stated focus — nothing publishes until the author approves the copy.</p>
+
+    <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:64px;margin-top:56px">
+      <div>
+        <div class="kick">Featured · Training &amp; education</div>
+        <h2 style="font-size:46px;line-height:1.08;letter-spacing:-0.02em;margin:16px 0 18px">Building a training calendar around the FAR overhaul</h2>
+        <p style="font-size:19px;line-height:1.6;max-width:58ch">Standfirst placeholder: two or three sentences from the author framing why the chapter is putting CMMC, the FAR overhaul, AI in GovCon and CMBOK sessions on this year's calendar, and what a member should take away from each.</p>
+        <div style="display:flex;gap:16px;align-items:center;margin-top:26px">
+          <div style="width:64px;height:80px;background:var(--color-surface);flex:none"><image-slot id="v2-ins-author" shape="rect" placeholder="Photo"></image-slot></div>
+          <div>
+            <div style="font-size:17px">Dr. Patricia Akinrogunde</div>
+            <div style="font-size:15px;color:var(--color-neutral-600)">VP, Training &amp; Education · 6 min read</div>
+          </div>
+        </div>
+        <button class="btn btn-primary" style="margin-top:24px" onClick="{{ goArticle }}">Read the article</button>
+      </div>
+      <div>
+        <h4 style="font-size:21px">Get it by email</h4>
+        <p style="font-size:16px;color:var(--color-neutral-700)">One note a month: new articles, the next dinner meeting, certification deadlines.</p>
+        <div class="field" style="margin-bottom:12px"><label>Name</label><input class="input" type="text" placeholder="Your name"></div>
+        <div class="field" style="margin-bottom:12px"><label>Email</label><input class="input" type="email" placeholder="you@agency.gov"></div>
+        <div class="field" style="margin-bottom:16px"><label>I am</label>
+          <div class="seg"><label class="seg-opt"><input type="radio" name="who" checked="">Government</label><label class="seg-opt"><input type="radio" name="who">Industry</label><label class="seg-opt"><input type="radio" name="who">Student</label></div>
+        </div>
+        <button class="btn btn-primary btn-block">Subscribe</button>
+        <div style="font-size:13px;color:var(--color-neutral-600);margin-top:10px">Chapter news only. Unsubscribe any time.</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:28px;margin:80px 0 28px">More from the board</h3>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:44px 56px">
+      <div style="display:grid;grid-template-columns:110px 1fr;gap:24px">
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-ins-1" shape="rect" placeholder="Photo"></image-slot></div>
+        <div>
+          <div class="kick">Acquisition</div>
+          <h4 style="font-size:23px;margin:8px 0 10px;line-height:1.25">From contracting officer to founder, and what carried over</h4>
+          <div style="font-size:16px">Jennifer Hanks</div>
+          <div style="font-size:14px;color:var(--color-neutral-600)">Board Chair, President</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:110px 1fr;gap:24px">
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-ins-2" shape="rect" placeholder="Photo"></image-slot></div>
+        <div>
+          <div class="kick">Technology</div>
+          <h4 style="font-size:23px;margin:8px 0 10px;line-height:1.25">Where AI actually helps a procurement shop</h4>
+          <div style="font-size:16px">Bethlehem Belaineh</div>
+          <div style="font-size:14px;color:var(--color-neutral-600)">VP, Communications</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:110px 1fr;gap:24px">
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-ins-3" shape="rect" src="public/images/board-sistrunk.jpeg" placeholder="Photo"></image-slot></div>
+        <div>
+          <div class="kick">Compliance</div>
+          <h4 style="font-size:23px;margin:8px 0 10px;line-height:1.25">What auditors look for in a single audit, in plain terms</h4>
+          <div style="font-size:16px">Joye Sistrunk, CPA</div>
+          <div style="font-size:14px;color:var(--color-neutral-600)">Treasurer</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:110px 1fr;gap:24px">
+        <div style="aspect-ratio:4/5;background:var(--color-surface)"><image-slot id="v2-ins-4" shape="rect" placeholder="Photo"></image-slot></div>
+        <div>
+          <div class="kick">Careers</div>
+          <h4 style="font-size:23px;margin:8px 0 10px;line-height:1.25">Networking when you would rather not: a practical guide</h4>
+          <div style="font-size:16px">Megan (MJ) Sheckles</div>
+          <div style="font-size:14px;color:var(--color-neutral-600)">Director of Networking</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:40px;margin-top:72px">
+      <div>
+        <h4 style="font-size:23px;margin-bottom:4px">Pitch an article</h4>
+        <div style="font-size:16px;color:var(--color-neutral-700)">Members write 800–1,200 words from their own practice. Send a paragraph and we will schedule it.</div>
+      </div>
+      <button class="btn btn-primary" onClick="{{ goContact }}">Send a pitch</button>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ onArticle }}" hint-placeholder-val="{{ false }}">
+  <div class="pg" style="padding-top:36px;padding-bottom:88px;max-width:760px">
+    <button class="btn btn-ghost" style="padding-left:0" onClick="{{ goInsights }}">← Insights</button>
+    <div class="kick" style="margin-top:24px">Training &amp; education</div>
+    <h1 style="font-size:54px;line-height:1.08;letter-spacing:-0.02em;margin:18px 0 24px">Building a training calendar around the FAR overhaul</h1>
+    <div style="display:flex;gap:16px;align-items:center;margin-bottom:36px">
+      <div style="width:56px;height:70px;background:var(--color-surface);flex:none"><image-slot id="v2-art-author" shape="rect" placeholder="Photo"></image-slot></div>
+      <div style="margin-right:auto">
+        <div style="font-size:17px">Dr. Patricia Akinrogunde</div>
+        <div style="font-size:15px;color:var(--color-neutral-600)">VP, Training &amp; Education · 6 min read</div>
+      </div>
+      <a href="https://www.linkedin.com/in/patricia-o-a-6285251a/" target="_blank" rel="noopener noreferrer" style="font-size:15px">LinkedIn</a>
+    </div>
+    <p style="font-size:22px;line-height:1.55">Standfirst placeholder. The opening paragraph sets up the argument in the author's own words — what changed, who it affects, and what the chapter is doing about it.</p>
+    <p class="bio" style="font-size:18px">Body placeholder. Article copy runs at this measure with generous leading; a full piece is roughly 800 to 1,200 words with two or three subheadings. Send the author's draft and it drops straight in.</p>
+    <h3 style="font-size:27px;margin-top:40px">A subheading</h3>
+    <p class="bio" style="font-size:18px">Body placeholder. Pull quotes, links to the regulation, and references to the session where the topic was covered live all belong here.</p>
+    <p style="font-style:italic;font-size:27px;line-height:1.35;margin:40px 0;color:var(--color-accent-800)">A pull quote from the article sits here, set in the serif's true italic.</p>
+    <p class="bio" style="font-size:18px">Closing placeholder. The last paragraph points the reader at the next dinner meeting or training session on the topic.</p>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:24px;margin-top:56px">
+      <div style="font-size:16px;color:var(--color-neutral-700)">Written by a MetroMD board member. Members can pitch their own.</div>
+      <button class="btn btn-secondary" onClick="{{ goContact }}">Pitch an article</button>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ onEvents }}" hint-placeholder-val="{{ false }}">
+  <div class="pg" style="padding-top:48px;padding-bottom:88px">
+    <div class="kick" style="font-size: 40px">Calendar</div>
+    <h1 style="font-size:64px;letter-spacing:-0.02em;margin:18px 0 22px;line-height:1.05">Our Events</h1>
+    <p class="lede">Monthly dinner meetings, training sessions and the spring kick-off. Tickets go through Eventbrite and the listing here updates from the live feed.</p>
+
+    <h3 style="font-size:28px;margin:56px 0 16px">Upcoming</h3>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:40px">
+      <div>
+      </div>
+      <div style="display:flex;gap:12px">
+        <a class="btn btn-primary" href="https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413" target="_blank" rel="noopener noreferrer">View on Eventbrite</a>
+        <button class="btn btn-secondary" onClick="{{ goInsights }}">Get the newsletter</button>
+      </div>
+    </div>
+
+    <h3 style="font-size:28px;margin:64px 0 16px">Past meetings</h3>
+    <table class="table">
+      <thead><tr><th style="width:130px">Date</th><th>Event</th><th style="width:160px">Time</th><th style="width:120px">Tickets</th></tr></thead>
+      <tbody>
+        <tr><td>Jun 16, 2026</td><td>MetroMD + Defense Logistics Agency (DLA) June Dinner Meeting<div style="font-size:14px;color:var(--color-neutral-700);margin-top:2px">The Westin Washington National Harbor</div></td><td>4:00 – 8:30 PM</td><td><a href="https://www.eventbrite.com/e/metromd-defense-logistics-agency-dla-june-dinner-meeting-tickets-1266518594209" target="_blank" rel="noopener noreferrer">Eventbrite</a></td></tr>
+        <tr><td>Apr 30, 2026</td><td>NCMA MetroMD Dinner Meeting<div style="font-size:14px;color:var(--color-neutral-700);margin-top:2px">The Westin Washington National Harbor</div></td><td>5:30 PM</td><td><a href="https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413" target="_blank" rel="noopener noreferrer">Eventbrite</a></td></tr>
+        <tr><td>Apr 17, 2026</td><td>NCMA MetroMD Workshop — Developing a High-Impact Capability Statement<div style="font-size:14px;color:var(--color-neutral-700);margin-top:2px">American Job Center National Harbor</div></td><td>10:00 AM</td><td><a href="https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413" target="_blank" rel="noopener noreferrer">Eventbrite</a></td></tr>
+        <tr><td>Mar 20, 2026</td><td>NCMA MetroMD Workshop — Developing a High-Impact Capability Statement<div style="font-size:14px;color:var(--color-neutral-700);margin-top:2px">American Job Center National Harbor</div></td><td>10:00 AM</td><td><a href="https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413" target="_blank" rel="noopener noreferrer">Eventbrite</a></td></tr>
+        <tr><td>Mar 19, 2026</td><td>NCMA MetroMD’s Cocktails &amp; Conversation<div style="font-size:14px;color:var(--color-neutral-700);margin-top:2px">Topgolf National Harbor</div></td><td>5:30 PM</td><td><a href="https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413" target="_blank" rel="noopener noreferrer">Eventbrite</a></td></tr>
+        <tr><td>Feb 27, 2026</td><td>NCMA MetroMD Workshop — Master the Art &amp; Science of Pricing<div style="font-size:14px;color:var(--color-neutral-700);margin-top:2px">American Job Center National Harbor</div></td><td>10:00 AM</td><td><a href="https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413" target="_blank" rel="noopener noreferrer">Eventbrite</a></td></tr>
+        <tr><td>Feb 25, 2026</td><td>NCMA MetroMD Winter Networking Happy Hour — Facing the Future Together!<div style="font-size:14px;color:var(--color-neutral-700);margin-top:2px">The Brass Tap</div></td><td>6:00 PM</td><td><a href="https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413" target="_blank" rel="noopener noreferrer">Eventbrite</a></td></tr>
+        <tr><td>Dec 19, 2025</td><td>NCMA MetroMD December Professional Development Training</td><td>10:00 AM EST</td><td><a href="https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413" target="_blank" rel="noopener noreferrer">Eventbrite</a></td></tr>
+        <tr><td>Nov 13, 2025</td><td>NCMA MetroMD Dinner Meeting &amp; Food Drive<div style="font-size:14px;color:var(--color-neutral-700);margin-top:2px">The Westin Washington National Harbor</div></td><td>5:30 PM</td><td><a href="https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413" target="_blank" rel="noopener noreferrer">Eventbrite</a></td></tr>
+        <tr><td>Jun 19, 2025</td><td>NCMA MetroMD Dinner Meeting<div style="font-size:14px;color:var(--color-neutral-700);margin-top:2px">The Westin Washington National Harbor</div></td><td>5:30 PM</td><td><a href="https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413" target="_blank" rel="noopener noreferrer">Eventbrite</a></td></tr>
+        <tr><td>May 15, 2025</td><td>NCMA MetroMD Dinner Meeting<div style="font-size:14px;color:var(--color-neutral-700);margin-top:2px">The Westin Washington National Harbor</div></td><td>5:30 PM</td><td><a href="https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413" target="_blank" rel="noopener noreferrer">Eventbrite</a></td></tr>
+        <tr><td>Apr 17, 2025</td><td>NCMA MetroMD Dinner Meeting<div style="font-size:14px;color:var(--color-neutral-700);margin-top:2px">The Westin Washington National Harbor</div></td><td>5:30 PM</td><td><a href="https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413" target="_blank" rel="noopener noreferrer">Eventbrite</a></td></tr>
+        <tr><td>Mar 20, 2025</td><td>MetroMD’s 1st Anniversary Dinner Celebration<div style="font-size:14px;color:var(--color-neutral-700);margin-top:2px">The Westin Washington National Harbor</div></td><td>5:30 PM</td><td><a href="https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413" target="_blank" rel="noopener noreferrer">Eventbrite</a></td></tr>
+        <tr><td>Feb 20, 2025</td><td>NCMA MetroMD February 20th Dinner Meeting<div style="font-size:14px;color:var(--color-neutral-700);margin-top:2px">The Westin Washington National Harbor</div></td><td>5:30 PM</td><td><a href="https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413" target="_blank" rel="noopener noreferrer">Eventbrite</a></td></tr>
+        <tr><td>Jan 16, 2025</td><td>NCMA MetroMD January Dinner Meeting</td><td>4:45 – 8:00 PM</td><td><a href="https://www.eventbrite.com/e/ncma-metromd-january-dinner-meeting-tickets-1132322389749" target="_blank" rel="noopener noreferrer">Eventbrite</a></td></tr>
+        <tr><td>Nov 21, 2024</td><td>NCMA MetroMD Salute to Veterans November Dinner</td><td>5:30 – 8:00 PM</td><td><a href="https://www.eventbrite.com/e/ncma-metromd-salute-to-veterans-november-dinner-tickets-1073351516279" target="_blank" rel="noopener noreferrer">Eventbrite</a></td></tr>
+        <tr><td>Oct 31, 2024</td><td>The CMBOK and FAR Connection</td><td>6:00 – 8:00 PM</td><td><a href="https://www.eventbrite.com/e/the-cmbok-and-far-connection-tickets-1069776924579" target="_blank" rel="noopener noreferrer">Eventbrite</a></td></tr>
+        <tr><td>Oct 17, 2024</td><td>NCMA MetroMD October 17th Dinner Meeting</td><td>5:30 – 8:00 PM</td><td><a href="https://www.eventbrite.com/e/ncma-metromd-october-17th-dinner-meeting-tickets-1037291475727" target="_blank" rel="noopener noreferrer">Eventbrite</a></td></tr>
+        <tr><td>Aug 15, 2024</td><td>NCMA MetroMD August 15th Dinner Meeting</td><td>5:30 – 8:00 PM</td><td><a href="https://www.eventbrite.com/e/ncma-metromd-august-15th-dinner-meeting-tickets-940907057337" target="_blank" rel="noopener noreferrer">Eventbrite</a></td></tr>
+        <tr><td>Jun 27, 2024</td><td>NCMA MetroMD June Dinner Meeting</td><td>5:30 – 8:00 PM</td><td><span style="color:var(--color-neutral-600)">Closed</span></td></tr>
+        <tr><td>May 16, 2024</td><td>NCMA MetroMD May Dinner Meeting</td><td>5:30 – 8:00 PM</td><td><span style="color:var(--color-neutral-600)">Closed</span></td></tr>
+        <tr><td>Apr 18, 2024</td><td>NCMA MetroMD April Dinner Meeting</td><td>5:30 – 8:00 PM</td><td><span style="color:var(--color-neutral-600)">Closed</span></td></tr>
+        <tr><td>Mar 21, 2024</td><td>NCMA MetroMD Kick-Off</td><td>6:00 – 8:00 PM</td><td><span style="color:var(--color-neutral-600)">Closed</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ onCerts }}" hint-placeholder-val="{{ false }}">
+  <div class="pg" style="padding-top:48px;padding-bottom:88px">
+    <div class="kick" style="font-size: 50px">Professional credentials</div>
+    <h1 style="font-size:64px;letter-spacing:-0.02em;margin:18px 0 22px;line-height:1.05">Certifications</h1>
+    <p class="lede">The CCCM, CFCM, CPCM, and CCMA are certifications awarded to candidates who meet rigorous standards, including experience, education, training, and knowledge. They are professional designations of distinction, and carry the respect of their peers in the profession.</p>
+    <p style="margin-top:16px;font-size:17px"><a href="https://www.ncmahq.org/certifications" target="_blank" rel="noopener noreferrer">Find out more about NCMA’s certification programs</a></p>
+
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:48px 64px;margin-top:64px">
+      <div>
+        <div class="kick" style="font-size: 40px">CPCM</div>
+        <h3 style="font-size:28px;margin:10px 0 12px">Certified Professional Contracts Manager</h3>
+        <p style="font-size:16px;color:var(--color-neutral-700);margin:0">A CPCM certification demonstrates that you have met NCMA’s highest standards for education, training, and experience, and have demonstrated your knowledge of the contract management competencies in the Contract Management Body of Knowledge. It is NCMA’s senior and most prestigious certification.</p>
+      </div>
+      <div>
+        <div class="kick" style="font-size: 40px">CFCM</div>
+        <h3 style="font-size:28px;margin:10px 0 12px">Certified Federal Contracts Manager</h3>
+        <p style="font-size:16px;color:var(--color-neutral-700);margin:0">A CFCM certification validates your education, training, experience and your knowledge of the Federal Acquisition Regulation.</p>
+      </div>
+      <div>
+        <div class="kick" style="font-size: 40px">CCCM</div>
+        <h3 style="font-size:28px;margin:10px 0 12px">Certified Commercial Contracts Manager</h3>
+        <p style="font-size:16px;color:var(--color-neutral-700);margin:0">A CCCM certification validates your education, training, experience and your knowledge of the Uniform Commercial Code.</p>
+      </div>
+      <div>
+        <div class="kick" style="font-size: 40px">CCMA</div>
+        <h3 style="font-size:28px;margin:10px 0 12px">Certified Contract Management Associate</h3>
+        <p style="font-size:16px;color:var(--color-neutral-700);margin:0">The CCMA is an <a href="https://www.ansi.org/" target="_blank" rel="noopener noreferrer">ANAB-Accredited</a>, entry-level certification based on the ANSI-Approved Contract Management Standard™ and designed to assure new professionals and decision-makers that the right knowledge has been achieved to practice contract management.</p>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:40px;margin-top:72px">
+      <div>
+        <h3 style="font-size:28px;margin-bottom:4px">Studying? You are not on your own</h3>
+        <p style="margin:0;font-size:16px;color:var(--color-neutral-700)">MetroMD runs study sessions and pairs candidates with certified members. Ask the VP of Training &amp; Education.</p>
+      </div>
+      <button class="btn btn-secondary" onClick="{{ goContact }}">Ask the chapter</button>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ onSponsors }}" hint-placeholder-val="{{ false }}">
+  <div class="pg" style="padding-top:48px;padding-bottom:88px">
+    <div class="kick">Partners</div>
+    <h1 style="font-size:64px;letter-spacing:-0.02em;margin:18px 0 22px;line-height:1.05">Sponsors</h1>
+    <p class="lede">Sponsorship keeps dinner affordable for government attendees and puts your name in front of the Washington-area acquisition community. Four levels, one conversation.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:48px;margin-top:64px">
+      <div>
+        <div class="kick" style="color:var(--color-accent-2-700)">Level</div>
+        <h3 style="font-size:30px;margin:10px 0 12px">Platinum</h3>
+        <p style="font-size:16px;color:var(--color-neutral-700);margin:0">Top billing across the season: named on every meeting, logo on the site, newsletter and all event material, a reserved table at each dinner, and a speaking slot.</p>
+      </div>
+      <div>
+        <div class="kick" style="color:var(--color-accent-700)">Level</div>
+        <h3 style="font-size:30px;margin:10px 0 12px">Gold</h3>
+        <p style="font-size:16px;color:var(--color-neutral-700);margin:0">Logo on the site and newsletter, recognition from the podium at every meeting, and reserved seating at dinners.</p>
+      </div>
+      <div>
+        <div class="kick" style="color:var(--color-neutral-700)">Level</div>
+        <h3 style="font-size:30px;margin:10px 0 12px">Silver</h3>
+        <p style="font-size:16px;color:var(--color-neutral-700);margin:0">Logo on the site and in the newsletter, with recognition at the meetings you attend.</p>
+      </div>
+      <div>
+        <div class="kick" style="color:var(--color-neutral-700)">Level</div>
+        <h3 style="font-size:30px;margin:10px 0 12px">Bronze</h3>
+        <p style="font-size:16px;color:var(--color-neutral-700);margin:0">Name listed on the site and in the newsletter — the entry point for small businesses.</p>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:48px;margin-top:72px">
+      <div>
+        <div class="kick">Per meeting</div>
+        <h4 style="font-size:23px;margin:10px 0 10px">Dinner sponsor</h4>
+        <p style="font-size:16px;color:var(--color-neutral-700);margin:0">Underwrite one dinner meeting: welcome remarks, table signage, and your material at each seat.</p>
+      </div>
+      <div>
+        <div class="kick">In kind</div>
+        <h4 style="font-size:23px;margin:10px 0 10px">Venue &amp; training</h4>
+        <p style="font-size:16px;color:var(--color-neutral-700);margin:0">Host a session in your space or supply an instructor. Credited the same as a cash sponsor.</p>
+      </div>
+      <div>
+        <div class="kick">Ask</div>
+        <h4 style="font-size:23px;margin:10px 0 10px">Something else</h4>
+        <p style="font-size:16px;color:var(--color-neutral-700);margin:0">Scholarships, student outreach and training underwriting are all open to discussion.</p>
+      </div>
+    </div>
+
+    <h3 style="font-size:28px;margin:80px 0 24px">Current sponsors</h3>
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:56px 48px;max-width:1000px;align-items:center">
+      <div style="display:flex;align-items:center;justify-content:flex-start;min-height:120px"><image-slot id="v2-sp-1" shape="rect" fit="contain" placeholder="Sponsor logo" style="max-width:100%;max-height:200px"></image-slot></div>
+      <div style="display:flex;align-items:center;justify-content:flex-start;min-height:120px"><image-slot id="v2-sp-2" shape="rect" fit="contain" placeholder="Sponsor logo" style="max-width:100%;max-height:200px"></image-slot></div>
+      <div style="display:flex;align-items:center;justify-content:flex-start;min-height:120px"><image-slot id="v2-sp-3" shape="rect" fit="contain" placeholder="Sponsor logo" style="max-width:100%;max-height:200px"></image-slot></div>
+      <div style="display:flex;align-items:center;justify-content:flex-start;min-height:120px"><image-slot id="v2-sp-4" shape="rect" fit="contain" placeholder="Sponsor logo" style="max-width:100%;max-height:200px"></image-slot></div>
+      <div style="display:flex;align-items:center;justify-content:flex-start;min-height:120px"><image-slot id="v2-sp-5" shape="rect" fit="contain" placeholder="Sponsor logo" style="max-width:100%;max-height:200px"></image-slot></div>
+      <div style="display:flex;align-items:center;justify-content:flex-start;min-height:120px"><image-slot id="v2-sp-20" shape="rect" fit="contain" placeholder="Sponsor logo" style="max-width:100%;max-height:200px"></image-slot></div>
+      <div style="display:flex;align-items:center;justify-content:flex-start;min-height:120px"><image-slot id="v2-sp-8" shape="rect" fit="contain" placeholder="Sponsor logo" style="max-width:100%;max-height:200px"></image-slot></div>
+      <div style="display:flex;align-items:center;justify-content:flex-start;min-height:120px"><image-slot id="v2-sp-6" shape="rect" fit="contain" placeholder="Sponsor logo" style="max-width:100%;max-height:200px"></image-slot></div>
+      <div style="display:flex;align-items:center;justify-content:flex-start;min-height:120px"><image-slot id="v2-sp-7" shape="rect" fit="contain" placeholder="Sponsor logo" style="max-width:100%;max-height:200px"></image-slot></div>
+
+      <div style="display:flex;align-items:center;justify-content:flex-start;min-height:120px"><image-slot id="v2-sp-9" shape="rect" fit="contain" placeholder="Sponsor logo" style="max-width:100%;max-height:200px"></image-slot></div>
+      <div style="display:flex;align-items:center;justify-content:flex-start;min-height:120px"><image-slot id="v2-sp-10" shape="rect" fit="contain" placeholder="Sponsor logo" style="max-width:100%;max-height:200px"></image-slot></div>
+      <div style="display:flex;align-items:center;justify-content:flex-start;min-height:120px"><image-slot id="v2-sp-11" shape="rect" fit="contain" placeholder="Sponsor logo" style="max-width:100%;max-height:200px"></image-slot></div>
+      <div style="display:flex;align-items:center;justify-content:flex-start;min-height:120px"><image-slot id="v2-sp-12" shape="rect" fit="contain" placeholder="Sponsor logo" style="max-width:100%;max-height:200px"></image-slot></div>
+      <div style="display:flex;align-items:center;justify-content:flex-start;min-height:120px"><image-slot id="v2-sp-13" shape="rect" fit="contain" placeholder="Sponsor logo" style="max-width:100%;max-height:200px"></image-slot></div>
+      <div style="display:flex;align-items:center;justify-content:flex-start;min-height:120px"><image-slot id="v2-sp-14" shape="rect" fit="contain" placeholder="Sponsor logo" style="max-width:100%;max-height:200px"></image-slot></div>
+      <div style="display:flex;align-items:center;justify-content:flex-start;min-height:120px"><image-slot id="v2-sp-17" shape="rect" fit="contain" placeholder="Sponsor logo" style="max-width:100%;max-height:200px"></image-slot></div>
+      <div style="display:flex;align-items:center;justify-content:flex-start;min-height:120px"><image-slot id="v2-sp-18" shape="rect" fit="contain" placeholder="Sponsor logo" style="max-width:100%;max-height:200px"></image-slot></div>
+      <div style="display:flex;align-items:center;justify-content:flex-start;min-height:120px"><image-slot id="v2-sp-19" shape="rect" fit="contain" placeholder="Sponsor logo" style="max-width:100%;max-height:200px"></image-slot></div>
+
+      <div style="display:flex;align-items:center;justify-content:flex-start;min-height:120px"><image-slot id="v2-sp-15" shape="rect" fit="contain" placeholder="Sponsor logo" style="max-width:100%;max-height:200px"></image-slot></div>
+      <div style="display:flex;align-items:center;justify-content:flex-start;min-height:120px"><image-slot id="v2-sp-16" shape="rect" fit="contain" placeholder="Sponsor logo" style="max-width:100%;max-height:200px"></image-slot></div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:40px;margin-top:72px">
+      <div>
+        <h4 style="font-size:23px;margin-bottom:4px">Talk to us about sponsoring</h4>
+        <div style="font-size:16px;color:var(--color-neutral-700)">The VP of Operations handles sponsorship and can send the current packet.</div>
+      </div>
+      <button class="btn btn-primary" onClick="{{ goContact }}">Request the packet</button>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ onContact }}" hint-placeholder-val="{{ false }}">
+  <div class="pg" style="padding-top:48px;padding-bottom:88px">
+    <div class="kick">Say hello</div>
+    <h1 style="font-size:64px;letter-spacing:-0.02em;margin:18px 0 22px;line-height:1.05">Contact</h1>
+    <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:64px;margin-top:40px">
+      <div>
+        <div class="field" style="margin-bottom:16px"><label>Name</label><input class="input" type="text" placeholder="Your name"></div>
+        <div class="field" style="margin-bottom:16px"><label>Email</label><input class="input" type="email" placeholder="you@agency.gov"></div>
+        <div class="field" style="margin-bottom:16px"><label>Reason</label>
+          <div class="seg"><label class="seg-opt"><input type="radio" name="reason" checked="">Membership</label><label class="seg-opt"><input type="radio" name="reason">Events</label><label class="seg-opt"><input type="radio" name="reason">Certification</label><label class="seg-opt"><input type="radio" name="reason">Sponsorship</label></div>
+        </div>
+        <div class="field" style="margin-bottom:16px"><label>Message</label><textarea class="input" placeholder="How can the chapter help?"></textarea></div>
+        <button class="btn btn-primary">Send message</button>
+      </div>
+      <div>
+        <h4 style="font-size:21px">Reach the board directly</h4>
+        <div class="bmeta" style="display:flex;flex-direction:column;gap:8px;font-size:16px">
+          <div>Membership · <a href="mailto:jahanks@mmcgovsolutions.com">Jennifer Hanks</a></div>
+          <div>Programs · <a href="mailto:randerson@deftechno.com">Renita Anderson</a></div>
+          <div>Training · <a href="mailto:patricia@triplejoygroup.com">Dr. Patricia Akinrogunde</a></div>
+          <div>Sponsorship · <a href="mailto:sonya@sageservicesgroupllc.com">Sonya Hopson</a></div>
+          <div>Newsletter · <a href="mailto:be@theoryai.co">Bethlehem Belaineh</a></div>
+        </div>
+        <h4 style="font-size:21px;margin-top:36px">Follow the chapter</h4>
+        <div style="display:flex;gap:14px;align-items:center">
+          <a href="https://www.linkedin.com/company/ncma-metromd/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style="display:inline-flex;color:var(--color-accent-700)"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+          <a href="https://www.instagram.com/ncmametromd/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" style="display:inline-flex;color:var(--color-accent-700)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor" stroke="none"></circle></svg></a>
+          <a href="https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413" target="_blank" rel="noopener noreferrer" aria-label="Eventbrite" style="display:inline-flex;color:var(--color-accent-700)"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4.6 20 3v3.4L7.6 7.7v3.1L19 10v3.3l-11.4.7v3.2L20 16.6V20L4 18.4z"></path></svg></a>
+          <a href="#" aria-label="Facebook" style="display:none"></a>
+          <a href="#" aria-label="YouTube" style="display:none"></a>
+        </div>
+        <div style="font-size:13px;color:var(--color-neutral-600);margin-top:12px">LinkedIn, Instagram and Eventbrite are live.</div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ onLogin }}" hint-placeholder-val="{{ false }}">
+  <div class="pg" style="padding-top:56px;padding-bottom:96px;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start">
+    <div>
+      <div class="kick">Members</div>
+      <h1 style="font-size:56px;letter-spacing:-0.02em;margin:18px 0 22px;line-height:1.05">Sign in</h1>
+      <p class="lede" style="font-size:19px">The member area holds the chapter roster, meeting slides and recordings, study materials and your event registrations.</p>
+      <ul style="font-size:17px;color:var(--color-neutral-700);padding-left:20px;line-height:2">
+        <li>Slides and recordings from past dinner meetings</li>
+        <li>CPCM, CFCM, CCCM and CCMA study group materials</li>
+        <li>Chapter roster and mentor matching</li>
+        <li>Member rate at every event</li>
+      </ul>
+    </div>
+    <div class="card elev-sm" style="padding:32px">
+      <div class="field" style="margin-bottom:16px"><label>Email</label><input class="input" type="email" placeholder="you@agency.gov"></div>
+      <div class="field" style="margin-bottom:16px"><label>Password</label><input class="input" type="password" placeholder="••••••••"></div>
+      <button class="btn btn-primary btn-block" onClick="{{ signIn }}">Sign in</button>
+      <div style="font-size:15px;color:var(--color-neutral-700);margin-top:20px">Not a member yet? Membership is through NCMA Headquarters — put “MetroMD” as your Chapter Preference.</div>
+      <a class="btn btn-secondary" href="https://www.ncmahq.org/membership" target="_blank" rel="noopener noreferrer" style="margin-top:12px">Join NCMA</a>
+    </div>
+  </div><div class="pg" style="padding-top:56px;padding-bottom:56px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;border-top:1px solid var(--color-divider)">
+    
+    <div>
+      <img src="public/images/ncma-metromd-logo.png" alt="NCMA Metro Maryland" style="height: 134px; width: 658px; object-fit: contain">
+      <p style="font-size: 18px; color: #5E6487; margin-top: 12px; max-width: 34ch; width: 311px; height: 70px; text-align: left; font-family: Lora">The Metro Maryland chapter of the National Contract Management Association. Chartered 2024.</p>
+    </div><div style="display:flex;flex-direction:column;gap:8px;font-size:16px">
+      <div class="kick" style="font-size: 20px">Chapter</div>
+      <button class="navlink" style="text-align:left;font-size:16px" onClick="{{ goAbout }}">Our chapter</button>
+      <button class="navlink" style="text-align:left;font-size:16px" onClick="{{ goBoard }}">Board</button>
+      <button class="navlink" style="text-align:left;font-size:16px" onClick="{{ goSponsors }}">Sponsors</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:16px">
+      <div class="kick" style="font-size: 20px">Members</div>
+      <button class="navlink" style="text-align:left;font-size:16px" onClick="{{ goEvents }}">Events</button>
+      <button class="navlink" style="text-align:left;font-size:16px" onClick="{{ goCerts }}">Certifications</button>
+      <button class="navlink" style="text-align:left;font-size:16px" onClick="{{ goLogin }}">Member sign in</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;font-size:16px">
+      <div class="kick">Follow</div>
+      <div style="display:flex;gap:14px;align-items:center">
+        <a href="https://www.linkedin.com/company/ncma-metromd/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" style="display:inline-flex;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.78 2.5 4.78 5.76V21h-4v-5.7c0-1.36-.03-3.1-1.9-3.1-1.9 0-2.2 1.47-2.2 3v5.8h-4z"></path></svg></a>
+        <a href="https://www.instagram.com/ncmametromd/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" style="display:inline-flex;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor" stroke="none"></circle></svg></a>
+        <a href="https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413" target="_blank" rel="noopener noreferrer" aria-label="Eventbrite" style="display:inline-flex;color:var(--color-accent-700)"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 4.6 20 3v3.4L7.6 7.7v3.1L19 10v3.3l-11.4.7v3.2L20 16.6V20L4 18.4z"></path></svg></a>
+        <a href="#" aria-label="Facebook" style="display:none"></a>
+        <a href="#" aria-label="YouTube" style="display:none"></a>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ onAdmin }}" hint-placeholder-val="{{ false }}">
+  <div class="pg" style="padding-top:40px;padding-bottom:88px">
+
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:24px;flex-wrap:wrap">
+      <div>
+        <div class="kick">Admin</div>
+        <h1 style="font-size:44px;letter-spacing:-0.02em;margin:10px 0 0;line-height:1.05">Content panel</h1>
+      </div>
+      <div style="display:flex;gap:14px;align-items:center">
+        <div style="font-size:15px;color:var(--color-neutral-700)">B. Belaineh · Administrator</div>
+        <button class="btn btn-ghost" onClick="{{ signOut }}">Sign out</button>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:10px;margin-top:28px;flex-wrap:wrap">
+      <button class="btn btn-secondary" onClick="{{ goAdm1 }}">Dashboard</button>
+      <button class="btn btn-secondary" onClick="{{ goAdm2 }}">Articles</button>
+      <button class="btn btn-secondary" onClick="{{ goAdm3 }}">Editor</button>
+      <button class="btn btn-secondary" onClick="{{ goAdm4 }}">Board roster</button>
+      <button class="btn btn-secondary" onClick="{{ goAdm5 }}">Media</button>
+      <button class="btn btn-secondary" onClick="{{ goAdm6 }}">Users</button>
+    </div>
+
+    <sc-if value="{{ adm1 }}" hint-placeholder-val="{{ true }}">
+    <div style="margin-top:32px">
+      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px">
+        <div style="border:1px solid var(--color-neutral-300);padding:18px 20px">
+          <div style="font-size:38px;line-height:1">3</div>
+          <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-accent-700);margin-top:6px">Awaiting review</div>
+        </div>
+        <div style="border:1px solid var(--color-neutral-300);padding:18px 20px">
+          <div style="font-size:38px;line-height:1">7</div>
+          <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);margin-top:6px">Drafts</div>
+        </div>
+        <div style="border:1px solid var(--color-neutral-300);padding:18px 20px">
+          <div style="font-size:38px;line-height:1">2</div>
+          <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700);margin-top:6px">Upcoming events</div>
+        </div>
+        <div style="border:1px solid var(--color-neutral-300);padding:18px 20px">
+          <div style="font-size:38px;line-height:1;color:var(--color-accent-2-700)">6</div>
+          <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-accent-2-700);margin-top:6px">Missing bios</div>
+        </div>
+      </div>
+
+      <h3 style="font-size:26px;margin:40px 0 14px">Awaiting your review</h3>
+      <table class="table" style="width:100%">
+        <thead><tr><th>Title</th><th>Type</th><th>Author</th><th>Submitted</th><th></th></tr></thead>
+        <tbody>
+          <tr><td>Building a training calendar around the FAR overhaul</td><td>Article</td><td>Dr. Cynthia Pace</td><td>2 days ago</td><td style="text-align:right"><span class="tag tag-accent">In review</span></td></tr>
+          <tr><td>September chapter newsletter</td><td>Newsletter</td><td>B. Belaineh</td><td>4 days ago</td><td style="text-align:right"><span class="tag tag-accent">In review</span></td></tr>
+          <tr><td>Antavia Grimsley — biography</td><td>Board bio</td><td>A. Grimsley</td><td>6 days ago</td><td style="text-align:right"><span class="tag tag-accent">In review</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ adm2 }}" hint-placeholder-val="{{ false }}">
+    <div style="margin-top:32px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">
+        <input class="input" type="text" placeholder="Search articles" style="width:280px">
+        <button class="btn btn-primary">New article</button>
+      </div>
+      <table class="table" style="width:100%;margin-top:24px">
+        <thead><tr><th>Title</th><th>Author</th><th>Category</th><th>Status</th><th>Last edited</th></tr></thead>
+        <tbody>
+          <tr><td>Building a training calendar around the FAR overhaul</td><td>Dr. Cynthia Pace</td><td>Training</td><td><span class="tag tag-accent">In review</span></td><td>2 days ago</td></tr>
+          <tr><td>What CMMC means for small primes</td><td>Lester L. Ingol</td><td>Compliance</td><td><span class="tag tag-neutral">Draft</span></td><td>5 days ago</td></tr>
+          <tr><td>Notes from the September dinner meeting</td><td>Chyanne Thomas</td><td>Chapter</td><td><span class="tag tag-outline">Published</span></td><td>2 weeks ago</td></tr>
+          <tr><td>Bridging policy and execution</td><td>Jennifer Hanks</td><td>Leadership</td><td><span class="tag tag-outline">Published</span></td><td>1 month ago</td></tr>
+        </tbody>
+      </table>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ adm3 }}" hint-placeholder-val="{{ false }}">
+    <div style="margin-top:32px;border:1px solid var(--color-neutral-300)">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--color-neutral-300);gap:16px;flex-wrap:wrap">
+        <div style="display:flex;gap:14px;align-items:center">
+          <span class="tag tag-neutral">Draft</span>
+          <span style="font-size:14px;color:var(--color-neutral-600)">Saved 12 seconds ago</span>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-ghost">Revisions</button>
+          <button class="btn btn-secondary">Submit for review</button>
+          <button class="btn btn-primary">Publish</button>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr">
+        <div style="padding:26px 22px;border-right:1px solid var(--color-neutral-300)">
+          <div class="field" style="margin-bottom:16px"><label>Title</label><input class="input" type="text" value="Building a training calendar around the FAR overhaul"></div>
+          <div class="field" style="margin-bottom:16px"><label>Standfirst</label><input class="input" type="text" placeholder="Two or three sentences framing the piece"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <div class="field"><label>Author</label><input class="input" type="text" value="Dr. Cynthia Pace"></div>
+            <div class="field"><label>Category</label><input class="input" type="text" value="Training &amp; education"></div>
+          </div>
+          <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-accent-700);margin:24px 0 10px">Body</div>
+          <div style="border:1px solid var(--color-neutral-300)">
+            <div style="display:flex;gap:6px;padding:8px 10px;border-bottom:1px solid var(--color-neutral-300);flex-wrap:wrap">
+              <button class="btn btn-ghost" style="padding:4px 10px;font-weight:700">B</button>
+              <button class="btn btn-ghost" style="padding:4px 10px;font-style:italic">I</button>
+              <button class="btn btn-ghost" style="padding:4px 10px">Link</button>
+              <button class="btn btn-ghost" style="padding:4px 10px">H2</button>
+              <button class="btn btn-ghost" style="padding:4px 10px">List</button>
+              <button class="btn btn-ghost" style="padding:4px 10px">Quote</button>
+              <button class="btn btn-ghost" style="padding:4px 10px">Image</button>
+            </div>
+            <div style="padding:18px 16px;min-height:240px;font-size:15px;line-height:1.7;color:var(--color-neutral-800)">
+              <p style="margin:0 0 14px">The chapter’s training year is built around four questions members keep asking, and each one becomes a session.</p>
+              <div style="border-left:3px solid var(--color-accent);padding-left:14px;margin:18px 0;font-style:italic;font-size:17px">Pull quote block — drag to reposition, or click to add attribution.</div>
+              <div style="background:var(--color-neutral-100);padding:24px;text-align:center;font-size:14px;color:var(--color-neutral-600);margin:18px 0">Image block — drop a file, or choose from the media library</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:26px 22px;background:var(--color-neutral-100)">
+          <div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-700)">Live preview</div>
+          <div style="background:#fff;padding:26px 24px;margin-top:12px">
+            <div style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-accent-700)">Training &amp; education</div>
+            <h3 style="font-size:30px;line-height:1.1;letter-spacing:-0.01em;margin:12px 0 14px">Building a training calendar around the FAR overhaul</h3>
+            <p style="font-size:16px;line-height:1.7;color:var(--color-neutral-800);margin:0 0 14px">The chapter’s training year is built around four questions members keep asking, and each one becomes a session.</p>
+            <div style="font-size:20px;font-style:italic;line-height:1.5;margin:20px 0;max-width:34ch">Pull quote block — drag to reposition, or click to add attribution.</div>
+            <div style="aspect-ratio:16/9;background:var(--color-neutral-200)"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ adm4 }}" hint-placeholder-val="{{ false }}">
+    <div style="margin-top:32px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">
+        <div class="seg"><label class="seg-opt"><input type="radio" name="bd" checked="">Directors</label><label class="seg-opt"><input type="radio" name="bd">Advisors</label></div>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-secondary">Email members missing bios</button>
+          <button class="btn btn-primary">Add member</button>
+        </div>
+      </div>
+      <table class="table" style="width:100%;margin-top:24px">
+        <thead><tr><th style="width:28px"></th><th>Name</th><th>Position</th><th>Bio</th><th>Headshot</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--color-neutral-500)">⋮⋮</td><td>Jennifer Hanks</td><td>President</td><td>Yes</td><td>Yes</td><td><span class="tag tag-outline">Published</span></td></tr>
+          <tr><td style="color:var(--color-neutral-500)">⋮⋮</td><td>Chyanne Thomas</td><td>President-Elect</td><td>Yes</td><td>Yes</td><td><span class="tag tag-outline">Published</span></td></tr>
+          <tr><td style="color:var(--color-neutral-500)">⋮⋮</td><td>Patience Ibik</td><td>VP — Secretary</td><td style="color:var(--color-accent-2-700)">Missing</td><td style="color:var(--color-accent-2-700)">Missing</td><td><span class="tag tag-neutral">Draft</span></td></tr>
+          <tr><td style="color:var(--color-neutral-500)">⋮⋮</td><td>Richard Hanks</td><td>VP — Strategic Initiatives</td><td style="color:var(--color-accent-2-700)">Missing</td><td>Yes</td><td><span class="tag tag-neutral">Draft</span></td></tr>
+          <tr><td style="color:var(--color-neutral-500)">⋮⋮</td><td>COL Dawn Moore</td><td>VP — Government Relations</td><td style="color:var(--color-accent-2-700)">Missing</td><td>Yes</td><td><span class="tag tag-neutral">Draft</span></td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:15px;color:var(--color-neutral-700);margin-top:16px;max-width:64ch">Drag rows to set the order shown on the public page. A member stays in Draft until both bio and headshot are on file.</p>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ adm5 }}" hint-placeholder-val="{{ false }}">
+    <div style="margin-top:32px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">
+        <input class="input" type="text" placeholder="Search by filename or alt text" style="width:300px">
+        <button class="btn btn-primary">Upload</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:20px;margin-top:24px">
+        <div><div style="aspect-ratio:4/5;background:var(--color-neutral-200)"></div><div style="font-size:13px;margin-top:8px">hanks-jennifer.jpg</div></div>
+        <div><div style="aspect-ratio:4/5;background:var(--color-neutral-200)"></div><div style="font-size:13px;margin-top:8px">thomas-chyanne.png</div></div>
+        <div><div style="aspect-ratio:4/5;background:var(--color-neutral-200)"></div><div style="font-size:13px;margin-top:8px">moore-dawn.jpeg</div></div>
+        <div><div style="aspect-ratio:4/5;background:var(--color-neutral-200)"></div><div style="font-size:13px;margin-top:8px">national-harbor.jpg</div></div>
+        <div style="border:1px dashed var(--color-neutral-400);aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;color:var(--color-neutral-600);padding:12px">Drop files here</div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ adm6 }}" hint-placeholder-val="{{ false }}">
+    <div style="margin-top:32px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">
+        <p style="font-size:16px;color:var(--color-neutral-700);margin:0;max-width:52ch">Accounts are created by invitation — there is no public sign-up.</p>
+        <button class="btn btn-primary">Invite user</button>
+      </div>
+      <table class="table" style="width:100%;margin-top:24px">
+        <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Last active</th></tr></thead>
+        <tbody>
+          <tr><td>Bethlehem Belaineh</td><td>be@theoryai.co</td><td><span class="tag tag-accent-2">Administrator</span></td><td>Today</td></tr>
+          <tr><td>Jennifer Hanks</td><td>jahanks@mmcgovsolutions.com</td><td><span class="tag tag-accent-2">Administrator</span></td><td>Yesterday</td></tr>
+          <tr><td>Chyanne Thomas</td><td>cthomas@aurelus.io</td><td><span class="tag tag-neutral">Editor</span></td><td>3 days ago</td></tr>
+          <tr><td>Dr. Cynthia Pace</td><td>cpace@leadershipguru.com</td><td><span class="tag tag-neutral">Editor</span></td><td>1 week ago</td></tr>
+        </tbody>
+      </table>
+    </div>
+    </sc-if>
+
+  </div>
+  </sc-if>
+</div>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#0088b0"></rect><text x="100" y="118" font-family="Georgia, serif" font-size="54" fill="#f3f2f2" text-anchor="middle">NCMA</text></svg></template></x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { page: "home", open: {} };
+  go(page) {
+    return () => {
+      this.setState({ page });
+      if (typeof window !== "undefined") window.scrollTo(0, 0);
+    };
+  }
+  tog(n) {
+    return () => this.setState(s => ({ open: Object.assign({}, s.open, { [n]: !s.open[n] }) }));
+  }
+  renderVals() {
+    const p = this.state.page, o = this.state.open, v = {};
+    v.stop = e => e.stopPropagation();
+    const at = this.state.adminTab || 1;
+    v.goAdvisors = () => {
+      this.setState({ page: "board" });
+      setTimeout(() => {
+        const el = document.getElementById("advisors");
+        if (!el) return;
+        let c = el.parentElement;
+        while (c) {
+          const oy = getComputedStyle(c).overflowY;
+          if ((oy === "auto" || oy === "scroll") && c.scrollHeight > c.clientHeight) break;
+          c = c.parentElement;
+        }
+        const y = el.getBoundingClientRect().top - 96;
+        if (c) c.scrollTo({ top: y + c.scrollTop, behavior: "smooth" });
+        else window.scrollTo({ top: y + window.scrollY, behavior: "smooth" });
+      }, 0);
+    };
+    v.signIn = () => this.setState({ page: "admin" });
+    v.signOut = () => this.setState({ page: "login" });
+    for (let i = 1; i <= 6; i++) {
+      v["adm" + i] = at === i;
+      v["goAdm" + i] = () => this.setState({ adminTab: i });
+    }
+    ["home","about","board","insights","article","events","certs","sponsors","contact","login","admin"].forEach(k => {
+      v["on" + k[0].toUpperCase() + k.slice(1)] = p === k;
+      v["go" + k[0].toUpperCase() + k.slice(1)] = this.go(k);
+    });
+    for (let i = 1; i <= 20; i++) { v["open" + i] = !!o[i]; v["tog" + i] = this.tog(i); }
+    return v;
+  }
+}
+</script>
+</body>
+</html>
