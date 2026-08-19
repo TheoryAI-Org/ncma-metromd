@@ -157,34 +157,48 @@ Closing CTA block already matches.
 
 ---
 
-## T9 — `components/newsletter-form.tsx`: the segmented control
+## T9 — `components/newsletter-form.tsx`: accessibility only
 
-The `/insights` "Get it by email" block is missing the design's third field. Add
-it, in the `variant="stacked"` layout only — the home page's mailing-list block
-uses First name / Last name / Email and has no segment.
+**Re-checked against the file: the segmented control is already there.** The
+`variant="stacked"` layout renders Name, Email, an "I am" `.seg` with Government /
+Industry / Student radios (Government `defaultChecked`), a `btn btn-primary
+btn-block` Subscribe, and the 13px "Chapter news only. Unsubscribe any time."
+note. That matches the design. The `variant="inline"` home layout correctly has no
+segment.
 
+Two small things remain. This task is those and nothing else.
+
+**1. The radio group has no accessible name.** `<label>I am</label>` points at
+nothing — it is a bare label with no `htmlFor` and no wrapped control, so screen
+readers announce three unrelated radios. Wrap the group:
+
+```tsx
+<fieldset className="field mb-4">
+  <legend>I am</legend>
+  <div className="seg"> … </div>
+</fieldset>
 ```
-field  Name    input  "Your name"
-field  Email   input  "you@agency.gov"
-field  "I am"  .seg with three .seg-opt radios: Government, Industry, Student
-                Government checked by default
-btn btn-primary btn-block  "Subscribe"
-note  13px text-neutral-600  "Chapter news only. Unsubscribe any time."
-```
 
-`.seg` and `.seg-opt` already exist in `app/globals.css`. Each `.seg-opt` is a
-`<label>` wrapping a visually-hidden `<input type="radio" name="segment">` — that
-is what `.seg-opt:has(input:checked)` keys off, and it keeps the control keyboard-
-navigable. Give the group a `<fieldset>` with a `<legend class="sr-only">` or an
-`aria-label`, since "I am" is a `<label>` pointing at nothing.
+`.field > label` styles the current label; `<legend>` will need the same treatment,
+so extend that rule in `app/globals.css` to `.field > label, .field > legend`
+rather than adding a new class. Check the result still sits flush left — browsers
+give `<legend>` default padding that needs zeroing.
 
-The form is a **non-functional mockup** per the handoff — "Fields render but
-nothing is wired... Connect to whichever platform the chapter picks (Mailchimp,
-Constant Contact, or Resend) — this is an open decision." Do not invent an
-endpoint. Keep the existing behaviour, whatever it is, and make sure submitting
-does not navigate or throw.
+**2. The radios need a stable `name` per instance.** Both variants can appear on
+one page in principle, and `name="who"` is global to the document. Keep `who` if
+only the stacked variant uses radios today, but note it in the report if you see a
+page rendering both.
 
----
+**Leave the rest alone.** In particular:
+
+- The form is a **non-functional mockup** per the handoff — "Fields render but
+  nothing is wired… Connect to whichever platform the chapter picks (Mailchimp,
+  Constant Contact, or Resend) — this is an open decision." Do not invent an
+  endpoint or a client-side handler.
+- The `disabled` Subscribe and Sign up buttons are a deliberate reading of that:
+  the design draws an enabled button, but a button that looks live and does
+  nothing is worse than one that says so. Keep `disabled`. The existing file-level
+  `TODO(forms)` comment already records both wiring options; keep it.
 
 ## T11 — `/events`: the venue line
 

@@ -34,7 +34,7 @@ exists and is broadly correct:
 | 6 | Sponsors has 3 invented tiers; the design has 4 named levels plus 3 secondary options and 20 logo slots | `03` |
 | 7 | Home hero uses `hero-chapter.jpg`; the design specifies `ncma-metromd-hero.jpeg` | `03` |
 | 8 | Home "This season" and board preview copy still say "Nine volunteers" | `03` |
-| 9 | Insights subscribe block lacks the Government/Industry/Student segmented control | `03` |
+| 9 | Insights subscribe block's "I am" radio group has no accessible name (the segmented control itself is already built) | `03` |
 | 10 | Board page carries two invented sections not in the design | `03` |
 | 11 | `/events` shows no venue beneath each title — `Event` has no venue field and the API request does not expand it | `03` |
 | 12 | `lib/eventbrite.ts` caps past events at 10 while the design lists 23, and logs the API key length and env var names on every request | `03` |
@@ -84,7 +84,7 @@ until the reviewer returns PASS or PASS WITH NITS.
 | T6 Nav — Advisory item and anchor scroll | `03` | `components/nav-bar.tsx` |
 | T7 Home page corrections | `03` | `app/page.tsx` |
 | T8 Sponsors page — four levels | `03` | `app/sponsors/page.tsx`, `components/sponsor-grid.tsx` |
-| T9 Insights subscribe control | `03` | `components/newsletter-form.tsx` |
+| T9 Subscribe control accessibility | `03` | `components/newsletter-form.tsx`, `app/globals.css` |
 | T11 Events venue line + Eventbrite hygiene | `03` | `types/event.ts`, `lib/eventbrite.ts`, `components/events-content.tsx`, `data/events.json` |
 | T10 Responsive and focus sweep | `03` | as needed |
 
