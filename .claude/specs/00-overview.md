@@ -79,6 +79,7 @@ until the reviewer returns PASS or PASS WITH NITS.
 | T1 Ground colour and token correction | `01` | `app/globals.css`, `tailwind.config.ts` |
 | T2 Test harness + baseline tests | `04` | `package.json`, `vitest.config.ts`, `test/` |
 | T3 Board roster data — all 41 members | `02` | `data/board.ts` |
+| T3b Contact page email regression | `03` | `app/contact/page.tsx` |
 | T4 Board card + bio dialog | `02` | `components/board-card.tsx`, `components/headshot.tsx` |
 | T5 Board page — three sections, anchor | `02` | `app/board/page.tsx` |
 | T6 Nav — Advisory item and anchor scroll | `03` | `components/nav-bar.tsx` |

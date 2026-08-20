@@ -5,6 +5,36 @@ Read the file before changing it. Do not rewrite what already matches.
 
 ---
 
+## T3b — `app/contact/page.tsx`: the board-email regression
+
+T3 dropped Dr. Patricia Akinrogunde's email from the roster, because the design's
+board card for her does not show one. But `app/contact/page.tsx` builds its "Reach
+the board directly" list by looking each topic's board member up by slug and
+rendering `mailto:{member.email}` unconditionally — so the Training row now emits a
+literal `mailto:undefined`. A dead link, silent, on the page whose whole job is
+being reachable.
+
+**The design has the address.** Its contact section carries all five explicitly,
+Akinrogunde's included:
+
+| Topic | Name | Address |
+| --- | --- | --- |
+| Membership | Jennifer Hanks | jahanks@mmcgovsolutions.com |
+| Programs | Renita Anderson | randerson@deftechno.com |
+| Training | Dr. Patricia Akinrogunde | patricia@triplejoygroup.com |
+| Sponsorship | Sonya Hopson | sonya@sageservicesgroupllc.com |
+| Newsletter | Bethlehem Belaineh | be@theoryai.co |
+
+So the design treats the contact page's addresses as its own content, independent of
+what each board card chooses to display. Follow that: give the page's `contacts`
+array an explicit `email` per row, taken from the table above, and stop reading
+`member.email`. Keep the slug only for the display name, so a name change in the
+roster still flows through.
+
+This removes the whole class of bug rather than patching one row — the page can no
+longer emit a dead `mailto:` because a card omitted an address. Guard the name
+lookup too: if a slug ever stops resolving, that `.find()!` is a crash.
+
 ## T6 — `components/nav-bar.tsx`: the Advisory item
 
 The nav is otherwise correct: logo left with `mr-auto`, links right, `gap-x-[22px]`,

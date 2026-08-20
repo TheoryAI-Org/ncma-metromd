@@ -151,6 +151,16 @@ appears as a director and as an advisor; the handoff confirms this is intentiona
 Give the duplicates distinct slugs (`hanks` / `hanks-advisor`, `hanks-richard` /
 `hanks-richard-advisor`, `wilkinson` / `wilkinson-advisor`).
 
+**Organizations: use `.claude/design-reference/organizations.json`, not the tables
+below.** Two cells in these tables were wrong on the first pass — McGraw's and
+Marcinowski's organizations were recorded as absent when the prototype has both —
+because the org line is not styled consistently across sections. It is 16px in most
+cards, **14px with `nowrap` for McGraw**, and in the advisors section it sits
+*before* the sector line rather than after. The corrected values are in the tables
+now, but the JSON is the machine-checked extraction of all 41: 34 have an
+organization, and the 7 that do not are all directors (Alexander-Sergeeff, Bracey,
+Clark, Mills, Queen, Robinson, Scott).
+
 #### Officers & Vice Presidents — 13
 
 | # | slug | Name | Position | Sector | Organization | Email | LI | Bio |
@@ -164,7 +174,7 @@ Give the duplicates distinct slugs (`hanks` / `hanks-advisor`, `hanks-richard` /
 | 7 | hanks-richard | Richard Hanks | VP — Strategic Initiatives | Industry, Former Government (State/Local) | MMC Government Solutions | rdhanks@mmcgovsolutions.com | ✓ | — |
 | 8 | hopson | Sonya Hopson | VP — Operations | Industry, Former Government (Federal) | Founder & CEO, Sage Services Group LLC | sonya@sageservicesgroupllc.com | ✓ | ✓ |
 | 9 | ingol | Lester L. Ingol | VP — Membership | Industry, Former Government (Federal) | Chief Operating Officer, Blue Line Global, LLC | — | ✓ | ✓ |
-| 10 | mcgraw | Darrell McGraw | VP — Development (Fundraising) | Industry | — | — | ✓ | ✓ |
+| 10 | mcgraw | Darrell McGraw | VP — Development (Fundraising) | Industry | President & CEO, Q2 Consulting Solutions LLC | — | ✓ | ✓ |
 | 11 | moore | COL Dawn Moore | VP — Government Relations & Policy | Government (Federal) | Office of the Chief, Army Reserve | dawn_eakins@yahoo.com | ✓ | — |
 | 12 | pace | Dr. Cynthia Pace | VP — Training & Education | Industry | C. O. Pace, "The Leadership Guru," LLC | cpace@leadershipguru.com | ✓ | — |
 | 13 | sistrunk | Joye Sistrunk, CPA | VP — Treasurer | Industry | President & CEO, Premier Group Services, Inc. | accounting@pgs-cpa.com | ✓ | ✓ |
@@ -206,7 +216,7 @@ Akinrogunde's email. Match the design, not the repo's current values.
 | 2 | hanks-richard-advisor | Richard Hanks | Board of Advisors — Chairperson | Industry, Former State/Local Government | MMC Government Solutions | rdhanks@mmcgovsolutions.com | ✓ | — |
 | 3 | bizzell | Dr. Anton C. Bizzell | Board of Advisors | Industry, Former Government (Federal) | Bizzell Group | abizzell@bizzellus.com | ✓ | — |
 | 4 | chappell | Brittney Chappell | Board of Advisors | Industry, Former Government (Federal) | Alpha and Omega | bvc0425@gmail.com | ✓ | — |
-| 5 | marcinowski | Traci Marcinowski | Board of Advisors | Industry, Former Government (Federal) | — | tmarcinowski@strategicacqsolutions.com | ✓ | — |
+| 5 | marcinowski | Traci Marcinowski | Board of Advisors | Industry, Former Government (Federal) | Strategic Acquisition Solutions, LLC | tmarcinowski@strategicacqsolutions.com | ✓ | — |
 | 6 | mccollum | Ray McCollum | Board of Advisors | Government | National Science Foundation | raymccollum@gmail.com | ✓ | — |
 | 7 | mitchell | Calvin J. Mitchell | Board of Advisors | Industry, Former Government (Federal) | GDIT | calvin.mitchell@gdit.com | ✓ | — |
 | 8 | smith | Jimmy D. Smith | Board of Advisors | Industry | PEI / Smith Consulting | jsmith@smithadvisoryconsulting.com | ✓ | — |
@@ -246,8 +256,8 @@ implementation report:
 Do **not** wire `board-joye-sistrunk.png` — `sistrunk.jpg` is already in place and
 optimized; the PNG is an unused alternate.
 
-Everyone else has no `photo`. That is 25 of 41 members rendering an empty frame,
-which is the designed state.
+Everyone else has no `photo`. That is **11 of 41 with a headshot and 30 rendering
+an empty frame**, which is the designed state.
 
 The handoff's prose says "only Brittney Chappell has a headshot" among advisors,
 but no Chappell asset shipped in the bundle. The prototype is authoritative:
