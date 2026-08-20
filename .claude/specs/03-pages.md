@@ -243,11 +243,20 @@ one**, so the line cannot render today.
    `<div style="font-size:14px;color:var(--color-neutral-700);margin-top:2px">`.
    Do **not** add it to `EventRows` (the upcoming list) — the design's upcoming
    section does not show venue.
-4. **Backfill the fallback.** `data/events.json` holds 9 past events with no venue.
-   The prototype's table gives the venue for the meetings it lists; copy the venue
-   across for rows whose title and date match, and leave the rest without one. Do
-   not invent a venue for a row the design does not give one for. The design's
-   table is at `.claude/design-reference/site-v2.html` lines 952–976.
+4. **The fallback backfill is a no-op — verified.** The design's table is
+   extracted to `.claude/design-reference/events-table.json`: 23 rows, 13 carrying
+   a venue. Cross-referencing it against `data/events.json` gives **zero**
+   backfillable rows — all 9 fallback events do appear in the design table, and
+   none of those 9 is one of the 13 with a venue. The venues belong to newer
+   meetings (Feb 2025 – Jun 2026) that the fallback snapshot predates.
+
+   So until the Eventbrite token is issued, **the venue line renders for no rows at
+   all.** Add the field and the mapping anyway — it is a design requirement and it
+   costs nothing to have ready — but do not spend effort on a backfill that has
+   nothing to copy, and do not invent a venue for any row.
+
+   Whether to expand the fallback from 9 rows to the design's 23 is a separate
+   question pending the repo owner; see the note at the end of this task.
 
 Two further problems in `lib/eventbrite.ts`, both in scope because this task edits
 the file:
@@ -265,7 +274,17 @@ the file:
 
 Do not otherwise restructure the function. Its fallback contract is what the T2
 tests pin down; if you change a return shape, the tests must change with it and the
-report must say so.
+report must say so. Note that T2 includes a test documenting the 10-item cap — it
+was written knowing T11 removes it, so update that test deliberately and say so.
+
+**Open: should the fallback grow from 9 rows to 23?** The design's table lists 23
+past meetings; the snapshot has 9. Expanding it would complete the archive and make
+13 venues visible. Against it: the handoff calls the design's rows "placeholder data
+pending the API key", so they may not be authoritative chapter history — though they
+carry specific venue names and real Eventbrite ticket URLs, which argues they are
+real. Do not decide this yourself; the answer will be added here before T11 runs.
+Note that every one of the 23 rows is in the past as of 2026-08-20, so none would
+wrongly surface as upcoming.
 
 ## T10 — Responsive and focus sweep
 
