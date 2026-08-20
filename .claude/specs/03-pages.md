@@ -69,7 +69,26 @@ Implement it as the smallest thing that works:
 `data-on` for Advisory: true when `pathname === "/board"`. That means Board and
 Advisory both light up on `/board`, which is honest — they are the same page.
 
-Mirror both changes into the mobile `Sheet` menu.
+**3. Make the active-state match segment-aware while you are here.** `isOn` is
+currently `pathname.startsWith(href)`, which is right for nested routes and wrong
+for sibling ones: `/insights/where-ai-helps-procurement` correctly lights up
+Insights, but a hypothetical `/boardroom` would also light up Board. T2 pinned this
+with a `TODO(nav-bar)` test, and T6 is the task that owns the file.
+
+Verified: **no route in the app collides today**, so this is latent, not live — but
+adding Advisory puts a second item on the same prefix, and the fix is one line:
+
+```ts
+const isOn = (href: string) =>
+  href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
+```
+
+That keeps `/insights/<slug>` → Insights and removes the sibling-prefix class of
+bug. Update the `TODO(nav-bar)` test in `test/nav-bar.test.tsx` to assert the new
+behaviour and drop the TODO — the test was written expecting this change, so
+flipping the assertion is the point, not a regression.
+
+Mirror all three changes into the mobile `Sheet` menu.
 
 ---
 
