@@ -1,5 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  eslint: {
+    // Defaults are app/pages/components/lib/src; add test/ so `npm run lint`
+    // covers the test harness too, not just application source.
+    dirs: ['app', 'components', 'lib', 'test'],
+  },
   images: {
     remotePatterns: [
       {
