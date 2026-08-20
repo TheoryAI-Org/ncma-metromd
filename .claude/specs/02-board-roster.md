@@ -273,6 +273,33 @@ Structure, top to bottom, per the handoff and prototype:
 after the section `<h2>`. Use `<h3>` — same visual size, correct document outline.
 This is an intentional improvement over the prototype, not a deviation.
 
+**The card has two variants, and the difference is measured, not guessed.** All 41
+cards were extracted and tallied. Three properties are perfectly consistent within
+each body, which makes them design intent:
+
+| | Officers (13) | Directors (18) | Advisors (10) |
+| --- | --- | --- | --- |
+| Name size | 30px | 28px | 24px |
+| Name margin | `10px 0 4px` | `10px 0 4px` | `6px 0 2px` |
+| Field order | position → **sector → organization** | position → **sector → organization** | position → **organization → sector** |
+
+So advisors get a compressed card: smaller name, tighter margins, and the
+organization *above* the sector rather than below it. 10 of 10 advisor cards agree
+on all three. Implement the variant.
+
+**The advisor sector's own styling is drift — normalise it.** Unlike the three
+properties above, the advisor sector label is styled three different ways across
+ten cards (7× 13px/`0.1em`, 3× 12px/`0.06em`), and one organization is 14px where
+the other nine are 16px. Inconsistent within a section is noise, not intent, so use
+the README's single sector treatment — **11px / `0.05em`** — for all three bodies,
+and 16px for every organization. Same reasoning as the drift table in
+`01-design-system.md`: perfect consistency proves intent, disagreement proves the
+opposite.
+
+Stray `white-space: nowrap` on the position line (present on 5 director cards, absent
+on 13) is drift too. The position keeps `nowrap` per the README; the sector does not,
+for the overflow reason below.
+
 1. **Headshot** — 4:5 frame, `bg-surface`, `object-cover`. Empty (no placeholder
    text, just the surface fill) when there is no photo. `components/headshot.tsx`
    already does this; change its default `placeholder` to render **nothing** for
