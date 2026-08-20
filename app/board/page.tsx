@@ -1,13 +1,59 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { BoardCard } from "@/components/board-card";
-import { BOARD } from "@/data/board";
+import { boardBody, type BoardBody } from "@/data/board";
 
 export const metadata: Metadata = {
   title: "Board | NCMA MetroMD Chapter",
   description:
-    "Meet the nine volunteers who run the NCMA MetroMD Chapter — former contracting officers, engineers, CPAs and founders.",
+    "Meet the volunteers who run the NCMA MetroMD Chapter — former contracting officers, engineers, CPAs and founders.",
 };
+
+interface Section {
+  body: BoardBody;
+  id?: string;
+  kicker?: string;
+  heading: string;
+  lede?: string;
+}
+
+// Officers has no kicker or lede, matching the prototype — see 02-board-roster.md.
+const SECTIONS: Section[] = [
+  { body: "officers", heading: "Officers & Vice Presidents" },
+  {
+    body: "directors",
+    kicker: "Directors",
+    heading: "Directors",
+    lede: "Directors lead the chapter's standing programs — training, networking, operations and outreach — alongside the officers.",
+  },
+  {
+    body: "advisors",
+    id: "advisors",
+    kicker: "Advisory",
+    heading: "Board of Advisors",
+    lede: "Senior practitioners from industry and government who counsel the chapter on strategy, partnerships, and professional development.",
+  },
+];
+
+function BoardSection({ body, id, kicker, heading, lede }: Section) {
+  return (
+    <div
+      id={id}
+      className={`${body === "officers" ? "mt-16" : "mt-[120px]"} ${
+        id ? "scroll-mt-24" : ""
+      }`}
+    >
+      {kicker && <div className="kick">{kicker}</div>}
+      <h2 className={`max-w-[24ch] text-[44px] ${kicker ? "mt-2.5" : ""}`}>{heading}</h2>
+      {lede && <p className="lede mt-5 max-w-[62ch]">{lede}</p>}
+
+      <div className="mt-14 grid grid-cols-1 gap-x-12 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+        {boardBody(body).map((member) => (
+          <BoardCard key={member.slug} member={member} />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function BoardPage() {
   return (
@@ -17,38 +63,13 @@ export default function BoardPage() {
         Meet the board
       </h1>
       <p className="lede">
-        Nine volunteers run this chapter: former contracting officers, engineers,
+        Volunteers run this chapter: former contracting officers, engineers,
         CPAs and founders. Their contact details are here on purpose — reach out.
       </p>
 
-      <div className="mt-14 grid grid-cols-1 gap-x-12 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
-        {BOARD.map((member) => (
-          <BoardCard key={member.slug} member={member} />
-        ))}
-      </div>
-
-      <div className="mt-14 grid grid-cols-1 gap-14 md:grid-cols-2">
-        <div>
-          <h2 className="text-[28px]">Serve on the board</h2>
-          <p className="mb-5 mt-2 text-base text-neutral-700">
-            Officers are elected annually and committee seats open through the
-            year — programs, newsletter, certification study groups, sponsorship.
-          </p>
-          <Link href="/contact" className="btn btn-secondary">
-            Express interest
-          </Link>
-        </div>
-        <div>
-          <h2 className="text-[28px]">Write for Insights</h2>
-          <p className="mb-5 mt-2 text-base text-neutral-700">
-            Board members and members publish short practice pieces. Pitches are
-            one paragraph.
-          </p>
-          <Link href="/insights" className="btn btn-secondary">
-            Read Insights
-          </Link>
-        </div>
-      </div>
+      {SECTIONS.map((section) => (
+        <BoardSection key={section.body} {...section} />
+      ))}
     </div>
   );
 }
