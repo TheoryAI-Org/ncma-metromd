@@ -1,140 +1,205 @@
 [
   {
-    "date": "Jun 16, 2026",
+    "id": "2026-06-16-metromd-defense-logistics-agency-dla-june-dinner",
     "title": "MetroMD + Defense Logistics Agency (DLA) June Dinner Meeting",
+    "date": "2026-06-16",
+    "startTime": "16:00",
+    "description": "Check ticket prices on event",
+    "endTime": "20:30",
     "venue": "The Westin Washington National Harbor",
-    "time": "4:00 – 8:30 PM"
+    "eventUrl": "https://www.eventbrite.com/e/metromd-defense-logistics-agency-dla-june-dinner-meeting-tickets-1266518594209"
   },
   {
-    "date": "Apr 30, 2026",
+    "id": "2026-04-30-ncma-metromd-dinner-meeting",
     "title": "NCMA MetroMD Dinner Meeting",
+    "date": "2026-04-30",
+    "startTime": "17:30",
+    "description": "Check ticket prices on event",
     "venue": "The Westin Washington National Harbor",
-    "time": "5:30 PM"
+    "eventUrl": "https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413"
   },
   {
-    "date": "Apr 17, 2026",
+    "id": "2026-04-17-ncma-metromd-workshop-developing-a-high-impact-c",
     "title": "NCMA MetroMD Workshop — Developing a High-Impact Capability Statement",
+    "date": "2026-04-17",
+    "startTime": "10:00",
+    "description": "Check ticket prices on event",
     "venue": "American Job Center National Harbor",
-    "time": "10:00 AM"
+    "eventUrl": "https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413"
   },
   {
-    "date": "Mar 20, 2026",
+    "id": "2026-03-20-ncma-metromd-workshop-developing-a-high-impact-c",
     "title": "NCMA MetroMD Workshop — Developing a High-Impact Capability Statement",
+    "date": "2026-03-20",
+    "startTime": "10:00",
+    "description": "Check ticket prices on event",
     "venue": "American Job Center National Harbor",
-    "time": "10:00 AM"
+    "eventUrl": "https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413"
   },
   {
-    "date": "Mar 19, 2026",
+    "id": "2026-03-19-ncma-metromd-s-cocktails-conversation",
     "title": "NCMA MetroMD’s Cocktails & Conversation",
+    "date": "2026-03-19",
+    "startTime": "17:30",
+    "description": "Check ticket prices on event",
     "venue": "Topgolf National Harbor",
-    "time": "5:30 PM"
+    "eventUrl": "https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413"
   },
   {
-    "date": "Feb 27, 2026",
+    "id": "2026-02-27-ncma-metromd-workshop-master-the-art-science-of-",
     "title": "NCMA MetroMD Workshop — Master the Art & Science of Pricing",
+    "date": "2026-02-27",
+    "startTime": "10:00",
+    "description": "Check ticket prices on event",
     "venue": "American Job Center National Harbor",
-    "time": "10:00 AM"
+    "eventUrl": "https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413"
   },
   {
-    "date": "Feb 25, 2026",
+    "id": "2026-02-25-ncma-metromd-winter-networking-happy-hour-facing",
     "title": "NCMA MetroMD Winter Networking Happy Hour — Facing the Future Together!",
+    "date": "2026-02-25",
+    "startTime": "18:00",
+    "description": "Check ticket prices on event",
     "venue": "The Brass Tap",
-    "time": "6:00 PM"
+    "eventUrl": "https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413"
   },
   {
-    "date": "Dec 19, 2025",
+    "id": "2025-12-19-ncma-metromd-december-professional-development-t",
     "title": "NCMA MetroMD December Professional Development Training",
-    "venue": null,
-    "time": "10:00 AM EST"
+    "date": "2025-12-19",
+    "startTime": "10:00",
+    "description": "Check ticket prices on event",
+    "eventUrl": "https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413"
   },
   {
-    "date": "Nov 13, 2025",
+    "id": "2025-11-13-ncma-metromd-dinner-meeting-food-drive",
     "title": "NCMA MetroMD Dinner Meeting & Food Drive",
+    "date": "2025-11-13",
+    "startTime": "17:30",
+    "description": "Check ticket prices on event",
     "venue": "The Westin Washington National Harbor",
-    "time": "5:30 PM"
+    "eventUrl": "https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413"
   },
   {
-    "date": "Jun 19, 2025",
+    "id": "2025-06-19-ncma-metromd-dinner-meeting",
     "title": "NCMA MetroMD Dinner Meeting",
+    "date": "2025-06-19",
+    "startTime": "17:30",
+    "description": "Check ticket prices on event",
     "venue": "The Westin Washington National Harbor",
-    "time": "5:30 PM"
+    "eventUrl": "https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413"
   },
   {
-    "date": "May 15, 2025",
+    "id": "2025-05-15-ncma-metromd-dinner-meeting",
     "title": "NCMA MetroMD Dinner Meeting",
+    "date": "2025-05-15",
+    "startTime": "17:30",
+    "description": "Check ticket prices on event",
     "venue": "The Westin Washington National Harbor",
-    "time": "5:30 PM"
+    "eventUrl": "https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413"
   },
   {
-    "date": "Apr 17, 2025",
+    "id": "2025-04-17-ncma-metromd-dinner-meeting",
     "title": "NCMA MetroMD Dinner Meeting",
+    "date": "2025-04-17",
+    "startTime": "17:30",
+    "description": "Check ticket prices on event",
     "venue": "The Westin Washington National Harbor",
-    "time": "5:30 PM"
+    "eventUrl": "https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413"
   },
   {
-    "date": "Mar 20, 2025",
+    "id": "2025-03-20-metromd-s-1st-anniversary-dinner-celebration",
     "title": "MetroMD’s 1st Anniversary Dinner Celebration",
+    "date": "2025-03-20",
+    "startTime": "17:30",
+    "description": "Check ticket prices on event",
     "venue": "The Westin Washington National Harbor",
-    "time": "5:30 PM"
+    "eventUrl": "https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413"
   },
   {
-    "date": "Feb 20, 2025",
+    "id": "2025-02-20-ncma-metromd-february-20th-dinner-meeting",
     "title": "NCMA MetroMD February 20th Dinner Meeting",
+    "date": "2025-02-20",
+    "startTime": "17:30",
+    "description": "Check ticket prices on event",
     "venue": "The Westin Washington National Harbor",
-    "time": "5:30 PM"
+    "eventUrl": "https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413"
   },
   {
-    "date": "Jan 16, 2025",
+    "id": "2025-01-16-ncma-metromd-january-dinner-meeting",
     "title": "NCMA MetroMD January Dinner Meeting",
-    "venue": null,
-    "time": "4:45 – 8:00 PM"
+    "date": "2025-01-16",
+    "startTime": "16:45",
+    "description": "Check ticket prices on event",
+    "endTime": "20:00",
+    "eventUrl": "https://www.eventbrite.com/e/ncma-metromd-january-dinner-meeting-tickets-1132322389749"
   },
   {
-    "date": "Nov 21, 2024",
+    "id": "2024-11-21-ncma-metromd-salute-to-veterans-november-dinner",
     "title": "NCMA MetroMD Salute to Veterans November Dinner",
-    "venue": null,
-    "time": "5:30 – 8:00 PM"
+    "date": "2024-11-21",
+    "startTime": "17:30",
+    "description": "Check ticket prices on event",
+    "endTime": "20:00",
+    "eventUrl": "https://www.eventbrite.com/e/ncma-metromd-salute-to-veterans-november-dinner-tickets-1073351516279"
   },
   {
-    "date": "Oct 31, 2024",
+    "id": "2024-10-31-the-cmbok-and-far-connection",
     "title": "The CMBOK and FAR Connection",
-    "venue": null,
-    "time": "6:00 – 8:00 PM"
+    "date": "2024-10-31",
+    "startTime": "18:00",
+    "description": "Check ticket prices on event",
+    "endTime": "20:00",
+    "eventUrl": "https://www.eventbrite.com/e/the-cmbok-and-far-connection-tickets-1069776924579"
   },
   {
-    "date": "Oct 17, 2024",
+    "id": "2024-10-17-ncma-metromd-october-17th-dinner-meeting",
     "title": "NCMA MetroMD October 17th Dinner Meeting",
-    "venue": null,
-    "time": "5:30 – 8:00 PM"
+    "date": "2024-10-17",
+    "startTime": "17:30",
+    "description": "Check ticket prices on event",
+    "endTime": "20:00",
+    "eventUrl": "https://www.eventbrite.com/e/ncma-metromd-october-17th-dinner-meeting-tickets-1037291475727"
   },
   {
-    "date": "Aug 15, 2024",
+    "id": "2024-08-15-ncma-metromd-august-15th-dinner-meeting",
     "title": "NCMA MetroMD August 15th Dinner Meeting",
-    "venue": null,
-    "time": "5:30 – 8:00 PM"
+    "date": "2024-08-15",
+    "startTime": "17:30",
+    "description": "Check ticket prices on event",
+    "endTime": "20:00",
+    "eventUrl": "https://www.eventbrite.com/e/ncma-metromd-august-15th-dinner-meeting-tickets-940907057337"
   },
   {
-    "date": "Jun 27, 2024",
+    "id": "2024-06-27-ncma-metromd-june-dinner-meeting",
     "title": "NCMA MetroMD June Dinner Meeting",
-    "venue": null,
-    "time": "5:30 – 8:00 PM"
+    "date": "2024-06-27",
+    "startTime": "17:30",
+    "description": "Check ticket prices on event",
+    "endTime": "20:00"
   },
   {
-    "date": "May 16, 2024",
+    "id": "2024-05-16-ncma-metromd-may-dinner-meeting",
     "title": "NCMA MetroMD May Dinner Meeting",
-    "venue": null,
-    "time": "5:30 – 8:00 PM"
+    "date": "2024-05-16",
+    "startTime": "17:30",
+    "description": "Check ticket prices on event",
+    "endTime": "20:00"
   },
   {
-    "date": "Apr 18, 2024",
+    "id": "2024-04-18-ncma-metromd-april-dinner-meeting",
     "title": "NCMA MetroMD April Dinner Meeting",
-    "venue": null,
-    "time": "5:30 – 8:00 PM"
+    "date": "2024-04-18",
+    "startTime": "17:30",
+    "description": "Check ticket prices on event",
+    "endTime": "20:00"
   },
   {
-    "date": "Mar 21, 2024",
+    "id": "2024-03-21-ncma-metromd-kick-off",
     "title": "NCMA MetroMD Kick-Off",
-    "venue": null,
-    "time": "6:00 – 8:00 PM"
+    "date": "2024-03-21",
+    "startTime": "18:00",
+    "description": "Check ticket prices on event",
+    "endTime": "20:00"
   }
 ]

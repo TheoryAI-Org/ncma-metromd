@@ -273,20 +273,41 @@ one**, so the line cannot render today.
    `<div style="font-size:14px;color:var(--color-neutral-700);margin-top:2px">`.
    Do **not** add it to `EventRows` (the upcoming list) — the design's upcoming
    section does not show venue.
-4. **The fallback backfill is a no-op — verified.** The design's table is
-   extracted to `.claude/design-reference/events-table.json`: 23 rows, 13 carrying
-   a venue. Cross-referencing it against `data/events.json` gives **zero**
-   backfillable rows — all 9 fallback events do appear in the design table, and
-   none of those 9 is one of the 13 with a venue. The venues belong to newer
-   meetings (Feb 2025 – Jun 2026) that the fallback snapshot predates.
+4. **`endTime` becomes optional.** 13 of the design's 23 rows show a single time
+   ("5:30 PM"), not a range — the range form ("4:00 – 8:30 PM") is the minority.
+   `Event.endTime` is currently required, so those rows cannot be represented
+   without inventing an end time. Make it `endTime?: string` and render the range
+   only when it exists.
 
-   So until the Eventbrite token is issued, **the venue line renders for no rows at
-   all.** Add the field and the mapping anyway — it is a design requirement and it
-   costs nothing to have ready — but do not spend effort on a backfill that has
-   nothing to copy, and do not invent a venue for any row.
+   This touches three formatters: `formatTimeRange` in `app/page.tsx`,
+   `formatTime`'s two call sites in `components/events-content.tsx`, and the
+   mapping in `lib/eventbrite.ts` (the API does return an end, so live events keep
+   theirs). Have the shared behaviour live in one helper rather than three — but do
+   not go further and refactor the date formatters; they are fine.
 
-   Whether to expand the fallback from 9 rows to the design's 23 is a separate
-   question pending the repo owner; see the note at the end of this task.
+5. **Expand the fallback from 9 rows to 23.** Decided with the repo owner,
+   2026-08-20. The design's table is a fuller archive than the snapshot, and
+   expanding it is what makes the venue line visible at all before the Eventbrite
+   token exists.
+
+   **Use `.claude/design-reference/events-table.json`** — the complete extraction,
+   already in `Event` shape: 23 rows sorted date-descending, unique ids of the form
+   `YYYY-MM-DD-<title-slug>`, 13 with `venue`, 10 with `endTime`, 19 with
+   `eventUrl`. Do not retype it and do not re-derive the times.
+
+   The 4 rows without an `eventUrl` (June, May, April 2024 and the Kick-Off) are
+   the ones the design renders as "Closed" rather than as a link, and
+   `components/events-content.tsx` already does exactly that when `eventUrl` is
+   absent — so no code change is needed for them. Verify that still holds.
+
+   Every one of the 23 is in the past as of 2026-08-20, so none can wrongly surface
+   as upcoming. Note in `data/events.json` — or in the comment above
+   `PAST_EVENTS_FALLBACK` — that these rows are a snapshot taken from the redesign
+   handoff, so a future reader knows their provenance and that live API data
+   supersedes them.
+
+   Keep `upcomingEvents: []`. The code deliberately never backfills upcoming
+   events, and inventing future meetings would be worse than showing none.
 
 Two further problems in `lib/eventbrite.ts`, both in scope because this task edits
 the file:
