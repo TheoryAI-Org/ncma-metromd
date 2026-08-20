@@ -148,6 +148,12 @@ design has — fix it, do not preserve it.
 Jennifer Hanks and Richard Hanks each appear twice — once as an officer, once as
 an advisor — with **different** positions and sectors. Dr. John Wilkinson likewise
 appears as a director and as an advisor; the handoff confirms this is intentional.
+
+**Wilkinson's two cards do not share a name string.** The prototype has
+`Dr. John Wilkinson` on the director card and `Dr. John W. Wilkinson` — with the
+middle initial — on the advisor card. Keep both verbatim. A test asserting his name
+appears twice will never pass; assert the two distinct headings instead. Hanks and
+Hanks *are* literal duplicates, so those two do get a count-of-two assertion.
 Give the duplicates distinct slugs (`hanks` / `hanks-advisor`, `hanks-richard` /
 `hanks-richard-advisor`, `wilkinson` / `wilkinson-advisor`).
 
