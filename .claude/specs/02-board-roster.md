@@ -330,11 +330,19 @@ for the overflow reason below.
    `text-xs tracking-[0.06em]` overrides rather than a new class.
 5. **Sector label** — 11px, uppercase, `letter-spacing: 0.05em`, `mt-1.5`.
    Colour by rule: `text-magenta-700` when the sector **starts with**
-   `"Government"`, otherwise `text-neutral-700`. Note the consequence — "Industry,
-   Former Government (Federal)" does *not* start with "Government" and stays
-   neutral; only Grimsley, Moore, Queen (Government (Federal)) and McCollum
-   (Government) go magenta. That is the handoff's rule as written; implement it
-   literally.
+   `"Government"`, otherwise `text-neutral-700`. Implement it as
+   `sector.startsWith("Government")` and let the data decide — never a hardcoded
+   list of names, which drifts.
+
+   **Five members go magenta**, verified by parsing all 41 rows: Grimsley and Moore
+   (officers), Akinrogunde and Queen (directors), McCollum (advisors). **Ten stay
+   neutral despite containing the word** — every "Industry, Former Government (…)"
+   and "Industry, Former State/Local Government" variant. That is the handoff's rule
+   as written, and its visible effect is that ten people who *are* ex-government
+   read as Industry. Flag it to the designer; do not widen the match to fix it.
+
+   Assert the count of 5 in the test, so a later "fix" from `startsWith` to
+   `includes` fails loudly instead of quietly turning ten more labels magenta.
    Drop `whitespace-nowrap` here: the handoff explicitly flags that Richard
    Hanks's label ("Industry, Former Government (State/Local)") overflows its
    column below ~1000px. Let it wrap.

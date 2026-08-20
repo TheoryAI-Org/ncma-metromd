@@ -122,6 +122,14 @@ here so the designer can confirm.
 | 1164 | Footer logo `height: 134px; width: 658px` | Logo at header scale | 44px tall |
 | 1167, 1173 | Footer column kickers `font-size: 20px` | Kicker 13px | 13px `.kick` |
 
+**The handoff's prose contradicts the handoff's own roster data.** Its Content
+status section says "COL Dawn Moore is the only Government (Federal) sector label
+among the officers; Dr. Oliver Queen among the directors." Parsing all 41 cards
+shows Antavia Grimsley also carries Government (Federal) among the officers, and
+Dr. Patricia Akinrogunde among the directors — five magenta labels in total, not
+two. The card data wins; the prose is stale. Flagged so the designer can confirm
+which is right, since it changes how many labels read magenta.
+
 Also noted, not drift but worth the designer's eye:
 
 - **Card name size is a per-section hierarchy, and it is deliberate.** The
