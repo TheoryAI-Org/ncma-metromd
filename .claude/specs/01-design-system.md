@@ -87,15 +87,57 @@ dropping to 24px below 1180px), radius (2px), and shadows are all already
 implemented correctly. Use `--shadow-lg` for the bio dialog; write no ad-hoc
 `box-shadow`.
 
-## Focus and hover — non-negotiable
+## T1b — Focus rings: the rule was never ported
 
-Every interactive element takes a hover tint from the accent ramp and
+**This section described a rule the codebase does not have.** Grepping
+`app/globals.css` for `focus` returns exactly one hit — `.input:focus`. The
+Broadsheet sheet's global pair
 
 ```css
+:focus { outline: none; }
 :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
 ```
 
-Never leave the browser default and never suppress the ring. Note that
+was never carried across when the tokens were ported. So today every `.btn`,
+`.navlink`, card email link, LinkedIn icon and "Read bio" trigger falls back to the
+browser's default focus ring rather than the design's 2px cyan one. Found during
+T4; it is repo-wide and predates this work.
+
+Worse, two components actively **suppress** the outline and substitute something
+thinner:
+
+| File | Line | Suppression |
+| --- | --- | --- |
+| `components/ui/button.tsx` | 8 | `focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring` |
+| `components/ui/sheet.tsx` | 67 | `focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2` |
+
+`--ring` is already re-pointed at the cyan in the shadcn compatibility layer, so
+these are on-palette — but 1px is thinner than the design's 2px, and `sheet.tsx`
+keys off `:focus` rather than `:focus-visible`, so it shows the ring on mouse click
+too.
+
+**The task:**
+
+1. Add the three global rules above to `app/globals.css` under `@layer base`, using
+   the tokens. Put them near the existing `a` rules.
+2. Raise `components/ui/button.tsx` from `ring-1` to `ring-2` so it matches the
+   system's weight. Leave the `outline-none` — a ring *plus* an outline double-draws;
+   the ring is the deliberate substitute here, and it is the same colour and now the
+   same width.
+3. Change `components/ui/sheet.tsx`'s close button from `focus:` to
+   `focus-visible:`, so the ring stops appearing on mouse click.
+4. Do **not** add per-element focus styles anywhere. One global rule is the point.
+
+**Verify by keyboard, not by reading.** Tab through `/board` and confirm a visible
+2px cyan ring lands on: a nav link, the "Join us" button, a card's LinkedIn icon,
+a card's email link, "Read bio", the dialog's close button, and — after the dialog
+opens — that focus is contained inside it. Then tab `/contact` for the form
+controls and the segmented radio group.
+
+`:focus { outline: none }` before `:focus-visible` is the standard pattern and is
+what the design system itself does; it is safe in every browser that supports
+`:focus-visible`, which is all current ones. Note that
 `app/globals.css` currently defines `.input:focus` (not `:focus-visible`) with
 `outline-offset: -1px`; that is intentional for form fields, matching the
 prototype's `.input:focus-visible { border-color: var(--color-accent); outline-offset: 0 }`.

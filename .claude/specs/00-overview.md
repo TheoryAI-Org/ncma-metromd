@@ -38,6 +38,7 @@ exists and is broadly correct:
 | 10 | Board page carries two invented sections not in the design | `03` |
 | 11 | `/events` shows no venue beneath each title — `Event` has no venue field and the API request does not expand it | `03` |
 | 12 | `lib/eventbrite.ts` caps past events at 10 while the design lists 23, and logs the API key length and env var names on every request | `03` |
+| 13 | The design system's global `:focus-visible` ring was never ported, and two shadcn components suppress the outline | `01` |
 
 ## Decisions taken (confirmed with the repo owner, 2026-08-20)
 
@@ -77,6 +78,7 @@ until the reviewer returns PASS or PASS WITH NITS.
 | Task | Spec | Touches |
 | --- | --- | --- |
 | T1 Ground colour and token correction | `01` | `app/globals.css`, `tailwind.config.ts` |
+| T1b Focus rings — the global rule was never ported | `01` | `app/globals.css`, `components/ui/button.tsx`, `components/ui/sheet.tsx` |
 | T2 Test harness + baseline tests | `04` | `package.json`, `vitest.config.ts`, `test/` |
 | T3 Board roster data — all 41 members | `02` | `data/board.ts` |
 | T3b Contact page email regression | `03` | `app/contact/page.tsx` |
