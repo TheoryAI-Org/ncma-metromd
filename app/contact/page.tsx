@@ -9,13 +9,18 @@ export const metadata: Metadata = {
     "Reach the NCMA MetroMD board about membership, programs, training, sponsorship or the newsletter.",
 };
 
-/** Which board member fields which kind of enquiry. */
+/**
+ * Which board member fields which kind of enquiry. The address is the
+ * design's own contact-section copy, not `member.email` — a board card can
+ * omit an email (Akinrogunde's does) without breaking this page. `slug` is
+ * only used to look up the display name.
+ */
 const contacts = [
-  { topic: "Membership", slug: "hanks" },
-  { topic: "Programs", slug: "anderson" },
-  { topic: "Training", slug: "akinrogunde" },
-  { topic: "Sponsorship", slug: "hopson" },
-  { topic: "Newsletter", slug: "belaineh" },
+  { topic: "Membership", slug: "hanks", email: "jahanks@mmcgovsolutions.com" },
+  { topic: "Programs", slug: "anderson", email: "randerson@deftechno.com" },
+  { topic: "Training", slug: "akinrogunde", email: "patricia@triplejoygroup.com" },
+  { topic: "Sponsorship", slug: "hopson", email: "sonya@sageservicesgroupllc.com" },
+  { topic: "Newsletter", slug: "belaineh", email: "be@theoryai.co" },
 ];
 
 export default function ContactPage() {
@@ -32,12 +37,11 @@ export default function ContactPage() {
         <div>
           <h2 className="text-[21px]">Reach the board directly</h2>
           <div className="mt-3 flex flex-col gap-2 text-base">
-            {contacts.map(({ topic, slug }) => {
-              const member = BOARD.find((m) => m.slug === slug)!;
+            {contacts.map(({ topic, slug, email }) => {
+              const name = BOARD.find((m) => m.slug === slug)?.name ?? topic;
               return (
                 <div key={topic}>
-                  {topic} ·{" "}
-                  <a href={`mailto:${member.email}`}>{member.name}</a>
+                  {topic} · <a href={`mailto:${email}`}>{name}</a>
                 </div>
               );
             })}

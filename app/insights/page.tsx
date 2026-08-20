@@ -65,7 +65,7 @@ export default function InsightsPage() {
             <div>
               <div className="text-[17px]">{featuredAuthor.name}</div>
               <div className="text-[15px] text-neutral-600">
-                {featuredAuthor.role} · {featured.readingTimeMinutes} min read
+                {featuredAuthor.position} · {featured.readingTimeMinutes} min read
               </div>
             </div>
           </div>
@@ -104,7 +104,7 @@ export default function InsightsPage() {
                   </Link>
                 </h3>
                 <div className="text-base">{author.name}</div>
-                <div className="text-sm text-neutral-600">{author.role}</div>
+                <div className="text-sm text-neutral-600">{author.position}</div>
               </div>
             </div>
           );

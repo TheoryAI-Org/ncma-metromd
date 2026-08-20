@@ -30,37 +30,58 @@ export function BoardCard({ member }: { member: BoardMember }) {
       <h3 className={`text-2xl ${member.linkedin ? "mt-1.5" : "mt-4"} mb-0.5`}>
         {member.name}
       </h3>
-      <div className="kick">{member.role}</div>
-      <div className="mt-1.5 text-base text-neutral-700">{member.affiliation}</div>
-      <div className="mt-2 flex flex-col gap-1">
-        <a
-          href={`mailto:${member.email}`}
-          className="break-words text-sm text-cyan-700 hover:underline"
-        >
-          {member.email}
-        </a>
-      </div>
+      <div className="kick">{member.position}</div>
+      {member.organization && (
+        <div className="mt-1.5 text-base text-neutral-700">{member.organization}</div>
+      )}
+      {member.email && (
+        <div className="mt-2 flex flex-col gap-1">
+          <a
+            href={`mailto:${member.email}`}
+            className="break-words text-sm text-cyan-700 hover:underline"
+          >
+            {member.email}
+          </a>
+        </div>
+      )}
 
-      <Dialog.Root>
-        <Dialog.Trigger className="btn btn-ghost mt-2.5 pl-0">Read bio</Dialog.Trigger>
-        <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 z-50 bg-[rgba(32,30,29,0.55)] data-[state=open]:animate-in data-[state=open]:fade-in-0" />
-          <Dialog.Content className="fixed left-1/2 top-1/2 z-50 max-h-[82vh] w-[calc(100%-32px)] max-w-[760px] -translate-x-1/2 -translate-y-1/2 overflow-auto bg-paper p-7 shadow-lg sm:p-12">
-            <Dialog.Close
-              className="btn btn-icon absolute right-4 top-4"
-              aria-label="Close"
+      {member.bio && (
+        <Dialog.Root>
+          <Dialog.Trigger className="btn btn-ghost mt-2.5 pl-0">Read bio</Dialog.Trigger>
+          <Dialog.Portal>
+            <Dialog.Overlay className="fixed inset-0 z-50 bg-[rgba(32,30,29,0.55)] data-[state=open]:animate-in data-[state=open]:fade-in-0" />
+            <Dialog.Content
+              className="fixed left-1/2 top-1/2 z-50 max-h-[82vh] w-[calc(100%-32px)] max-w-[760px] -translate-x-1/2 -translate-y-1/2 overflow-auto bg-paper p-7 shadow-lg sm:p-12"
+              aria-describedby={undefined}
             >
-              ×
-            </Dialog.Close>
-            <Dialog.Title className="mb-5 max-w-[32ch] text-3xl">
-              {member.name}
-            </Dialog.Title>
-            <Dialog.Description className="bio max-w-none">
-              {member.bio}
-            </Dialog.Description>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
+              <Dialog.Close
+                className="btn btn-icon absolute right-4 top-4"
+                aria-label="Close"
+              >
+                ×
+              </Dialog.Close>
+              <Dialog.Title className="mb-5 max-w-[32ch] text-3xl">
+                {member.name}
+              </Dialog.Title>
+              <div className="max-w-none">
+                {member.bio.map((block, i) =>
+                  block.type === "ul" ? (
+                    <ul key={i} className="bio mt-5 list-disc pl-5">
+                      {block.items.map((item, j) => (
+                        <li key={j}>{item}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p key={i} className={`bio max-w-none ${i > 0 ? "mt-5" : ""}`}>
+                      {block.text}
+                    </p>
+                  )
+                )}
+              </div>
+            </Dialog.Content>
+          </Dialog.Portal>
+        </Dialog.Root>
+      )}
     </div>
   );
 }

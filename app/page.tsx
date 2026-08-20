@@ -207,7 +207,7 @@ export default async function Home() {
                 sizes="(max-width: 1024px) 50vw, 25vw"
               />
               <div className="mt-3.5 text-[22px]">{member.name}</div>
-              <div className="kick mt-1">{member.role}</div>
+              <div className="kick mt-1">{member.position}</div>
             </div>
           ))}
         </div>
@@ -241,7 +241,7 @@ export default async function Home() {
                 </h3>
                 <div className="text-base">{author.name}</div>
                 <div className="text-sm text-neutral-600">
-                  {author.role} ·{" "}
+                  {author.position} ·{" "}
                   {article.status === "draft" ? "Draft" : "Published"}
                 </div>
               </div>

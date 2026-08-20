@@ -50,7 +50,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
         <div className="mr-auto">
           <div className="text-[17px]">{author.name}</div>
           <div className="text-[15px] text-neutral-600">
-            {author.role} · {article.readingTimeMinutes} min read
+            {author.position} · {article.readingTimeMinutes} min read
           </div>
         </div>
         {author.linkedin && (

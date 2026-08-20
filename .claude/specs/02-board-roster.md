@@ -34,7 +34,7 @@ export interface BoardMember {
   linkedin?: string;
   /** Path under /public. Omitted until the member submits a headshot. */
   photo?: string;
-  /** Bio content as ordered blocks. Four of the twelve bios have more than one. */
+  /** Bio content as ordered blocks. Three of the twelve bios have more than one. */
   bio?: BioBlock[];
 }
 
