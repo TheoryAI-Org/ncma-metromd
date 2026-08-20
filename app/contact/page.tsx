@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
+import { BOARD } from "@/data/board";
 import { ContactForm } from "@/components/contact-form";
 import { SocialLinks } from "@/components/social-links";
-import { BOARD } from "@/data/board";
 
 export const metadata: Metadata = {
   title: "Contact | NCMA MetroMD Chapter",
@@ -10,10 +10,11 @@ export const metadata: Metadata = {
 };
 
 /**
- * Which board member fields which kind of enquiry. The address is the
- * design's own contact-section copy, not `member.email` — a board card can
- * omit an email (Akinrogunde's does) without breaking this page. `slug` is
- * only used to look up the display name.
+ * Which board member fields which kind of enquiry. The address is the design's
+ * own contact-section copy — a board card can omit an email (Akinrogunde's
+ * does) without breaking this page. The name is looked up by slug so a roster
+ * rename still flows through; `?? topic` guards a slug that stops resolving
+ * instead of crashing.
  */
 const contacts = [
   { topic: "Membership", slug: "hanks", email: "jahanks@mmcgovsolutions.com" },

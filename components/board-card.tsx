@@ -2,7 +2,7 @@
 
 import * as Dialog from "@radix-ui/react-dialog";
 import { Headshot } from "@/components/headshot";
-import type { BoardMember } from "@/data/board";
+import type { BoardBody, BoardMember } from "@/data/board";
 
 const LinkedInIcon = ({ size = 22 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -10,7 +10,34 @@ const LinkedInIcon = ({ size = 22 }: { size?: number }) => (
   </svg>
 );
 
+// Name size and margin form a per-body hierarchy — officers largest, advisors
+// most compressed — measured from all 41 prototype cards (perfectly consistent
+// within each body). See .claude/specs/01-design-system.md.
+const NAME_STYLE: Record<BoardBody, { size: string; mt: string; mb: string }> = {
+  officers: { size: "text-[30px]", mt: "mt-2.5", mb: "mb-1" },
+  directors: { size: "text-[28px]", mt: "mt-2.5", mb: "mb-1" },
+  advisors: { size: "text-[24px]", mt: "mt-1.5", mb: "mb-0.5" },
+};
+
+function Sector({ sector }: { sector: string }) {
+  // Magenta reads "Government"; everything else, including every "Industry,
+  // Former Government (…)" variant, stays neutral. Literal startsWith, not a
+  // hardcoded name list — see the T4 spec for the exact five it selects.
+  const color = sector.startsWith("Government") ? "text-magenta-700" : "text-neutral-700";
+  return <div className={`mt-1.5 text-[11px] uppercase tracking-[0.05em] ${color}`}>{sector}</div>;
+}
+
+function Organization({ organization }: { organization: string }) {
+  return <div className="mt-1.5 text-base text-neutral-700">{organization}</div>;
+}
+
 export function BoardCard({ member }: { member: BoardMember }) {
+  const nameStyle = NAME_STYLE[member.body];
+  // Advisors read position → organization → sector; officers and directors
+  // read position → sector → organization. 10/10 advisor cards agree, against
+  // 31/31 in the other two bodies.
+  const isAdvisor = member.body === "advisors";
+
   return (
     <div>
       <Headshot src={member.photo} alt={member.name} />
@@ -27,31 +54,48 @@ export function BoardCard({ member }: { member: BoardMember }) {
         </a>
       )}
 
-      <h3 className={`text-2xl ${member.linkedin ? "mt-1.5" : "mt-4"} mb-0.5`}>
+      <h3
+        className={`${nameStyle.size} font-bold leading-[1.15] tracking-[-0.01em] ${
+          member.linkedin ? nameStyle.mt : "mt-4"
+        } ${nameStyle.mb}`}
+      >
         {member.name}
       </h3>
-      <div className="kick">{member.position}</div>
-      {member.organization && (
-        <div className="mt-1.5 text-base text-neutral-700">{member.organization}</div>
+      <div className="kick text-xs tracking-[0.06em] whitespace-nowrap">{member.position}</div>
+
+      {isAdvisor ? (
+        <>
+          {member.organization && <Organization organization={member.organization} />}
+          <Sector sector={member.sector} />
+        </>
+      ) : (
+        <>
+          <Sector sector={member.sector} />
+          {member.organization && <Organization organization={member.organization} />}
+        </>
       )}
+
       {member.email && (
-        <div className="mt-2 flex flex-col gap-1">
-          <a
-            href={`mailto:${member.email}`}
-            className="break-words text-sm text-cyan-700 hover:underline"
-          >
-            {member.email}
-          </a>
-        </div>
+        <a
+          href={`mailto:${member.email}`}
+          className="mt-2 block text-[15px] text-cyan-700 hover:underline [overflow-wrap:anywhere]"
+        >
+          {member.email}
+        </a>
       )}
 
       {member.bio && (
         <Dialog.Root>
-          <Dialog.Trigger className="btn btn-ghost mt-2.5 pl-0">Read bio</Dialog.Trigger>
+          <Dialog.Trigger
+            className="btn btn-ghost mt-2.5 pl-0"
+            aria-label={`Read ${member.name}'s bio`}
+          >
+            Read bio
+          </Dialog.Trigger>
           <Dialog.Portal>
-            <Dialog.Overlay className="fixed inset-0 z-50 bg-[rgba(32,30,29,0.55)] data-[state=open]:animate-in data-[state=open]:fade-in-0" />
+            <Dialog.Overlay className="fixed inset-0 z-[200] bg-[rgba(32,30,29,0.55)] data-[state=open]:animate-in data-[state=open]:fade-in-0" />
             <Dialog.Content
-              className="fixed left-1/2 top-1/2 z-50 max-h-[82vh] w-[calc(100%-32px)] max-w-[760px] -translate-x-1/2 -translate-y-1/2 overflow-auto bg-paper p-7 shadow-lg sm:p-12"
+              className="fixed left-1/2 top-1/2 z-[200] max-h-[82vh] w-[calc(100%-32px)] max-w-[760px] -translate-x-1/2 -translate-y-1/2 overflow-auto bg-paper p-7 shadow-lg sm:px-12 sm:pb-12 sm:pt-11"
               aria-describedby={undefined}
             >
               <Dialog.Close
@@ -60,13 +104,13 @@ export function BoardCard({ member }: { member: BoardMember }) {
               >
                 ×
               </Dialog.Close>
-              <Dialog.Title className="mb-5 max-w-[32ch] text-3xl">
+              <Dialog.Title className="mb-5 max-w-[32ch] text-[32px]">
                 {member.name}
               </Dialog.Title>
-              <div className="max-w-none">
+              <div>
                 {member.bio.map((block, i) =>
                   block.type === "ul" ? (
-                    <ul key={i} className="bio mt-5 list-disc pl-5">
+                    <ul key={i} className={`bio max-w-none list-disc pl-5 ${i > 0 ? "mt-5" : ""}`}>
                       {block.items.map((item, j) => (
                         <li key={j}>{item}</li>
                       ))}
