@@ -164,6 +164,25 @@ here so the designer can confirm.
 | 1164 | Footer logo `height: 134px; width: 658px` | Logo at header scale | 44px tall |
 | 1167, 1173 | Footer column kickers `font-size: 20px` | Kicker 13px | 13px `.kick` |
 
+**The prototype's sector ink contradicts the sector rule on 3 of 41 cards.**
+Extracting the painted colour of every sector label and comparing it against the
+README's rule (`starts with "Government"` → magenta) gives 6 magenta labels in the
+prototype where the rule produces 5, disagreeing on three:
+
+| Card | Sector | Prototype ink | Rule |
+| --- | --- | --- | --- |
+| `v2-dir-akinrogunde` | Government (Federal) | neutral | magenta |
+| `v2-adv-chappell` | Industry, Former Government (Federal) | magenta | neutral |
+| `v2-adv-mitchellc` | Industry, Former Government (Federal) | magenta | neutral |
+
+The two advisor cards suggest whoever painted them read the label as "has a
+government background" rather than "is currently government" — which is a
+defensible reading, and the opposite of what the README specifies. 38 of 41 cards
+follow the rule, so the rule is what ships; but the designer should confirm which
+meaning they want, because it decides whether ten "Industry, Former Government"
+members read magenta or neutral. See also the neutral-vs-magenta note in
+`02-board-roster.md`.
+
 **The handoff's prose contradicts the handoff's own roster data.** Its Content
 status section says "COL Dawn Moore is the only Government (Federal) sector label
 among the officers; Dr. Oliver Queen among the directors." Parsing all 41 cards
