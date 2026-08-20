@@ -45,7 +45,34 @@ Mirror both changes into the mobile `Sheet` menu.
 
 ## T7 — `app/page.tsx`
 
-Five corrections. Everything else on this page is already right.
+Six corrections. Everything else on this page is already right.
+
+**0. Give the page an `<h1>`.** The page currently has none — every heading on it
+is an `<h2>`, which T2's tests verified. That is an SEO and screen-reader gap on
+the site's most important page.
+
+The handoff README's Home section specifies a "**Hero headline.** 64px,
+`letter-spacing: -0.02em`, `line-height: 1.05`, margin `18px 0 22px`" — but the
+prototype never drew one, and inventing chapter copy is not ours to do.
+
+Decided with the repo owner, 2026-08-20: **promote the existing "MetroMD Chapter"
+kicker to an `<h1>`, keeping the `.kick` styling.** Change the element, not the
+appearance:
+
+```tsx
+<h1 className="kick">MetroMD Chapter</h1>
+```
+
+`.kick` sets its own 13px size, so the global `h1` rule needs no override — but
+check the rendered size, because `app/globals.css` styles bare `h1` and specificity
+between `@layer base` and `@layer components` matters here. If `.kick` loses, add
+the size to the element rather than weakening either rule.
+
+This is zero visual change and zero invented copy, and it reverses in one line the
+moment the designer supplies a headline. Leave a short comment saying so, and
+update `test/pages.test.tsx` — T2 asserts `/` has **no** `h1`, and that assertion
+must flip to asserting it has one. That is the baseline-drift signal working as
+intended, not a test to delete.
 
 **1. Hero image.** `src` becomes `/images/ncma-metromd-hero.jpeg` — the file the
 handoff names, already present in `public/images/`. The current
@@ -59,20 +86,11 @@ is a design asset with a listed purpose.
 to the cyan primary. Add a variant to `app/globals.css` rather than an inline
 style, because it is a stateful button:
 
-```css
-/* The membership CTA is the design's one sanctioned exception to the cyan
-   primary — see .claude/specs/01-design-system.md. */
-.btn-membership {
-  background: #c8551b;
-  border-color: #c8551b;
-  color: #f3f2f2;
-}
-.btn-membership:hover {
-  background: #a8450f;
-  border-color: #a8450f;
-  color: #f3f2f2;
-}
-```
+`.btn-membership` already exists in `app/globals.css` from T1, but its resting
+fill needs correcting from `#c8551b` to **`#b04a15`** for AA contrast — the
+reasoning is in `01-design-system.md`. Change the two `background`/`border-color`
+values in the resting rule and extend the comment to record why the value differs
+from the handoff. Leave the hover rule alone.
 
 Apply `btn btn-membership` to the hero CTA only. The "Join us" nav button, the
 "Join now" buttons on `/` and `/our-chapter`, and the `/login` "Join NCMA" button

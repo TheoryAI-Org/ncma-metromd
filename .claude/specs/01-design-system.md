@@ -66,8 +66,20 @@ The ramps are already correct in `app/globals.css` — do not retune them.
 
 Two sanctioned values outside the ramps, and only these two:
 
-- **Membership CTA orange** — fill and border `#c8551b`, text `#f3f2f2`, hover
+- **Membership CTA orange** — fill and border **`#b04a15`**, text `#f3f2f2`, hover
   `#a8450f`. Deliberate exception per the handoff. Used only on "Become a Member".
+
+  **The resting fill is darkened from the handoff's `#c8551b`, on purpose.** The
+  handoff's pair measures **3.94:1**, under the 4.5:1 AA bar for the `.btn`'s 15px
+  regular label — and the fill is the constraint, not the label: even pure white on
+  `#c8551b` only reaches 4.40:1. `#b04a15` is the same hue, measures **4.90:1**
+  with the specified `#f3f2f2` label, and sits between the handoff's own resting
+  and hover oranges, so the button reads as the same colour. Hover `#a8450f` was
+  already compliant at 5.33:1 and is unchanged.
+
+  Decided with the repo owner, 2026-08-20, after the T1 review measured it. Flag it
+  to the designer: it is a one-value deviation from "colors are final", taken
+  because the site's most prominent CTA failing AA is the worse outcome.
 - **Dialog backdrop** — `rgba(32,30,29,0.55)`. Already in `components/board-card.tsx`.
 
 Type scale, spacing (120px between sections, 56px/48px grid gaps, 40px gutter
