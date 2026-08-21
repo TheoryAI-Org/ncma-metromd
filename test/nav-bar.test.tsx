@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { NavBar } from "@/components/nav-bar";
 
@@ -15,6 +16,7 @@ afterEach(() => {
 const NAV_LABELS = [
   "Our chapter",
   "Board",
+  "Advisory",
   "Insights",
   "Events",
   "Certifications",
@@ -34,19 +36,35 @@ describe("NavBar", () => {
   });
 
   it("sets data-on only on the item matching the current path", () => {
+    // Board and Advisory share /board, so both light up — they're the same
+    // page.
     usePathname.mockReturnValue("/board");
     render(<NavBar />);
 
-    expect(screen.getByText("Board").closest("a")).toHaveAttribute(
-      "data-on",
-      "true"
-    );
-    for (const label of NAV_LABELS.filter((l) => l !== "Board")) {
+    for (const label of ["Board", "Advisory"]) {
+      expect(screen.getByText(label).closest("a")).toHaveAttribute(
+        "data-on",
+        "true"
+      );
+    }
+    for (const label of NAV_LABELS.filter(
+      (l) => l !== "Board" && l !== "Advisory"
+    )) {
       expect(screen.getByText(label).closest("a")).toHaveAttribute(
         "data-on",
         "false"
       );
     }
+  });
+
+  it("renders Advisory pointing at /board#advisors", () => {
+    usePathname.mockReturnValue("/");
+    render(<NavBar />);
+
+    expect(screen.getByText("Advisory").closest("a")).toHaveAttribute(
+      "href",
+      "/board#advisors"
+    );
   });
 
   it("keeps Insights on for a nested article route", () => {
@@ -67,20 +85,43 @@ describe("NavBar", () => {
     }
   });
 
-  it("documents a prefix collision: an unrelated /board* route also lights up Board", () => {
-    // TODO(nav-bar): pathname.startsWith(href) means any route beginning
-    // with "/board" — e.g. a hypothetical "/boardroom-rental" page with
-    // nothing to do with the chapter board — would also highlight the Board
-    // nav item. That's arguably wrong, but fixing components/nav-bar.tsx is
-    // out of scope for T2 (test harness only); this pins today's behaviour
-    // so the fix, when it lands, is a deliberate assertion change.
+  it("does not light up Board for an unrelated sibling route", () => {
+    // isOn is segment-aware (pathname === href or startsWith(`${href}/`)),
+    // so a route that merely shares the "/board" prefix — e.g. a
+    // hypothetical "/boardroom-rental" page with nothing to do with the
+    // chapter board — lights up nothing.
     usePathname.mockReturnValue("/boardroom-rental");
     render(<NavBar />);
 
-    expect(screen.getByText("Board").closest("a")).toHaveAttribute(
-      "data-on",
-      "true"
+    for (const label of NAV_LABELS) {
+      expect(screen.getByText(label).closest("a")).toHaveAttribute(
+        "data-on",
+        "false"
+      );
+    }
+  });
+
+  it("mirrors the desktop nav items in the mobile Sheet menu", async () => {
+    // Assert the two lists match rather than hardcoding the mobile items a
+    // second time, so the desktop and Sheet menus cannot silently drift.
+    usePathname.mockReturnValue("/");
+    const user = userEvent.setup();
+    render(<NavBar />);
+
+    const desktopHrefs = NAV_LABELS.map(
+      (label) => screen.getByText(label).closest("a")?.getAttribute("href")
     );
+
+    await user.click(screen.getByRole("button", { name: "Open menu" }));
+
+    const mobileHrefs = NAV_LABELS.map((label) => {
+      const links = screen.getAllByText(label).map((el) => el.closest("a"));
+      // Once the sheet is open, each label matches twice (desktop + mobile);
+      // the mobile copy is the second one in document order.
+      return links[links.length - 1]?.getAttribute("href");
+    });
+
+    expect(mobileHrefs).toEqual(desktopHrefs);
   });
 
   it("opens Join us in a new tab with both rel safety keywords", () => {

@@ -14,9 +14,12 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
+const ADVISORY_HREF = "/board#advisors";
+
 const navigation = [
   { name: "Our chapter", href: "/our-chapter" },
   { name: "Board", href: "/board" },
+  { name: "Advisory", href: ADVISORY_HREF },
   { name: "Insights", href: "/insights" },
   { name: "Events", href: "/events" },
   { name: "Certifications", href: "/certs" },
@@ -26,8 +29,26 @@ const navigation = [
 
 export function NavBar() {
   const pathname = usePathname();
+  // Segment-aware: pathname === href covers the exact route, the
+  // startsWith(`${href}/`) arm covers nested routes (e.g. an /insights
+  // article), and neither arm matches an unrelated sibling like
+  // /boardroom-rental.
   const isOn = (href: string) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href);
+    href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
+  // Advisory lives on /board, not at its own route, so it lights up
+  // whenever Board does rather than via the generic href match.
+  const isNavItemOn = (href: string) =>
+    href === ADVISORY_HREF ? pathname === "/board" : isOn(href);
+
+  // A same-URL <Link> click (already on /board#advisors) doesn't trigger a
+  // navigation, so the browser never scrolls. Do it by hand in that one
+  // case; every other click is a real navigation and Next.js handles the
+  // hash target on its own.
+  const scrollToAdvisors = () => {
+    if (pathname === "/board") {
+      document.getElementById("advisors")?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <div className="sticky top-0 z-30 bg-paper">
@@ -50,7 +71,8 @@ export function NavBar() {
               key={item.href}
               href={item.href}
               className="navlink"
-              data-on={isOn(item.href)}
+              data-on={isNavItemOn(item.href)}
+              onClick={item.href === ADVISORY_HREF ? scrollToAdvisors : undefined}
             >
               {item.name}
             </Link>
@@ -99,7 +121,8 @@ export function NavBar() {
                     <Link
                       href={item.href}
                       className="navlink text-lg"
-                      data-on={isOn(item.href)}
+                      data-on={isNavItemOn(item.href)}
+                      onClick={item.href === ADVISORY_HREF ? scrollToAdvisors : undefined}
                     >
                       {item.name}
                     </Link>
