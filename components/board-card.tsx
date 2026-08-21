@@ -95,7 +95,11 @@ export function BoardCard({ member }: { member: BoardMember }) {
           <Dialog.Portal>
             <Dialog.Overlay className="fixed inset-0 z-[200] bg-[rgba(32,30,29,0.55)] data-[state=open]:animate-in data-[state=open]:fade-in-0" />
             <Dialog.Content
-              className="fixed left-1/2 top-1/2 z-[200] max-h-[82vh] w-[calc(100%-32px)] max-w-[760px] -translate-x-1/2 -translate-y-1/2 overflow-auto bg-paper p-7 shadow-lg sm:px-12 sm:pb-12 sm:pt-11"
+              // Radix focuses this panel (tabindex="-1") on open; without
+              // suppressing the outline, the global :focus-visible rule
+              // traces a ring around the whole 760px panel instead of the
+              // close button a keyboard user actually cares about.
+              className="fixed left-1/2 top-1/2 z-[200] max-h-[82vh] w-[calc(100%-32px)] max-w-[760px] -translate-x-1/2 -translate-y-1/2 overflow-auto bg-paper p-7 shadow-lg focus:outline-none sm:px-12 sm:pb-12 sm:pt-11"
               aria-describedby={undefined}
             >
               <Dialog.Close

@@ -61,7 +61,12 @@ const SheetContent = React.forwardRef<
     <SheetOverlay />
     <SheetPrimitive.Content
       ref={ref}
-      className={cn(sheetVariants({ side }), className)}
+      // Radix focuses this panel (tabindex="-1") on open; without suppressing
+      // the outline, the global :focus-visible rule traces a ring around the
+      // whole panel instead of the close button a keyboard user actually
+      // cares about. focus-visible:, not bare focus:, to keep the Sheet
+      // close button's ring below as the file's only bare-focus exemption.
+      className={cn(sheetVariants({ side }), "focus-visible:outline-none", className)}
       {...props}
     >
       <SheetPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">

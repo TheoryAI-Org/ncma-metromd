@@ -1,30 +1,56 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import BoardPage from "@/app/board/page";
 
+// BoardSection renders its <h2> as a direct child of the id-bearing wrapper
+// div, so parentElement is the section root — scoping assertions to it
+// catches a heading bound to the wrong body (or the wrong id) in a way a
+// document-wide querySelector or getAllByRole count never can.
+function section(heading: HTMLElement): HTMLElement {
+  return heading.parentElement as HTMLElement;
+}
+
 describe("BoardPage", () => {
-  it("renders the three section headings", () => {
+  it("renders Officers with its 13 members, scoped to its own section", () => {
     render(<BoardPage />);
-    expect(
+    const officers = section(
       screen.getByRole("heading", { level: 2, name: "Officers & Vice Presidents" })
-    ).toBeInTheDocument();
+    );
+    expect(within(officers).getAllByRole("heading", { level: 3 })).toHaveLength(13);
     expect(
-      screen.getByRole("heading", { level: 2, name: "Directors" })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("heading", { level: 2, name: "Board of Advisors" })
+      within(officers).getByRole("heading", { level: 3, name: "Chyanne Thomas" })
     ).toBeInTheDocument();
   });
 
-  it("gives the advisors section the #advisors anchor the nav targets", () => {
-    const { container } = render(<BoardPage />);
-    expect(container.querySelector("#advisors")).toBeInTheDocument();
-  });
-
-  it("renders all 41 members as <h3> card names", () => {
+  it("renders Directors with its 18 members, scoped to its own section", () => {
     render(<BoardPage />);
-    expect(screen.getAllByRole("heading", { level: 3 })).toHaveLength(41);
+    const directors = section(screen.getByRole("heading", { level: 2, name: "Directors" }));
+    expect(within(directors).getAllByRole("heading", { level: 3 })).toHaveLength(18);
+    expect(
+      within(directors).getByRole("heading", { level: 3, name: "Jon Canery" })
+    ).toBeInTheDocument();
+  });
+
+  it("renders Board of Advisors with its 10 members, scoped to its own section", () => {
+    render(<BoardPage />);
+    const advisors = section(
+      screen.getByRole("heading", { level: 2, name: "Board of Advisors" })
+    );
+    expect(within(advisors).getAllByRole("heading", { level: 3 })).toHaveLength(10);
+    expect(
+      within(advisors).getByRole("heading", { level: 3, name: "Dr. Anton C. Bizzell" })
+    ).toBeInTheDocument();
+  });
+
+  it("gives the advisors section the #advisors anchor, its own heading, and the scroll offset", () => {
+    const { container } = render(<BoardPage />);
+    const anchor = container.querySelector("#advisors") as HTMLElement | null;
+    expect(anchor).toBeInTheDocument();
+    expect(anchor).toHaveClass("scroll-mt-24");
+    expect(
+      within(anchor as HTMLElement).getByRole("heading", { level: 2, name: "Board of Advisors" })
+    ).toBeInTheDocument();
   });
 
   it("renders Jennifer Hanks and Richard Hanks twice each — officer and advisor entries", () => {
@@ -53,6 +79,11 @@ describe("BoardPage", () => {
     expect(
       screen.getByRole("heading", { level: 3, name: "Dr. John W. Wilkinson" })
     ).toBeInTheDocument();
+  });
+
+  it('does not render the placeholder "Nine volunteers" copy', () => {
+    render(<BoardPage />);
+    expect(screen.queryByText(/Nine volunteers/)).not.toBeInTheDocument();
   });
 
   it("does not render the invented footer sections", () => {

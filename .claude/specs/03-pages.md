@@ -63,7 +63,10 @@ Implement it as the smallest thing that works:
 - The one case a plain `Link` gets wrong is clicking "Advisory" while already on
   `/board` with the hash already in the URL. Handle it with an `onClick` that,
   when `pathname === "/board"`, calls
-  `document.getElementById("advisors")?.scrollIntoView({ behavior: "smooth" })`.
+  `document.getElementById("advisors")?.scrollIntoView()` — no explicit
+  `behavior`. An explicit JS `behavior` overrides CSS unconditionally, which
+  would defeat the reduced-motion-guarded `scroll-behavior: smooth` above;
+  omitting it lets the element inherit the already-guarded CSS behaviour.
   Do not `preventDefault()` on the cross-page case.
 
 `data-on` for Advisory: true when `pathname === "/board"`. That means Board and

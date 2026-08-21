@@ -46,7 +46,15 @@ export function NavBar() {
   // hash target on its own.
   const scrollToAdvisors = () => {
     if (pathname === "/board") {
-      document.getElementById("advisors")?.scrollIntoView({ behavior: "smooth" });
+      // No explicit `behavior` — an explicit JS behavior overrides CSS
+      // unconditionally, which would bypass the reduced-motion-guarded
+      // `scroll-behavior: smooth` in app/globals.css. Deferred a frame so
+      // it runs after Radix's react-remove-scroll releases the mobile
+      // Sheet's `overflow:hidden` lock (SheetClose and this onClick fire
+      // in the same click), otherwise the scroll can silently no-op.
+      requestAnimationFrame(() => {
+        document.getElementById("advisors")?.scrollIntoView();
+      });
     }
   };
 
