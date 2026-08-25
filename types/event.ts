@@ -7,4 +7,6 @@ export interface Event {
   description: string;
   imageUrl?: string;
   eventUrl?: string;
+  /** Venue name from Eventbrite, when the listing carries one. */
+  venue?: string | null;
 } 

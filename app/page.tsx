@@ -1,120 +1,355 @@
-import { NavBar } from "@/components/nav-bar"
-import { HeroSection } from "@/components/hero-section"
-import { InfoSection } from "@/components/info-section"
-import { BenefitsSection } from "@/components/benefits-section"
-import { JoinSection } from "@/components/join-section"
+import Link from "next/link";
+import Image from "next/image";
+import { Headshot } from "@/components/shared/headshot";
+import { SocialLinks } from "@/components/icons/social";
+import { featuredBoard } from "@/data/board";
+import { articles } from "@/data/insights";
+import { sponsors } from "@/data/sponsors";
+import {
+  chapterFacts,
+  EVENTBRITE_ORG_URL,
+  NCMA_MEMBERSHIP_URL,
+} from "@/data/site";
+import { fetchEventbriteEvents } from "@/lib/eventbrite";
+import { formatEventDate, formatTimeRange } from "@/lib/format";
+import type { Event } from "@/types/event";
 
-export default function Home() {
-  return (
-    <main>
-      <NavBar />
-      <HeroSection />
-      <InfoSection />
-      <BenefitsSection />
-      <JoinSection />
-    </main>
-  )
+export const dynamic = "force-dynamic";
+
+/** The three-row "This season" list: next events up, most recent meeting last. */
+async function seasonRows(): Promise<
+  { key: string; date: string; title: string; detail: string; tag: string; tagClass: string }[]
+> {
+  const { upcomingEvents, pastEvents } = await fetchEventbriteEvents();
+
+  const rows = upcomingEvents.slice(0, 2).map((e: Event) => ({
+    key: e.id,
+    date: formatEventDate(e.date),
+    title: e.title,
+    detail: formatTimeRange(e.startTime, e.endTime),
+    tag: "Registration open",
+    tagClass: "tag tag-outline",
+  }));
+
+  const mostRecent = pastEvents[0];
+  if (mostRecent) {
+    rows.push({
+      key: mostRecent.id,
+      date: formatEventDate(mostRecent.date),
+      title: mostRecent.title,
+      detail: `Most recent meeting · ${formatTimeRange(mostRecent.startTime, mostRecent.endTime)}`,
+      tag: "Past",
+      tagClass: "tag tag-neutral",
+    });
+  }
+
+  return rows;
 }
 
+export default async function Home() {
+  const rows = await seasonRows();
+  const insightPreviews = articles.slice(0, 3);
+  const sponsorSlots =
+    sponsors.length > 0 ? sponsors.slice(0, 5) : new Array(5).fill(null);
 
-// import Image from "next/image";
+  return (
+    <main>
+      {/* — hero — */}
+      <div
+        className="pg grid-split"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1.45fr 1fr",
+          gap: 64,
+          paddingTop: 56,
+          paddingBottom: 72,
+          alignItems: "end",
+        }}
+      >
+        <div>
+          <div className="kick">MetroMD Chapter</div>
+          <p className="lede">
+            The National Contract Management Association (NCMA) is a professional association
+            with 100 chapters and over 20,000 members dedicated to the profession of contract
+            management.
+          </p>
+          <p className="lede">
+            We are the MetroMD Chapter of NCMA, located in the Washington Metropolitan area.
+            Our region is the heart of the biotech industry and the government agencies that
+            support and promote the biotech and medical industry.
+          </p>
+          <div style={{ display: "flex", gap: 14, marginTop: 30, flexWrap: "wrap" }}>
+            <a
+              className="btn btn-primary btn-join"
+              href={NCMA_MEMBERSHIP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Become a Member
+            </a>
+            <Link
+              className="btn btn-secondary"
+              href="/about"
+              style={{
+                background: "var(--color-accent-100)",
+                borderColor: "var(--color-accent-300)",
+                color: "var(--color-accent-900)",
+              }}
+            >
+              New here? Start with our chapter
+            </Link>
+          </div>
+          <div
+            className="grid-3"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3,1fr)",
+              gap: 32,
+              marginTop: 52,
+            }}
+          >
+            {chapterFacts.map((fact) => (
+              <div key={fact.label}>
+                <div className="kick">{fact.label}</div>
+                <div style={{ fontSize: 19, marginTop: 8 }}>{fact.value}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <div className="frame" style={{ width: "100%", aspectRatio: "4 / 5" }}>
+            <Image
+              src="/images/ncma-metromd-hero.jpeg"
+              alt="NCMA MetroMD chapter members at a dinner meeting"
+              fill
+              sizes="(max-width: 900px) 100vw, 40vw"
+              priority
+              style={{ objectFit: "cover" }}
+            />
+          </div>
+        </div>
+      </div>
 
-// export default function Home() {
-//   return (
-//     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-//       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-//         <Image
-//           className="dark:invert"
-//           src="https://nextjs.org/icons/next.svg"
-//           alt="Next.js logo"
-//           width={180}
-//           height={38}
-//           priority
-//         />
-//         <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-//           <li className="mb-2">
-//             Get started by editing{" "}
-//             <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-//               app/page.tsx
-//             </code>
-//             .
-//           </li>
-//           <li>Save and see your changes instantly.</li>
-//         </ol>
+      {/* — this season — */}
+      <div
+        className="pg grid-split"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1.4fr",
+          gap: 64,
+          paddingBottom: 80,
+        }}
+      >
+        <div>
+          <h2 style={{ fontSize: 42, letterSpacing: "-0.015em", marginBottom: 12 }}>
+            This season
+          </h2>
+          <p style={{ fontSize: 17, color: "var(--color-neutral-700)" }}>
+            Tickets go through Eventbrite and the calendar runs March through January.
+            Members save on every dinner.
+          </p>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+            <Link className="btn btn-ghost" style={{ paddingLeft: 0 }} href="/events">
+              Full calendar →
+            </Link>
+            <a
+              className="btn btn-ghost"
+              style={{ paddingLeft: 0 }}
+              href={EVENTBRITE_ORG_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Chapter page on Eventbrite →
+            </a>
+          </div>
+          <div className="kick" style={{ marginTop: 32 }}>
+            Follow the chapter
+          </div>
+          <div style={{ marginTop: 12 }}>
+            <SocialLinks />
+          </div>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
+          {rows.length === 0 ? (
+            <p style={{ fontSize: 17, color: "var(--color-neutral-700)" }}>
+              The next dinner meeting is being scheduled.{" "}
+              <a href={EVENTBRITE_ORG_URL} target="_blank" rel="noopener noreferrer">
+                Watch Eventbrite
+              </a>{" "}
+              for the announcement.
+            </p>
+          ) : (
+            rows.map((row) => (
+              <div
+                key={row.key}
+                className="grid-split"
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "150px 1fr auto",
+                  gap: 24,
+                  alignItems: "baseline",
+                }}
+              >
+                <div style={{ fontSize: 16, color: "var(--color-neutral-600)" }}>{row.date}</div>
+                <div>
+                  <div style={{ fontSize: 24 }}>{row.title}</div>
+                  <div style={{ fontSize: 16, color: "var(--color-neutral-700)" }}>
+                    {row.detail}
+                  </div>
+                </div>
+                <span className={row.tagClass}>{row.tag}</span>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
 
-//         <div className="flex gap-4 items-center flex-col sm:flex-row">
-//           <a
-//             className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-//             href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-//             target="_blank"
-//             rel="noopener noreferrer"
-//           >
-//             <Image
-//               className="dark:invert"
-//               src="https://nextjs.org/icons/vercel.svg"
-//               alt="Vercel logomark"
-//               width={20}
-//               height={20}
-//             />
-//             Deploy now
-//           </a>
-//           <a
-//             className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-//             href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-//             target="_blank"
-//             rel="noopener noreferrer"
-//           >
-//             Read our docs
-//           </a>
-//         </div>
-//       </main>
-//       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-//         <a
-//           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-//           href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           <Image
-//             aria-hidden
-//             src="https://nextjs.org/icons/file.svg"
-//             alt="File icon"
-//             width={16}
-//             height={16}
-//           />
-//           Learn
-//         </a>
-//         <a
-//           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-//           href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           <Image
-//             aria-hidden
-//             src="https://nextjs.org/icons/window.svg"
-//             alt="Window icon"
-//             width={16}
-//             height={16}
-//           />
-//           Examples
-//         </a>
-//         <a
-//           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-//           href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           <Image
-//             aria-hidden
-//             src="https://nextjs.org/icons/globe.svg"
-//             alt="Globe icon"
-//             width={16}
-//             height={16}
-//           />
-//           Go to nextjs.org →
-//         </a>
-//       </footer>
-//     </div>
-//   );
-// }
+      {/* — your board — */}
+      <div className="pg" style={{ paddingBottom: 80 }}>
+        <div
+          className="stack-md"
+          style={{
+            display: "flex",
+            alignItems: "flex-end",
+            justifyContent: "space-between",
+            gap: 32,
+          }}
+        >
+          <div>
+            <h2 style={{ fontSize: 42, letterSpacing: "-0.015em", margin: 0 }}>Your board</h2>
+            <p
+              style={{
+                maxWidth: "62ch",
+                marginTop: 10,
+                fontSize: 17,
+                color: "var(--color-neutral-700)",
+              }}
+            >
+              Volunteers — agency veterans and small business owners — who plan the programs
+              and answer their own email.
+            </p>
+          </div>
+          <Link className="btn btn-ghost" href="/board">
+            Meet everyone →
+          </Link>
+        </div>
+        <div
+          className="grid-4"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(4,1fr)",
+            gap: 32,
+            marginTop: 36,
+          }}
+        >
+          {featuredBoard.map((member) => (
+            <div key={member.id}>
+              <Headshot
+                src={member.image}
+                alt={member.name}
+                sizes="(max-width: 900px) 100vw, 25vw"
+              />
+              <div style={{ fontSize: 22, marginTop: 14 }}>{member.name}</div>
+              <div className="kick" style={{ marginTop: 4 }}>
+                {member.role}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* — insights — */}
+      <div className="pg" style={{ paddingBottom: 80 }}>
+        <div
+          className="stack-md"
+          style={{
+            display: "flex",
+            alignItems: "flex-end",
+            justifyContent: "space-between",
+            gap: 32,
+          }}
+        >
+          <h2 style={{ fontSize: 42, letterSpacing: "-0.015em", margin: 0 }}>Insights</h2>
+          <Link className="btn btn-ghost" href="/insights">
+            All articles →
+          </Link>
+        </div>
+        <p
+          style={{
+            maxWidth: "62ch",
+            marginTop: 10,
+            fontSize: 17,
+            color: "var(--color-neutral-700)",
+          }}
+        >
+          Board members writing about the work: the FAR overhaul, certification, and building
+          a career in acquisition.
+        </p>
+        <div
+          className="grid-3"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3,1fr)",
+            gap: 48,
+            marginTop: 36,
+          }}
+        >
+          {insightPreviews.map((article) => (
+            <div key={article.slug}>
+              <div className="kick">{article.category}</div>
+              <h3 style={{ fontSize: 27, margin: "12px 0", lineHeight: 1.2 }}>
+                <Link href={`/insights/${article.slug}`} style={{ textDecoration: "none" }}>
+                  {article.title}
+                </Link>
+              </h3>
+              <div style={{ fontSize: 16 }}>{article.author}</div>
+              <div style={{ fontSize: 14, color: "var(--color-neutral-600)" }}>
+                {article.authorRole} · Draft
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* — sponsors — */}
+      <div className="pg" style={{ paddingBottom: 88 }}>
+        <h2 style={{ fontSize: 34, letterSpacing: "-0.015em", margin: "0 0 8px" }}>
+          Thank you to our generous sponsors
+        </h2>
+        <p style={{ fontSize: 17, color: "var(--color-neutral-700)", marginBottom: 32 }}>
+          Sponsorship keeps dinner affordable for government attendees.
+        </p>
+        <div
+          className="grid-5"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(5,1fr)",
+            gap: 40,
+            alignItems: "center",
+          }}
+        >
+          {sponsorSlots.map((sponsor, i) => (
+            <div key={sponsor?.name ?? i} className="frame" style={{ aspectRatio: "3 / 2" }}>
+              {sponsor ? (
+                <Image
+                  src={sponsor.logo}
+                  alt={sponsor.name}
+                  fill
+                  sizes="20vw"
+                  style={{ objectFit: "contain" }}
+                />
+              ) : (
+                <div className="frame-placeholder" aria-hidden="true">
+                  Sponsor logo
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+        <Link className="btn btn-secondary" style={{ marginTop: 28 }} href="/sponsors">
+          Become a sponsor
+        </Link>
+      </div>
+    </main>
+  );
+}

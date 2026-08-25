@@ -9,7 +9,8 @@ const config: Config = {
   ],
   theme: {
     fontFamily: {
-      sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+      sans: ["var(--font-source-serif)", "Source Serif 4", "Georgia", "serif"],
+      serif: ["var(--font-source-serif)", "Source Serif 4", "Georgia", "serif"],
     },
   	extend: {
   		colors: {

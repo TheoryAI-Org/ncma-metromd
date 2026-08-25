@@ -21,6 +21,9 @@ interface EventbriteEvent {
   logo?: {
     url: string;
   };
+  venue?: {
+    name?: string;
+  } | null;
   url: string;
 }
 
@@ -51,7 +54,7 @@ export async function fetchEventbriteEvents(): Promise<{
 
   try {
     // Construct the API URL
-    const apiUrl = `${EVENTBRITE_API_BASE_URL}/organizations/${EVENTBRITE_ORGANIZATION_ID}/events/?status=live,started,ended,completed&order_by=start_desc`;
+    const apiUrl = `${EVENTBRITE_API_BASE_URL}/organizations/${EVENTBRITE_ORGANIZATION_ID}/events/?status=live,started,ended,completed&order_by=start_desc&expand=venue`;
     console.log('Fetching events from:', apiUrl);
 
     // Fetch all events for the organization
@@ -93,6 +96,7 @@ export async function fetchEventbriteEvents(): Promise<{
         'Check ticket prices on event',
       imageUrl: event.logo?.url || '',
       eventUrl: event.url,
+      venue: event.venue?.name || null,
     }));
 
     // Split events into upcoming and past based on end date
@@ -114,7 +118,7 @@ export async function fetchEventbriteEvents(): Promise<{
 
     return {
       upcomingEvents,
-      pastEvents: pastEvents.slice(0, 10), // Limit past events to 10
+      pastEvents,
     };
   } catch (error) {
     console.error('Error fetching Eventbrite events:', error);
