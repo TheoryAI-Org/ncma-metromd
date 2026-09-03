@@ -47,11 +47,12 @@
 
   --color-process-yellow: #edbb00;
 
-  /* Lora carries the editorial voice in headings and member names; Inter keeps
-     the dense UI text — roles, sector labels, tables — legible at small sizes. */
-  --font-heading: var(--font-lora), Lora, Georgia, serif;
+  /* Source Serif carries the editorial voice in headings and member names;
+     Source Sans keeps the dense UI text — roles, sector labels, tables —
+     legible at small sizes. A modern-but-institutional pairing. */
+  --font-heading: var(--font-source-serif), Georgia, serif;
   --font-heading-weight: 600;
-  --font-body: var(--font-inter), Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: var(--font-source-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --space-1: 5px;
   --space-2: 10px;
