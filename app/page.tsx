@@ -63,11 +63,14 @@ export default async function Home() {
           gap: 64,
           paddingTop: 56,
           paddingBottom: 72,
-          alignItems: "end",
+          alignItems: "center",
         }}
       >
         <div>
           <div className="kick">MetroMD Chapter</div>
+          <h1 style={{ fontSize: 52, maxWidth: "14ch", margin: "14px 0 22px" }}>
+            Where Maryland&rsquo;s contract management community meets.
+          </h1>
           <p className="lede">
             The National Contract Management Association (NCMA) is a professional association
             with 100 chapters and over 20,000 members dedicated to the profession of contract
