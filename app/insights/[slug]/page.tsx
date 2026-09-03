@@ -50,7 +50,6 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
           <Headshot
             src={article.authorImage}
             alt={article.author}
-            placeholder="Photo"
             sizes="56px"
           />
         </div>

@@ -563,7 +563,7 @@ function Media() {
       >
         {files.map((file) => (
           <div key={file.name}>
-            <Headshot src={file.src} alt={file.name} sizes="20vw" />
+            <Headshot src={file.src} alt={file.name} placeholder="File" sizes="20vw" />
             <div style={{ fontSize: 13, marginTop: 8, wordBreak: "break-all" }}>
               {file.name}
             </div>

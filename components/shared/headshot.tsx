@@ -1,18 +1,16 @@
 import Image from "next/image";
+import { AvatarPlaceholder } from "@/components/shared/avatar-placeholder";
 
-/**
- * A portrait frame. Renders the member's photo when one has been supplied and
- * the design's grey placeholder block when it has not — the roster is filled in
- * as headshots come in, so both states are permanent.
- */
+
 export function Headshot({
   src,
   alt,
-  placeholder = "Headshot",
+  placeholder,
   sizes = "(max-width: 900px) 100vw, 33vw",
 }: {
   src: string | null;
   alt: string;
+  /** When set, shows this grey label instead of the person silhouette. */
   placeholder?: string;
   sizes?: string;
 }) {
@@ -26,10 +24,12 @@ export function Headshot({
           sizes={sizes}
           style={{ objectFit: "cover" }}
         />
-      ) : (
+      ) : placeholder ? (
         <div className="frame-placeholder" aria-hidden="true">
           {placeholder}
         </div>
+      ) : (
+        <AvatarPlaceholder name={alt} />
       )}
     </div>
   );

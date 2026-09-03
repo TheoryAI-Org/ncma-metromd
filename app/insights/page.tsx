@@ -63,7 +63,6 @@ export default function InsightsPage() {
               <Headshot
                 src={featuredArticle.authorImage}
                 alt={featuredArticle.author}
-                placeholder="Photo"
                 sizes="64px"
               />
             </div>
@@ -99,7 +98,6 @@ export default function InsightsPage() {
             <Headshot
               src={article.authorImage}
               alt={article.author}
-              placeholder="Photo"
               sizes="110px"
             />
             <div>
