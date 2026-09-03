@@ -77,8 +77,8 @@
     background: var(--color-bg);
     color: var(--color-text);
     font-family: var(--font-body);
-    font-size: 15px;
-    line-height: 1.55;
+    font-size: 16px;
+    line-height: 1.6;
     font-weight: 400;
   }
 
@@ -108,8 +108,8 @@
 }
 
 /* — layout — */
-.pg { max-width: 1180px; margin: 0 auto; padding: 0 40px; }
-@media (max-width: 1180px) { .pg { padding: 0 24px; } }
+.pg { max-width: 1360px; margin: 0 auto; padding: 0 40px; }
+@media (max-width: 1360px) { .pg { padding: 0 24px; } }
 
 /* — editorial type — */
 .kick {
