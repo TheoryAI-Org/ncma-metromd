@@ -1,14 +1,20 @@
 import type { Metadata } from "next";
-import { Source_Serif_4 } from "next/font/google";
+import { Inter, Lora } from "next/font/google";
 import "./globals.css";
 import { NavBar } from "@/components/nav-bar";
 import { SiteFooter } from "@/components/site-footer";
 
-const sourceSerif = Source_Serif_4({
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
+const lora = Lora({
   subsets: ["latin"],
   display: "swap",
   style: ["normal", "italic"],
-  variable: "--font-source-serif",
+  variable: "--font-lora",
 });
 
 export const metadata: Metadata = {
@@ -73,7 +79,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${sourceSerif.variable} antialiased`}>
+      <body className={`${inter.variable} ${lora.variable} antialiased`}>
         <NavBar />
         {children}
         <SiteFooter />

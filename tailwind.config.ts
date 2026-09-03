@@ -9,8 +9,8 @@ const config: Config = {
   ],
   theme: {
     fontFamily: {
-      sans: ["var(--font-source-serif)", "Source Serif 4", "Georgia", "serif"],
-      serif: ["var(--font-source-serif)", "Source Serif 4", "Georgia", "serif"],
+      sans: ["var(--font-inter)", "Inter", "system-ui", "sans-serif"],
+      serif: ["var(--font-lora)", "Lora", "Georgia", "serif"],
     },
   	extend: {
   		colors: {
