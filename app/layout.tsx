@@ -1,23 +1,22 @@
 import type { Metadata } from "next";
-import { Inter, Lora } from "next/font/google";
+import { Archivo } from "next/font/google";
+import { SITE_URL } from "@/data/site";
 import "./globals.css";
 import { NavBar } from "@/components/nav-bar";
 import { SiteFooter } from "@/components/site-footer";
+import { MembershipBand } from "@/components/membership-band";
+import { OrganizationJsonLd } from "@/components/organization-json-ld";
 
-const inter = Inter({
+const archivo = Archivo({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter",
-});
-
-const lora = Lora({
-  subsets: ["latin"],
-  display: "swap",
-  style: ["normal", "italic"],
-  variable: "--font-lora",
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-archivo",
 });
 
 export const metadata: Metadata = {
+  // Lets each page's `alternates.canonical` and OpenGraph `url` be relative.
+  metadataBase: new URL(SITE_URL),
   title: "NCMA MetroMD Chapter | National Contract Management Association",
   description: "The NCMA MetroMD Chapter serves contract management professionals in the Maryland metropolitan area. Join us for professional development, networking, and certification opportunities.",
   icons: {
@@ -79,10 +78,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${lora.variable} antialiased`}>
-        <NavBar />
-        {children}
-        <SiteFooter />
+      <body className={`${archivo.variable} antialiased`}>
+        {/* First focusable element on every page. */}
+        <a className="skip-link" href="#main">
+          Skip to content
+        </a>
+        <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+          <NavBar />
+          {/* Each page supplies its own <main id="main">, the skip-link target. */}
+          <div style={{ flex: "1 0 auto" }}>{children}</div>
+          <MembershipBand />
+          <SiteFooter />
+        </div>
+        <OrganizationJsonLd />
       </body>
     </html>
   );

@@ -9,11 +9,37 @@ const config: Config = {
   ],
   theme: {
     fontFamily: {
-      sans: ["var(--font-inter)", "Inter", "system-ui", "sans-serif"],
-      serif: ["var(--font-lora)", "Lora", "Georgia", "serif"],
+      sans: ["var(--font-archivo)", "Archivo", "system-ui", "sans-serif"],
     },
   	extend: {
   		colors: {
+  			ink: 'var(--color-text)',
+  			surface: 'var(--color-surface)',
+  			divider: 'var(--color-divider)',
+  			navy: 'var(--navy)',
+  			neutral: {
+  				'100': 'var(--color-neutral-100)',
+  				'200': 'var(--color-neutral-200)',
+  				'300': 'var(--color-neutral-300)',
+  				'400': 'var(--color-neutral-400)',
+  				'500': 'var(--color-neutral-500)',
+  				'600': 'var(--color-neutral-600)',
+  				'700': 'var(--color-neutral-700)',
+  				'800': 'var(--color-neutral-800)',
+  				'900': 'var(--color-neutral-900)'
+  			},
+  			brand: {
+  				DEFAULT: 'var(--color-accent)',
+  				'100': 'var(--color-accent-100)',
+  				'200': 'var(--color-accent-200)',
+  				'300': 'var(--color-accent-300)',
+  				'400': 'var(--color-accent-400)',
+  				'500': 'var(--color-accent-500)',
+  				'600': 'var(--color-accent-600)',
+  				'700': 'var(--color-accent-700)',
+  				'800': 'var(--color-accent-800)',
+  				'900': 'var(--color-accent-900)'
+  			},
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
@@ -54,6 +80,10 @@ const config: Config = {
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
   			}
+  		},
+  		screens: {
+  			'nav': '1000px',
+  			'md2': '1040px'
   		},
   		borderRadius: {
   			lg: 'var(--radius)',

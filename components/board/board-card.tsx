@@ -1,105 +1,84 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
-import { Headshot } from "@/components/shared/headshot";
 import { BioDialog } from "@/components/board/bio-dialog";
-import { LinkedInIcon } from "@/components/icons/social";
 import type { BoardMember } from "@/data/board";
 
-const DENSITIES = {
-  officer: { nameSize: 30, weight: 700, margin: "10px 0 4px" },
-  director: { nameSize: 28, weight: 700, margin: "10px 0 4px" },
-  advisor: { nameSize: 24, weight: 600, margin: "6px 0 2px" },
-} as const;
+/**
+ * First letters of the first two name words, after stripping honorifics.
+ * 20 of the 42 people have no headshot; the initials tile is the intended
+ * treatment for them, not a placeholder waiting to be filled.
+ */
+export function initialsOf(name: string) {
+  return name
+    .replace(/^(Dr\.|COL|Mr\.|Ms\.)\s+/, "")
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join("");
+}
 
 /**
- * One roster card. `size` follows the design's three densities: officers get the
- * largest name, directors sit a step down, advisors smaller still.
+ * One roster card: a button that opens the member's bio. Flex column, not
+ * block, so cards with and without a photo align identically.
  */
 export function BoardCard({
   member,
-  size = "officer",
+  showRole = true,
+  sizes = "(max-width: 820px) 100vw, (max-width: 1040px) 50vw, 25vw",
 }: {
   member: BoardMember;
-  size?: keyof typeof DENSITIES;
+  /** Advisors show name and organisation only. */
+  showRole?: boolean;
+  sizes?: string;
 }) {
-  const [showBio, setShowBio] = useState(false);
-
-  const density = DENSITIES[size];
-  // Federal-government members are marked in the design's second accent.
-  const sectorColor = member.sector?.startsWith("Government")
-    ? "var(--color-accent-2-700)"
-    : "var(--color-neutral-700)";
+  const [open, setOpen] = useState(false);
 
   return (
-    <div>
-      <Headshot src={member.image} alt={member.name} />
+    <>
+      <button type="button" className="person-card" onClick={() => setOpen(true)}>
+        {member.image ? (
+          <div className="frame frame-portrait">
+            <Image
+              src={member.image}
+              alt=""
+              fill
+              sizes={sizes}
+              style={{ objectFit: "cover" }}
+            />
+          </div>
+        ) : (
+          <div className="frame-placeholder" aria-hidden="true">
+            {initialsOf(member.name)}
+          </div>
+        )}
 
-      {member.linkedin && (
-        <a
-          href={member.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`${member.name} on LinkedIn`}
-          style={{ display: "inline-flex", marginTop: 12, color: "var(--color-accent-700)" }}
-        >
-          <LinkedInIcon size={22} />
-        </a>
-      )}
-
-      <h4
-        style={{
-          fontSize: density.nameSize,
-          fontWeight: density.weight,
-          letterSpacing: "-0.01em",
-          lineHeight: 1.15,
-          margin: density.margin,
-        }}
-      >
-        {member.name}
-      </h4>
-
-      <div className="kick" style={{ fontSize: 12, letterSpacing: "0.06em" }}>
-        {member.role}
-      </div>
-
-      {member.sector && (
-        <div
-          className="kick"
-          style={{ fontSize: 11, letterSpacing: "0.05em", color: sectorColor, marginTop: 6 }}
-        >
-          {member.sector}
+        <div style={{ fontSize: 20, fontWeight: 600, marginTop: 14 }}>
+          {member.name}
         </div>
-      )}
 
-      {member.org && (
-        <div style={{ fontSize: 16, color: "var(--color-neutral-700)", marginTop: 6 }}>
-          {member.org}
-        </div>
-      )}
+        {showRole && member.role && (
+          <div
+            className="kick-sm"
+            style={{ letterSpacing: "0.1em", color: "var(--color-accent-700)", marginTop: 4 }}
+          >
+            {member.role}
+          </div>
+        )}
 
-      {member.email && (
-        <div className="bmeta" style={{ display: "flex", flexDirection: "column", marginTop: 8 }}>
-          <a href={`mailto:${member.email}`} style={{ overflowWrap: "anywhere" }}>
-            {member.email}
-          </a>
-        </div>
-      )}
+        {/* Omitted entirely rather than reserving empty space. */}
+        {member.org && (
+          <div
+            style={{ fontSize: 15, color: "var(--color-neutral-700)", marginTop: 6 }}
+          >
+            {member.org}
+          </div>
+        )}
+      </button>
 
-      {member.bio && (
-        <button
-          type="button"
-          className="btn btn-ghost"
-          style={{ marginTop: 10, paddingLeft: 0 }}
-          onClick={() => setShowBio(true)}
-        >
-          Read bio
-        </button>
-      )}
-
-      {showBio && member.bio && (
-        <BioDialog name={member.name} bio={member.bio} onClose={() => setShowBio(false)} />
-      )}
-    </div>
+      {open && <BioDialog member={member} onClose={() => setOpen(false)} />}
+    </>
   );
 }

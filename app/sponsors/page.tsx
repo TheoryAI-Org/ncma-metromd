@@ -1,142 +1,169 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { PageHeader } from "@/components/shared/page-header";
-import { CtaRow } from "@/components/shared/cta-row";
-import {
-  SPONSOR_PLACEHOLDER_SLOTS,
-  sponsorLevels,
-  sponsors,
-  sponsorshipOptions,
-} from "@/data/sponsors";
+import { sponsorLevels, sponsors, sponsorshipOptions } from "@/data/sponsors";
 
 export const metadata: Metadata = {
   title: "Sponsors | NCMA MetroMD",
   description:
-    "Sponsorship keeps dinner affordable for government attendees and puts your name in front of the Washington-area acquisition community.",
+    "Sponsorship keeps a seat at the table affordable. Season levels, per-meeting and in-kind options for supporting the NCMA MetroMD Chapter.",
+  alternates: { canonical: "/sponsors" },
+  openGraph: {
+    title: "Sponsors | NCMA MetroMD",
+    description:
+      "Sponsors underwrite dinner so government attendees can come at a reduced rate.",
+    url: "/sponsors",
+  },
 };
 
+const H2 = {
+  fontSize: 32,
+  margin: "64px 0 24px",
+  paddingTop: 24,
+} as const;
+
 export default function SponsorsPage() {
-  const slots: (typeof sponsors)[number][] | null[] =
-    sponsors.length > 0 ? sponsors : new Array(SPONSOR_PLACEHOLDER_SLOTS).fill(null);
-
   return (
-    <main className="pg" style={{ paddingTop: 48, paddingBottom: 88 }}>
-      <PageHeader kicker="Partners" title="Sponsors">
-        <p className="lede">
-          Sponsorship keeps dinner affordable for government attendees and puts your name in
-          front of the Washington-area acquisition community. Four levels, one conversation.
-        </p>
-      </PageHeader>
+    <main id="main" className="pg" style={{ paddingTop: 56 }}>
+      <p className="kick">Sponsors</p>
+      <h1 style={{ fontSize: 54, maxWidth: "22ch", margin: "16px 0 20px" }}>
+        Sponsorship keeps a seat at the table affordable
+      </h1>
+      <p className="lede" style={{ maxWidth: "58ch", margin: "0 0 30px" }}>
+        Sponsors underwrite dinner so government attendees can come at a reduced
+        rate, and pay for the training and student outreach the chapter runs
+        between meetings.
+      </p>
+      <Link className="btn btn-primary btn-lg" href="/contact">
+        Talk to us about sponsoring
+      </Link>
 
-      <div
-        className="grid-4"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(4,minmax(0,1fr))",
-          gap: 48,
-          marginTop: 64,
-        }}
-      >
+      <h2 className="rule-section" style={H2}>
+        Season levels
+      </h2>
+      {/* Prices are deliberately absent: the board has not set them. When they
+          arrive, add a price line under each h3 at 18px/600. */}
+      <div className="grid-2" style={{ gap: 28 }}>
         {sponsorLevels.map((level) => (
-          <div key={level.name}>
-            <div className="kick" style={{ color: level.accent }}>
-              Level
-            </div>
-            <h3 style={{ fontSize: 30, margin: "10px 0 12px" }}>{level.name}</h3>
-            <p style={{ fontSize: 16, color: "var(--color-neutral-700)", margin: 0 }}>
+          <div key={level.name} className="card card-hover" style={{ padding: 24 }}>
+            <h3 style={{ fontSize: 24, fontWeight: 800, margin: "0 0 8px" }}>
+              {level.name}
+            </h3>
+            <p style={{ fontSize: 17, color: "var(--color-neutral-800)", margin: 0 }}>
               {level.body}
             </p>
           </div>
         ))}
       </div>
 
-      <div
-        className="grid-3"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3,minmax(0,1fr))",
-          gap: 48,
-          marginTop: 72,
-        }}
-      >
-        {sponsorshipOptions.map((option) => (
-          <div key={option.title}>
-            <div className="kick">{option.kicker}</div>
-            <h4 style={{ fontSize: 23, margin: "10px 0" }}>{option.title}</h4>
-            <p style={{ fontSize: 16, color: "var(--color-neutral-700)", margin: 0 }}>
-              {option.body}
+      <h2 className="rule-section" style={H2}>
+        Other ways to help
+      </h2>
+      <div className="grid-3" style={{ gap: 40 }}>
+        {sponsorshipOptions.map((o) => (
+          <div
+            key={o.title}
+            style={{ borderTop: "2px solid var(--color-text)", paddingTop: 16 }}
+          >
+            <div className="kick-sm" style={{ color: "var(--color-neutral-700)" }}>
+              {o.kicker}
+            </div>
+            <h3 style={{ fontSize: 22, margin: "8px 0 6px" }}>{o.title}</h3>
+            <p style={{ fontSize: 17, color: "var(--color-neutral-800)", margin: 0 }}>
+              {o.body}
             </p>
           </div>
         ))}
       </div>
 
-      <h3 style={{ fontSize: 28, margin: "80px 0 24px" }}>Current sponsors</h3>
-      <div
-        className="grid-2-sm"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(2,minmax(0,1fr))",
-          gap: "56px 48px",
-          maxWidth: 1000,
-          alignItems: "center",
-        }}
-      >
-        {slots.map((sponsor, i) => (
-          <div
-            key={sponsor?.name ?? i}
+      <h2 className="rule-section" style={{ ...H2, marginBottom: 8 }}>
+        This season&rsquo;s sponsors
+      </h2>
+      {sponsors.length > 0 ? (
+        <>
+          <p
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-start",
-              minHeight: 120,
+              fontSize: 18,
+              color: "var(--color-neutral-800)",
+              maxWidth: "58ch",
+              margin: "0 0 24px",
             }}
           >
-            {sponsor ? (
-              <SponsorLogo sponsor={sponsor} />
-            ) : (
+            The organisations underwriting this season of chapter programming.
+          </p>
+          <div
+            className="grid-3"
+            style={{ gap: "40px 48px", alignItems: "center" }}
+          >
+            {sponsors.map((s) => (
               <div
-                className="frame"
-                style={{ width: "100%", height: 120, position: "relative" }}
+                key={s.name}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  minHeight: 120,
+                }}
               >
-                <div className="frame-placeholder" aria-hidden="true">
-                  Sponsor logo
-                </div>
+                <Image
+                  src={s.logo}
+                  alt={s.name}
+                  width={280}
+                  height={120}
+                  style={{
+                    width: "auto",
+                    maxWidth: "100%",
+                    maxHeight: 120,
+                    objectFit: "contain",
+                    filter: "grayscale(1)",
+                  }}
+                />
               </div>
-            )}
+            ))}
           </div>
-        ))}
-      </div>
-
-      <CtaRow
-        title="Talk to us about sponsoring"
-        body="The VP of Operations handles sponsorship and can send the current packet."
-        titleSize={23}
-        action={
-          <Link className="btn btn-primary" href="/contact">
-            Request the packet
-          </Link>
-        }
-      />
+        </>
+      ) : (
+        <>
+          <p
+            style={{
+              fontSize: 18,
+              color: "var(--color-neutral-800)",
+              maxWidth: "58ch",
+              margin: "0 0 24px",
+            }}
+          >
+            No sponsors are confirmed for the coming season yet. Logos appear
+            here as they are signed, and the first names go out in the
+            newsletter.
+          </p>
+          <div
+            className="stack-md"
+            style={{
+              border: "1px dashed var(--color-neutral-400)",
+              borderRadius: 4,
+              padding: 32,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 24,
+              flexWrap: "wrap",
+            }}
+          >
+            <div
+              style={{
+                fontSize: 18,
+                color: "var(--color-neutral-700)",
+                maxWidth: "44ch",
+              }}
+            >
+              Sponsor logos will be listed here, on every meeting invitation and
+              in the newsletter.
+            </div>
+            <Link className="link-rule" href="/contact" style={{ flex: "none" }}>
+              Be the first
+            </Link>
+          </div>
+        </>
+      )}
     </main>
-  );
-}
-
-function SponsorLogo({ sponsor }: { sponsor: (typeof sponsors)[number] }) {
-  const logo = (
-    <Image
-      src={sponsor.logo}
-      alt={sponsor.name}
-      width={360}
-      height={200}
-      style={{ maxWidth: "100%", maxHeight: 200, width: "auto", height: "auto" }}
-    />
-  );
-  return sponsor.href ? (
-    <a href={sponsor.href} target="_blank" rel="noopener noreferrer">
-      {logo}
-    </a>
-  ) : (
-    logo
   );
 }

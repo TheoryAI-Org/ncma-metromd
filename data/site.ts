@@ -1,5 +1,8 @@
 // Chapter-wide constants used across the site.
 
+/** Canonical origin, used for metadata, JSON-LD and the sitemap. */
+export const SITE_URL = "https://ncmametromd.org";
+
 export const NCMA_MEMBERSHIP_URL = "https://www.ncmahq.org/membership";
 export const NCMA_CERTIFICATIONS_URL = "https://www.ncmahq.org/certifications";
 export const EVENTBRITE_ORG_URL =
@@ -11,26 +14,72 @@ export const socials = [
   { name: "Eventbrite", href: EVENTBRITE_ORG_URL },
 ] as const;
 
+/**
+ * The header carries exactly five links. Certifications, Insights, Highlight
+ * and Advisory moved to the footer; those pages stay reachable.
+ */
 export const navigation = [
   { name: "Our chapter", href: "/about" },
   { name: "Board", href: "/board" },
-  { name: "Advisory", href: "/board#advisors" },
-  { name: "Insights", href: "/insights" },
   { name: "Events", href: "/events" },
-  { name: "Certifications", href: "/certs" },
-  { name: "Highlight", href: "/highlight" },
   { name: "Sponsors", href: "/sponsors" },
   { name: "Contact", href: "/contact" },
 ] as const;
 
+export interface FooterLink {
+  name: string;
+  href: string;
+  /** External destinations open in a new tab. */
+  external?: boolean;
+}
+
+export const footerGroups: { heading: string; links: FooterLink[] }[] = [
+  {
+    heading: "Chapter",
+    links: [
+      { name: "Our chapter", href: "/about" },
+      { name: "Board", href: "/board" },
+      { name: "Board of Advisors", href: "/board#advisors" },
+      { name: "Sponsors", href: "/sponsors" },
+      { name: "Insights", href: "/insights" },
+    ],
+  },
+  {
+    heading: "Members",
+    links: [
+      { name: "Events", href: "/events" },
+      { name: "Certifications", href: NCMA_CERTIFICATIONS_URL, external: true },
+      { name: "Monthly highlight", href: "/highlight" },
+      { name: "Member sign in", href: "/login" },
+      { name: "Contact", href: "/contact" },
+    ],
+  },
+  {
+    heading: "Follow",
+    links: socials.map((s) => ({ name: s.name, href: s.href, external: true })),
+  },
+];
+
 /** Board members who own a particular inbound topic, shown on the contact page. */
+/**
+ * Board members who own a particular inbound topic. The contact form posts a
+ * topic label and the server looks the address up here; addresses are never
+ * rendered into the page.
+ *
+ * "Something else" has no dedicated owner yet and routes to the president.
+ */
 export const contactRoutes = [
   { topic: "Membership", name: "Jennifer Hanks", email: "jahanks@mmcgovsolutions.com" },
-  { topic: "Programs", name: "Renita Anderson", email: "randerson@deftechno.com" },
-  { topic: "Training", name: "Dr. Patricia Akinrogunde", email: "patricia@triplejoygroup.com" },
+  { topic: "Programs and meetings", name: "Renita Anderson", email: "randerson@deftechno.com" },
+  { topic: "Training and certification", name: "Dr. Patricia Akinrogunde", email: "patricia@triplejoygroup.com" },
   { topic: "Sponsorship", name: "Sonya Hopson", email: "sonya@sageservicesgroupllc.com" },
   { topic: "Newsletter", name: "Bethlehem Belaineh", email: "be@theoryai.co" },
+  { topic: "Something else", name: "Jennifer Hanks", email: "jahanks@mmcgovsolutions.com" },
 ] as const;
+
+export type ContactTopic = (typeof contactRoutes)[number]["topic"];
+
+export const contactTopics = contactRoutes.map((r) => r.topic);
 
 export const chapterFacts = [
   { label: "When", value: "Third Thursday, 5:30 PM" },

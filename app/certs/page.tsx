@@ -62,7 +62,7 @@ const certifications = [
 
 export default function CertsPage() {
   return (
-    <main className="pg" style={{ paddingTop: 48, paddingBottom: 88 }}>
+    <main id="main" className="pg" style={{ paddingTop: 48, paddingBottom: 88 }}>
       <PageHeader kicker="Professional credentials" kickerSize={50} title="Certifications">
         <p className="lede">
           The CCCM, CFCM, CPCM, and CCMA are certifications awarded to candidates who meet

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function InsightsPage() {
   return (
-    <main className="pg" style={{ paddingTop: 48, paddingBottom: 88 }}>
+    <main id="main" className="pg" style={{ paddingTop: 48, paddingBottom: 88 }}>
       <PageHeader
         kicker="Thought leadership"
         kickerSize={40}

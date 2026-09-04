@@ -28,7 +28,7 @@ export default async function ArticlePage(props: { params: Promise<{ slug: strin
   if (!article) notFound();
 
   return (
-    <main className="pg" style={{ paddingTop: 36, paddingBottom: 88, maxWidth: 760 }}>
+    <main id="main" className="pg" style={{ paddingTop: 36, paddingBottom: 88, maxWidth: 760 }}>
       <Link className="btn btn-ghost" style={{ paddingLeft: 0 }} href="/insights">
         ← Insights
       </Link>

@@ -1,17 +1,24 @@
-import { formatEventDate, formatTimeRange } from "@/lib/format";
+import { formatEventDateLong, formatTimeRange } from "@/lib/format";
 import { pastMeetings, type PastMeeting } from "@/data/past-meetings";
 import type { Event } from "@/types/event";
 
 /**
- * The meeting archive. Rows come from the live Eventbrite feed; the transcribed
- * archive in data/past-meetings.ts stands in when that feed is unavailable, so
- * the table never renders empty.
+ * The meeting archive, newest first. Rows come from the live Eventbrite feed;
+ * the transcribed archive in data/past-meetings.ts stands in when that feed is
+ * unavailable, so the list never renders empty.
  */
-export function PastMeetingsTable({ events }: { events: Event[] }) {
-  const rows: PastMeeting[] =
+export function PastMeetingsTable({
+  events,
+  limit,
+}: {
+  events: Event[];
+  /** The home page shows only the two most recent meetings. */
+  limit?: number;
+}) {
+  const all: PastMeeting[] =
     events.length > 0
       ? events.map((e) => ({
-          date: formatEventDate(e.date),
+          date: formatEventDateLong(e.date),
           title: e.title,
           venue: e.venue ?? null,
           time: formatTimeRange(e.startTime, e.endTime),
@@ -19,45 +26,34 @@ export function PastMeetingsTable({ events }: { events: Event[] }) {
         }))
       : pastMeetings;
 
+  const rows = limit ? all.slice(0, limit) : all;
+
   return (
-    <div style={{ overflowX: "auto" }}>
-      <table className="table">
-        <thead>
-          <tr>
-            <th style={{ width: 130 }}>Date</th>
-            <th>Event</th>
-            <th style={{ width: 160 }}>Time</th>
-            <th style={{ width: 120 }}>Tickets</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row) => (
-            <tr key={`${row.date}-${row.title}`}>
-              <td style={{ whiteSpace: "nowrap" }}>{row.date}</td>
-              <td>
-                {row.title}
-                {row.venue && (
-                  <div
-                    style={{ fontSize: 14, color: "var(--color-neutral-700)", marginTop: 2 }}
-                  >
-                    {row.venue}
-                  </div>
-                )}
-              </td>
-              <td style={{ whiteSpace: "nowrap" }}>{row.time}</td>
-              <td>
-                {row.ticketsUrl ? (
-                  <a href={row.ticketsUrl} target="_blank" rel="noopener noreferrer">
-                    Eventbrite
-                  </a>
-                ) : (
-                  <span style={{ color: "var(--color-neutral-600)" }}>Closed</span>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div>
+      {rows.map((row) => (
+        <div className="meeting-row" key={`${row.date}-${row.title}`}>
+          <div style={{ fontSize: 17, color: "var(--color-neutral-700)" }}>
+            {row.date}
+          </div>
+          <div>
+            <div style={{ fontSize: 21, fontWeight: 600 }}>{row.title}</div>
+            {row.venue && (
+              <div style={{ fontSize: 16, color: "var(--color-neutral-700)" }}>
+                {row.venue}
+              </div>
+            )}
+          </div>
+          <div
+            style={{
+              fontSize: 16,
+              color: "var(--color-neutral-700)",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {row.time}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

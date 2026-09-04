@@ -12,7 +12,7 @@ const FORM_URL =
 
 export default function HighlightPage() {
   return (
-    <main className="pg" style={{ paddingTop: 48, paddingBottom: 88 }}>
+    <main id="main" className="pg" style={{ paddingTop: 48, paddingBottom: 88 }}>
       <PageHeader kicker="Members" title="Monthly Highlight">
         <p className="lede">
           Share your story and be featured on our social media platforms. We love to showcase

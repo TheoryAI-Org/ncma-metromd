@@ -1,81 +1,175 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import type { BoardMember } from "@/data/board";
+
+const FOCUSABLE =
+  'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
 /**
- * The design's bio overlay: a click-outside / Escape-dismissable panel. Focus is
- * moved into the panel on open and the page behind it is locked from scrolling.
+ * The bio overlay. Escape and a backdrop click close it; clicks inside the
+ * panel do not. Focus moves to the Close button on open, is constrained to the
+ * panel while it is open, and returns to the card that opened it on close.
  */
 export function BioDialog({
-  name,
-  bio,
+  member,
   onClose,
 }: {
-  name: string;
-  bio: string;
+  member: BoardMember;
   onClose: () => void;
 }) {
   const panelRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", onKey);
+    // Remember whatever had focus so it can be handed back on close.
+    const previouslyFocused = document.activeElement as HTMLElement | null;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    panelRef.current?.focus();
+    closeRef.current?.focus();
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab") return;
+
+      const panel = panelRef.current;
+      if (!panel) return;
+      const items = Array.from(
+        panel.querySelectorAll<HTMLElement>(FOCUSABLE)
+      ).filter((el) => el.offsetParent !== null);
+      if (items.length === 0) return;
+
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", onKey);
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = previousOverflow;
+      previouslyFocused?.focus();
     };
   }, [onClose]);
 
   return (
     <div
+      className="anim-fade"
       onClick={onClose}
       style={{
         position: "fixed",
         inset: 0,
-        zIndex: 200,
-        background: "rgba(32,30,29,0.55)",
+        zIndex: 50,
+        background: "rgba(32,30,29,0.6)",
         display: "flex",
-        alignItems: "center",
+        alignItems: "flex-start",
         justifyContent: "center",
-        padding: 32,
+        padding: "40px 20px",
+        overflowY: "auto",
       }}
     >
       <div
         ref={panelRef}
+        className="anim-rise elev-lg"
         role="dialog"
         aria-modal="true"
-        aria-label={`${name} biography`}
-        tabIndex={-1}
+        aria-label={member.name}
         onClick={(e) => e.stopPropagation()}
         style={{
           background: "var(--color-bg)",
+          borderRadius: 4,
           maxWidth: 760,
           width: "100%",
-          maxHeight: "82vh",
-          overflow: "auto",
-          padding: "44px 48px 48px",
-          boxShadow: "var(--shadow-lg)",
-          position: "relative",
+          padding: 32,
         }}
       >
-        <button
-          type="button"
-          className="btn btn-icon"
-          onClick={onClose}
-          aria-label="Close"
-          style={{ position: "absolute", top: 16, right: 16, fontSize: 22 }}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            gap: 24,
+          }}
         >
-          ×
-        </button>
-        <h3 style={{ fontSize: 32, margin: "0 0 20px", maxWidth: "32ch" }}>{name}</h3>
-        <p className="bio" style={{ maxWidth: "none" }}>
-          {bio}
-        </p>
+          <div>
+            <h2 style={{ fontSize: 32, fontWeight: 800, margin: 0 }}>
+              {member.name}
+            </h2>
+            {member.role && (
+              <div
+                className="kick-sm"
+                style={{
+                  fontSize: 15,
+                  letterSpacing: "0.1em",
+                  color: "var(--color-accent-700)",
+                  marginTop: 6,
+                }}
+              >
+                {member.role}
+              </div>
+            )}
+            {member.org && (
+              <div
+                style={{
+                  fontSize: 18,
+                  color: "var(--color-neutral-700)",
+                  marginTop: 6,
+                }}
+              >
+                {member.org}
+              </div>
+            )}
+          </div>
+          <button
+            ref={closeRef}
+            type="button"
+            className="btn btn-secondary"
+            onClick={onClose}
+            aria-label="Close"
+            style={{ flex: "none", fontSize: 16, padding: "10px 14px" }}
+          >
+            Close
+          </button>
+        </div>
+
+        <hr
+          style={{
+            border: 0,
+            borderTop: "2px solid var(--color-divider)",
+            margin: "22px 0",
+          }}
+        />
+
+        {member.bio ? (
+          <p className="bio" style={{ margin: 0 }}>
+            {member.bio}
+          </p>
+        ) : (
+          <p style={{ fontSize: 18, color: "var(--color-neutral-700)", margin: 0 }}>
+            A biography for this board member has not been supplied yet.
+          </p>
+        )}
+
+        {member.linkedin && (
+          <a
+            className="link-rule"
+            href={member.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ marginTop: 22 }}
+          >
+            LinkedIn profile
+          </a>
+        )}
       </div>
     </div>
   );

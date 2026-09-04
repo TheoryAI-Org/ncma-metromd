@@ -1,50 +1,68 @@
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/shared/page-header";
 import { ContactForm } from "@/components/contact-form";
-import { SocialLinks } from "@/components/icons/social";
-import { contactRoutes } from "@/data/site";
+import { socials } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Contact | NCMA MetroMD",
   description:
-    "Reach the NCMA MetroMD board about membership, events, certification or sponsorship.",
+    "Ask the board. Pick a topic and your message goes to the board member who handles it. Most replies come within a few days.",
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    title: "Contact | NCMA MetroMD",
+    description: "Ask the NCMA MetroMD board about membership, programs, training or sponsorship.",
+    url: "/contact",
+  },
 };
 
 export default function ContactPage() {
   return (
-    <main className="pg" style={{ paddingTop: 48, paddingBottom: 88 }}>
-      <PageHeader kicker="Say hello" title="Contact" />
-
+    <main id="main" className="pg" style={{ paddingTop: 56 }}>
       <div
         className="grid-split"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1.2fr 1fr",
-          gap: 64,
-          marginTop: 40,
-        }}
+        style={{ gridTemplateColumns: "1fr 1fr", gap: 72, alignItems: "start" }}
       >
-        <ContactForm />
-
         <div>
-          <h4 style={{ fontSize: 21 }}>Reach the board directly</h4>
-          <div
-            className="bmeta"
-            style={{ display: "flex", flexDirection: "column", gap: 8, fontSize: 16 }}
-          >
-            {contactRoutes.map((route) => (
-              <div key={route.topic}>
-                {route.topic} · <a href={`mailto:${route.email}`}>{route.name}</a>
-              </div>
-            ))}
-          </div>
+          <p className="kick">Contact</p>
+          <h1 style={{ maxWidth: "18ch", margin: "16px 0 20px" }}>Ask the board</h1>
+          <p className="lede" style={{ fontSize: 20, maxWidth: "46ch", margin: "0 0 28px" }}>
+            Pick a topic and your message goes to the board member who handles
+            it. Most replies come within a few days.
+          </p>
 
-          <h4 style={{ fontSize: 21, marginTop: 36 }}>Follow the chapter</h4>
-          <SocialLinks size={24} gap={14} />
-          <div style={{ fontSize: 13, color: "var(--color-neutral-600)", marginTop: 12 }}>
-            LinkedIn, Instagram and Eventbrite are live.
+          {/* Board addresses stay server-side: the topic routes the message. */}
+          <div
+            className="rule-section"
+            style={{ paddingTop: 24, display: "grid", gap: 18 }}
+          >
+            <div>
+              <h2 className="kick-sm" style={{ color: "var(--color-neutral-700)", margin: 0 }}>
+                Meetings
+              </h2>
+              <div style={{ fontSize: 19, marginTop: 4 }}>
+                Third Thursday, 5:30 PM, venue rotates around Metro Maryland
+              </div>
+            </div>
+            <div>
+              <h2 className="kick-sm" style={{ color: "var(--color-neutral-700)", margin: 0 }}>
+                Follow
+              </h2>
+              <div style={{ display: "flex", gap: 18, marginTop: 6, fontSize: 18 }}>
+                {socials.map((s) => (
+                  <a
+                    key={s.name}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {s.name}
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
+
+        <ContactForm />
       </div>
     </main>
   );

@@ -3,23 +3,19 @@
 export const sponsorLevels = [
   {
     name: "Platinum",
-    accent: "var(--color-accent-2-700)",
     body: "Top billing across the season: named on every meeting, logo on the site, newsletter and all event material, a reserved table at each dinner, and a speaking slot.",
   },
   {
     name: "Gold",
-    accent: "var(--color-accent-700)",
     body: "Logo on the site and newsletter, recognition from the podium at every meeting, and reserved seating at dinners.",
   },
   {
     name: "Silver",
-    accent: "var(--color-neutral-700)",
     body: "Logo on the site and in the newsletter, with recognition at the meetings you attend.",
   },
   {
     name: "Bronze",
-    accent: "var(--color-neutral-700)",
-    body: "Name listed on the site and in the newsletter — the entry point for small businesses.",
+    body: "Name listed on the site and in the newsletter. The entry point for small businesses.",
   },
 ] as const;
 
@@ -31,7 +27,7 @@ export const sponsorshipOptions = [
   },
   {
     kicker: "In kind",
-    title: "Venue & training",
+    title: "Venue and training",
     body: "Host a session in your space or supply an instructor. Credited the same as a cash sponsor.",
   },
   {

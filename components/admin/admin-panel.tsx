@@ -26,7 +26,7 @@ export function AdminPanel() {
   const [tab, setTab] = useState<Tab>("Dashboard");
 
   return (
-    <main className="pg" style={{ paddingTop: 40, paddingBottom: 88 }}>
+    <main id="main" className="pg" style={{ paddingTop: 40, paddingBottom: 88 }}>
       <div
         style={{
           display: "flex",

@@ -3,198 +3,278 @@
 @tailwind utilities;
 
 /* ==========================================================================
-   Broadsheet — design-system tokens ported from the NCMA MetroMD redesign.
-   This block is the source of truth for the site's look.
+   NCMA MetroMD — design tokens.
+   Neutrals and ground come from ncmahq.org (white ground, navy ink, light
+   blue band); the accent is the Modernist orange-red ramp, used as the only
+   accent. This block is the source of truth for the site's look.
    ========================================================================== */
 
 :root {
+  /* ground + ink */
   --color-bg: #ffffff;
-  --color-surface: #f3f2f2;
-  --color-text: #201e1d;
-  --color-accent: #0088b0;
-  --color-accent-2: #d6006c;
-  --color-divider: color-mix(in srgb, #201e1d 16%, transparent);
+  --color-surface: #e9eff6;
+  --color-text: #16283d;
+  --color-divider: #c3d2e0;
+  --navy: #17365c;
 
-  --color-neutral-100: #f8f4f4;
-  --color-neutral-200: #eae7e7;
-  --color-neutral-300: #d7d3d3;
-  --color-neutral-400: #bab6b6;
-  --color-neutral-500: #9b9797;
-  --color-neutral-600: #7d7979;
-  --color-neutral-700: #605d5d;
-  --color-neutral-800: #444141;
-  --color-neutral-900: #2d2b2b;
+  /* neutrals (cool, blue-grey) */
+  --color-neutral-100: #f7f9fb;
+  --color-neutral-200: #eef2f7;
+  --color-neutral-300: #dbe3ec;
+  --color-neutral-400: #b9c5d4;
+  --color-neutral-500: #90a0b4;
+  --color-neutral-600: #6c7d92;
+  --color-neutral-700: #4e6076;
+  --color-neutral-800: #33465c;
+  --color-neutral-900: #1d2f45;
 
-  --color-accent-100: #e9f8ff;
-  --color-accent-200: #cbeeff;
-  --color-accent-300: #99e0ff;
-  --color-accent-400: #62c5ee;
-  --color-accent-500: #38a6cf;
-  --color-accent-600: #1186ac;
-  --color-accent-700: #006786;
-  --color-accent-800: #004961;
-  --color-accent-900: #0a303e;
+  /* accent — Modernist ramp, read from the bound token sheet */
+  --color-accent: #ec3013;
+  --color-accent-100: #fff2ef;
+  --color-accent-200: #ffe0d9;
+  --color-accent-300: #ffc4b8;
+  --color-accent-400: #ff9783;
+  --color-accent-500: #ff563c;
+  --color-accent-600: #dd2b0f;
+  --color-accent-700: #ae1800;
+  --color-accent-800: #7c1405;
+  --color-accent-900: #4d170e;
 
-  --color-accent-2-100: #fff1f4;
-  --color-accent-2-200: #ffdee6;
-  --color-accent-2-300: #ffc0d0;
-  --color-accent-2-400: #ff90b1;
-  --color-accent-2-500: #ff458e;
-  --color-accent-2-600: #d82071;
-  --color-accent-2-700: #aa0b56;
-  --color-accent-2-800: #790e3d;
-  --color-accent-2-900: #4b1528;
+  /* The second accent is retained only so the pages outside this refresh
+     (insights, certs, highlight, admin) keep rendering; nothing in the seven
+     redesigned screens uses it. */
+  --color-accent-2: #e15b47;
+  --color-accent-2-100: #fff2ef;
+  --color-accent-2-200: #ffe0da;
+  --color-accent-2-300: #ffc4b9;
+  --color-accent-2-400: #ff9784;
+  --color-accent-2-500: #ef6853;
+  --color-accent-2-600: #c94b39;
+  --color-accent-2-700: #9e3526;
+  --color-accent-2-800: #71261b;
+  --color-accent-2-900: #471d16;
 
-  --color-process-yellow: #edbb00;
-
-  /* Lora carries the editorial voice in headings and member names; Inter keeps
-     the dense UI text — roles, sector labels, tables — legible at small sizes. */
-  --font-heading: var(--font-lora), Lora, Georgia, serif;
-  --font-heading-weight: 600;
-  --font-body: var(--font-inter), Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
-
-  --space-1: 5px;
-  --space-2: 10px;
-  --space-3: 15px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
   --space-4: 20px;
-  --space-6: 30px;
-  --space-8: 40px;
+  --space-6: 32px;
+  --space-8: 48px;
 
-  --radius-sm: 1px;
-  --radius-md: 2px;
+  /* Nothing is pill-shaped, nothing is square: 4px everywhere. */
+  --radius-sm: 4px;
+  --radius-md: 4px;
   --radius-lg: 4px;
 
-  --shadow-sm: 0 1px 2px color-mix(in srgb, #2d2b2b 14%, transparent);
-  --shadow-md: 0 3px 10px color-mix(in srgb, #2d2b2b 16%, transparent);
-  --shadow-lg: 0 12px 32px color-mix(in srgb, #2d2b2b 22%, transparent);
+  --shadow-sm: 0 1px 2px rgba(22, 40, 61, 0.14);
+  --shadow-md: 0 3px 10px rgba(22, 40, 61, 0.16);
+  --shadow-lg: 0 12px 32px rgba(22, 40, 61, 0.22);
 }
 
 @layer base {
-  *, *::before, *::after { box-sizing: border-box; }
+  *, *::before, *::after { box-sizing: border-box; text-wrap: pretty; }
+
+  /* Single family: Archivo carries headings, body and UI alike.
+     These are declared on body, not :root, because next/font defines
+     --font-archivo on the body element; a var() referencing it from :root
+     resolves to the guaranteed-invalid value and inherits down as empty. */
+  body {
+    --font-heading: var(--font-archivo), Archivo, system-ui, sans-serif;
+    --font-body: var(--font-archivo), Archivo, system-ui, sans-serif;
+  }
 
   body {
     margin: 0;
     background: var(--color-bg);
     color: var(--color-text);
     font-family: var(--font-body);
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.6;
     font-weight: 400;
+    -webkit-font-smoothing: antialiased;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
-    font-weight: var(--font-heading-weight);
-    line-height: 1.12;
+    font-weight: 800;
+    line-height: 1.2;
     letter-spacing: -0.015em;
     margin: 0 0 var(--space-2);
   }
-  h1 { font-size: 42px; }
+  h1 { font-size: 52px; line-height: 1.06; letter-spacing: -0.02em; }
   h2 { font-size: 32px; }
-  h3 { font-size: 25px; }
-  h4 { font-size: 20px; }
-  h5 { font-size: 16px; }
-  h6 { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
+  h3 { font-size: 21px; font-weight: 700; line-height: 1.25; letter-spacing: normal; }
+  h4 { font-size: 20px; font-weight: 600; letter-spacing: normal; }
+  h5 { font-size: 18px; font-weight: 600; letter-spacing: normal; }
+  h6 { font-size: 14px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
 
   p { margin: 0 0 var(--space-3); }
-  a { color: var(--color-accent-700); text-underline-offset: 3px; }
-  a:hover { color: var(--color-accent); }
+  a { color: var(--color-accent-700); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:hover { color: var(--color-accent-800); }
   img { display: block; max-width: 100%; }
   figure { margin: 0; }
 
+  /* Never removed: the ring is an acceptance criterion. */
   :focus { outline: none; }
-  :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
-  ::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
+  :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+  ::selection { background: var(--color-accent-200); }
+
+  @media (max-width: 820px) {
+    h1 { font-size: 38px; }
+    h2 { font-size: 28px; }
+  }
 }
 
 /* — layout — */
-.pg { max-width: 1360px; margin: 0 auto; padding: 0 40px; }
-@media (max-width: 1360px) { .pg { padding: 0 24px; } }
+.pg { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+@media (max-width: 820px) { .pg { padding: 0 20px; } }
+
+/* The skip link: first focusable element on the page, off-screen until focus. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 8px;
+  z-index: 60;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  background: var(--color-text);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+.skip-link:focus { left: 16px; color: #fff; }
 
 /* — editorial type — */
 .kick {
-  font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--color-accent-700);
+  font-size: 15px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--color-accent-700);
 }
-.lede { font-size: 21px; line-height: 1.55; max-width: 60ch; }
-.bio { font-size: 16px; line-height: 1.7; color: var(--color-neutral-800); max-width: 68ch; }
-.text-muted { color: color-mix(in srgb, var(--color-text) 55%, transparent); }
-.hr { height: 1px; border: 0; margin: var(--space-4) 0; background: var(--color-divider); }
+/* The smaller kicker used inside cards, panels and footer group headings. */
+.kick-sm {
+  font-size: 14px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.lede { font-size: 21px; line-height: 1.55; max-width: 62ch; color: var(--color-neutral-800); }
+.bio { font-size: 18px; line-height: 1.65; color: var(--color-neutral-800); }
+.text-muted { color: var(--color-neutral-700); }
+.hr { height: 0; border: 0; border-top: 1px solid var(--color-neutral-300); margin: var(--space-4) 0; }
+/* The 2px rule that separates major sections. */
+.rule-section { border-top: 2px solid var(--color-divider); }
 
 /* — navigation — */
 .navlink {
-  background: none; border: 0; font: inherit; font-size: 16px; cursor: pointer;
-  padding: 2px 0; color: var(--color-text); white-space: nowrap; text-decoration: none;
+  background: none; border: 0; font: inherit; font-size: 17px; font-weight: 500;
+  cursor: pointer; color: var(--color-text); white-space: nowrap; text-decoration: none;
+  padding: 8px 0; border-bottom: 2px solid transparent;
 }
-.navlink:hover { color: var(--color-accent-700); }
-.navlink[data-on="true"] {
-  color: var(--color-accent-700);
-  box-shadow: inset 0 -1px 0 var(--color-accent);
+.navlink:hover { color: var(--color-text); border-bottom-color: var(--color-neutral-400); }
+/* Current-page styling is driven off the ARIA attribute, not a class. */
+.navlink[aria-current="page"] {
+  font-weight: 700;
+  border-bottom-color: var(--color-accent);
 }
 
 /* — contact meta blocks — */
-.bmeta a { font-size: 14px; color: var(--color-accent-700); text-decoration: none; word-break: break-word; }
+.bmeta a { font-size: 17px; color: var(--color-accent-700); text-decoration: none; word-break: break-word; }
 .bmeta a:hover { text-decoration: underline; }
 
-/* — buttons — */
+/* — buttons —
+   Every interactive target clears 44px; form controls clear 48px. */
 .btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   cursor: pointer; text-decoration: none; white-space: nowrap;
-  font-family: var(--font-heading); font-weight: var(--font-heading-weight);
-  font-size: 14px; line-height: 1.2; color: var(--color-text);
-  background: transparent; border: 1px solid transparent;
-  padding: var(--space-2) calc(var(--space-3) * 1.2);
+  font-family: var(--font-heading); font-weight: 600;
+  font-size: 17px; line-height: 1.2; color: var(--color-text);
+  background: transparent; border: 2px solid transparent;
+  padding: 12px 20px; min-height: 44px;
   border-radius: var(--radius-md);
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
 }
 .btn svg { display: block; }
 .btn:disabled { opacity: 0.45; cursor: not-allowed; }
-.btn-primary { background: var(--color-accent); color: var(--color-bg); }
-.btn-primary:hover { background: var(--color-accent-600); color: var(--color-bg); }
-.btn-primary:active { background: var(--color-accent-700); }
-.btn-secondary { border-color: var(--color-divider); }
-.btn-secondary:hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); color: var(--color-text); }
-.btn-secondary:active { background: color-mix(in srgb, var(--color-text) 14%, transparent); }
-.btn-ghost { color: var(--color-accent); padding-inline: var(--space-1); }
-.btn-ghost:hover { background: color-mix(in srgb, var(--color-accent) 10%, transparent); }
-.btn-ghost:active { background: color-mix(in srgb, var(--color-accent) 18%, transparent); }
-.btn-icon { width: 36px; height: 36px; padding: 0; }
-.btn-block { width: 100%; margin-top: var(--space-2); }
-.btn-join { background: #c8551b; border-color: #c8551b; color: #f3f2f2; }
-.btn-join:hover { background: #a8450f; border-color: #a8450f; color: #f3f2f2; }
+.btn-lg { font-size: 18px; padding: 15px 24px; min-height: 48px; }
+.btn-primary { background: var(--color-accent); border-color: var(--color-accent); color: #fff; }
+.btn-primary:hover { background: var(--color-accent-600); border-color: var(--color-accent-600); color: #fff; }
+.btn-primary:active { background: var(--color-accent-700); border-color: var(--color-accent-700); }
+.btn-secondary { border-color: var(--color-text); color: var(--color-text); }
+.btn-secondary:hover { background: var(--color-accent-100); border-color: var(--color-accent-700); color: var(--color-accent-900); }
+.btn-ghost { color: var(--color-accent-700); border-color: transparent; padding-inline: var(--space-1); }
+.btn-ghost:hover { background: var(--color-accent-100); color: var(--color-accent-800); }
+.btn-icon { width: 44px; height: 44px; padding: 0; }
+.btn-block { width: 100%; }
+/* On the dark hero the accent lightens rather than deepens on hover. */
+.btn-on-dark { background: var(--color-accent); border-color: var(--color-accent); color: #fff; }
+.btn-on-dark:hover { background: var(--color-accent-400); border-color: var(--color-accent-400); color: #fff; }
+.btn-outline-light { border-color: #fff; color: #fff; }
+.btn-outline-light:hover { background: rgba(255, 255, 255, 0.14); color: #fff; }
+/* The white-on-accent button inside the membership band. */
+.btn-inverse { background: #fff; border-color: #fff; color: var(--color-accent-900); font-weight: 700; }
+.btn-inverse:hover { background: var(--color-accent-100); border-color: var(--color-accent-100); color: var(--color-accent-900); }
+
+/* A text link that reads as an action: weight plus an accent underline rule. */
+.link-rule {
+  display: inline-block; font-weight: 600; text-decoration: none;
+  color: var(--color-text); border-bottom: 2px solid var(--color-accent-300);
+}
+.link-rule:hover { color: var(--color-accent-800); border-bottom-color: var(--color-accent); }
 
 /* — forms — */
 .field > label {
-  display: block; font-size: 12px; margin-bottom: 5px;
-  color: color-mix(in srgb, var(--color-text) 70%, transparent);
+  display: block; font-size: 16px; font-weight: 600; margin-bottom: 6px;
+  color: var(--color-text);
 }
 .input {
-  width: 100%; min-height: 36px; padding: 6px 10px; font: inherit;
-  font-size: 14px; color: var(--color-text); caret-color: var(--color-accent);
-  background: var(--color-surface);
-  border: 1px solid var(--color-divider); border-radius: var(--radius-md);
+  width: 100%; min-height: 48px; padding: 12px 14px; font: inherit;
+  font-size: 18px; color: var(--color-text); caret-color: var(--color-accent);
+  background: var(--color-bg);
+  border: 1px solid var(--color-neutral-400); border-radius: var(--radius-md);
 }
-.input::placeholder { color: color-mix(in srgb, var(--color-text) 65%, transparent); opacity: 1; }
-.input:hover { border-color: color-mix(in srgb, var(--color-text) 45%, transparent); }
-.input:focus-visible { border-color: var(--color-accent); outline-offset: 0; }
-textarea.input { min-height: 90px; resize: vertical; }
+.input::placeholder { color: var(--color-neutral-600); opacity: 1; }
+.input:hover { border-color: var(--color-neutral-500); }
+.input:focus-visible { border-color: var(--color-accent); }
+.input[aria-invalid="true"] { border-color: var(--color-accent-700); }
+textarea.input { min-height: 120px; resize: vertical; }
+/* Error text sits below its control and is pointed at by aria-describedby. */
+.field-error { font-size: 15px; font-weight: 600; color: var(--color-accent-700); margin-top: 6px; }
+/* The bordered panel both the contact and sign-in forms sit in. */
+.form-panel {
+  border: 2px solid var(--color-text); border-radius: var(--radius-md);
+  padding: 28px; background: var(--color-neutral-100);
+  display: grid; gap: 20px;
+}
 .seg {
   display: inline-flex; overflow: hidden; flex-wrap: wrap;
-  border: 1px solid var(--color-divider); border-radius: var(--radius-md);
+  border: 1px solid var(--color-neutral-400); border-radius: var(--radius-md);
 }
 .seg-opt {
   display: inline-flex; align-items: center; gap: 6px;
-  padding: 7px 12px; font-size: 13px; cursor: pointer;
+  padding: 11px 16px; font-size: 16px; cursor: pointer; min-height: 44px;
 }
 .seg-opt input { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
-.seg-opt + .seg-opt { border-left: 1px solid var(--color-divider); }
-.seg-opt:has(input:checked) { background: var(--color-accent); color: var(--color-bg); }
-.seg-opt:not(:has(input:checked)):hover { background: color-mix(in srgb, var(--color-text) 7%, transparent); }
+.seg-opt + .seg-opt { border-left: 1px solid var(--color-neutral-400); }
+.seg-opt:has(input:checked) { background: var(--color-accent); color: #fff; }
+.seg-opt:not(:has(input:checked)):hover { background: var(--color-neutral-200); }
 .seg-opt:has(input:focus-visible) { outline: 2px solid var(--color-accent); outline-offset: -2px; }
 
-/* — cards — */
+/* — panels and cards — */
 .card {
   display: flex; flex-direction: column; gap: var(--space-2);
-  padding: var(--space-3); border-radius: var(--radius-md); background: var(--color-surface);
+  padding: var(--space-4); border-radius: var(--radius-md);
+  border: 1px solid var(--color-neutral-300); background: var(--color-neutral-100);
+}
+/* The lift used by the sponsorship level cards. */
+.card-hover {
+  transition: transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease;
+}
+.card-hover:hover {
+  transform: scale(1.02);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-200), var(--shadow-md);
+}
+/* The accent notice used for "Next meeting" and the sign-in closed notice. */
+.notice {
+  border: 2px solid var(--color-accent-300); background: var(--color-accent-100);
+  border-radius: var(--radius-md); padding: 22px 24px;
 }
 .elev-sm { box-shadow: var(--shadow-sm); }
 .elev-md { box-shadow: var(--shadow-md); }
@@ -202,46 +282,113 @@ textarea.input { min-height: 90px; resize: vertical; }
 
 /* — tags — */
 .tag {
-  display: inline-flex; align-items: center; font-size: 11px;
-  letter-spacing: 0.02em; padding: 3px 10px;
-  border-radius: calc(var(--radius-md) * 0.75);
+  display: inline-flex; align-items: center; font-size: 14px; font-weight: 600;
+  padding: 5px 10px; white-space: nowrap;
+  border-radius: var(--radius-md);
 }
 .tag-accent { background: var(--color-accent-100); color: var(--color-accent-800); }
 .tag-accent-2 { background: var(--color-accent-2-100); color: var(--color-accent-2-800); }
-.tag-neutral { background: var(--color-neutral-100); color: var(--color-neutral-800); }
-.tag-outline { border: 1px solid var(--color-accent); color: var(--color-accent); }
+.tag-neutral { background: var(--color-neutral-200); color: var(--color-neutral-800); }
+.tag-outline { border: 1px solid var(--color-accent); color: var(--color-accent-700); }
 
 /* — tables — */
-.table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.table { width: 100%; border-collapse: collapse; font-size: 17px; }
 .table th {
-  text-align: left; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
-  color: color-mix(in srgb, var(--color-text) 60%, transparent);
-  padding: var(--space-2); border-bottom: 1px solid var(--color-divider);
+  text-align: left; font-size: 14px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--color-neutral-700);
+  padding: var(--space-3) var(--space-2); border-bottom: 2px solid var(--color-divider);
 }
 .table td {
-  padding: var(--space-2);
-  border-bottom: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+  padding: var(--space-4) var(--space-2);
+  border-bottom: 1px solid var(--color-neutral-300);
 }
-.table tbody tr:hover { background: color-mix(in srgb, var(--color-text) 4%, transparent); }
+.table tbody tr:hover { background: var(--color-neutral-100); }
 
-/* — headshot / logo frames — */
-.frame { position: relative; overflow: hidden; background: var(--color-surface); }
+/* — headshot / logo frames —
+   The photo zooms inside the frame and fades to colour on card hover. */
+.frame { position: relative; overflow: hidden; border-radius: var(--radius-md); background: var(--color-neutral-200); }
 .frame-portrait { aspect-ratio: 4 / 5; }
+.frame img { filter: grayscale(1); transition: transform 320ms ease, filter 320ms ease; }
+.person-card:hover .frame img,
+.person-card:focus-visible .frame img { transform: scale(1.06); filter: grayscale(0); }
+/* The initials tile shown for the 20 members with no headshot. */
 .frame-placeholder {
-  position: absolute; inset: 0; display: grid; place-items: center;
-  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--color-neutral-500);
+  display: flex; align-items: center; justify-content: center;
+  aspect-ratio: 4 / 5; border-radius: var(--radius-md);
+  background: var(--color-neutral-200); border: 1px solid var(--color-neutral-300);
+  font-size: 34px; font-weight: 800; color: var(--color-neutral-500);
+}
+
+/* A roster card is a button; strip the UA styling but keep it flex so cards
+   with and without a photo align identically. */
+.person-card {
+  display: flex; flex-direction: column; align-items: stretch;
+  width: 100%; text-align: left; background: none; border: 0; padding: 0;
+  font: inherit; color: inherit; cursor: pointer;
+}
+
+/* — the row layout shared by past-meeting lists — */
+.meeting-row {
+  display: grid; grid-template-columns: 200px 1fr auto; gap: 24px;
+  align-items: baseline; padding: 20px 0;
+  border-bottom: 1px solid var(--color-neutral-300);
+}
+@media (max-width: 820px) {
+  .meeting-row { grid-template-columns: 1fr; gap: 6px; }
+}
+
+/* — the four-cell statistic strip on the home page — */
+.stat-strip {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border-bottom: 2px solid var(--color-divider);
+}
+.stat-cell { padding: 30px 24px 26px; border-left: 1px solid var(--color-neutral-300); }
+.stat-cell:first-child { padding-left: 0; border-left: 0; }
+.stat-cell:last-child { padding-right: 0; }
+@media (max-width: 1040px) { .stat-strip { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 820px) {
+  .stat-strip { grid-template-columns: 1fr; }
+  .stat-cell { border-left: 0; border-top: 1px solid var(--color-neutral-300); padding: 20px 0; }
+  .stat-cell:first-child { border-top: 0; }
 }
 
 /* — responsive grid collapse —
-   the design is authored at desktop width; these keep the multi-column
-   grids from crushing on tablet and phone. */
-@media (max-width: 900px) {
-  .grid-2, .grid-3, .grid-4, .grid-5, .grid-split { grid-template-columns: 1fr !important; }
+   The design is authored at desktop width. Four- and three-column grids drop
+   to two at 1040px, and every multi-column grid becomes one at 820px. */
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); }
+.grid-2, .grid-2-sm { display: grid; grid-template-columns: repeat(2, 1fr); }
+.grid-split { display: grid; }
+@media (max-width: 1040px) {
+  .grid-4, .grid-3, .grid-5 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 820px) {
+  .grid-2, .grid-2-sm, .grid-3, .grid-4, .grid-5, .grid-split {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
   .stack-md { flex-direction: column !important; align-items: flex-start !important; }
 }
-@media (max-width: 640px) {
-  .grid-2-sm { grid-template-columns: 1fr !important; }
+
+@keyframes dcFade { from { opacity: 0 } to { opacity: 1 } }
+@keyframes dcRise { from { opacity: 0; transform: translateY(12px) } to { opacity: 1; transform: none } }
+.anim-fade { animation: dcFade 140ms ease-out; }
+.anim-rise { animation: dcRise 180ms ease-out; }
+
+/* Readers who ask for less motion get none of the decorative movement. */
+@media (prefers-reduced-motion: reduce) {
+  .anim-fade, .anim-rise { animation: none; }
+  .frame img,
+  .card-hover { transition: none; }
+  .person-card:hover .frame img,
+  .person-card:focus-visible .frame img { transform: none; }
+  .card-hover:hover { transform: none; }
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 @layer utilities {
@@ -249,31 +396,31 @@ textarea.input { min-height: 90px; resize: vertical; }
 }
 
 /* --------------------------------------------------------------------------
-   shadcn/ui compatibility tokens. The Broadsheet system above is the site's
-   look; these only keep components/ui/* (button, card, sheet) rendering
-   sanely wherever they are still used.
+   shadcn/ui compatibility tokens. The system above is the site's look; these
+   only keep components/ui/* (button, card, sheet) rendering sanely wherever
+   they are still used.
    -------------------------------------------------------------------------- */
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 20 5% 12%;
+    --foreground: 210 47% 16%;
     --card: 0 0% 100%;
-    --card-foreground: 20 5% 12%;
+    --card-foreground: 210 47% 16%;
     --popover: 0 0% 100%;
-    --popover-foreground: 20 5% 12%;
-    --primary: 194 100% 35%;
+    --popover-foreground: 210 47% 16%;
+    --primary: 9 85% 50%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 3% 95%;
-    --secondary-foreground: 20 5% 12%;
-    --muted: 0 3% 95%;
-    --muted-foreground: 0 2% 49%;
-    --accent: 194 100% 95%;
-    --accent-foreground: 196 100% 19%;
+    --secondary: 210 33% 94%;
+    --secondary-foreground: 210 47% 16%;
+    --muted: 210 33% 94%;
+    --muted-foreground: 211 21% 38%;
+    --accent: 12 100% 97%;
+    --accent-foreground: 9 100% 24%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 4% 84%;
-    --input: 0 4% 84%;
-    --ring: 194 100% 35%;
-    --radius: 2px;
+    --border: 210 33% 84%;
+    --input: 210 33% 84%;
+    --ring: 9 85% 50%;
+    --radius: 4px;
   }
 }

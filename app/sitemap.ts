@@ -1,0 +1,36 @@
+import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/data/site";
+import { articles } from "@/data/insights";
+
+/**
+ * Every live route, including the four outside the UI refresh. /admin and
+ * /login are omitted: neither is meant to be indexed.
+ */
+const routes = [
+  { path: "/", priority: 1 },
+  { path: "/about", priority: 0.8 },
+  { path: "/board", priority: 0.8 },
+  { path: "/events", priority: 0.8 },
+  { path: "/sponsors", priority: 0.7 },
+  { path: "/contact", priority: 0.7 },
+  { path: "/insights", priority: 0.6 },
+  { path: "/certs", priority: 0.6 },
+  { path: "/highlight", priority: 0.5 },
+];
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const lastModified = new Date();
+
+  return [
+    ...routes.map((r) => ({
+      url: `${SITE_URL}${r.path}`,
+      lastModified,
+      priority: r.priority,
+    })),
+    ...articles.map((a) => ({
+      url: `${SITE_URL}/insights/${a.slug}`,
+      lastModified,
+      priority: 0.5,
+    })),
+  ];
+}

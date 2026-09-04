@@ -1,214 +1,188 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { Headshot } from "@/components/shared/headshot";
-import { SocialLinks } from "@/components/icons/social";
+import { BoardCard } from "@/components/board/board-card";
+import { NextMeeting } from "@/components/events/next-meeting";
+import { PastMeetingsTable } from "@/components/events/past-meetings-table";
 import { featuredBoard } from "@/data/board";
-import { articles } from "@/data/insights";
-import { sponsors } from "@/data/sponsors";
-import {
-  chapterFacts,
-  EVENTBRITE_ORG_URL,
-  NCMA_MEMBERSHIP_URL,
-} from "@/data/site";
+import { NCMA_MEMBERSHIP_URL } from "@/data/site";
 import { fetchEventbriteEvents } from "@/lib/eventbrite";
-import { formatEventDate, formatTimeRange } from "@/lib/format";
 import type { Event } from "@/types/event";
 
+export const metadata: Metadata = {
+  title: "NCMA MetroMD Chapter | National Contract Management Association",
+  description:
+    "Where Maryland's contract management community meets. Chartered in 2024 and part of a national association of 100 chapters and more than 20,000 contract management professionals.",
+  alternates: { canonical: "/" },
+};
+
+// Rendered per request so the Eventbrite listing is never served stale.
 export const dynamic = "force-dynamic";
 
-/** The three-row "This season" list: next events up, most recent meeting last. */
-async function seasonRows(): Promise<
-  { key: string; date: string; title: string; detail: string; tag: string; tagClass: string }[]
-> {
-  const { upcomingEvents, pastEvents } = await fetchEventbriteEvents();
+const stats = [
+  { figure: "2024", label: "Chartered in Maryland" },
+  { figure: "13", label: "Officers on the chapter board" },
+  { figure: "20,000+", label: "NCMA members nationwide" },
+  { figure: "4", label: "Certifications with chapter study groups" },
+];
 
-  const rows = upcomingEvents.slice(0, 2).map((e: Event) => ({
-    key: e.id,
-    date: formatEventDate(e.date),
-    title: e.title,
-    detail: formatTimeRange(e.startTime, e.endTime),
-    tag: "Registration open",
-    tagClass: "tag tag-outline",
-  }));
+const reasons = [
+  "Monthly dinner meetings with a speaker",
+  "CPCM, CFCM, CCCM and CCMA study groups",
+  "Member rate at every chapter event",
+  "Mentoring and the chapter roster",
+];
 
-  const mostRecent = pastEvents[0];
-  if (mostRecent) {
-    rows.push({
-      key: mostRecent.id,
-      date: formatEventDate(mostRecent.date),
-      title: mostRecent.title,
-      detail: `Most recent meeting · ${formatTimeRange(mostRecent.startTime, mostRecent.endTime)}`,
-      tag: "Past",
-      tagClass: "tag tag-neutral",
-    });
+export default async function HomePage() {
+  let upcomingEvents: Event[] = [];
+  let pastEvents: Event[] = [];
+
+  try {
+    const events = await fetchEventbriteEvents();
+    upcomingEvents = events.upcomingEvents;
+    pastEvents = events.pastEvents;
+  } catch (error) {
+    console.error("Error fetching events:", error);
   }
 
-  return rows;
-}
-
-export default async function Home() {
-  const rows = await seasonRows();
-  const insightPreviews = articles.slice(0, 3);
-  const sponsorSlots =
-    sponsors.length > 0 ? sponsors.slice(0, 5) : new Array(5).fill(null);
-
   return (
-    <main>
-      {/* — hero — */}
-      <div
-        className="pg grid-split"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1.45fr 1fr",
-          gap: 64,
-          paddingTop: 56,
-          paddingBottom: 72,
-          alignItems: "center",
-        }}
-      >
-        <div>
-          <div className="kick">MetroMD Chapter</div>
-          <h1 style={{ fontSize: 52, maxWidth: "14ch", margin: "14px 0 22px" }}>
+    <main id="main">
+      <section style={{ position: "relative", minHeight: 520, height: 580 }}>
+        <Image
+          src="/images/ncma-metromd-hero.jpeg"
+          alt="Members talking before a MetroMD dinner meeting"
+          fill
+          priority
+          sizes="100vw"
+          style={{ objectFit: "cover", filter: "grayscale(1) contrast(1.04)" }}
+        />
+        {/* A neutral dark scrim, deliberately not navy, so the photograph
+            reads black and white behind the copy. */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background:
+              "linear-gradient(90deg, rgba(32,30,29,0.92) 0%, rgba(32,30,29,0.76) 46%, rgba(32,30,29,0.2) 100%)",
+          }}
+        />
+        <div
+          className="pg"
+          style={{
+            position: "relative",
+            height: "100%",
+            paddingTop: 72,
+            paddingBottom: 72,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <p className="kick" style={{ color: "#ff9783", margin: 0 }}>
+            Metro Maryland Chapter
+          </p>
+          <h1
+            style={{
+              fontSize: 62,
+              lineHeight: 1.05,
+              color: "#fff",
+              maxWidth: "20ch",
+              margin: "18px 0 20px",
+            }}
+          >
             Where Maryland&rsquo;s contract management community meets.
           </h1>
-          <p className="lede">
-            The National Contract Management Association (NCMA) is a professional association
-            with 100 chapters and over 20,000 members dedicated to the profession of contract
-            management.
+          <p
+            style={{
+              fontSize: 20,
+              lineHeight: 1.55,
+              color: "#eae7e7",
+              maxWidth: "50ch",
+              margin: "0 0 30px",
+            }}
+          >
+            Chartered in 2024 and part of a national association of 100 chapters
+            and more than 20,000 contract management professionals.
           </p>
-          <p className="lede">
-            We are the MetroMD Chapter of NCMA, located in the Washington Metropolitan area.
-            Our region is the heart of the biotech industry and the government agencies that
-            support and promote the biotech and medical industry.
-          </p>
-          <div style={{ display: "flex", gap: 14, marginTop: 30, flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
             <a
-              className="btn btn-primary btn-join"
+              className="btn btn-lg btn-on-dark"
               href={NCMA_MEMBERSHIP_URL}
               target="_blank"
               rel="noopener noreferrer"
             >
-              Become a Member
+              Become a member
             </a>
-            <Link
-              className="btn btn-secondary"
-              href="/about"
-              style={{
-                background: "var(--color-accent-100)",
-                borderColor: "var(--color-accent-300)",
-                color: "var(--color-accent-900)",
-              }}
-            >
-              New here? Start with our chapter
+            <Link className="btn btn-lg btn-outline-light" href="/events">
+              Come to a meeting
             </Link>
           </div>
-          <div
-            className="grid-3"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3,1fr)",
-              gap: 32,
-              marginTop: 52,
-            }}
-          >
-            {chapterFacts.map((fact) => (
-              <div key={fact.label}>
-                <div className="kick">{fact.label}</div>
-                <div style={{ fontSize: 19, marginTop: 8 }}>{fact.value}</div>
-              </div>
-            ))}
-          </div>
         </div>
-        <div>
-          <div className="frame" style={{ width: "100%", aspectRatio: "4 / 5" }}>
-            <Image
-              src="/images/ncma-metromd-hero.jpeg"
-              alt="NCMA MetroMD chapter members at a dinner meeting"
-              fill
-              sizes="(max-width: 900px) 100vw, 40vw"
-              priority
-              style={{ objectFit: "cover" }}
-            />
-          </div>
-        </div>
-      </div>
+      </section>
 
-      {/* — this season — */}
-      <div
-        className="pg grid-split"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1.4fr",
-          gap: 64,
-          paddingBottom: 80,
-        }}
-      >
-        <div>
-          <h2 style={{ fontSize: 42, letterSpacing: "-0.015em", marginBottom: 12 }}>
-            This season
-          </h2>
-          <p style={{ fontSize: 17, color: "var(--color-neutral-700)" }}>
-            Tickets go through Eventbrite and the calendar runs March through January.
-            Members save on every dinner.
-          </p>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-            <Link className="btn btn-ghost" style={{ paddingLeft: 0 }} href="/events">
-              Full calendar →
-            </Link>
-            <a
-              className="btn btn-ghost"
-              style={{ paddingLeft: 0 }}
-              href={EVENTBRITE_ORG_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Chapter page on Eventbrite →
-            </a>
-          </div>
-          <div className="kick" style={{ marginTop: 32 }}>
-            Follow the chapter
-          </div>
-          <div style={{ marginTop: 12 }}>
-            <SocialLinks />
-          </div>
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 28 }}>
-          {rows.length === 0 ? (
-            <p style={{ fontSize: 17, color: "var(--color-neutral-700)" }}>
-              The next dinner meeting is being scheduled.{" "}
-              <a href={EVENTBRITE_ORG_URL} target="_blank" rel="noopener noreferrer">
-                Watch Eventbrite
-              </a>{" "}
-              for the announcement.
-            </p>
-          ) : (
-            rows.map((row) => (
+      <section className="pg" aria-label="The chapter at a glance">
+        <div className="stat-strip">
+          {stats.map((s) => (
+            <div className="stat-cell" key={s.label}>
               <div
-                key={row.key}
-                className="grid-split"
                 style={{
-                  display: "grid",
-                  gridTemplateColumns: "150px 1fr auto",
-                  gap: 24,
-                  alignItems: "baseline",
+                  fontWeight: 800,
+                  fontSize: 40,
+                  lineHeight: 1,
+                  letterSpacing: "-0.02em",
                 }}
               >
-                <div style={{ fontSize: 16, color: "var(--color-neutral-600)" }}>{row.date}</div>
-                <div>
-                  <div style={{ fontSize: 24 }}>{row.title}</div>
-                  <div style={{ fontSize: 16, color: "var(--color-neutral-700)" }}>
-                    {row.detail}
-                  </div>
-                </div>
-                <span className={row.tagClass}>{row.tag}</span>
+                {s.figure}
               </div>
-            ))
-          )}
+              <div
+                style={{
+                  fontSize: 16,
+                  color: "var(--color-neutral-700)",
+                  marginTop: 8,
+                }}
+              >
+                {s.label}
+              </div>
+            </div>
+          ))}
         </div>
-      </div>
+      </section>
 
-      {/* — your board — */}
-      <div className="pg" style={{ paddingBottom: 80 }}>
+      <section className="pg" style={{ paddingTop: 60 }}>
+        <div
+          className="grid-split"
+          style={{ gridTemplateColumns: "1fr 1.4fr", gap: 64 }}
+        >
+          <div>
+            <h2 style={{ fontSize: 38, margin: "0 0 12px" }}>This season</h2>
+            <p
+              style={{
+                fontSize: 18,
+                color: "var(--color-neutral-800)",
+                margin: "0 0 20px",
+              }}
+            >
+              The calendar runs March through January. Tickets go through
+              Eventbrite, and members pay a reduced rate at every dinner.
+            </p>
+            <Link className="link-rule" href="/events">
+              Full calendar
+            </Link>
+          </div>
+          <div>
+            <NextMeeting
+              event={upcomingEvents[0]}
+              emptyCopy="The next dinner meeting is being scheduled. Registration will open on Eventbrite about four weeks ahead."
+              ctaLabel="Watch our Eventbrite page"
+            />
+            <div style={{ marginTop: 10 }}>
+              <PastMeetingsTable events={pastEvents} limit={2} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="pg" style={{ paddingTop: 64 }}>
         <div
           className="stack-md"
           style={{
@@ -216,143 +190,69 @@ export default async function Home() {
             alignItems: "flex-end",
             justifyContent: "space-between",
             gap: 32,
+            flexWrap: "wrap",
           }}
         >
           <div>
-            <h2 style={{ fontSize: 42, letterSpacing: "-0.015em", margin: 0 }}>Your board</h2>
+            <h2 style={{ fontSize: 38, margin: "0 0 10px" }}>Your board</h2>
             <p
               style={{
-                maxWidth: "62ch",
-                marginTop: 10,
-                fontSize: 17,
-                color: "var(--color-neutral-700)",
+                fontSize: 18,
+                color: "var(--color-neutral-800)",
+                maxWidth: "58ch",
+                margin: 0,
               }}
             >
-              Volunteers — agency veterans and small business owners — who plan the programs
-              and answer their own email.
+              Volunteers from agencies and small businesses plan the programs and
+              answer their own email.
             </p>
           </div>
-          <Link className="btn btn-ghost" href="/board">
-            Meet everyone →
+          <Link className="link-rule" href="/board" style={{ flex: "none" }}>
+            Meet everyone
           </Link>
         </div>
-        <div
-          className="grid-4"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4,1fr)",
-            gap: 32,
-            marginTop: 36,
-          }}
-        >
-          {featuredBoard.map((member) => (
-            <div key={member.id}>
-              <Headshot
-                src={member.image}
-                alt={member.name}
-                sizes="(max-width: 900px) 100vw, 25vw"
-              />
-              <div style={{ fontSize: 22, marginTop: 14 }}>{member.name}</div>
-              <div className="kick" style={{ marginTop: 4 }}>
-                {member.role}
-              </div>
-            </div>
+        <div className="grid-4" style={{ gap: 32, marginTop: 32 }}>
+          {featuredBoard.map((m) => (
+            <BoardCard key={m.id} member={m} />
           ))}
         </div>
-      </div>
+      </section>
 
-      {/* — insights — */}
-      <div className="pg" style={{ paddingBottom: 80 }}>
+      <section className="pg" style={{ marginTop: 64 }}>
         <div
-          className="stack-md"
+          className="grid-split rule-section"
           style={{
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "space-between",
-            gap: 32,
+            gridTemplateColumns: "1fr 1fr",
+            gap: 64,
+            alignItems: "start",
+            paddingTop: 36,
           }}
         >
-          <h2 style={{ fontSize: 42, letterSpacing: "-0.015em", margin: 0 }}>Insights</h2>
-          <Link className="btn btn-ghost" href="/insights">
-            All articles →
-          </Link>
+          <div>
+            <h2 style={{ fontSize: 34, margin: "0 0 10px" }}>Why people join</h2>
+            <p style={{ fontSize: 18, color: "var(--color-neutral-800)", margin: 0 }}>
+              Membership runs through NCMA headquarters. Put MetroMD as your
+              chapter preference and the local benefits follow.
+            </p>
+            <Link className="link-rule" href="/about" style={{ marginTop: 18 }}>
+              What membership includes
+            </Link>
+          </div>
+          <ul
+            style={{
+              margin: 0,
+              paddingLeft: 22,
+              fontSize: 18,
+              color: "var(--color-neutral-800)",
+              lineHeight: 1.9,
+            }}
+          >
+            {reasons.map((r) => (
+              <li key={r}>{r}</li>
+            ))}
+          </ul>
         </div>
-        <p
-          style={{
-            maxWidth: "62ch",
-            marginTop: 10,
-            fontSize: 17,
-            color: "var(--color-neutral-700)",
-          }}
-        >
-          Board members writing about the work: the FAR overhaul, certification, and building
-          a career in acquisition.
-        </p>
-        <div
-          className="grid-3"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3,1fr)",
-            gap: 48,
-            marginTop: 36,
-          }}
-        >
-          {insightPreviews.map((article) => (
-            <div key={article.slug}>
-              <div className="kick">{article.category}</div>
-              <h3 style={{ fontSize: 27, margin: "12px 0", lineHeight: 1.2 }}>
-                <Link href={`/insights/${article.slug}`} style={{ textDecoration: "none" }}>
-                  {article.title}
-                </Link>
-              </h3>
-              <div style={{ fontSize: 16 }}>{article.author}</div>
-              <div style={{ fontSize: 14, color: "var(--color-neutral-600)" }}>
-                {article.authorRole} · Draft
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* — sponsors — */}
-      <div className="pg" style={{ paddingBottom: 88 }}>
-        <h2 style={{ fontSize: 34, letterSpacing: "-0.015em", margin: "0 0 8px" }}>
-          Thank you to our generous sponsors
-        </h2>
-        <p style={{ fontSize: 17, color: "var(--color-neutral-700)", marginBottom: 32 }}>
-          Sponsorship keeps dinner affordable for government attendees.
-        </p>
-        <div
-          className="grid-5"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(5,1fr)",
-            gap: 40,
-            alignItems: "center",
-          }}
-        >
-          {sponsorSlots.map((sponsor, i) => (
-            <div key={sponsor?.name ?? i} className="frame" style={{ aspectRatio: "3 / 2" }}>
-              {sponsor ? (
-                <Image
-                  src={sponsor.logo}
-                  alt={sponsor.name}
-                  fill
-                  sizes="20vw"
-                  style={{ objectFit: "contain" }}
-                />
-              ) : (
-                <div className="frame-placeholder" aria-hidden="true">
-                  Sponsor logo
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-        <Link className="btn btn-secondary" style={{ marginTop: 28 }} href="/sponsors">
-          Become a sponsor
-        </Link>
-      </div>
+      </section>
     </main>
   );
 }

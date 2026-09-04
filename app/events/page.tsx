@@ -1,16 +1,20 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { PageHeader } from "@/components/shared/page-header";
-import { UpcomingEvents } from "@/components/events/upcoming-events";
+import { NextMeeting } from "@/components/events/next-meeting";
 import { PastMeetingsTable } from "@/components/events/past-meetings-table";
 import { fetchEventbriteEvents } from "@/lib/eventbrite";
-import { EVENTBRITE_ORG_URL } from "@/data/site";
 import type { Event } from "@/types/event";
 
 export const metadata: Metadata = {
-  title: "Our Events | NCMA MetroMD",
+  title: "Events | NCMA MetroMD",
   description:
-    "Monthly dinner meetings, training sessions and the spring kick-off. Tickets go through Eventbrite and the listing updates from the live feed.",
+    "Dinner meetings run March through January, third Thursday at 5:30 PM. Tickets are on Eventbrite and the venue rotates around Metro Maryland.",
+  alternates: { canonical: "/events" },
+  openGraph: {
+    title: "Events | NCMA MetroMD",
+    description:
+      "Third Thursday, 5:30 PM. The chapter's dinner meetings, training sessions and spring kick-off.",
+    url: "/events",
+  },
 };
 
 // Rendered per request so the Eventbrite listing is never served stale.
@@ -31,54 +35,47 @@ export default async function EventsPage() {
   }
 
   return (
-    <main className="pg" style={{ paddingTop: 48, paddingBottom: 88 }}>
-      <PageHeader kicker="Calendar" title="Our Events">
-        <p className="lede">
-          Monthly dinner meetings, training sessions and the spring kick-off. Tickets go
-          through Eventbrite and the listing here updates from the live feed.
-        </p>
-      </PageHeader>
+    <main id="main" className="pg" style={{ paddingTop: 56 }}>
+      <p className="kick">Events</p>
+      <h1 style={{ fontSize: 54, maxWidth: "20ch", margin: "16px 0 20px" }}>
+        Third Thursday, 5:30 PM
+      </h1>
+      <p className="lede" style={{ fontSize: 20, maxWidth: "58ch", margin: "0 0 36px" }}>
+        Dinner meetings run March through January. Tickets are on Eventbrite, and
+        the venue rotates around Metro Maryland.
+      </p>
 
-      <h3 style={{ fontSize: 28, margin: "56px 0 16px" }}>Upcoming</h3>
-      <div
-        className="stack-md"
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          gap: 40,
-        }}
-      >
-        <div style={{ fontSize: 16, color: "var(--color-neutral-700)" }}>
-          {upcomingEvents.length > 0
-            ? `${upcomingEvents.length} event${upcomingEvents.length === 1 ? "" : "s"} open for registration.`
-            : "Nothing is open for registration right now — the next meeting is being scheduled."}
-        </div>
-        <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-          <a
-            className="btn btn-primary"
-            href={EVENTBRITE_ORG_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View on Eventbrite
-          </a>
-          <Link className="btn btn-secondary" href="/insights">
-            Get the newsletter
-          </Link>
-        </div>
-      </div>
+      <NextMeeting
+        event={upcomingEvents[0]}
+        emptyCopy="The next dinner meeting is being scheduled. Registration opens on Eventbrite about four weeks ahead, and the newsletter goes out the same day."
+        ctaLabel="Our Eventbrite page"
+        ctaAsButton
+        style={{ maxWidth: 760, padding: "26px 28px" }}
+      />
 
       {errorMessage && (
-        <p style={{ marginTop: 20, fontSize: 15, color: "var(--color-accent-2-700)" }}>
-          The live calendar could not be loaded ({errorMessage}). The archive below is shown
-          from the chapter’s own records.
+        <p
+          style={{
+            marginTop: 20,
+            fontSize: 16,
+            color: "var(--color-accent-700)",
+            maxWidth: "58ch",
+          }}
+        >
+          The live calendar could not be loaded ({errorMessage}). The archive
+          below is shown from the chapter&rsquo;s own records.
         </p>
       )}
 
-      {upcomingEvents.length > 0 && <UpcomingEvents events={upcomingEvents} />}
-
-      <h3 style={{ fontSize: 28, margin: "64px 0 16px" }}>Past meetings</h3>
+      <h2
+        className="rule-section"
+        style={{ fontSize: 32, margin: "64px 0 4px", paddingTop: 24 }}
+      >
+        Past meetings
+      </h2>
+      <p style={{ fontSize: 17, color: "var(--color-neutral-700)", margin: "0 0 8px" }}>
+        Slides and recordings are posted in the member area once it opens.
+      </p>
       <PastMeetingsTable events={pastEvents} />
     </main>
   );

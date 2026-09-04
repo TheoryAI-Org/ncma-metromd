@@ -1,76 +1,90 @@
 import type { Metadata } from "next";
-import { PageHeader } from "@/components/shared/page-header";
 import { BoardCard } from "@/components/board/board-card";
-import { advisors, directors, officers } from "@/data/board";
+import { advisors, directors, officers, type BoardMember } from "@/data/board";
 
 export const metadata: Metadata = {
-  title: "Meet the board | NCMA MetroMD",
+  title: "Board | NCMA MetroMD",
   description:
-    "The volunteers who run the NCMA MetroMD Chapter — officers, vice presidents, directors and the Board of Advisors, with contact details.",
+    "The officers, directors and board of advisors who run the NCMA MetroMD Chapter. All volunteers, all reachable.",
+  alternates: { canonical: "/board" },
+  openGraph: {
+    title: "Board | NCMA MetroMD",
+    description:
+      "The people who run the chapter: officers, directors and the board of advisors.",
+    url: "/board",
+  },
 };
 
-const gridStyle = {
-  display: "grid",
-  gridTemplateColumns: "repeat(3,minmax(0,1fr))",
-  gap: "56px 48px",
-  marginTop: 56,
-} as const;
+function Section({
+  id,
+  heading,
+  people,
+  intro,
+  showRole = true,
+}: {
+  id?: string;
+  heading: string;
+  people: readonly BoardMember[];
+  intro?: string;
+  showRole?: boolean;
+}) {
+  return (
+    <>
+      <h2
+        id={id}
+        className="rule-section"
+        style={{
+          fontSize: 32,
+          margin: `56px 0 ${intro ? 8 : 24}px`,
+          paddingTop: 24,
+          scrollMarginTop: 96,
+        }}
+      >
+        {heading}
+      </h2>
+      {intro && (
+        <p
+          style={{
+            fontSize: 18,
+            color: "var(--color-neutral-800)",
+            maxWidth: "60ch",
+            margin: "0 0 24px",
+          }}
+        >
+          {intro}
+        </p>
+      )}
+      <div className="grid-4" style={{ gap: "36px 32px" }}>
+        {people.map((m) => (
+          <BoardCard key={m.id} member={m} showRole={showRole} />
+        ))}
+      </div>
+    </>
+  );
+}
 
 export default function BoardPage() {
   return (
-    <main className="pg" style={{ paddingTop: 48, paddingBottom: 88 }}>
-      <PageHeader
-        kicker="Leadership"
-        kickerSize={40}
-        title="Meet the board"
-        titleStyle={{ fontStyle: "italic", color: "#D97C36" }}
-      >
-        <p className="lede">
-          Volunteers run this chapter: former contracting officers, engineers, CPAs and
-          founders. Their contact details are here on purpose — reach out.
-        </p>
-      </PageHeader>
+    <main id="main" className="pg" style={{ paddingTop: 56 }}>
+      <p className="kick">Board</p>
+      <h1 style={{ fontSize: 54, maxWidth: "22ch", margin: "16px 0 20px" }}>
+        The people who run the chapter
+      </h1>
+      <p className="lede" style={{ fontSize: 20, maxWidth: "60ch", margin: 0 }}>
+        Officers, directors and advisors, all volunteers. Select anyone to read
+        their background.
+      </p>
 
-      <h2 style={{ fontSize: 44, margin: "64px 0 0", maxWidth: "24ch" }}>
-        Officers &amp; Vice Presidents
-      </h2>
-      <div className="grid-3" style={gridStyle}>
-        {officers.map((member) => (
-          <BoardCard key={member.id} member={member} size="officer" />
-        ))}
-      </div>
-
-      <div style={{ marginTop: 120 }}>
-        <div className="kick">Directors</div>
-        <h2 style={{ fontSize: 44, margin: "10px 0 0", maxWidth: "24ch" }}>Directors</h2>
-        <p className="lede" style={{ marginTop: 20, maxWidth: "62ch" }}>
-          Directors lead the chapter’s standing programs — training, networking, operations
-          and outreach — alongside the officers.
-        </p>
-        <div className="grid-3" style={gridStyle}>
-          {directors.map((member) => (
-            <BoardCard key={member.id} member={member} size="director" />
-          ))}
-        </div>
-      </div>
-
-      <div id="advisors" style={{ marginTop: 120, scrollMarginTop: 96 }}>
-        <div className="kick" style={{ fontSize: 40, lineHeight: 1.1 }}>
-          Advisory
-        </div>
-        <h2 style={{ fontSize: 44, margin: "10px 0 0", maxWidth: "24ch", color: "#E8960D" }}>
-          Board of Advisors
-        </h2>
-        <p className="lede" style={{ marginTop: 20, maxWidth: "62ch" }}>
-          Senior practitioners from industry and government who counsel the chapter on
-          strategy, partnerships, and professional development.
-        </p>
-        <div className="grid-3" style={gridStyle}>
-          {advisors.map((member) => (
-            <BoardCard key={member.id} member={member} size="advisor" />
-          ))}
-        </div>
-      </div>
+      <Section heading="Officers" people={officers} />
+      <Section heading="Directors" people={directors} />
+      {/* id="advisors" so the footer anchor lands here. */}
+      <Section
+        id="advisors"
+        heading="Board of Advisors"
+        people={advisors}
+        intro="Senior practitioners from government and industry who advise the board."
+        showRole={false}
+      />
     </main>
   );
 }

@@ -30,6 +30,19 @@ export function formatTime(time: string): string {
   return d.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
 }
 
+/**
+ * Ranges are spelled "4:45 to 8:00 PM", not with a dash. The chapter's copy
+ * rules call this out explicitly.
+ */
 export function formatTimeRange(start: string, end: string): string {
-  return `${formatTime(start)} – ${formatTime(end)}`;
+  return `${formatTime(start)} to ${formatTime(end)}`;
+}
+
+/** "January 16, 2025" — the long form used in meeting rows. */
+export function formatEventDateLong(date: string): string {
+  return parseLocalDate(date).toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
 }
