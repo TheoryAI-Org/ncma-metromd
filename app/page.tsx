@@ -47,7 +47,7 @@ export default async function HomePage() {
 
   return (
     <main id="main">
-      <section style={{ position: "relative", minHeight: 520, height: 580 }}>
+      <section className="hero">
         <Image
           src="/images/ncma-metromd-hero.jpeg"
           alt="Members talking before a MetroMD dinner meeting"
@@ -83,7 +83,7 @@ export default async function HomePage() {
           </p>
           <h1
             style={{
-              fontSize: 62,
+              fontSize: "clamp(32px, 8.5vw, 62px)",
               lineHeight: 1.05,
               color: "#fff",
               maxWidth: "20ch",
@@ -104,7 +104,7 @@ export default async function HomePage() {
             Chartered in 2024 and part of a national association of 100 chapters
             and more than 20,000 contract management professionals.
           </p>
-          <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+          <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }} className="stack-sm">
             <a
               className="btn btn-lg btn-on-dark"
               href={NCMA_MEMBERSHIP_URL}
@@ -124,16 +124,7 @@ export default async function HomePage() {
         <div className="stat-strip">
           {stats.map((s) => (
             <div className="stat-cell" key={s.label}>
-              <div
-                style={{
-                  fontWeight: 800,
-                  fontSize: 40,
-                  lineHeight: 1,
-                  letterSpacing: "-0.02em",
-                }}
-              >
-                {s.figure}
-              </div>
+              <div className="stat-figure">{s.figure}</div>
               <div
                 style={{
                   fontSize: 16,
@@ -154,7 +145,7 @@ export default async function HomePage() {
           style={{ gridTemplateColumns: "1fr 1.4fr", gap: 64 }}
         >
           <div>
-            <h2 style={{ fontSize: 38, margin: "0 0 12px" }}>This season</h2>
+            <h2 style={{ fontSize: "clamp(26px, 5.2vw, 38px)", margin: "0 0 12px" }}>This season</h2>
             <p
               style={{
                 fontSize: 18,
@@ -194,7 +185,7 @@ export default async function HomePage() {
           }}
         >
           <div>
-            <h2 style={{ fontSize: 38, margin: "0 0 10px" }}>Your board</h2>
+            <h2 style={{ fontSize: "clamp(26px, 5.2vw, 38px)", margin: "0 0 10px" }}>Your board</h2>
             <p
               style={{
                 fontSize: 18,
@@ -211,7 +202,7 @@ export default async function HomePage() {
             Meet everyone
           </Link>
         </div>
-        <div className="grid-4" style={{ gap: 32, marginTop: 32 }}>
+        <div className="grid-4 grid-people" style={{ gap: 32, marginTop: 32 }}>
           {featuredBoard.map((m) => (
             <BoardCard key={m.id} member={m} />
           ))}
@@ -229,7 +220,7 @@ export default async function HomePage() {
           }}
         >
           <div>
-            <h2 style={{ fontSize: 34, margin: "0 0 10px" }}>Why people join</h2>
+            <h2 style={{ fontSize: "clamp(25px, 4.8vw, 34px)", margin: "0 0 10px" }}>Why people join</h2>
             <p style={{ fontSize: 18, color: "var(--color-neutral-800)", margin: 0 }}>
               Membership runs through NCMA headquarters. Put MetroMD as your
               chapter preference and the local benefits follow.

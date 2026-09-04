@@ -34,7 +34,7 @@ function Section({
         id={id}
         className="rule-section"
         style={{
-          fontSize: 32,
+          fontSize: "clamp(24px, 4.6vw, 32px)",
           margin: `56px 0 ${intro ? 8 : 24}px`,
           paddingTop: 24,
           scrollMarginTop: 96,
@@ -54,7 +54,7 @@ function Section({
           {intro}
         </p>
       )}
-      <div className="grid-4" style={{ gap: "36px 32px" }}>
+      <div className="grid-4 grid-people" style={{ gap: "36px 32px" }}>
         {people.map((m) => (
           <BoardCard key={m.id} member={m} showRole={showRole} />
         ))}
@@ -67,7 +67,7 @@ export default function BoardPage() {
   return (
     <main id="main" className="pg" style={{ paddingTop: 56 }}>
       <p className="kick">Board</p>
-      <h1 style={{ fontSize: 54, maxWidth: "22ch", margin: "16px 0 20px" }}>
+      <h1 style={{ fontSize: "clamp(31px, 7.6vw, 54px)", maxWidth: "22ch", margin: "16px 0 20px" }}>
         The people who run the chapter
       </h1>
       <p className="lede" style={{ fontSize: 20, maxWidth: "60ch", margin: 0 }}>

@@ -33,7 +33,7 @@ export default function AboutPage() {
   return (
     <main id="main" className="pg" style={{ paddingTop: 56 }}>
       <p className="kick">Our chapter</p>
-      <h1 style={{ fontSize: 54, maxWidth: "24ch", margin: "16px 0 22px" }}>
+      <h1 style={{ fontSize: "clamp(31px, 7.6vw, 54px)", maxWidth: "24ch", margin: "16px 0 22px" }}>
         Chartered in 2024, and still filling the room
       </h1>
       {/* Mission copy, verbatim from the chapter's own description. */}
@@ -52,7 +52,7 @@ export default function AboutPage() {
       >
         {columns.map((c) => (
           <div key={c.title}>
-            <h2 style={{ fontSize: 26, margin: "0 0 8px" }}>{c.title}</h2>
+            <h2 style={{ fontSize: "clamp(22px, 3.6vw, 26px)", margin: "0 0 8px" }}>{c.title}</h2>
             <p style={{ fontSize: 17, color: "var(--color-neutral-800)", margin: 0 }}>
               {c.body}
             </p>
@@ -60,7 +60,7 @@ export default function AboutPage() {
         ))}
       </div>
 
-      <h2 style={{ fontSize: 38, margin: "72px 0 8px" }}>Why join NCMA</h2>
+      <h2 style={{ fontSize: "clamp(26px, 5.2vw, 38px)", margin: "72px 0 8px" }}>Why join NCMA</h2>
       <p
         style={{
           fontSize: 18,

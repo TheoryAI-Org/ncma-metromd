@@ -101,9 +101,11 @@
     letter-spacing: -0.015em;
     margin: 0 0 var(--space-2);
   }
-  h1 { font-size: 52px; line-height: 1.06; letter-spacing: -0.02em; }
-  h2 { font-size: 32px; }
+  h1 { font-size: clamp(30px, 7.5vw, 52px); line-height: 1.06; letter-spacing: -0.02em; }
+  h2 { font-size: clamp(24px, 4.6vw, 32px); }
   h3 { font-size: 21px; font-weight: 700; line-height: 1.25; letter-spacing: normal; }
+  /* A long unbroken word must never push the page sideways. */
+  h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
   h4 { font-size: 20px; font-weight: 600; letter-spacing: normal; }
   h5 { font-size: 18px; font-weight: 600; letter-spacing: normal; }
   h6 { font-size: 14px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
@@ -119,10 +121,19 @@
   :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
   ::selection { background: var(--color-accent-200); }
 
-  @media (max-width: 820px) {
-    h1 { font-size: 38px; }
-    h2 { font-size: 28px; }
-  }
+}
+
+/* — the home hero — */
+.hero { position: relative; height: 580px; }
+@media (max-width: 820px) {
+  .hero { height: auto; min-height: 520px; }
+  /* The desktop hero's 72px band is too generous once the copy is stacked. */
+  .hero > .pg { padding-top: 48px; padding-bottom: 48px; }
+}
+/* Side-by-side CTAs do not fit a phone; give each its own full-width row. */
+@media (max-width: 520px) {
+  .stack-sm { flex-direction: column; align-items: stretch; }
+  .stack-sm > .btn { width: 100%; }
 }
 
 /* — layout — */
@@ -343,6 +354,7 @@ textarea.input { min-height: 120px; resize: vertical; }
   border-bottom: 2px solid var(--color-divider);
 }
 .stat-cell { padding: 30px 24px 26px; border-left: 1px solid var(--color-neutral-300); }
+.stat-figure { font-weight: 800; font-size: clamp(32px, 8vw, 40px); line-height: 1.1; letter-spacing: -0.02em; }
 .stat-cell:first-child { padding-left: 0; border-left: 0; }
 .stat-cell:last-child { padding-right: 0; }
 @media (max-width: 1040px) { .stat-strip { grid-template-columns: repeat(2, 1fr); } }
@@ -368,6 +380,8 @@ textarea.input { min-height: 120px; resize: vertical; }
     gap: 32px !important;
   }
   .stack-md { flex-direction: column !important; align-items: flex-start !important; }
+  /* Roster cards stay two-up: one 4:5 headshot per screen-width is unusable. */
+  .grid-people { grid-template-columns: repeat(2, 1fr) !important; gap: 28px 20px !important; }
 }
 
 @keyframes dcFade { from { opacity: 0 } to { opacity: 1 } }

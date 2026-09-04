@@ -28,7 +28,7 @@ export function MembershipBand() {
         <div>
           <h2
             style={{
-              fontSize: 34,
+              fontSize: "clamp(26px, 5vw, 34px)",
               fontWeight: 800,
               letterSpacing: "-0.015em",
               color: "#fff",

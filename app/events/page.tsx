@@ -37,7 +37,7 @@ export default async function EventsPage() {
   return (
     <main id="main" className="pg" style={{ paddingTop: 56 }}>
       <p className="kick">Events</p>
-      <h1 style={{ fontSize: 54, maxWidth: "20ch", margin: "16px 0 20px" }}>
+      <h1 style={{ fontSize: "clamp(31px, 7.6vw, 54px)", maxWidth: "20ch", margin: "16px 0 20px" }}>
         Third Thursday, 5:30 PM
       </h1>
       <p className="lede" style={{ fontSize: 20, maxWidth: "58ch", margin: "0 0 36px" }}>
@@ -69,7 +69,7 @@ export default async function EventsPage() {
 
       <h2
         className="rule-section"
-        style={{ fontSize: 32, margin: "64px 0 4px", paddingTop: 24 }}
+        style={{ fontSize: "clamp(24px, 4.6vw, 32px)", margin: "64px 0 4px", paddingTop: 24 }}
       >
         Past meetings
       </h2>

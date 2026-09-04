@@ -101,7 +101,7 @@ export function BioDialog({
           }}
         >
           <div>
-            <h2 style={{ fontSize: 32, fontWeight: 800, margin: 0 }}>
+            <h2 style={{ fontSize: "clamp(24px, 5.5vw, 32px)", fontWeight: 800, margin: 0 }}>
               {member.name}
             </h2>
             {member.role && (

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 const H2 = {
-  fontSize: 32,
+  fontSize: "clamp(24px, 4.6vw, 32px)",
   margin: "64px 0 24px",
   paddingTop: 24,
 } as const;
@@ -26,7 +26,7 @@ export default function SponsorsPage() {
   return (
     <main id="main" className="pg" style={{ paddingTop: 56 }}>
       <p className="kick">Sponsors</p>
-      <h1 style={{ fontSize: 54, maxWidth: "22ch", margin: "16px 0 20px" }}>
+      <h1 style={{ fontSize: "clamp(31px, 7.6vw, 54px)", maxWidth: "22ch", margin: "16px 0 20px" }}>
         Sponsorship keeps a seat at the table affordable
       </h1>
       <p className="lede" style={{ maxWidth: "58ch", margin: "0 0 30px" }}>
@@ -46,7 +46,7 @@ export default function SponsorsPage() {
       <div className="grid-2" style={{ gap: 28 }}>
         {sponsorLevels.map((level) => (
           <div key={level.name} className="card card-hover" style={{ padding: 24 }}>
-            <h3 style={{ fontSize: 24, fontWeight: 800, margin: "0 0 8px" }}>
+            <h3 style={{ fontSize: "clamp(21px, 3.4vw, 24px)", fontWeight: 800, margin: "0 0 8px" }}>
               {level.name}
             </h3>
             <p style={{ fontSize: 17, color: "var(--color-neutral-800)", margin: 0 }}>
