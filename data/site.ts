@@ -70,7 +70,7 @@ export const footerGroups: { heading: string; links: FooterLink[] }[] = [
  */
 export const contactRoutes = [
   { topic: "Membership", name: "Jennifer Hanks", email: "jahanks@mmcgovsolutions.com" },
-  { topic: "Programs and meetings", name: "Renita Anderson", email: "randerson@deftechno.com" },
+  { topic: "Programs and meetings", name: "Bethlehem Belaineh", email: "be@theoryai.co" },
   { topic: "Training and certification", name: "Dr. Patricia Akinrogunde", email: "patricia@triplejoygroup.com" },
   { topic: "Sponsorship", name: "Sonya Hopson", email: "sonya@sageservicesgroupllc.com" },
   { topic: "Newsletter", name: "Bethlehem Belaineh", email: "be@theoryai.co" },
