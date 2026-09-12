@@ -590,11 +590,14 @@ function Media() {
 }
 
 function Users() {
+  // Placeholder rows. Real names and addresses must not be hardcoded here:
+  // this is a client component, so anything in it ships in the browser bundle.
+  // When the panel returns, load the roster server-side behind the auth gate.
   const rows: [string, string, string, string][] = [
-    ["Bethlehem Belaineh", "be@theoryai.co", "Administrator", "Today"],
-    ["Jennifer Hanks", "jahanks@mmcgovsolutions.com", "Administrator", "Yesterday"],
-    ["Chyanne Thomas", "cthomas@aurelus.io", "Editor", "3 days ago"],
-    ["Dr. Cynthia Pace", "cpace@leadershipguru.com", "Editor", "1 week ago"],
+    ["Chapter Administrator", "admin@example.org", "Administrator", "Today"],
+    ["Chapter President", "president@example.org", "Administrator", "Yesterday"],
+    ["Communications Lead", "comms@example.org", "Editor", "3 days ago"],
+    ["Programs Lead", "programs@example.org", "Editor", "1 week ago"],
   ];
 
   return (

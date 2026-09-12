@@ -86,18 +86,21 @@ export const footerGroups: { heading: string; links: FooterLink[] }[] = [
  *
  * "Something else" has no dedicated owner yet and routes to the president.
  */
-export const contactRoutes = [
-  { topic: "Membership", name: "Jennifer Hanks", email: "jahanks@mmcgovsolutions.com" },
-  { topic: "Programs and meetings", name: "Bethlehem Belaineh", email: "be@theoryai.co" },
-  { topic: "Training and certification", name: "Dr. Patricia Akinrogunde", email: "patricia@triplejoygroup.com" },
-  { topic: "Sponsorship", name: "Sonya Hopson", email: "sonya@sageservicesgroupllc.com" },
-  { topic: "Newsletter", name: "Bethlehem Belaineh", email: "be@theoryai.co" },
-  { topic: "Something else", name: "Jennifer Hanks", email: "jahanks@mmcgovsolutions.com" },
+/**
+ * The topics a visitor can pick on the contact form. Only the labels live here,
+ * because this module reaches client components: the board addresses each topic
+ * routes to are server-only and live in `data/contact-routes.ts`.
+ */
+export const contactTopics = [
+  "Membership",
+  "Programs and meetings",
+  "Training and certification",
+  "Sponsorship",
+  "Newsletter",
+  "Something else",
 ] as const;
 
-export type ContactTopic = (typeof contactRoutes)[number]["topic"];
-
-export const contactTopics = contactRoutes.map((r) => r.topic);
+export type ContactTopic = (typeof contactTopics)[number];
 
 export const chapterFacts = [
   { label: "When", value: "Most months, see the calendar" },

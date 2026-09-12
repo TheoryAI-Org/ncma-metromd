@@ -165,28 +165,6 @@ export function ContactForm() {
 
       <SubmitButton />
 
-      {state.mailto && (
-        <div
-          role="alert"
-          style={{
-            border: "1px solid var(--color-accent-300)",
-            background: "var(--color-accent-100)",
-            borderRadius: 4,
-            padding: "14px 16px",
-            fontSize: 16,
-            color: "var(--color-accent-900)",
-          }}
-        >
-          <p style={{ margin: "0 0 12px" }}>
-            Sending from the site is not switched on yet. Open this in your own
-            email app and the message goes to the right board member.
-          </p>
-          <a className="btn btn-secondary" href={state.mailto}>
-            Open in your email app
-          </a>
-        </div>
-      )}
-
       {errors.form && (
         <div
           role="alert"
