@@ -3,12 +3,12 @@ import { BoardCard } from "@/components/board/board-card";
 import { advisors, directors, officers, type BoardMember } from "@/data/board";
 
 export const metadata: Metadata = {
-  title: "Board | NCMA MetroMD",
+  title: "Board & Advisory | NCMA MetroMD",
   description:
     "The officers, directors and board of advisors who run the NCMA MetroMD Chapter. All volunteers, all reachable.",
   alternates: { canonical: "/board" },
   openGraph: {
-    title: "Board | NCMA MetroMD",
+    title: "Board & Advisory | NCMA MetroMD",
     description:
       "The people who run the chapter: officers, directors and the board of advisors.",
     url: "/board",
@@ -66,7 +66,7 @@ function Section({
 export default function BoardPage() {
   return (
     <main id="main" className="pg" style={{ paddingTop: 56 }}>
-      <p className="kick">Board</p>
+      <p className="kick">Board &amp; Advisory</p>
       <h1 style={{ fontSize: "clamp(31px, 7.6vw, 54px)", maxWidth: "22ch", margin: "16px 0 20px" }}>
         The people who run the chapter
       </h1>
@@ -75,9 +75,9 @@ export default function BoardPage() {
         their background.
       </p>
 
-      <Section heading="Officers" people={officers} />
-      <Section heading="Directors" people={directors} />
-      {/* id="advisors" so the footer anchor lands here. */}
+      <Section id="officers" heading="Officers" people={officers} />
+      <Section id="directors" heading="Directors" people={directors} />
+      {/* Anchor ids match the header dropdown and the footer link. */}
       <Section
         id="advisors"
         heading="Board of Advisors"

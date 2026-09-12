@@ -14,13 +14,31 @@ export const socials = [
   { name: "Eventbrite", href: EVENTBRITE_ORG_URL },
 ] as const;
 
+export interface NavItem {
+  name: string;
+  href: string;
+  /** Optional submenu; rendered as a dropdown in the header. */
+  children?: readonly { name: string; href: string }[];
+}
+
 /**
  * The header carries exactly five links. Certifications, Insights, Highlight
  * and Advisory moved to the footer; those pages stay reachable.
+ *
+ * "Board & Advisory" opens a dropdown, but the three entries are anchors on the
+ * single /board page rather than separate routes.
  */
-export const navigation = [
+export const navigation: readonly NavItem[] = [
   { name: "Our chapter", href: "/about" },
-  { name: "Board", href: "/board" },
+  {
+    name: "Board & Advisory",
+    href: "/board",
+    children: [
+      { name: "Officers", href: "/board#officers" },
+      { name: "Directors", href: "/board#directors" },
+      { name: "Board of Advisors", href: "/board#advisors" },
+    ],
+  },
   { name: "Events", href: "/events" },
   { name: "Sponsors", href: "/sponsors" },
   { name: "Contact", href: "/contact" },
@@ -38,7 +56,7 @@ export const footerGroups: { heading: string; links: FooterLink[] }[] = [
     heading: "Chapter",
     links: [
       { name: "Our chapter", href: "/about" },
-      { name: "Board", href: "/board" },
+      { name: "Board & Advisory", href: "/board" },
       { name: "Board of Advisors", href: "/board#advisors" },
       { name: "Sponsors", href: "/sponsors" },
       { name: "Insights", href: "/insights" },

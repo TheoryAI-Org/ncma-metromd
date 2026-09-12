@@ -185,6 +185,13 @@
   border-bottom-color: var(--color-accent);
 }
 
+/* Header submenu entries. Full-width targets, 44px tall. */
+.navmenu-item {
+  display: block; padding: 11px 14px; font-size: 16px; font-weight: 500;
+  color: var(--color-text); text-decoration: none; white-space: nowrap;
+}
+.navmenu-item:hover, .navmenu-item:focus-visible { background: var(--color-neutral-100); }
+
 /* — contact meta blocks — */
 .bmeta a { font-size: 17px; color: var(--color-accent-700); text-decoration: none; word-break: break-word; }
 .bmeta a:hover { text-decoration: underline; }
