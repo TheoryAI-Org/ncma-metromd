@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/data/site";
-import { articles } from "@/data/insights";
 
 /**
  * Every live route, including the four outside the UI refresh. /admin and
@@ -26,11 +25,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${SITE_URL}${r.path}`,
       lastModified,
       priority: r.priority,
-    })),
-    ...articles.map((a) => ({
-      url: `${SITE_URL}/insights/${a.slug}`,
-      lastModified,
-      priority: 0.5,
     })),
   ];
 }

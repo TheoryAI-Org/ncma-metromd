@@ -17,7 +17,7 @@ export function NewsletterSignup() {
     <div>
       <h4 style={{ fontSize: 21 }}>Get it by email</h4>
       <p style={{ fontSize: 16, color: "var(--color-neutral-700)" }}>
-        One note a month: new articles, the next dinner meeting, certification deadlines.
+        One note a month: chapter news, the next dinner meeting, certification deadlines.
       </p>
 
       {submitted ? (
