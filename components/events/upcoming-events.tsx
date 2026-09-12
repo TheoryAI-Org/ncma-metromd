@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { formatEventDateShort, formatTimeRange } from "@/lib/format";
+import { formatEventDateShort, formatTimeRange, formatVenue } from "@/lib/format";
 import type { Event } from "@/types/event";
 
 /** The design's upcoming block: a card per live Eventbrite listing. */
@@ -14,7 +14,9 @@ export function UpcomingEvents({ events }: { events: Event[] }) {
         marginTop: 28,
       }}
     >
-      {events.map((event) => (
+      {events.map((event) => {
+        const where = formatVenue(event);
+        return (
         <a
           key={event.id}
           href={event.eventUrl ?? "#"}
@@ -42,14 +44,15 @@ export function UpcomingEvents({ events }: { events: Event[] }) {
             {formatTimeRange(event.startTime, event.endTime)}
           </div>
           <h4 style={{ fontSize: 23, margin: "8px 0 6px", lineHeight: 1.25 }}>{event.title}</h4>
-          {event.venue && (
-            <div style={{ fontSize: 15, color: "var(--color-neutral-700)" }}>{event.venue}</div>
+          {where && (
+            <div style={{ fontSize: 15, color: "var(--color-neutral-700)" }}>{where}</div>
           )}
           <div style={{ fontSize: 15, color: "var(--color-neutral-600)", marginTop: 6 }}>
             {event.description}
           </div>
         </a>
-      ))}
+        );
+      })}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { formatEventDateLong, formatTimeRange } from "@/lib/format";
+import { formatEventDateLong, formatTimeRange, formatVenue } from "@/lib/format";
 import { pastMeetings, type PastMeeting } from "@/data/past-meetings";
 import type { Event } from "@/types/event";
 
@@ -20,7 +20,7 @@ export function PastMeetingsTable({
       ? events.map((e) => ({
           date: formatEventDateLong(e.date),
           title: e.title,
-          venue: e.venue ?? null,
+          venue: formatVenue(e),
           time: formatTimeRange(e.startTime, e.endTime),
           ticketsUrl: e.eventUrl ?? null,
         }))

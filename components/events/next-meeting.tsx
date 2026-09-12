@@ -1,5 +1,5 @@
 import { EVENTBRITE_ORG_URL } from "@/data/site";
-import { formatEventDateLong, formatTimeRange } from "@/lib/format";
+import { formatEventDateLong, formatTimeRange, formatVenue } from "@/lib/format";
 import type { Event } from "@/types/event";
 
 /**
@@ -24,6 +24,7 @@ export function NextMeeting({
   style?: React.CSSProperties;
 }) {
   const cta = ctaAsButton ? "btn btn-primary btn-lg" : "link-rule";
+  const where = event ? formatVenue(event) : null;
 
   return (
     <div className="notice" style={style}>
@@ -48,7 +49,7 @@ export function NextMeeting({
           <h3 style={{ margin: "0 0 4px", color: "var(--color-accent-900)" }}>
             {event.title}
           </h3>
-          {event.venue && (
+          {where && (
             <p
               style={{
                 fontSize: 17,
@@ -56,7 +57,7 @@ export function NextMeeting({
                 margin: 0,
               }}
             >
-              {event.venue}
+              {where}
             </p>
           )}
           <a

@@ -1,4 +1,5 @@
-// Date and time formatting shared by the home page and the events calendar.
+// Date, time and place formatting shared by the home page and the events
+// calendar.
 // Eventbrite hands back local wall-clock strings ("2026-06-16", "17:30"), so
 // these parse them as local time rather than letting Date treat them as UTC.
 
@@ -45,4 +46,16 @@ export function formatEventDateLong(date: string): string {
     day: "numeric",
     year: "numeric",
   });
+}
+
+/**
+ * Where a listing happens. A virtual event carries no venue on Eventbrite, so
+ * the online flag supplies the label; a listing with neither returns null and
+ * the caller omits the line rather than guessing.
+ */
+export function formatVenue(event: {
+  venue?: string | null;
+  isOnline?: boolean;
+}): string | null {
+  return event.venue ?? (event.isOnline ? "Online" : null);
 }
