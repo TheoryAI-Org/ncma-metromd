@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { LinkedInIcon } from "@/components/icons/social";
 import type { BoardMember } from "@/data/board";
 
 const FOCUSABLE =
@@ -141,33 +142,36 @@ export function BioDialog({
           </button>
         </div>
 
-        <hr
-          style={{
-            border: 0,
-            borderTop: "2px solid var(--color-divider)",
-            margin: "22px 0",
-          }}
-        />
+        {/* Nothing below the header for a member with neither a bio nor a
+            LinkedIn profile, so the rule would sit over empty space. */}
+        {(member.bio || member.linkedin) && (
+          <hr
+            style={{
+              border: 0,
+              borderTop: "2px solid var(--color-divider)",
+              margin: "22px 0",
+            }}
+          />
+        )}
 
-        {member.bio ? (
+        {member.bio && (
           <p className="bio" style={{ margin: 0 }}>
             {member.bio}
-          </p>
-        ) : (
-          <p style={{ fontSize: 18, color: "var(--color-neutral-700)", margin: 0 }}>
-            A biography for this board member has not been supplied yet.
           </p>
         )}
 
         {member.linkedin && (
+          /* The mark carries the meaning; the word is there so the target is
+             not icon-only. `aria-hidden` on the SVG keeps it out of the name. */
           <a
-            className="link-rule"
+            className="bio-linkedin"
             href={member.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            style={{ marginTop: 22 }}
+            style={{ marginTop: member.bio ? 22 : 0 }}
           >
-            LinkedIn profile
+            <LinkedInIcon size={18} />
+            <span>LinkedIn</span>
           </a>
         )}
       </div>

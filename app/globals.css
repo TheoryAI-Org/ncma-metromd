@@ -235,6 +235,17 @@
   color: var(--color-text); border-bottom: 2px solid var(--color-accent-300);
 }
 .link-rule:hover { color: var(--color-accent-800); border-bottom-color: var(--color-accent); }
+/* Bio dialog: LinkedIn mark plus label. No resting rule — a border under the
+   label alone makes the two halves sit on different centres — so the underline
+   appears on hover instead. */
+.bio-linkedin {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 17px; font-weight: 600; line-height: 1;
+  color: var(--color-accent-700); text-decoration: none;
+}
+.bio-linkedin svg { flex: none; }
+.bio-linkedin:hover { color: var(--color-accent-800); }
+.bio-linkedin:hover span { text-decoration: underline; text-underline-offset: 4px; }
 
 /* — forms — */
 .field > label {
