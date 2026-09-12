@@ -21,6 +21,7 @@ interface EventbriteEvent {
   logo?: {
     url: string;
   };
+  online_event?: boolean;
   venue?: {
     name?: string;
   } | null;
@@ -97,18 +98,23 @@ export async function fetchEventbriteEvents(): Promise<{
       imageUrl: event.logo?.url || '',
       eventUrl: event.url,
       venue: event.venue?.name || null,
+      isOnline: event.online_event === true,
     }));
 
-    // Split events into upcoming and past based on end date
-    const upcomingEvents = events.filter((event: Event) => {
-      const eventEndDate = new Date(`${event.date}T${event.endTime}`);
-      return eventEndDate >= new Date();
-    });
+    // Split events into upcoming and past based on end date.
+    const endsAt = (event: Event) => new Date(`${event.date}T${event.endTime}`);
+    const now = new Date();
 
-    const pastEvents = events.filter((event: Event) => {
-      const eventEndDate = new Date(`${event.date}T${event.endTime}`);
-      return eventEndDate < new Date();
-    });
+    // The API is queried start_desc, which is the order the archive wants but
+    // the reverse of what "next meeting" needs, so upcoming is re-sorted
+    // soonest-first. Without this the furthest-out listing reads as next.
+    const upcomingEvents = events
+      .filter((event: Event) => endsAt(event) >= now)
+      .sort((a: Event, b: Event) => endsAt(a).getTime() - endsAt(b).getTime());
+
+    const pastEvents = events
+      .filter((event: Event) => endsAt(event) < now)
+      .sort((a: Event, b: Event) => endsAt(b).getTime() - endsAt(a).getTime());
 
     console.log('Processed events:', {
       totalEvents: events.length,
