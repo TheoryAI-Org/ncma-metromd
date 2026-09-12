@@ -75,11 +75,11 @@ export function AdminPanel() {
   );
 }
 
-// Advisors overlap the officer and director lists, so dedupe by name before
+// Advisors overlap the officer and director lists, so dedupe by person before
 // counting gaps or listing media — otherwise a person is counted twice and
 // the media grid renders two tiles keyed on the same filename.
 const allMembers = [...officers, ...directors, ...advisors].filter(
-  (m, i, list) => list.findIndex((other) => other.name === m.name) === i,
+  (m, i, list) => list.findIndex((other) => other.personId === m.personId) === i,
 );
 
 function Dashboard() {
