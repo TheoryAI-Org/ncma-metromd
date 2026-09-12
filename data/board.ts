@@ -17,7 +17,7 @@ export interface BoardMember {
 export const officers: BoardMember[] = [
   {
     id: "bd-hanks",
-    name: "Jennifer Hanks",
+    name: "Jennifer Hanks, CFCM, Fellow",
     role: "President",
     org: "Founder & CEO, MMC Government Solutions",
     sector: "Industry",
@@ -320,7 +320,7 @@ export const directors: BoardMember[] = [
 export const advisors: BoardMember[] = [
   {
     id: "adv-hanksj",
-    name: "Jennifer Hanks",
+    name: "Jennifer Hanks, CFCM, Fellow",
     role: "Board of Advisors — President",
     org: "MMC Government Solutions",
     sector: "Industry, Former Government (Federal)",
@@ -364,7 +364,7 @@ export const advisors: BoardMember[] = [
   },
   {
     id: "adv-marcinowski",
-    name: "Traci Marcinowski",
+    name: "Tracy Marcinowski",
     role: "Board of Advisors",
     org: "Strategic Acquisition Solutions, LLC",
     sector: "Industry, Former Government (Federal)",
@@ -391,7 +391,7 @@ export const advisors: BoardMember[] = [
     org: "GDIT",
     sector: "Industry, Former Government (Federal)",
     email: null,
-    linkedin: "https://www.linkedin.com/in/calvin-j-mitchell-jr-cfcm-a705348/",
+    linkedin: "https://www.linkedin.com/in/calvin-j-mitchell-jr-a705348/",
     image: "/images/board-mitchell.jpeg",
     bio: null,
   },
