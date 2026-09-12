@@ -3,6 +3,7 @@ import Link from "next/link";
 import { CtaRow } from "@/components/shared/cta-row";
 import { PageHeader } from "@/components/shared/page-header";
 import { NewsletterSignup } from "@/components/insights/newsletter-signup";
+import { newsletterIsLive } from "./newsletter-actions";
 
 export const metadata: Metadata = {
   title: "Insights | NCMA MetroMD",
@@ -17,7 +18,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function InsightsPage() {
+export default async function InsightsPage() {
+  // Disabled with a "Coming soon" note until Resend is configured.
+  const live = await newsletterIsLive();
+
   return (
     <main id="main" className="pg" style={{ paddingTop: 48, paddingBottom: 88 }}>
       <PageHeader
@@ -58,7 +62,7 @@ export default function InsightsPage() {
           </p>
         </div>
 
-        <NewsletterSignup />
+        <NewsletterSignup live={live} />
       </div>
 
       <CtaRow
