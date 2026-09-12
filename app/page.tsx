@@ -153,8 +153,8 @@ export default async function HomePage() {
                 margin: "0 0 20px",
               }}
             >
-              The calendar runs March through January. Tickets go through
-              Eventbrite, and members pay a reduced rate at every dinner.
+              Meetings, workshops and training run most months. Tickets go
+              through Eventbrite, and members pay a reduced rate at every dinner.
             </p>
             <Link className="link-rule" href="/events">
               Full calendar

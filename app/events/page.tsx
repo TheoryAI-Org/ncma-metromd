@@ -7,12 +7,12 @@ import type { Event } from "@/types/event";
 export const metadata: Metadata = {
   title: "Events | NCMA MetroMD",
   description:
-    "Dinner meetings run March through January, third Thursday at 5:30 PM. Tickets are on Eventbrite and the venue rotates around Metro Maryland.",
+    "Dinner meetings, workshops and training sessions run most months. Tickets are on Eventbrite and the venue rotates around Metro Maryland.",
   alternates: { canonical: "/events" },
   openGraph: {
     title: "Events | NCMA MetroMD",
     description:
-      "Third Thursday, 5:30 PM. The chapter's dinner meetings, training sessions and spring kick-off.",
+      "The chapter's dinner meetings, workshops and training sessions. Tickets are on Eventbrite.",
     url: "/events",
   },
 };
@@ -38,11 +38,11 @@ export default async function EventsPage() {
     <main id="main" className="pg" style={{ paddingTop: 56 }}>
       <p className="kick">Events</p>
       <h1 style={{ fontSize: "clamp(31px, 7.6vw, 54px)", maxWidth: "20ch", margin: "16px 0 20px" }}>
-        Third Thursday, 5:30 PM
+        Chapter events
       </h1>
       <p className="lede" style={{ fontSize: 20, maxWidth: "58ch", margin: "0 0 36px" }}>
-        Dinner meetings run March through January. Tickets are on Eventbrite, and
-        the venue rotates around Metro Maryland.
+        Dinner meetings, workshops and training sessions run most months.
+        Tickets are on Eventbrite, and the venue rotates around Metro Maryland.
       </p>
 
       <NextMeeting

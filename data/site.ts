@@ -82,7 +82,7 @@ export type ContactTopic = (typeof contactRoutes)[number]["topic"];
 export const contactTopics = contactRoutes.map((r) => r.topic);
 
 export const chapterFacts = [
-  { label: "When", value: "Third Thursday, 5:30 PM" },
+  { label: "When", value: "Most months, see the calendar" },
   { label: "Where", value: "Metro Maryland, venue rotates" },
   { label: "Who comes", value: "1102s, PMs, small business" },
 ] as const;

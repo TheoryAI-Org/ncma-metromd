@@ -39,7 +39,7 @@ export default function ContactPage() {
                 Meetings
               </h2>
               <div style={{ fontSize: 19, marginTop: 4 }}>
-                Third Thursday, 5:30 PM, venue rotates around Metro Maryland
+                Most months, venue rotates around Metro Maryland
               </div>
             </div>
             <div>
