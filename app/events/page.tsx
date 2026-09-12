@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { NextMeeting } from "@/components/events/next-meeting";
 import { PastMeetingsTable } from "@/components/events/past-meetings-table";
+import { UpcomingEvents } from "@/components/events/upcoming-events";
 import { fetchEventbriteEvents } from "@/lib/eventbrite";
 import type { Event } from "@/types/event";
 
@@ -65,6 +66,23 @@ export default async function EventsPage() {
           The live calendar could not be loaded ({errorMessage}). The archive
           below is shown from the chapter&rsquo;s own records.
         </p>
+      )}
+
+      {/* The soonest listing already has the panel above, so the grid picks up
+          from the one after it and the section disappears when there is none. */}
+      {upcomingEvents.length > 1 && (
+        <>
+          <h2
+            className="rule-section"
+            style={{ fontSize: "clamp(24px, 4.6vw, 32px)", margin: "64px 0 4px", paddingTop: 24 }}
+          >
+            Also coming up
+          </h2>
+          <p style={{ fontSize: 17, color: "var(--color-neutral-700)", margin: 0 }}>
+            Every listing links straight through to Eventbrite.
+          </p>
+          <UpcomingEvents events={upcomingEvents.slice(1)} />
+        </>
       )}
 
       <h2
