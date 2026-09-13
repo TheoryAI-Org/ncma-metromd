@@ -354,6 +354,7 @@ export const officers: BoardMember[] = roster([
   { person: "jennifer-hanks", role: "President", id: "bd-hanks" },
   { person: "chyanne-thomas", role: "President-Elect", id: "bd-thomas" },
   { person: "patience-ibik", role: "VP — Secretary", id: "bd-ibik" },
+  { person: "joye-sistrunk", role: "VP — Treasurer", id: "bd-sistrunk" },
   { person: "bethlehem-belaineh", role: "VP — Communications", id: "bd-belaineh" },
   { person: "monique-frazier", role: "VP — University Outreach", id: "bd-frazier" },
   { person: "antavia-grimsley", role: "VP — Programs", id: "bd-grimsley" },
@@ -363,7 +364,6 @@ export const officers: BoardMember[] = roster([
   { person: "darrell-mcgraw", role: "VP — Development (Fundraising)", id: "bd-mcgraw" },
   { person: "dawn-moore", role: "VP — Government Relations & Policy", id: "bd-moore" },
   { person: "cynthia-pace", role: "VP — Training & Education", id: "bd-pace" },
-  { person: "joye-sistrunk", role: "VP — Treasurer", id: "bd-sistrunk" },
 ]);
 
 export const directors: BoardMember[] = roster([
