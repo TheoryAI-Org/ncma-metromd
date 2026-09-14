@@ -187,7 +187,7 @@ export const people = {
     org: "Nolan Mackenzie",
     sector: "Industry",
     email: null,
-    linkedin: null,
+    linkedin: "https://www.linkedin.com/in/qc-jones-03b7511/",
     image: "/images/board-jones.jpeg",
     bio: null,
   },
