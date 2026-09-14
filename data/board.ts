@@ -209,6 +209,15 @@ export const people = {
     image: "/images/board-robinson.jpeg",
     bio: "Brandon is a dynamic Talent Acquisition, Operations, and DEI leader with more than 15 years of experience driving strategic recruitment, workforce planning, employee engagement, and operational excellence across government, nonprofit, healthcare, education, and corporate sectors. Throughout his career, he has successfully led high-volume, full-cycle recruiting initiatives while partnering with executive leadership, hiring managers, and cross-functional teams to identify and secure top talent that supports organizational growth and performance. His expertise includes talent pipeline development, HR operations, onboarding, project coordination, compensation analysis, and implementing data-driven recruiting strategies that foster inclusive and high-performing workplace cultures.",
   },
+  "vaneta-wills": {
+    name: "Vaneta Wills",
+    org: null,
+    sector: "Government (Federal)",
+    email: null,
+    linkedin: null,
+    image: null,
+    bio: "Vaneta Wills is a Federal acquisition leader and adjunct professor with over 20 years of experience driving acquisition strategy, policy, and education across defense and intelligence agencies. She leads enterprise acquisition programs at DHS, while mentoring and training the next generation of contracting professionals. As a former Adjunct Professor at Webster University, she taught graduate students in government contracting and procurement, integrating real-world acquisition challenges into academic instruction. She is passionate about connecting classroom theory with federal mission outcomes and growing leadership capacity in the acquisition workforce.",
+  },
   "megan-sheckles": {
     name: "Megan Sheckles",
     org: "Founder & CEO, Powered by MJ LLC",
@@ -217,15 +226,6 @@ export const people = {
     linkedin: "https://www.linkedin.com/in/megan-mj-sheckles-shrm-cp-7670496/",
     image: "/images/board-sheckles.jpeg",
     bio: "Megan (MJ) Sheckles, a serial CEO who exudes a passion for people and a mission to help individuals and businesses thrive by unlocking their full potential of growth and excellence. Megan created Powered by MJ LLC, an HR Solutions firm that provides fractional HR support, talent acquisition management and HR operations/employee relations to small businesses that are ready to prioritize their greatest asset—their people. Her expertise is backed by certifications, including the Society of Human Resources Management - Certified Professional (SHRM-CP) designation, HR Management certification from George Mason University, the Executive Strategic Inclusion Practitioner certification from Georgetown University, and an Organizational Development certification from Northwestern University. Being a serial CEO, her expertise doesn't stop at HR. She also runs MJ Events Management LLC, a boutique event management company in DC, MD, VA and Kentucky markets, specializing in weddings, group travel, corporate and government contracting. Lastly, Megan's most loved Founder/CEO title is with Get Moving With MJ LLC, where she specializes in real estate investing, mentorship and is an multi award-winning licensed realtor servicing DC, Maryland and Virginia. When Megan isn't leading businesses, she is supporting her alma mater, University of Louisville, as their Chapter President in DC, MD and VA, partnering and developing personally and professionally as an inductee of The BOW Collective, a black women-owned entrepreneurship organization as well as indulging in her love of travel, spa days, and reading.",
-  },
-  "akil-uddin": {
-    name: "Akil Uddin",
-    org: "AIN LLC",
-    sector: "Industry",
-    email: null,
-    linkedin: "https://www.linkedin.com/in/akil-uddin-54b88718/",
-    image: null,
-    bio: null,
   },
   "christi-venable": {
     name: "Christi Venable",
@@ -358,8 +358,8 @@ export const directors: BoardMember[] = roster([
   { person: "oliver-queen", role: "Director — Program Operations", id: "dir-queen" },
   { person: "brandon-robinson", role: "Director — Operations", id: "dir-robinson" },
   { person: "megan-sheckles", role: "Director — Networking", id: "dir-sheckles" },
-  { person: "akil-uddin", role: "Director — Website Administration & Technology", id: "dir-uddin" },
   { person: "christi-venable", role: "Director — Wellness", id: "dir-venable" },
+  { person: "vaneta-wills", role: "Director — Records", id: "dir-wills" },
   { person: "john-wilkinson", role: "Director — Fellows", id: "dir-wilkinsonj" },
 ]);
 
