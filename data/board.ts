@@ -188,7 +188,7 @@ export const people = {
     sector: "Industry",
     email: null,
     linkedin: null,
-    image: null,
+    image: "/images/board-jones.jpeg",
     bio: null,
   },
   "oliver-queen": {
@@ -233,7 +233,7 @@ export const people = {
     sector: "Industry",
     email: null,
     linkedin: "https://www.linkedin.com/in/christivenable/",
-    image: null,
+    image: "/images/board-venable.jpg",
     bio: "Christi Venable is a licensed Professional counselor and an award-winning Business Owner, Corporate Wellness Expert, Organizational Leadership and Culture Change agent, AI Consultant and Keynote Speaker. She is a certified Gallup Strengths Finder Coach. She is the founder of SMILE Therapy Services, a mental health, wellness, and consulting company that she managed to build from the ground up. SMILE's mission is to change the way the workplace views and responds to mental health and wellness. Christi focuses on improving psychological safety and workplace culture through her preventative SMILE Framework to help companies retain employees and increase capacity. Christi has worked with Fortune 500 companies, government agencies and non-profit organizations improving employee wellbeing and transforming the workplace cultures with preventative mental health solutions. Christi and her team have provided workplace wellness and leadership solutions for over 500,000 employees. SMILE has been named one of the fastest growing companies in the country by INC5000 2 years in a row and Top 100 Minority Business Entity for DC, Maryland and Virginia. Christi was named SBA's Small Businessperson of the year for Washington DC in 2020 and Enterprising Women of the year in 2022. Christi received her undergraduate degree from Penn State University and her Graduate degree from George Washington University.",
   },
   "john-wilkinson": {
