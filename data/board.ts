@@ -152,7 +152,7 @@ export const people = {
     sector: "Industry",
     email: null,
     linkedin: "https://www.linkedin.com/in/dr-lashonda-bracey-mct-msed-pmp-6a91928/",
-    image: null,
+    image: "/images/board-bracey.jpeg",
     bio: "Experienced owner with a demonstrated history of working in the e-learning industry. Skilled in Captivate, learning management, instructional design, public speaking, and web design. A strong community and social services professional with an M.S.Ed. focused in Training and Development / Instructional Design from Ferris State University.",
   },
   "major-clark": {
@@ -170,7 +170,7 @@ export const people = {
     sector: "Industry",
     email: null,
     linkedin: "https://www.linkedin.com/in/sharlyn-gray-658b82320/",
-    image: null,
+    image: "/images/board-gray.png",
     bio: null,
   },
   "serapis-irby": {
@@ -179,7 +179,7 @@ export const people = {
     sector: "Industry",
     email: null,
     linkedin: "https://www.linkedin.com/in/george-serapis-irby-27b376a/",
-    image: null,
+    image: "/images/board-irby.jpeg",
     bio: null,
   },
   "qc-jones": {
@@ -197,7 +197,7 @@ export const people = {
     sector: "Government (Federal)",
     email: null,
     linkedin: "https://www.linkedin.com/in/dr-oliver-queen-jr/",
-    image: null,
+    image: "/images/board-queen.jpg",
     bio: "Dr. Oliver Queen, Jr., PhD, MBA, PMP, is a federal acquisition, program management, and workforce development professional with extensive experience supporting complex civilian and Department of Defense programs. His career spans acquisition strategy, contracting, program and project management, IT modernization, technical writing, curriculum development, and professional training. Dr. Queen has supported organizations including the Federal Aviation Administration, Department of Health and Human Services, Defense Information Systems Agency, and Federal Emergency Management Agency. He also serves as an instructor and subject matter expert supporting Federal Acquisition Institute professional development programs, bringing practical federal acquisition and program management experience into the classroom. His commitment to service extends beyond his professional work. Dr. Queen’s current and previous volunteer leadership includes Former Treasurer of the Harvard Kennedy School Black Alumni Association, Military Liaison with the Project Management Institute (PMI), member of the Excelsior University Alumni Leadership Council, and several other positions. As Director, Program Operations for the NCMA Metro Maryland Chapter, Dr. Queen brings federal acquisition expertise, program leadership, education, and volunteer service to strengthening chapter operations, expanding professional development, increasing member engagement, and delivering relevant programs that advance the contracting and acquisition community.",
   },
   "brandon-robinson": {
@@ -206,7 +206,7 @@ export const people = {
     sector: "Industry",
     email: null,
     linkedin: "https://www.linkedin.com/in/brandon-r-06440859/",
-    image: null,
+    image: "/images/board-robinson.jpeg",
     bio: "Brandon is a dynamic Talent Acquisition, Operations, and DEI leader with more than 15 years of experience driving strategic recruitment, workforce planning, employee engagement, and operational excellence across government, nonprofit, healthcare, education, and corporate sectors. Throughout his career, he has successfully led high-volume, full-cycle recruiting initiatives while partnering with executive leadership, hiring managers, and cross-functional teams to identify and secure top talent that supports organizational growth and performance. His expertise includes talent pipeline development, HR operations, onboarding, project coordination, compensation analysis, and implementing data-driven recruiting strategies that foster inclusive and high-performing workplace cultures.",
   },
   "megan-sheckles": {
