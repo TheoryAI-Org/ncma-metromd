@@ -157,7 +157,7 @@ export const people = {
   },
   "major-clark": {
     name: "Major L. Clark, III, JD, MS",
-    org: null,
+    org: "Chief Operating Officer, Denise Bailey Clark, HR Consulting, LLC",
     sector: "Industry",
     email: null,
     linkedin: null,
