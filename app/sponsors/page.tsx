@@ -100,9 +100,7 @@ export default function SponsorsPage() {
       </p>
       <TierTable tiers={eventSponsorships} />
 
-      <h2 className="rule-section" style={H2}>
-        The 2026&ndash;2027 flyer
-      </h2>
+      <div className="rule-section" style={{ marginTop: 44, paddingTop: 20 }} />
       {sponsorshipFlyer.image ? (
         <Image
           src={sponsorshipFlyer.image}
