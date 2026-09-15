@@ -9,8 +9,10 @@ const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
  * Handles the contact form.
  *
  * The topic chooses a recipient from `contactRoutes`; those addresses stay on
- * the server and are never rendered into the page. Validation runs here as
- * well as in the browser, because the client checks are only a convenience.
+ * the server and are never rendered into the page. Every topic currently
+ * delivers to the chapter inbox, with the owning board member named in the
+ * body. Validation runs here as well as in the browser, because the client
+ * checks are only a convenience.
  *
  * Delivery goes through Resend when RESEND_API_KEY and CONTACT_FROM_EMAIL are
  * configured. Until they are, the action refuses the submit and says so, rather
@@ -75,6 +77,8 @@ export async function submitContact(
         subject: `MetroMD site: ${values.topic}`,
         text: [
           `Topic: ${values.topic}`,
+          // Named so a shared inbox knows who the topic belongs to.
+          `For: ${route.name}`,
           `From: ${values.name} <${values.email}>`,
           "",
           values.message,
