@@ -215,7 +215,7 @@ export const people = {
     sector: "Government (Federal)",
     email: null,
     linkedin: null,
-    image: null,
+    image: "/images/board-wills.jpeg",
     bio: "Vaneta Wills is a Federal acquisition leader and adjunct professor with over 20 years of experience driving acquisition strategy, policy, and education across defense and intelligence agencies. She leads enterprise acquisition programs at DHS, while mentoring and training the next generation of contracting professionals. As a former Adjunct Professor at Webster University, she taught graduate students in government contracting and procurement, integrating real-world acquisition challenges into academic instruction. She is passionate about connecting classroom theory with federal mission outcomes and growing leadership capacity in the acquisition workforce.",
   },
   "megan-sheckles": {
