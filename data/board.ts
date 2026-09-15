@@ -183,13 +183,13 @@ export const people = {
     bio: null,
   },
   "qc-jones": {
-    name: "QC Jones",
-    org: "Nolan Mackenzie",
+    name: "QC Jones, MBA",
+    org: "Managing Partner, NolanMackenzie",
     sector: "Industry",
     email: null,
     linkedin: "https://www.linkedin.com/in/qc-jones-03b7511/",
     image: "/images/board-jones.jpeg",
-    bio: "Mr. Jones possesses a passion for entrepreneurship and growing companies. He believes that success is based on positive and quantitative outcomes produced from team efforts. Turning this philosophy into practice, he has led the growth and success of multiple companies. His track record includes leading major government IT and management consulting programs. Customer organizations include the Health and Human Services, Housing, Treasury, Labor, Transportation, and Defense industries delivering solutions in data management and analytics, cyber security, business intelligence (BI), and training.",
+    bio: "QC Jones, MBA is Managing Partner of NolanMackenzie, an operational transformation and business advisory firm helping organizations improve performance through greater visibility and control of their assets, technology, and operations. An entrepreneur and business strategist with more than two decades of leadership experience, QC has built and led organizations delivering management consulting, technology, and advisory services across federal, state, local, and commercial markets. Today, he leads NolanMackenzie’s expansion into technology-enabled asset management, leveraging RFID, barcode and data-capture technologies, mobility solutions, and analytics to help organizations strengthen asset visibility, inventory control, accountability, and operational decision-making. QC has helped lead three successful government contracting businesses, including a joint venture acquired by Deloitte, and has supported organizations including HHS, CMS, SSA, Treasury, Labor, the U.S. Army, the State of Maryland, and Prince George’s County Government. He also advises CEOs and emerging government contractors on growth strategy, market expansion, strategic partnerships, and business development. A Desert Shield and Desert Storm veteran, QC is an alumnus of the Goldman Sachs 10,000 Small Businesses Program and the Veteran Institute for Procurement. He holds an MBA and is a member of Kappa Alpha Psi Fraternity, Inc.",
   },
   "oliver-queen": {
     name: "Dr. Oliver Queen, Jr., PhD, MBA, PMP",
