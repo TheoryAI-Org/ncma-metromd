@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact-form";
+import { ContactByEmail } from "@/components/contact-email";
+import { contactIsLive } from "./actions";
 import { socials } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -14,7 +16,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ContactPage() {
+// Rendered per request so RESEND_API_KEY is read live: setting the key
+// brings the form back without a rebuild.
+export const dynamic = "force-dynamic";
+
+export default async function ContactPage() {
+  // Delivery needs a Resend key. Without one the form would refuse every
+  // message, so the page offers plain email links instead.
+  const live = await contactIsLive();
+
   return (
     <main id="main" className="pg" style={{ paddingTop: 56 }}>
       <div
@@ -62,7 +72,7 @@ export default function ContactPage() {
           </div>
         </div>
 
-        <ContactForm />
+        {live ? <ContactForm /> : <ContactByEmail />}
       </div>
     </main>
   );

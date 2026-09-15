@@ -7,6 +7,16 @@ import { emptyContactState, type ContactState } from "./contact-state";
 const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
 /**
+ * Whether the form can actually deliver. The page asks this on the server and
+ * falls back to plain email links when it is false, so nobody fills in a form
+ * whose message would never arrive.
+ */
+export async function contactIsLive(): Promise<boolean> {
+  return Boolean(process.env.RESEND_API_KEY);
+}
+
+
+/**
  * Handles the contact form.
  *
  * The topic chooses a recipient from `contactRoutes`; those addresses stay on
