@@ -189,7 +189,7 @@ export const people = {
     email: null,
     linkedin: "https://www.linkedin.com/in/qc-jones-03b7511/",
     image: "/images/board-jones.jpeg",
-    bio: null,
+    bio: "Mr. Jones possesses a passion for entrepreneurship and growing companies. He believes that success is based on positive and quantitative outcomes produced from team efforts. Turning this philosophy into practice, he has led the growth and success of multiple companies. His track record includes leading major government IT and management consulting programs. Customer organizations include the Health and Human Services, Housing, Treasury, Labor, Transportation, and Defense industries delivering solutions in data management and analytics, cyber security, business intelligence (BI), and training.",
   },
   "oliver-queen": {
     name: "Dr. Oliver Queen, Jr., PhD, MBA, PMP",
