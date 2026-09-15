@@ -10,6 +10,16 @@ export const SITE_URL = "https://ncmametromd.org";
  */
 export const CHAPTER_EMAIL = "ncmametromd@gmail.com";
 
+/**
+ * Jennifer Hanks’ signature on the president’s letter, as it appears on the
+ * printed piece. Set this to the file path once the artwork is in public/
+ * — a transparent PNG reads best against the page — and the letter shows it
+ * above her name. While it is null the sign-off falls back to type alone.
+ *
+ * e.g. "/images/jennifer-hanks-signature.png"
+ */
+export const PRESIDENT_SIGNATURE: string | null = null;
+
 export const NCMA_HQ_URL = "https://www.ncmahq.org/";
 export const NCMA_MEMBERSHIP_URL = "https://www.ncmahq.org/membership";
 export const NCMA_CERTIFICATIONS_URL = "https://www.ncmahq.org/certifications";

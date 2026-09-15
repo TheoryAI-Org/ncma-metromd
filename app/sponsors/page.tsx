@@ -2,10 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import {
+  chapterSponsorships,
+  eventSponsorships,
   sponsors,
   sponsorshipFlyer,
   sponsorshipOptions,
   showSponsorRoll,
+  type SponsorshipTier,
 } from "@/data/sponsors";
 
 export const metadata: Metadata = {
@@ -26,6 +29,38 @@ const H2 = {
   margin: "64px 0 24px",
   paddingTop: 24,
 } as const;
+
+function TierTable({ tiers }: { tiers: SponsorshipTier[] }) {
+  return (
+    <div className="grid-2" style={{ gap: "0 48px" }}>
+      {tiers.map((t) => (
+        <div
+          key={t.name}
+          style={{
+            display: "flex",
+            alignItems: "baseline",
+            justifyContent: "space-between",
+            gap: 20,
+            padding: "14px 0",
+            borderBottom: "1px solid var(--color-divider)",
+          }}
+        >
+          <span style={{ fontSize: 19, fontWeight: 700 }}>{t.name}</span>
+          <span
+            style={{
+              fontSize: 19,
+              fontWeight: 800,
+              color: "var(--color-accent)",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {t.price}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default function SponsorsPage() {
   return (
@@ -50,48 +85,63 @@ export default function SponsorsPage() {
       </Link>
 
       <h2 className="rule-section" style={H2}>
-        2026&ndash;2027 sponsorship opportunities
+        Chapter sponsorship packages
       </h2>
-      {sponsorshipFlyer ? (
-        <>
+      <p style={{ fontSize: 18, color: "var(--color-neutral-800)", maxWidth: "58ch", margin: "0 0 24px" }}>
+        Year-round partnership across the whole program year.
+      </p>
+      <TierTable tiers={chapterSponsorships} />
+
+      <h2 className="rule-section" style={H2}>
+        Event sponsorship packages
+      </h2>
+      <p style={{ fontSize: 18, color: "var(--color-neutral-800)", maxWidth: "58ch", margin: "0 0 24px" }}>
+        Support a single event, program, networking session or training.
+      </p>
+      <TierTable tiers={eventSponsorships} />
+
+      <div
+        style={{
+          marginTop: 36,
+          padding: 28,
+          background: "var(--color-neutral-100)",
+          border: "1px solid var(--color-neutral-300)",
+          borderRadius: 4,
+        }}
+      >
+        {sponsorshipFlyer.image && (
           <Image
             src={sponsorshipFlyer.image}
             alt={sponsorshipFlyer.alt}
             width={1100}
-            height={1424}
-            sizes="(max-width: 900px) 100vw, 860px"
+            height={1700}
+            sizes="(max-width: 900px) 100vw, 820px"
             style={{
               width: "100%",
-              maxWidth: 860,
+              maxWidth: 820,
               height: "auto",
               border: "1px solid var(--color-neutral-300)",
               borderRadius: 4,
+              marginBottom: 22,
             }}
           />
-          <p style={{ marginTop: 20 }}>
-            <a
-              className="btn btn-secondary btn-lg"
-              href={sponsorshipFlyer.pdf}
-              download
-            >
-              Download the flyer (PDF)
-            </a>
-          </p>
-        </>
-      ) : (
-        <p
-          style={{
-            fontSize: 18,
-            color: "var(--color-neutral-800)",
-            maxWidth: "58ch",
-            margin: 0,
-          }}
-        >
-          The 2026&ndash;2027 sponsorship flyer is being finalised. It will appear
-          here, with a PDF to download, as soon as it is ready &mdash; or write to
-          us and we will send it over.
+        )}
+        <h3 style={{ fontSize: 22, margin: "0 0 8px" }}>
+          The full sponsorship prospectus
+        </h3>
+        <p style={{ fontSize: 17, color: "var(--color-neutral-800)", maxWidth: "58ch", margin: "0 0 18px" }}>
+          Tier-by-tier benefits, chapter activities and the year&rsquo;s program are
+          all set out in the 2026&ndash;2027 prospectus.
         </p>
-      )}
+        <a
+          className="btn btn-secondary btn-lg"
+          href={sponsorshipFlyer.pdf}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View the prospectus (PDF)
+        </a>
+      </div>
 
       <h2 className="rule-section" style={H2}>
         Other ways to help

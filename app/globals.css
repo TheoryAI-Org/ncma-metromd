@@ -493,11 +493,33 @@ textarea.input { min-height: 120px; resize: vertical; }
 .pl-shout-quiet { margin-top: 12px; font-weight: 700; color: var(--color-neutral-700); }
 
 .pl-panels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 56px; }
-.pl-date {
-  flex: none; width: 46px; height: 46px; border-radius: 50%; background: var(--color-accent);
-  color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center;
+/* Save the date: a vertical timeline, a rule threading three dated stops. */
+.pl-timeline { list-style: none; margin: 0; padding: 0 0 0 4px; position: relative; }
+.pl-timeline::before {
+  content: ""; position: absolute; left: 26px; top: 10px; bottom: 10px;
+  width: 2px; background: linear-gradient(var(--navy), var(--color-accent));
 }
-.pl-panels > div:nth-child(3) .pl-date:nth-child(1) { background: var(--navy); }
+.pl-timeline-item {
+  position: relative; display: grid; grid-template-columns: 54px 1fr;
+  align-items: start; column-gap: 16px; padding: 0 0 26px;
+}
+.pl-timeline-item:last-child { padding-bottom: 0; }
+.pl-timeline-marker {
+  position: absolute; left: 21px; top: 16px; width: 12px; height: 12px;
+  border-radius: 50%; background: #fff; border: 3px solid var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-neutral-100);
+}
+.pl-timeline-item:first-child .pl-timeline-marker { border-color: var(--navy); }
+.pl-timeline-date {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  width: 54px; height: 54px; border-radius: 50%; background: var(--color-accent); color: #fff;
+}
+.pl-timeline-item:first-child .pl-timeline-date { background: var(--navy); }
+.pl-timeline-month { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; }
+.pl-timeline-day { font-size: 21px; font-weight: 800; line-height: 1; }
+.pl-timeline-text {
+  font-size: 16px; line-height: 1.45; color: var(--color-neutral-800); padding-top: 8px;
+}
 
 .pl-partner { margin-top: 56px; padding-top: 32px; border-top: 3px solid var(--navy); }
 

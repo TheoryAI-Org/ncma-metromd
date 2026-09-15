@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { CHAPTER_EMAIL } from "@/data/site";
+import { CHAPTER_EMAIL, PRESIDENT_SIGNATURE } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "President’s Letter | NCMA MetroMD",
@@ -156,21 +156,18 @@ export default function PresidentsLetterPage() {
 
           <div style={PANEL}>
             <h3 style={PANEL_H}>Save the date</h3>
-            <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: 18 }}>
+            <ol className="pl-timeline">
               {SAVE_THE_DATE.map((e) => (
-                <li key={e.text} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
-                  <span className="pl-date">
-                    <span style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.08em" }}>
-                      {e.month}
-                    </span>
-                    <span style={{ fontSize: 20, fontWeight: 800, lineHeight: 1 }}>{e.day}</span>
+                <li key={e.text} className="pl-timeline-item">
+                  <span className="pl-timeline-marker" aria-hidden="true" />
+                  <span className="pl-timeline-date">
+                    <span className="pl-timeline-month">{e.month}</span>
+                    <span className="pl-timeline-day">{e.day}</span>
                   </span>
-                  <span style={{ fontSize: 16, lineHeight: 1.45, color: "var(--color-neutral-800)" }}>
-                    {e.text}
-                  </span>
+                  <span className="pl-timeline-text">{e.text}</span>
                 </li>
               ))}
-            </ul>
+            </ol>
           </div>
         </div>
 
@@ -214,6 +211,15 @@ export default function PresidentsLetterPage() {
             <div style={{ fontSize: 16, color: "var(--color-neutral-700)", marginBottom: 6 }}>
               Warm regards,
             </div>
+            {PRESIDENT_SIGNATURE && (
+              <Image
+                src={PRESIDENT_SIGNATURE}
+                alt="Jennifer Hanks’ signature"
+                width={320}
+                height={110}
+                style={{ width: "100%", maxWidth: 230, height: "auto", margin: "2px 0 6px" }}
+              />
+            )}
             <div style={{ fontSize: 19, fontWeight: 800, color: "var(--navy)" }}>
               Jennifer Hanks
             </div>
