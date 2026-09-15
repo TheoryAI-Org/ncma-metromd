@@ -166,12 +166,12 @@ export const people = {
   },
   "sharlyn-gray": {
     name: "Sharlyn Gray",
-    org: "Q.O.L Security Solutions",
+    org: "Owner & CEO, Q.O.L Security Solutions, LLC",
     sector: "Industry",
     email: null,
     linkedin: "https://www.linkedin.com/in/sharlyn-gray-658b82320/",
     image: "/images/board-gray.png",
-    bio: "Sharlyn Gray is the Owner and CEO of Q.O.L Security Solutions, LLC, a Maryland-based cybersecurity consulting firm supporting government and defense organizations. A seasoned cybersecurity professional, entrepreneur, and leader, Sharlyn brings extensive experience in cybersecurity, risk management, compliance, and organizational leadership, along with a strong commitment to developing professionals and strengthening the communities in which she serves. Through Q.O.L. Security Solutions, she leads with a focus on integrity, quality, collaboration, and meaningful client outcomes. As the Director of Chapter Volunteers for the NCMA Metro Maryland Chapter, Sharlyn is passionate about engaging members, building strong volunteer teams, and creating opportunities for professionals to connect, contribute, and grow. She views professional service as an opportunity to share knowledge, cultivate relationships, and help others succeed while advancing the mission of the organization.",
+    bio: "Sharlyn Gray is the Owner and CEO of Q.O.L Security Solutions, LLC, a Maryland-based cybersecurity consulting firm supporting government and defense organizations. A seasoned cybersecurity professional, entrepreneur, and leader, Sharlyn brings extensive experience in cybersecurity, risk management, compliance, and organizational leadership, along with a strong commitment to developing professionals and strengthening the communities in which she serves. Through Q.O.L Security Solutions, she leads with a focus on integrity, quality, collaboration, and meaningful client outcomes. As the Director of Chapter Volunteers for the NCMA Metro Maryland Chapter, Sharlyn is passionate about engaging members, building strong volunteer teams, and creating opportunities for professionals to connect, contribute, and grow. She views professional service as an opportunity to share knowledge, cultivate relationships, and help others succeed while advancing the mission of the organization.",
   },
   "serapis-irby": {
     name: "Serapis Irby",
