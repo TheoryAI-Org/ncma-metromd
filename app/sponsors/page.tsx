@@ -147,14 +147,26 @@ export default function SponsorsPage() {
         </object>
       )}
 
-      <p style={{ marginTop: 18 }}>
+      <p style={{ fontSize: 17, color: "var(--color-neutral-800)", maxWidth: "58ch", margin: "18px 0 14px" }}>
+        Take a copy to share with your organisation.
+      </p>
+      <p style={{ display: "flex", gap: 14, flexWrap: "wrap", margin: 0 }}>
+        {/* `download` names the saved file, so what lands in someone's
+            downloads folder is recognisable when they forward it on. */}
+        <a
+          className="btn btn-primary btn-lg"
+          href={sponsorshipFlyer.pdf}
+          download="NCMA-MetroMD-Sponsorship-2026-2027.pdf"
+        >
+          Download the flyer (PDF)
+        </a>
         <a
           className="btn btn-secondary btn-lg"
           href={sponsorshipFlyer.pdf}
           target="_blank"
           rel="noopener noreferrer"
         >
-          Open the flyer (PDF)
+          Open in a new tab
         </a>
       </p>
 
