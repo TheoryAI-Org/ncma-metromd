@@ -40,8 +40,11 @@ export interface NavItem {
 }
 
 /**
- * The header carries exactly five links. Certifications, Highlight and
- * Advisory moved to the footer; those pages stay reachable.
+ * The header carries exactly five links. Certifications and Advisory moved
+ * to the footer; those pages stay reachable.
+ *
+ * Insights and Monthly Highlight are unpublished until they have content:
+ * linked from nowhere and kept out of the sitemap, but the routes build.
  *
  * Insights is unpublished until there are articles: it is linked from
  * nowhere and kept out of the sitemap, but the route still builds.
@@ -88,7 +91,6 @@ export const footerGroups: { heading: string; links: FooterLink[] }[] = [
     links: [
       { name: "Events", href: "/events" },
       { name: "Certifications", href: NCMA_CERTIFICATIONS_URL, external: true },
-      { name: "Monthly highlight", href: "/highlight" },
       { name: "Member sign in", href: "/login" },
       { name: "Contact", href: "/contact" },
     ],

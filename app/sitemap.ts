@@ -4,7 +4,7 @@ import { SITE_URL } from "@/data/site";
 /**
  * Every live route, including the four outside the UI refresh. /admin and
  * /login are omitted: neither is meant to be indexed, and neither is
- * /insights while it is unpublished.
+ * /insights or /highlight while they are unpublished.
  */
 const routes = [
   { path: "/", priority: 1 },
@@ -15,7 +15,6 @@ const routes = [
   { path: "/presidents-letter", priority: 0.6 },
   { path: "/contact", priority: 0.7 },
   { path: "/certs", priority: 0.6 },
-  { path: "/highlight", priority: 0.5 },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
