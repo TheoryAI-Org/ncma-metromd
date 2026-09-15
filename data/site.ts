@@ -3,6 +3,13 @@
 /** Canonical origin, used for metadata, JSON-LD and the sitemap. */
 export const SITE_URL = "https://ncmametromd.org";
 
+/**
+ * The chapter's public inbox, printed on the president's letter and the
+ * sponsorship flyer. Distinct from the board members' own addresses, which
+ * stay server-side in data/contact-routes.ts and are never rendered.
+ */
+export const CHAPTER_EMAIL = "ncmametromd@gmail.com";
+
 export const NCMA_MEMBERSHIP_URL = "https://www.ncmahq.org/membership";
 export const NCMA_CERTIFICATIONS_URL = "https://www.ncmahq.org/certifications";
 export const EVENTBRITE_ORG_URL =
@@ -22,8 +29,11 @@ export interface NavItem {
 }
 
 /**
- * The header carries exactly five links. Certifications, Insights, Highlight
- * and Advisory moved to the footer; those pages stay reachable.
+ * The header carries exactly five links. Certifications, Highlight and
+ * Advisory moved to the footer; those pages stay reachable.
+ *
+ * Insights is unpublished until there are articles: it is linked from
+ * nowhere and kept out of the sitemap, but the route still builds.
  *
  * "Board & Advisory" opens a dropdown, but the three entries are anchors on the
  * single /board page rather than separate routes.
@@ -59,7 +69,7 @@ export const footerGroups: { heading: string; links: FooterLink[] }[] = [
       { name: "Board & Advisory", href: "/board" },
       { name: "Board of Advisors", href: "/board#advisors" },
       { name: "Sponsors", href: "/sponsors" },
-      { name: "Insights", href: "/insights" },
+      { name: "President’s Letter", href: "/presidents-letter" },
     ],
   },
   {

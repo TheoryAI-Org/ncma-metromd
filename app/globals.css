@@ -456,3 +456,78 @@ textarea.input { min-height: 120px; resize: vertical; }
     --radius: 4px;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   President's letter (/presidents-letter)
+   A single set-piece page laid out to match the printed 2026-2027 letter.
+   Scoped with a pl- prefix so nothing here reaches the rest of the site.
+   --------------------------------------------------------------------------- */
+.pl-masthead {
+  display: grid;
+  grid-template-columns: 1fr 0.86fr;
+  align-items: stretch;
+  gap: 0;
+  border-bottom: 3px solid var(--color-accent);
+}
+.pl-masthead-brand { padding: 36px 40px 28px; max-width: 640px; margin-left: auto; width: 100%; }
+.pl-masthead-photo { position: relative; min-height: 260px; }
+.pl-pillars {
+  margin: 18px 0 6px; font-size: 15px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--navy);
+}
+.pl-tagline { margin: 0; font-size: 17px; font-style: italic; color: var(--color-neutral-700); }
+
+.pl-title {
+  font-size: clamp(38px, 7.4vw, 68px); line-height: 1.02; letter-spacing: -0.02em;
+  text-transform: uppercase; color: var(--navy); margin: 14px 0 26px;
+}
+
+.pl-lede { display: grid; grid-template-columns: 1.55fr 0.75fr; gap: 48px; align-items: start; }
+.pl-portrait { display: flex; flex-direction: column; gap: 0; }
+.pl-portrait-frame { position: relative; width: 100%; aspect-ratio: 4 / 5; border-radius: 3px 3px 0 0; overflow: hidden; }
+.pl-portrait-plate { background: var(--navy); color: #fff; padding: 16px 18px; border-radius: 0 0 3px 3px; }
+.pl-shout {
+  margin: 22px 0 0; font-size: 17px; font-weight: 800; line-height: 1.25;
+  text-transform: uppercase; letter-spacing: 0.02em; color: var(--navy);
+}
+.pl-shout-quiet { margin-top: 12px; font-weight: 700; color: var(--color-neutral-700); }
+
+.pl-panels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 56px; }
+.pl-date {
+  flex: none; width: 46px; height: 46px; border-radius: 50%; background: var(--color-accent);
+  color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.pl-panels > div:nth-child(3) .pl-date:nth-child(1) { background: var(--navy); }
+
+.pl-partner { margin-top: 56px; padding-top: 32px; border-top: 3px solid var(--navy); }
+
+.pl-signoff {
+  margin-top: 56px; padding-top: 28px; border-top: 1px solid var(--color-divider);
+  display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap;
+}
+.pl-signoff-script {
+  margin: 0; font-size: clamp(30px, 5.4vw, 46px); font-style: italic; font-weight: 500;
+  color: var(--navy); letter-spacing: -0.01em;
+}
+.pl-signoff-name { border-left: 2px solid var(--color-divider); padding-left: 28px; }
+
+.pl-band { background: var(--navy); color: #fff; }
+.pl-band-inner {
+  display: flex; align-items: center; justify-content: space-between; gap: 32px;
+  flex-wrap: wrap; padding-top: 26px; padding-bottom: 26px;
+}
+.pl-band-verbs { display: flex; gap: 28px; flex-wrap: wrap; list-style: none; margin: 0; padding: 0; font-size: 17px; }
+.pl-band-claim {
+  margin: 0; font-size: 15px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: #b9cadb; max-width: 34ch;
+}
+
+@media (max-width: 900px) {
+  .pl-masthead { grid-template-columns: 1fr; }
+  .pl-masthead-brand { padding: 28px 24px 22px; max-width: none; }
+  .pl-masthead-photo { min-height: 190px; }
+  .pl-lede { grid-template-columns: 1fr; gap: 34px; }
+  .pl-portrait { max-width: 320px; }
+  .pl-panels { grid-template-columns: 1fr; gap: 20px; }
+  .pl-signoff-name { border-left: 0; padding-left: 0; }
+}

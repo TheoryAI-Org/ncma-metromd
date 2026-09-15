@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   description:
     "Articles from the MetroMD board and membership are coming soon. Sign up to hear when the first pieces publish.",
   alternates: { canonical: "/insights" },
+  // Unpublished until the first articles land: linked from nowhere and
+  // kept out of the sitemap, so it should not be indexed either.
+  robots: { index: false, follow: false },
   openGraph: {
     title: "Insights | NCMA MetroMD",
     description:
