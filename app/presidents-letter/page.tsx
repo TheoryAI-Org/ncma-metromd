@@ -65,8 +65,8 @@ export default function PresidentsLetterPage() {
             <Image
               src={PRESIDENT_LETTER_POSTER.image}
               alt={PRESIDENT_LETTER_POSTER.alt}
-              width={1600}
-              height={2070}
+              width={1103}
+              height={1426}
               priority
               sizes="(max-width: 900px) 100vw, 900px"
               className="pl-poster-art"
