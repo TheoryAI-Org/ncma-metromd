@@ -1,6 +1,7 @@
 "use server";
 
 import { contactRoutes } from "@/data/contact-routes";
+import { CHAPTER_EMAIL } from "@/data/site";
 import { emptyContactState, type ContactState } from "./contact-state";
 
 const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
@@ -14,10 +15,11 @@ const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
  * body. Validation runs here as well as in the browser, because the client
  * checks are only a convenience.
  *
- * Delivery goes through Resend when RESEND_API_KEY and CONTACT_FROM_EMAIL are
- * configured. Until they are, the action refuses the submit and says so, rather
- * than silently dropping the message. It never hands the address back to the
- * browser, so board addresses stay on the server either way.
+ * Delivery goes through Resend once RESEND_API_KEY is set; the sender defaults
+ * to the chapter inbox and CONTACT_FROM_EMAIL overrides it. Until the key is
+ * set, the action refuses the submit and says so, rather than silently dropping
+ * the message. It never hands the address back to the browser, so board
+ * addresses stay on the server either way.
  */
 export async function submitContact(
   _prev: ContactState,
@@ -48,11 +50,14 @@ export async function submitContact(
   }
 
   const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.CONTACT_FROM_EMAIL;
-  if (!apiKey || !from) {
+  // Defaults to the chapter inbox. Note that Resend will only send from a
+  // domain verified in the account, so a gmail.com sender is rejected at the
+  // API; set CONTACT_FROM_EMAIL to an address on the verified domain to send.
+  const from = process.env.CONTACT_FROM_EMAIL || CHAPTER_EMAIL;
+  if (!apiKey) {
     // Delivery is not configured yet. Say so plainly; never disclose the
     // recipient's address to the browser as a way around it.
-    console.error("Contact delivery is not configured: set RESEND_API_KEY and CONTACT_FROM_EMAIL.");
+    console.error("Contact delivery is not configured: set RESEND_API_KEY.");
     return {
       ok: false,
       errors: {
