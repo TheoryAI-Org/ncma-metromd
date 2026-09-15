@@ -26,8 +26,8 @@ export const metadata: Metadata = {
 
 const H2 = {
   fontSize: "clamp(24px, 4.6vw, 32px)",
-  margin: "64px 0 24px",
-  paddingTop: 24,
+  margin: "44px 0 20px",
+  paddingTop: 20,
 } as const;
 
 function TierTable({ tiers }: { tiers: SponsorshipTier[] }) {
@@ -108,32 +108,33 @@ export default function SponsorsPage() {
           src={sponsorshipFlyer.image}
           alt={sponsorshipFlyer.alt}
           width={1100}
-          height={1424}
-          sizes="(max-width: 900px) 100vw, 820px"
+          height={1650}
+          sizes="(max-width: 900px) 100vw, 760px"
           style={{
             width: "100%",
-            maxWidth: 820,
+            maxWidth: 760,
             height: "auto",
             border: "1px solid var(--color-neutral-300)",
             borderRadius: 4,
           }}
         />
       ) : (
-        /* Rendered by the browser's own PDF viewer. Some mobile browsers
-           refuse to embed a PDF at all, so the fallback inside <object> is
-           what those visitors get. */
+        /* Rendered by the browser's own PDF viewer. The box matches the
+           flyer's own 2:3 page, so the viewer has nothing to letterbox, and
+           the fragment hides the viewer's toolbar and side panel. Some mobile
+           browsers decline to embed a PDF at all; the fallback inside
+           <object> is what those visitors get. */
         <object
-          data={sponsorshipFlyer.pdf}
+          data={`${sponsorshipFlyer.pdf}#toolbar=0&navpanes=0&view=FitH`}
           type="application/pdf"
           aria-label={sponsorshipFlyer.alt}
           style={{
             display: "block",
             width: "100%",
-            maxWidth: 820,
-            height: "min(1060px, 128vw)",
+            maxWidth: 760,
+            aspectRatio: "2 / 3",
             border: "1px solid var(--color-neutral-300)",
             borderRadius: 4,
-            background: "var(--color-neutral-100)",
           }}
         >
           <div style={{ padding: 28 }}>
@@ -147,7 +148,7 @@ export default function SponsorsPage() {
         </object>
       )}
 
-      <p style={{ fontSize: 17, color: "var(--color-neutral-800)", maxWidth: "58ch", margin: "18px 0 14px" }}>
+      <p style={{ fontSize: 17, color: "var(--color-neutral-800)", maxWidth: "58ch", margin: "16px 0 12px" }}>
         Take a copy to share with your organisation.
       </p>
       <p style={{ display: "flex", gap: 14, flexWrap: "wrap", margin: 0 }}>
