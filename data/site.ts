@@ -39,7 +39,7 @@ export const PRESIDENT_LETTER_POSTER: {
   alt: string;
 } = {
   image: null,
-  pdf: null,
+  pdf: "/letter/presidents-letter-2026-2027.pdf",
   alt: "NCMA Metro Maryland 2026-2027 president's letter: Level Up with Metro Maryland",
 };
 
