@@ -6,20 +6,28 @@ import { fetchEventbriteEvents } from "@/lib/eventbrite";
 import type { Event } from "@/types/event";
 
 export const metadata: Metadata = {
-  title: "Events | NCMA MetroMD",
+  title: "Chapter Events | NCMA MetroMD",
   description:
-    "Dinner meetings, workshops and training sessions run most months. Tickets are on Eventbrite and the venue rotates around Metro Maryland.",
+    "MetroMD programs are built around the issues shaping today's acquisition community — modernization, emerging technology, business growth, small business participation, leadership, compliance and workforce development.",
   alternates: { canonical: "/events" },
   openGraph: {
     title: "Events | NCMA MetroMD",
     description:
-      "The chapter's dinner meetings, workshops and training sessions. Tickets are on Eventbrite.",
+      "Where the acquisition community comes together. Tickets are on Eventbrite.",
     url: "/events",
   },
 };
 
 // Rendered per request so the Eventbrite listing is never served stale.
 export const dynamic = "force-dynamic";
+
+// Moved here from the home page, which now opens with Our Story instead.
+const stats = [
+  { figure: "2024", label: "Chartered in Maryland" },
+  { figure: "13", label: "Officers on the chapter board" },
+  { figure: "20,000+", label: "NCMA members nationwide" },
+  { figure: "4", label: "Certifications with chapter study groups" },
+];
 
 export default async function EventsPage() {
   let upcomingEvents: Event[] = [];
@@ -37,14 +45,35 @@ export default async function EventsPage() {
 
   return (
     <main id="main" className="pg" style={{ paddingTop: 56 }}>
-      <p className="kick">Events</p>
+      <p className="kick">Chapter Events</p>
       <h1 style={{ fontSize: "clamp(31px, 7.6vw, 54px)", maxWidth: "20ch", margin: "16px 0 20px" }}>
-        Chapter events
+        Where the Acquisition Community Comes Together
       </h1>
       <p className="lede" style={{ fontSize: 20, maxWidth: "58ch", margin: "0 0 36px" }}>
-        Dinner meetings, workshops and training sessions run most months.
-        Tickets are on Eventbrite, and the venue rotates around Metro Maryland.
+        MetroMD programs are designed around the real issues shaping today’s
+        acquisition community, including acquisition modernization, emerging
+        technology, business growth, small business participation, leadership,
+        compliance, workforce development, and government-industry collaboration.
       </p>
+      <p className="lede" style={{ fontSize: 20, maxWidth: "58ch", margin: "0 0 36px" }}>
+        Our events bring together practitioners, executives, entrepreneurs,
+        attorneys, advisors, educators, and public-sector leaders to exchange
+        ideas, build relationships, and strengthen both the profession and the
+        communities we serve.
+      </p>
+
+      <section aria-label="The chapter at a glance" style={{ marginBottom: 40 }}>
+        <div className="stat-strip">
+          {stats.map((s) => (
+            <div className="stat-cell" key={s.label}>
+              <div className="stat-figure">{s.figure}</div>
+              <div style={{ fontSize: 16, color: "var(--color-neutral-700)", marginTop: 8 }}>
+                {s.label}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
       <NextMeeting
         event={upcomingEvents[0]}

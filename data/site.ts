@@ -10,6 +10,7 @@ export const SITE_URL = "https://ncmametromd.org";
  */
 export const CHAPTER_EMAIL = "ncmametromd@gmail.com";
 
+export const NCMA_HQ_URL = "https://www.ncmahq.org/";
 export const NCMA_MEMBERSHIP_URL = "https://www.ncmahq.org/membership";
 export const NCMA_CERTIFICATIONS_URL = "https://www.ncmahq.org/certifications";
 export const EVENTBRITE_ORG_URL =

@@ -36,7 +36,7 @@ export const people = {
     email: null,
     linkedin: "https://www.linkedin.com/in/mschyannet/",
     image: "/images/board-thomas.png",
-    bio: "Chyanne Thomas serves as the Vice President of Marketing and Communications for the NCMA MetroMD Chapter, leading strategic branding, outreach, and member engagement efforts. A U.S. Army Veteran and CEO of Aurelus Solutions LLC, she brings over a decade of leadership experience. As an Amazon #1 Best-Selling Author and personal coach her passion is to empower others to lead and live with purpose through personal transformation.",
+    bio: "Chyanne Thomas serves as the President-Elect of the NCMA MetroMD Chapter, leading strategic branding, outreach, and member engagement efforts. A U.S. Army Veteran and CEO of Aurelus Solutions LLC, she brings over a decade of leadership experience. As an Amazon #1 Best-Selling Author and personal coach her passion is to empower others to lead and live with purpose through personal transformation.",
   },
   "patience-ibik": {
     name: "Patience Ibik",
@@ -333,14 +333,14 @@ function roster(seats: Seat[]): BoardMember[] {
 }
 
 export const officers: BoardMember[] = roster([
-  { person: "jennifer-hanks", role: "President", id: "bd-hanks" },
+  { person: "jennifer-hanks", role: "Co-Founder, President", id: "bd-hanks" },
   { person: "chyanne-thomas", role: "President-Elect", id: "bd-thomas" },
   { person: "patience-ibik", role: "VP — Secretary", id: "bd-ibik" },
   { person: "joye-sistrunk", role: "VP — Treasurer", id: "bd-sistrunk" },
   { person: "bethlehem-belaineh", role: "VP — Communications", id: "bd-belaineh" },
   { person: "monique-frazier", role: "VP — University Outreach", id: "bd-frazier" },
   { person: "antavia-grimsley", role: "VP — Programs", id: "bd-grimsley" },
-  { person: "richard-hanks", role: "VP — Strategic Initiatives", id: "bd-hanksrd" },
+  { person: "richard-hanks", role: "Co-Founder, VP — Strategic Initiatives", id: "bd-hanksrd" },
   { person: "sonya-hopson", role: "VP — Operations", id: "bd-hopson" },
   { person: "lester-l-ingol", role: "VP — Membership", id: "bd-ingol" },
   { person: "darrell-mcgraw", role: "VP — Development (Fundraising)", id: "bd-mcgraw" },
@@ -364,8 +364,8 @@ export const directors: BoardMember[] = roster([
 ]);
 
 export const advisors: BoardMember[] = roster([
-  { person: "jennifer-hanks", role: "Board of Advisors — President", id: "adv-hanksj" },
-  { person: "richard-hanks", role: "Board of Advisors — Chairperson", id: "adv-hanksr" },
+  { person: "jennifer-hanks", role: "Co-Founder, Board of Advisors — President", id: "adv-hanksj" },
+  { person: "richard-hanks", role: "Co-Founder, Board of Advisors — Chairperson", id: "adv-hanksr" },
   { person: "anton-c-bizzell", role: "Board of Advisors", id: "adv-bizzell" },
   { person: "brittney-chappell", role: "Board of Advisors", id: "adv-chappell" },
   { person: "tracy-marcinowski", role: "Board of Advisors", id: "adv-marcinowski" },
@@ -376,10 +376,11 @@ export const advisors: BoardMember[] = roster([
   { person: "john-wilkinson", role: "Board of Advisors", id: "adv-wilkinson" },
 ]);
 
-/** The four officers featured on the home page, in the order the design shows them. */
+/** The officers featured on the home page, in the order the design shows them. */
 export const featuredBoard: BoardMember[] = [
   "bd-hanks",
   "bd-thomas",
   "bd-ibik",
+  "bd-sistrunk",
   "bd-belaineh",
 ].map((id) => officers.find((m) => m.id === id)!);

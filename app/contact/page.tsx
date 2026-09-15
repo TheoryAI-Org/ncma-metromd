@@ -5,7 +5,7 @@ import { socials } from "@/data/site";
 export const metadata: Metadata = {
   title: "Contact | NCMA MetroMD",
   description:
-    "Ask the board. Pick a topic and your message goes to the board member who handles it. Most replies come within a few days.",
+    "Ask our team. Pick a topic and your message goes to the board member who handles it. Most replies come within a few days.",
   alternates: { canonical: "/contact" },
   openGraph: {
     title: "Contact | NCMA MetroMD",
@@ -23,7 +23,7 @@ export default function ContactPage() {
       >
         <div>
           <p className="kick">Contact</p>
-          <h1 style={{ maxWidth: "18ch", margin: "16px 0 20px" }}>Ask the board</h1>
+          <h1 style={{ maxWidth: "18ch", margin: "16px 0 20px" }}>Ask Our Team</h1>
           <p className="lede" style={{ fontSize: 20, maxWidth: "46ch", margin: "0 0 28px" }}>
             Pick a topic and your message goes to the board member who handles
             it. Most replies come within a few days.

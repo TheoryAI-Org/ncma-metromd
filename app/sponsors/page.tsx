@@ -1,17 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { sponsorLevels, sponsors, sponsorshipOptions } from "@/data/sponsors";
+import {
+  sponsors,
+  sponsorshipFlyer,
+  sponsorshipOptions,
+  showSponsorRoll,
+} from "@/data/sponsors";
 
 export const metadata: Metadata = {
-  title: "Sponsors | NCMA MetroMD",
+  title: "Sponsorship | NCMA MetroMD",
   description:
-    "Sponsorship keeps a seat at the table affordable. Season levels, per-meeting and in-kind options for supporting the NCMA MetroMD Chapter.",
+    "MetroMD's partners expand access to professional development, strengthen government-industry dialogue, and support emerging leaders across the acquisition community.",
   alternates: { canonical: "/sponsors" },
   openGraph: {
-    title: "Sponsors | NCMA MetroMD",
+    title: "Sponsorship | NCMA MetroMD",
     description:
-      "Sponsors underwrite dinner so government attendees can come at a reduced rate.",
+      "Partner with NCMA Metro Maryland to strengthen the acquisition community.",
     url: "/sponsors",
   },
 };
@@ -25,36 +30,68 @@ const H2 = {
 export default function SponsorsPage() {
   return (
     <main id="main" className="pg" style={{ paddingTop: 56 }}>
-      <p className="kick">Sponsors</p>
+      <p className="kick">Sponsorship</p>
       <h1 style={{ fontSize: "clamp(31px, 7.6vw, 54px)", maxWidth: "22ch", margin: "16px 0 20px" }}>
         Sponsorship keeps a seat at the table affordable
       </h1>
-      <p className="lede" style={{ maxWidth: "58ch", margin: "0 0 30px" }}>
-        Sponsors underwrite dinner so government attendees can come at a reduced
-        rate, and pay for the training and student outreach the chapter runs
-        between meetings.
+      <p className="lede" style={{ maxWidth: "62ch", margin: "0 0 18px" }}>
+        MetroMD&rsquo;s growth has been made possible through organizations that
+        believe strong acquisition communities create stronger outcomes for
+        government, industry, and the people they serve.
+      </p>
+      <p className="lede" style={{ maxWidth: "62ch", margin: "0 0 30px" }}>
+        Our partners do more than sponsor events. They help expand access to
+        professional development, strengthen government-industry dialogue,
+        support emerging leaders, and create opportunities for meaningful
+        connection across the acquisition community.
       </p>
       <Link className="btn btn-primary btn-lg" href="/contact">
-        Talk to us about sponsoring
+        Become a MetroMD Partner
       </Link>
 
       <h2 className="rule-section" style={H2}>
-        Season levels
+        2026&ndash;2027 sponsorship opportunities
       </h2>
-      {/* Prices are deliberately absent: the board has not set them. When they
-          arrive, add a price line under each h3 at 18px/600. */}
-      <div className="grid-2" style={{ gap: 28 }}>
-        {sponsorLevels.map((level) => (
-          <div key={level.name} className="card card-hover" style={{ padding: 24 }}>
-            <h3 style={{ fontSize: "clamp(21px, 3.4vw, 24px)", fontWeight: 800, margin: "0 0 8px" }}>
-              {level.name}
-            </h3>
-            <p style={{ fontSize: 17, color: "var(--color-neutral-800)", margin: 0 }}>
-              {level.body}
-            </p>
-          </div>
-        ))}
-      </div>
+      {sponsorshipFlyer ? (
+        <>
+          <Image
+            src={sponsorshipFlyer.image}
+            alt={sponsorshipFlyer.alt}
+            width={1100}
+            height={1424}
+            sizes="(max-width: 900px) 100vw, 860px"
+            style={{
+              width: "100%",
+              maxWidth: 860,
+              height: "auto",
+              border: "1px solid var(--color-neutral-300)",
+              borderRadius: 4,
+            }}
+          />
+          <p style={{ marginTop: 20 }}>
+            <a
+              className="btn btn-secondary btn-lg"
+              href={sponsorshipFlyer.pdf}
+              download
+            >
+              Download the flyer (PDF)
+            </a>
+          </p>
+        </>
+      ) : (
+        <p
+          style={{
+            fontSize: 18,
+            color: "var(--color-neutral-800)",
+            maxWidth: "58ch",
+            margin: 0,
+          }}
+        >
+          The 2026&ndash;2027 sponsorship flyer is being finalised. It will appear
+          here, with a PDF to download, as soon as it is ready &mdash; or write to
+          us and we will send it over.
+        </p>
+      )}
 
       <h2 className="rule-section" style={H2}>
         Other ways to help
@@ -76,92 +113,98 @@ export default function SponsorsPage() {
         ))}
       </div>
 
-      <h2 className="rule-section" style={{ ...H2, marginBottom: 8 }}>
-        This season&rsquo;s sponsors
-      </h2>
-      {sponsors.length > 0 ? (
+      {/* The whole sponsor roll is hidden until the sponsorship drive
+          closes. Flip showSponsorRoll in data/sponsors.ts to bring it back. */}
+      {showSponsorRoll && (
         <>
-          <p
-            style={{
-              fontSize: 18,
-              color: "var(--color-neutral-800)",
-              maxWidth: "58ch",
-              margin: "0 0 24px",
-            }}
-          >
-            The organisations underwriting this season of chapter programming.
-          </p>
-          <div
-            className="grid-3"
-            style={{ gap: "40px 48px", alignItems: "center" }}
-          >
-            {sponsors.map((s) => (
-              <div
-                key={s.name}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  minHeight: 120,
-                }}
-              >
-                <Image
-                  src={s.logo}
-                  alt={s.name}
-                  width={280}
-                  height={120}
-                  style={{
-                    width: "auto",
-                    maxWidth: "100%",
-                    maxHeight: 120,
-                    objectFit: "contain",
-                    filter: "grayscale(1)",
-                  }}
-                />
-              </div>
-            ))}
-          </div>
-        </>
-      ) : (
-        <>
-          <p
-            style={{
-              fontSize: 18,
-              color: "var(--color-neutral-800)",
-              maxWidth: "58ch",
-              margin: "0 0 24px",
-            }}
-          >
-            No sponsors are confirmed for the coming season yet. Logos appear
-            here as they are signed, and the first names go out in the
-            newsletter.
-          </p>
-          <div
-            className="stack-md"
-            style={{
-              border: "1px dashed var(--color-neutral-400)",
-              borderRadius: 4,
-              padding: 32,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: 24,
-              flexWrap: "wrap",
-            }}
-          >
-            <div
+        <h2 className="rule-section" style={{ ...H2, marginBottom: 8 }}>
+          This season&rsquo;s sponsors
+        </h2>
+        {sponsors.length > 0 ? (
+          <>
+            <p
               style={{
                 fontSize: 18,
-                color: "var(--color-neutral-700)",
-                maxWidth: "44ch",
+                color: "var(--color-neutral-800)",
+                maxWidth: "58ch",
+                margin: "0 0 24px",
               }}
             >
-              Sponsor logos will be listed here, on every meeting invitation and
-              in the newsletter.
+              The organisations underwriting this season of chapter programming.
+            </p>
+            <div
+              className="grid-3"
+              style={{ gap: "40px 48px", alignItems: "center" }}
+            >
+              {sponsors.map((s) => (
+                <div
+                  key={s.name}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    minHeight: 120,
+                  }}
+                >
+                  <Image
+                    src={s.logo}
+                    alt={s.name}
+                    width={280}
+                    height={120}
+                    style={{
+                      width: "auto",
+                      maxWidth: "100%",
+                      maxHeight: 120,
+                      objectFit: "contain",
+                      filter: "grayscale(1)",
+                    }}
+                  />
+                </div>
+              ))}
             </div>
-            <Link className="link-rule" href="/contact" style={{ flex: "none" }}>
-              Be the first
-            </Link>
-          </div>
+          </>
+        ) : (
+          <>
+            <p
+              style={{
+                fontSize: 18,
+                color: "var(--color-neutral-800)",
+                maxWidth: "58ch",
+                margin: "0 0 24px",
+              }}
+            >
+              No sponsors are confirmed for the coming season yet. Logos appear
+              here as they are signed, and the first names go out in the
+              newsletter.
+            </p>
+            <div
+              className="stack-md"
+              style={{
+                border: "1px dashed var(--color-neutral-400)",
+                borderRadius: 4,
+                padding: 32,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: 24,
+                flexWrap: "wrap",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 18,
+                  color: "var(--color-neutral-700)",
+                  maxWidth: "44ch",
+                }}
+              >
+                Sponsor logos will be listed here, on every meeting invitation and
+                in the newsletter.
+              </div>
+              <Link className="link-rule" href="/contact" style={{ flex: "none" }}>
+                Be the first
+              </Link>
+            </div>
+          </>
+        )}
         </>
       )}
     </main>
