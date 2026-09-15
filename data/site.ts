@@ -20,6 +20,29 @@ export const CHAPTER_EMAIL = "ncmametromd@gmail.com";
  */
 export const PRESIDENT_SIGNATURE: string | null = null;
 
+/**
+ * The printed president's letter, shown at the top of /presidents-letter above
+ * the typed version. Both fields are optional and independent:
+ *
+ *   image  a raster of the poster (PNG/JPG, ~1600-2000px wide). Displays
+ *          reliably on every device and is the sharpest option for a
+ *          single-page piece.
+ *   pdf    the file itself, offered as a download. If there is no image, the
+ *          PDF is embedded instead - which several mobile browsers decline to
+ *          render inline, falling back to a button.
+ *
+ * With both null the page shows only the typed letter, as it does today.
+ */
+export const PRESIDENT_LETTER_POSTER: {
+  image: string | null;
+  pdf: string | null;
+  alt: string;
+} = {
+  image: null,
+  pdf: null,
+  alt: "NCMA Metro Maryland 2026-2027 president's letter: Level Up with Metro Maryland",
+};
+
 export const NCMA_HQ_URL = "https://www.ncmahq.org/";
 export const NCMA_MEMBERSHIP_URL = "https://www.ncmahq.org/membership";
 export const NCMA_CERTIFICATIONS_URL = "https://www.ncmahq.org/certifications";

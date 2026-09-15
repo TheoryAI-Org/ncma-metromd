@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Great_Vibes } from "next/font/google";
-import { CHAPTER_EMAIL, PRESIDENT_SIGNATURE } from "@/data/site";
+import {
+  CHAPTER_EMAIL,
+  PRESIDENT_LETTER_POSTER,
+  PRESIDENT_SIGNATURE,
+} from "@/data/site";
 
 /** The signature hand on the printed letter. Loaded only for this page. */
 const script = Great_Vibes({ subsets: ["latin"], weight: "400", display: "swap" });
@@ -52,6 +56,60 @@ const BODY = {
 export default function PresidentsLetterPage() {
   return (
     <main id="main" style={{ paddingBottom: 0 }}>
+      {/* ---- The printed poster, when there is one, ahead of the typed
+              letter. The typed version stays below so the words remain
+              selectable, indexable and readable by a screen reader. ---- */}
+      {(PRESIDENT_LETTER_POSTER.image || PRESIDENT_LETTER_POSTER.pdf) && (
+        <section className="pg pl-poster">
+          {PRESIDENT_LETTER_POSTER.image ? (
+            <Image
+              src={PRESIDENT_LETTER_POSTER.image}
+              alt={PRESIDENT_LETTER_POSTER.alt}
+              width={1600}
+              height={2070}
+              priority
+              sizes="(max-width: 900px) 100vw, 900px"
+              className="pl-poster-art"
+            />
+          ) : (
+            <object
+              data={PRESIDENT_LETTER_POSTER.pdf!}
+              type="application/pdf"
+              aria-label={PRESIDENT_LETTER_POSTER.alt}
+              className="pl-poster-embed"
+            >
+              <div style={{ padding: 28 }}>
+                <p style={{ fontSize: 18, color: "var(--color-neutral-800)", margin: "0 0 16px" }}>
+                  Your browser will not display the letter inline.
+                </p>
+                <a
+                  className="btn btn-primary btn-lg"
+                  href={PRESIDENT_LETTER_POSTER.pdf!}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Open the letter (PDF)
+                </a>
+              </div>
+            </object>
+          )}
+
+          {PRESIDENT_LETTER_POSTER.pdf && (
+            <p style={{ margin: "18px 0 0" }}>
+              <a
+                className="btn btn-secondary btn-lg"
+                href={PRESIDENT_LETTER_POSTER.pdf}
+                download="NCMA-MetroMD-Presidents-Letter-2026-2027.pdf"
+              >
+                Download the letter (PDF)
+              </a>
+            </p>
+          )}
+
+          <h2 className="pl-poster-divider">The letter, in text</h2>
+        </section>
+      )}
+
       {/* ---- Masthead: brand line left, harbour photograph right ---- */}
       <section className="pl-masthead">
         <div className="pl-masthead-brand">

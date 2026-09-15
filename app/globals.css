@@ -560,3 +560,20 @@ textarea.input { min-height: 120px; resize: vertical; }
   .pl-portrait { max-width: 320px; }
   .pl-signoff-name { border-left: 0; padding-left: 0; }
 }
+
+/* The printed letter, shown above the typed version. */
+.pl-poster { padding-top: 40px; padding-bottom: 8px; }
+.pl-poster-art {
+  width: 100%; max-width: 900px; height: auto; margin: 0 auto; display: block;
+  border: 1px solid var(--color-neutral-300); border-radius: 4px;
+}
+.pl-poster-embed {
+  display: block; width: 100%; max-width: 900px; height: min(1160px, 130vw);
+  margin: 0 auto; border: 1px solid var(--color-neutral-300); border-radius: 4px;
+  background: var(--color-neutral-100);
+}
+.pl-poster-divider {
+  margin: 44px 0 0; padding-top: 22px; font-size: 15px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-neutral-600);
+  border-top: 2px solid var(--color-divider);
+}
