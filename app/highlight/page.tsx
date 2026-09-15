@@ -5,6 +5,10 @@ export const metadata: Metadata = {
   title: "Monthly Highlight | NCMA MetroMD",
   description:
     "Share your story and be featured on the NCMA MetroMD social media platforms. Submissions are due by the 15th of each month.",
+  alternates: { canonical: "/highlight" },
+  // Unpublished until there is content to show: linked from nowhere and kept
+  // out of the sitemap, so it should not be indexed either.
+  robots: { index: false, follow: false },
 };
 
 const FORM_URL =
