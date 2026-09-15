@@ -163,7 +163,6 @@ export default function PresidentsLetterPage() {
             <ol className="pl-timeline">
               {SAVE_THE_DATE.map((e) => (
                 <li key={e.text} className="pl-timeline-item">
-                  <span className="pl-timeline-marker" aria-hidden="true" />
                   <span className="pl-timeline-date">
                     <span className="pl-timeline-month">{e.month}</span>
                     <span className="pl-timeline-day">{e.day}</span>

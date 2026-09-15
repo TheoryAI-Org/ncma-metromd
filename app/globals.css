@@ -493,32 +493,34 @@ textarea.input { min-height: 120px; resize: vertical; }
 .pl-shout-quiet { margin-top: 12px; font-weight: 700; color: var(--color-neutral-700); }
 
 .pl-panels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 56px; }
-/* Save the date: a vertical timeline, a rule threading three dated stops. */
-.pl-timeline { list-style: none; margin: 0; padding: 0 0 0 4px; position: relative; }
+/* Save the date: a vertical timeline. The dated disc is the stop on the rail,
+   so there is no separate marker; the rail runs behind the discs and is masked
+   by the ring around each one. */
+.pl-timeline { list-style: none; margin: 0; padding: 0; position: relative; }
 .pl-timeline::before {
-  content: ""; position: absolute; left: 26px; top: 10px; bottom: 10px;
+  content: ""; position: absolute; left: 25px; top: 14px; bottom: 14px;
   width: 2px; background: linear-gradient(var(--navy), var(--color-accent));
 }
 .pl-timeline-item {
-  position: relative; display: grid; grid-template-columns: 54px 1fr;
-  align-items: start; column-gap: 16px; padding: 0 0 26px;
+  position: relative; display: grid; grid-template-columns: 52px 1fr;
+  align-items: center; column-gap: 20px; padding: 0 0 30px;
 }
 .pl-timeline-item:last-child { padding-bottom: 0; }
-.pl-timeline-marker {
-  position: absolute; left: 21px; top: 16px; width: 12px; height: 12px;
-  border-radius: 50%; background: #fff; border: 3px solid var(--color-accent);
-  box-shadow: 0 0 0 3px var(--color-neutral-100);
-}
-.pl-timeline-item:first-child .pl-timeline-marker { border-color: var(--navy); }
 .pl-timeline-date {
+  position: relative; z-index: 1;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  width: 54px; height: 54px; border-radius: 50%; background: var(--color-accent); color: #fff;
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--color-accent); color: #fff;
+  /* Masks the rail either side of the disc. */
+  box-shadow: 0 0 0 5px var(--color-neutral-100);
 }
 .pl-timeline-item:first-child .pl-timeline-date { background: var(--navy); }
-.pl-timeline-month { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; }
-.pl-timeline-day { font-size: 21px; font-weight: 800; line-height: 1; }
+.pl-timeline-month {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.9;
+}
+.pl-timeline-day { font-size: 20px; font-weight: 800; line-height: 1.05; }
 .pl-timeline-text {
-  font-size: 16px; line-height: 1.45; color: var(--color-neutral-800); padding-top: 8px;
+  font-size: 15px; line-height: 1.5; color: var(--color-neutral-800); padding: 2px 0;
 }
 
 .pl-partner { margin-top: 56px; padding-top: 32px; border-top: 3px solid var(--navy); }
@@ -544,12 +546,17 @@ textarea.input { min-height: 120px; resize: vertical; }
   color: #b9cadb; max-width: 34ch;
 }
 
+/* Three narrow columns crowd the panels well before the page is tablet-width,
+   so they stack at the same 1040px the rest of the grids use. */
+@media (max-width: 1040px) {
+  .pl-panels { grid-template-columns: 1fr; gap: 20px; }
+}
+
 @media (max-width: 900px) {
   .pl-masthead { grid-template-columns: 1fr; }
   .pl-masthead-brand { padding: 28px 24px 22px; max-width: none; }
   .pl-masthead-photo { min-height: 190px; }
   .pl-lede { grid-template-columns: 1fr; gap: 34px; }
   .pl-portrait { max-width: 320px; }
-  .pl-panels { grid-template-columns: 1fr; gap: 20px; }
   .pl-signoff-name { border-left: 0; padding-left: 0; }
 }
