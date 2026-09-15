@@ -100,48 +100,63 @@ export default function SponsorsPage() {
       </p>
       <TierTable tiers={eventSponsorships} />
 
-      <div
-        style={{
-          marginTop: 36,
-          padding: 28,
-          background: "var(--color-neutral-100)",
-          border: "1px solid var(--color-neutral-300)",
-          borderRadius: 4,
-        }}
-      >
-        {sponsorshipFlyer.image && (
-          <Image
-            src={sponsorshipFlyer.image}
-            alt={sponsorshipFlyer.alt}
-            width={1100}
-            height={1700}
-            sizes="(max-width: 900px) 100vw, 820px"
-            style={{
-              width: "100%",
-              maxWidth: 820,
-              height: "auto",
-              border: "1px solid var(--color-neutral-300)",
-              borderRadius: 4,
-              marginBottom: 22,
-            }}
-          />
-        )}
-        <h3 style={{ fontSize: 22, margin: "0 0 8px" }}>
-          The full sponsorship prospectus
-        </h3>
-        <p style={{ fontSize: 17, color: "var(--color-neutral-800)", maxWidth: "58ch", margin: "0 0 18px" }}>
-          Tier-by-tier benefits, chapter activities and the year&rsquo;s program are
-          all set out in the 2026&ndash;2027 prospectus.
-        </p>
+      <h2 className="rule-section" style={H2}>
+        The 2026&ndash;2027 flyer
+      </h2>
+      {sponsorshipFlyer.image ? (
+        <Image
+          src={sponsorshipFlyer.image}
+          alt={sponsorshipFlyer.alt}
+          width={1100}
+          height={1424}
+          sizes="(max-width: 900px) 100vw, 820px"
+          style={{
+            width: "100%",
+            maxWidth: 820,
+            height: "auto",
+            border: "1px solid var(--color-neutral-300)",
+            borderRadius: 4,
+          }}
+        />
+      ) : (
+        /* Rendered by the browser's own PDF viewer. Some mobile browsers
+           refuse to embed a PDF at all, so the fallback inside <object> is
+           what those visitors get. */
+        <object
+          data={sponsorshipFlyer.pdf}
+          type="application/pdf"
+          aria-label={sponsorshipFlyer.alt}
+          style={{
+            display: "block",
+            width: "100%",
+            maxWidth: 820,
+            height: "min(1060px, 128vw)",
+            border: "1px solid var(--color-neutral-300)",
+            borderRadius: 4,
+            background: "var(--color-neutral-100)",
+          }}
+        >
+          <div style={{ padding: 28 }}>
+            <p style={{ fontSize: 18, color: "var(--color-neutral-800)", margin: "0 0 16px", maxWidth: "48ch" }}>
+              Your browser will not display the flyer inline.
+            </p>
+            <a className="btn btn-primary btn-lg" href={sponsorshipFlyer.pdf} target="_blank" rel="noopener noreferrer">
+              Open the flyer (PDF)
+            </a>
+          </div>
+        </object>
+      )}
+
+      <p style={{ marginTop: 18 }}>
         <a
           className="btn btn-secondary btn-lg"
           href={sponsorshipFlyer.pdf}
           target="_blank"
           rel="noopener noreferrer"
         >
-          View the prospectus (PDF)
+          Open the flyer (PDF)
         </a>
-      </div>
+      </p>
 
       <h2 className="rule-section" style={H2}>
         Other ways to help

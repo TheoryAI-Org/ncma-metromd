@@ -1,25 +1,19 @@
 // Sponsorship levels and the current sponsor roll.
 
 /**
- * The 2026-2027 sponsorship flyer, shown on /sponsors in place of the old
- * season-level cards. Both files are supplied by the chapter; until they are
- * added to public/, leave this null and the page shows a short standing note
- * instead of a broken image.
- *
- * To publish it, drop the two files in and fill this in, e.g.
- *   { image: "/sponsorship/flyer-2026-2027.png",
- *     pdf:   "/sponsorship/flyer-2026-2027.pdf",
- *     alt:   "NCMA Metro Maryland 2026-2027 sponsorship opportunities" }
+ * The one-page sponsorship flyer, embedded on /sponsors so visitors see it
+ * without downloading anything. `image` is an optional raster of the same
+ * artwork: set it and the page shows that instead of the PDF embed, which is
+ * kinder to phone browsers, several of which will not render a PDF inline.
  */
 export const sponsorshipFlyer: {
-  /** Page-one artwork. Null until a raster of the flyer is added. */
   image: string | null;
   pdf: string;
   alt: string;
 } = {
   image: null,
-  pdf: "/sponsorship/ncma-metromd-sponsorship-2026-2027.pdf",
-  alt: "NCMA Metro Maryland 2026-2027 sponsorship opportunities",
+  pdf: "/sponsorship/ncma-metromd-sponsorship-flyer.pdf",
+  alt: "NCMA Metro Maryland 2026-2027 sponsorship flyer",
 };
 
 /**
