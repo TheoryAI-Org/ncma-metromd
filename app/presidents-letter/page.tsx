@@ -68,7 +68,7 @@ export default function PresidentsLetterPage() {
         </div>
         <div className="pl-masthead-photo">
           <Image
-            src="/images/ncma-metromd-hero.jpeg"
+            src="/images/NCAMA_Picture.webp"
             alt=""
             fill
             sizes="(max-width: 900px) 100vw, 46vw"

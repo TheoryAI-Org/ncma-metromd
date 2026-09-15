@@ -24,15 +24,15 @@ export default function HomePage() {
     <main id="main">
       <section className="hero">
         <Image
-          src="/images/ncma-metromd-hero.jpeg"
-          alt="Members talking before a MetroMD dinner meeting"
+          src="/images/NCAMA_Picture.webp"
+          alt="The Capital Wheel and marina at National Harbor at sunset"
           fill
           priority
           sizes="100vw"
-          style={{ objectFit: "cover", filter: "grayscale(1) contrast(1.04)" }}
+          style={{ objectFit: "cover" }}
         />
-        {/* A neutral dark scrim, deliberately not navy, so the photograph
-            reads black and white behind the copy. */}
+        {/* A neutral dark scrim, deliberately not navy, holding the headline
+            legible over the sunset. */}
         <div
           style={{
             position: "absolute",
