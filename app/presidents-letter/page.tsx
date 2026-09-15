@@ -272,8 +272,9 @@ export default function PresidentsLetterPage() {
             <div style={{ fontSize: 16, color: "var(--color-neutral-700)", marginBottom: 6 }}>
               Warm regards,
             </div>
-            {/* Her scanned signature when there is one; set in a signature hand
-                otherwise, so the sign-off never falls back to plain type. */}
+            {/* Her scanned signature when there is one; set in a signature
+                hand otherwise. The printed letter signs off in a script face
+                too, so neither stands in for a handwritten mark. */}
             {PRESIDENT_SIGNATURE ? (
               <Image
                 src={PRESIDENT_SIGNATURE}
@@ -302,20 +303,6 @@ export default function PresidentsLetterPage() {
             <div style={{ fontSize: 16, color: "var(--color-neutral-700)" }}>
               President, NCMA Metro Maryland Chapter
             </div>
-            {!PRESIDENT_SIGNATURE && (
-              <p
-                style={{
-                  fontSize: 13,
-                  fontStyle: "italic",
-                  color: "var(--color-neutral-600)",
-                  margin: "10px 0 0",
-                  maxWidth: "34ch",
-                }}
-              >
-                The original letter was signed by Jennifer Hanks; the script above
-                is decorative.
-              </p>
-            )}
           </div>
         </section>
       </div>
