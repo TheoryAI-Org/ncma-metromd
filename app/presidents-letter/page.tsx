@@ -303,6 +303,23 @@ export default function PresidentsLetterPage() {
             <div style={{ fontSize: 16, color: "var(--color-neutral-700)" }}>
               President, NCMA Metro Maryland Chapter
             </div>
+            {/* Shown while the signature is typeset. A scan in
+                PRESIDENT_SIGNATURE would make the second sentence wrong, so
+                the note goes with it. */}
+            {!PRESIDENT_SIGNATURE && (
+              <p
+                style={{
+                  fontSize: 13,
+                  fontStyle: "italic",
+                  color: "var(--color-neutral-600)",
+                  margin: "10px 0 0",
+                  maxWidth: "38ch",
+                }}
+              >
+                Signed and endorsed by Jennifer Hanks, President of the NCMA
+                Metro Maryland Chapter. The signature shown is set in type.
+              </p>
+            )}
           </div>
         </section>
       </div>
