@@ -577,3 +577,16 @@ textarea.input { min-height: 120px; resize: vertical; }
   letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-neutral-600);
   border-top: 2px solid var(--color-divider);
 }
+
+/* The typed letter, folded away while the poster is the primary copy. */
+.pl-text-version > summary {
+  max-width: 1200px; margin: 8px auto 0; padding: 18px 40px;
+  border-top: 2px solid var(--color-divider);
+  font-size: 15px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--color-neutral-600); cursor: pointer; list-style: none;
+}
+.pl-text-version > summary::-webkit-details-marker { display: none; }
+.pl-text-version > summary::after { content: " +"; }
+.pl-text-version[open] > summary::after { content: " \2212"; }
+.pl-text-version > summary:hover { color: var(--color-accent-700); }
+@media (max-width: 820px) { .pl-text-version > summary { padding-inline: 20px; } }

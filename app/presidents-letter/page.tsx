@@ -53,6 +53,25 @@ const BODY = {
   color: "var(--color-neutral-800)",
 } as const;
 
+/**
+ * The typed letter. When the poster is on the page it is the letter in full,
+ * so this same text folds away behind a disclosure: present for search
+ * engines and screen readers, but not a visible second copy. With no poster
+ * it is the letter, and renders plainly.
+ */
+function LetterText({ children }: { children: React.ReactNode }) {
+  const hasPoster = Boolean(
+    PRESIDENT_LETTER_POSTER.image || PRESIDENT_LETTER_POSTER.pdf
+  );
+  if (!hasPoster) return <>{children}</>;
+  return (
+    <details className="pl-text-version">
+      <summary>Read the letter as text</summary>
+      {children}
+    </details>
+  );
+}
+
 export default function PresidentsLetterPage() {
   return (
     <main id="main" style={{ paddingBottom: 0 }}>
@@ -106,11 +125,11 @@ export default function PresidentsLetterPage() {
             </p>
           )}
 
-          <h2 className="pl-poster-divider">The letter, in text</h2>
         </section>
       )}
 
       {/* ---- Masthead: brand line left, harbour photograph right ---- */}
+      <LetterText>
       <section className="pl-masthead">
         <div className="pl-masthead-brand">
           <Image
@@ -337,6 +356,7 @@ export default function PresidentsLetterPage() {
           </p>
         </div>
       </section>
+      </LetterText>
     </main>
   );
 }
