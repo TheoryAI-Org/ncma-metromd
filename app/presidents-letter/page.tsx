@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import { Great_Vibes } from "next/font/google";
 import { CHAPTER_EMAIL, PRESIDENT_SIGNATURE } from "@/data/site";
+
+/** The signature hand on the printed letter. Loaded only for this page. */
+const script = Great_Vibes({ subsets: ["latin"], weight: "400", display: "swap" });
 
 export const metadata: Metadata = {
   title: "President’s Letter | NCMA MetroMD",
@@ -211,7 +215,9 @@ export default function PresidentsLetterPage() {
             <div style={{ fontSize: 16, color: "var(--color-neutral-700)", marginBottom: 6 }}>
               Warm regards,
             </div>
-            {PRESIDENT_SIGNATURE && (
+            {/* Her scanned signature when there is one; set in a signature hand
+                otherwise, so the sign-off never falls back to plain type. */}
+            {PRESIDENT_SIGNATURE ? (
               <Image
                 src={PRESIDENT_SIGNATURE}
                 alt="Jennifer Hanks’ signature"
@@ -219,6 +225,19 @@ export default function PresidentsLetterPage() {
                 height={110}
                 style={{ width: "100%", maxWidth: 230, height: "auto", margin: "2px 0 6px" }}
               />
+            ) : (
+              <div
+                className={script.className}
+                aria-hidden="true"
+                style={{
+                  fontSize: 44,
+                  lineHeight: 1.1,
+                  color: "var(--navy)",
+                  margin: "2px 0 4px",
+                }}
+              >
+                Jennifer Hanks
+              </div>
             )}
             <div style={{ fontSize: 19, fontWeight: 800, color: "var(--navy)" }}>
               Jennifer Hanks
@@ -226,6 +245,20 @@ export default function PresidentsLetterPage() {
             <div style={{ fontSize: 16, color: "var(--color-neutral-700)" }}>
               President, NCMA Metro Maryland Chapter
             </div>
+            {!PRESIDENT_SIGNATURE && (
+              <p
+                style={{
+                  fontSize: 13,
+                  fontStyle: "italic",
+                  color: "var(--color-neutral-600)",
+                  margin: "10px 0 0",
+                  maxWidth: "34ch",
+                }}
+              >
+                The original letter was signed by Jennifer Hanks; the script above
+                is decorative.
+              </p>
+            )}
           </div>
         </section>
       </div>
