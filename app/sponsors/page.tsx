@@ -107,8 +107,8 @@ export default function SponsorsPage() {
         <Image
           src={sponsorshipFlyer.image}
           alt={sponsorshipFlyer.alt}
-          width={1100}
-          height={1650}
+          width={1024}
+          height={1536}
           sizes="(max-width: 900px) 100vw, 760px"
           style={{
             width: "100%",

@@ -11,7 +11,7 @@ export const sponsorshipFlyer: {
   pdf: string;
   alt: string;
 } = {
-  image: null,
+  image: "/sponsorship/ncma-metromd-sponsorship-flyer.png",
   pdf: "/sponsorship/ncma-metromd-sponsorship-flyer.pdf",
   alt: "NCMA Metro Maryland 2026-2027 sponsorship flyer",
 };
