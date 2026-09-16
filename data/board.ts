@@ -274,12 +274,12 @@ export const people = {
   },
   "ray-mccollum": {
     name: "Ray McCollum",
-    org: "National Science Foundation",
+    org: "Acquisition Policy Director, National Science Foundation",
     sector: "Government",
     email: null,
     linkedin: "https://www.linkedin.com/in/ray-mccollum-mspm-cpcm-10a9a63/",
     image: "/images/board-mccollum.jpeg",
-    bio: null,
+    bio: "Raymond McCollum serves as Chief of the Policy, Oversight, and Category Management Branch within Acquisition Management in the Office of the Chief Financial Officer at the National Science Foundation (NSF). He leads acquisition policy, procurement oversight, category management, vendor relations, contract performance, workforce certification, the Purchase Card Program, and acquisition systems. As NSF’s Acquisition Career Manager and Acquisition Innovation Advocate, he advances compliance, workforce development, policy implementation, and innovation. Previously at NSF, Mr. McCollum served as Principal Advisor to the Chief Operating Officer in the Office of the Director. He managed Full-Time Employee and Intergovernmental Personnel Act allocations and led agency-wide initiatives to improve business operations. He also served as Acting Head of Contracting Activity. Before joining NSF, Mr. McCollum held leadership positions throughout the federal acquisition community. His roles included Senior Contracting Officer with the Department of State’s Bureau of Diplomatic Security; Strategic Program Manager in GSA’s Office of Government-wide Policy; Shared Services Acquisition Lead in the Office of Shared Solutions and Performance Improvement; and Branch Chief in GSA’s Federal Acquisition Service, Center for IT Schedules Operations. Mr. McCollum served nine years in the United States Army Reserve, including two tours in Iraq. He is a 2019 Federal Computer Week Fed100 award recipient, a National Contract Management Association Fellow and former president of its DC Chapter, and an American Council for Technology/Industry Advisory Council Fellow. He serves on the ACT-IAC Leadership Council. He holds a master’s degree in project management from George Washington University and a bachelor’s degree in operations management, specializing in purchasing, from The Ohio State University. His certifications include CPCM, FAC-C (Professional), FAC-COR, and FAC-P/PM. His career reflects commitment to public service, operational excellence, and developing future federal acquisition leaders. Outside work, he enjoys Cleveland sports, Ohio State athletics, hiking, traveling, and a good cigar.",
   },
   "calvin-j-mitchell": {
     name: "Calvin J. Mitchell",
