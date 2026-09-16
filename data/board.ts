@@ -67,12 +67,12 @@ export const people = {
   },
   "antavia-grimsley": {
     name: "Antavia Grimsley",
-    org: "Elite Veteran Enterprises, LLC",
+    org: "Founder & Principal, Elite Veteran Enterprises, LLC",
     sector: "Government (Federal)",
     email: null,
     linkedin: "https://www.linkedin.com/in/antaviagrimsley/",
     image: "/images/board-grimsley.jpeg",
-    bio: null,
+    bio: "Antavia Grimsley serves as Vice President of Programs for the NCMA Metro Maryland Chapter, where she leads the development of professional programming, educational events, industry engagement, and networking opportunities that support the government contracting community. She is the Founder and Principal of Elite Veteran Enterprises, LLC (EVE), a Maryland-based small business providing event management, strategic communications, marketing, and professional support services. Through EVE, Antavia brings together her experience in federal contracting, program execution, stakeholder engagement, and event strategy to help organizations deliver high-quality programs and initiatives. Antavia brings more than 15 years of federal service and extensive experience in program management, contract oversight, strategic communications, executive engagement, and organizational leadership. She previously served in senior leadership roles with the U.S. Department of Commerce’s Minority Business Development Agency, where she advised senior executives, led multidisciplinary teams, managed national initiatives, and oversaw multimillion-dollar professional services contracts. She is also a FAC-COR Level III certified acquisition professional with experience in contractor performance, vendor management, budgeting, and federal program execution. Antavia is a retired U.S. Army Reserve Master Sergeant with 23 years of military service. Through NCMA Metro Maryland and EVE, she is committed to building stronger connections between government, industry, small businesses, and the professionals who support the federal contracting community.",
   },
   "richard-hanks": {
     name: "Richard Hanks",
