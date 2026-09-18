@@ -117,7 +117,7 @@ export const people = {
     email: null,
     linkedin: "https://www.linkedin.com/in/dawn-moore-6595074b/",
     image: "/images/board-moore.jpeg",
-    bio: null,
+    bio: "COL Dawn Moore is an accomplished military executive, acquisition professional, and strategic leader with extensive experience in organizational leadership, federal contracting, resource management, and operational strategy. Throughout her distinguished Army career, she has demonstrated a commitment to mission readiness, fiscal stewardship, and developing high-performing teams while navigating complex organizational challenges. Her academic credentials include a Bachelor of Science in Finance, a Master of Business Administration, and a Master of Strategic Studies from the U.S. Army War College. She is also a graduate of the U.S. Army Command and General Staff College and a participant in the 2026 National Contract Management Association (NCMA) Executive Leadership Program. Beyond her military service, COL Moore is committed to professional advancement, civic engagement, and community leadership. She serves as Vice President of Government Relations and Policy for the NCMA Metro Maryland Chapter, Co-Chair of the Courtesies and Amenities Committee for the Northern Virginia Alumnae Chapter of Delta Sigma Theta Sorority, Incorporated, and as a member of the Junior League of Northern Virginia. Her leadership experience also includes service in previous chapter executive positions and regional organizational initiatives. Driven by a passion for contract law, ethical governance, and public service, COL Moore seeks to leverage her executive experience to strengthen institutions, cultivate future leaders, and create meaningful, sustainable impact across the public, private and nonprofit sectors.",
   },
   "cynthia-pace": {
     name: "Dr. Cynthia Pace",
@@ -256,12 +256,12 @@ export const people = {
   },
   "brittney-chappell": {
     name: "Brittney Chappell",
-    org: "Alpha and Omega",
+    org: "Vice President of Capture, Alpha Omega",
     sector: "Industry, Former Government (Federal)",
     email: null,
     linkedin: "https://www.linkedin.com/in/brittneychappell/",
     image: "/images/board-chappell.jpeg",
-    bio: null,
+    bio: "Brittney Chappell is Vice President of Capture at Alpha Omega and an acquisition, growth, and innovation leader with more than 15 years of experience advancing federal procurement and technology modernization. She leads strategic growth initiatives focused on emerging acquisition pathways, digital transformation, and mission-driven technology solutions across the federal market. Before joining industry, Brittney led NASA’s Acquisition Innovation Launchpad and served as the practitioner lead for the Revolutionary FAR Overhaul, helping translate acquisition reform into practical tools and workforce engagement strategies. She previously held senior leadership roles at the U.S. General Services Administration and the U.S. Department of Transportation, including Director of Acquisition for GSA’s Technology Transformation Services and leader of DOT’s IT Acquisition Center of Excellence. At GSA FEDSIM, she managed complex, multi-billion-dollar defense and civilian IT acquisitions and completed a special assignment supporting the Executive Office of the President. Her honors include NASA’s Individual Contributor Award, the DOT Administrator’s Award for Excellence in Teamwork, the Innovative Team Award, GSA’s Acquisition Excellence Award, two Spotlight on Success Awards, and the 2017 GSA Special Act Award. Brittney holds an MBA from George Mason University and a bachelor’s degree in accounting from East Carolina University. She is a DITAP graduate, former unlimited-warrant contracting officer, NCMA World Congress speaker, and author of the January/February 2026 Contract Management article “Leave No One Behind.” She serves on the NCMA Metro Maryland Chapter Board and is passionate about building stronger connections across government and industry to improve mission outcomes.",
   },
   "tracy-marcinowski": {
     name: "Tracy Marcinowski",
@@ -292,12 +292,12 @@ export const people = {
   },
   "jimmy-d-smith": {
     name: "Jimmy D. Smith",
-    org: "PEI / Smith Consulting",
+    org: "CEO, Smith Advisory Consulting",
     sector: "Industry",
     email: null,
     linkedin: "https://www.linkedin.com/in/jimmy-d-smith-72a285273/",
     image: "/images/board-smith.jpeg",
-    bio: null,
+    bio: "Jimmy D. Smith is currently serving as CEO of Smith Advisory Consulting and Executive Vice President for Strategic Programs at Strydent Autonomous Technologies, headquartered in Maryland. Prior to these two positions, he served as Vice President for Commercial Strategy and Contract Performance for Government Programs at Hornbeck Offshore Services. Smith also served as the CEO of Pacific Engineering Incorporated immediately after retiring from 32 years of federal service with the Department of Defense. In April 2023, Smith retired as a member of the Senior Executive Service. In 2019, Smith began serving as the Small Business Director for the Department of the Navy. There he was chief advisor to the Secretary of the Navy on all small business matters. Smith was charged with overseeing small business acquisition policy; strengthening government and private sector partnerships; and fostering opportunities to leverage small businesses as a strategic advantage for the benefit of our warfighters. In 2017, Smith served as the Deputy Assistant Secretary of the Navy for Expeditionary Programs & Logistics Management overseeing acquisition logistics policy. In 2013, Smith served as the Director for Integrated Nuclear Weapons Safety and Security within the U.S. Navy’s Strategic Systems Programs where he was charged with the safekeeping of nearly 70% of this Nation’s nuclear arsenal. Smith received a Bachelor of Science degree in mechanical engineering, in 1990, from Tuskegee University. Graduate-level studies included Environmental Engineering, Marine Engineering, and Business Management.",
   },
   "alexa-tsui": {
     name: "Alexa Tsui",
