@@ -40,12 +40,12 @@ export const people = {
   },
   "patience-ibik": {
     name: "Patience Ibik",
-    org: "Resolute Consulting",
+    org: "Program Director, Resolute Solutions",
     sector: "Industry",
     email: null,
     linkedin: "https://www.linkedin.com/in/patience-ibik-bb2339a1/",
     image: "/images/board-ibik.jpeg",
-    bio: null,
+    bio: "Patience Ibik is a federal growth, acquisition, and program management executive with more than 21 years of experience supporting federal agencies and government contracting organizations. Her career spans business development, capture management, federal acquisition, proposal strategy, program delivery and management, strategic partnerships, marketing, and organizational growth. Patience currently serves as Program Director, DLA Agentic at Resolute Solutions, where she supports initiatives focused on the Defense Logistics Agency (DLA), emerging technology, program strategy, growth, and mission-focused solutions. Previously, she served as Business Development & Marketing Manager at Constellation Software Engineering, where she managed a federal pipeline, led DLA account growth, oversaw opportunity pipelines across OASIS+, VETS 2, Polaris, and GSA MAS, and supported capture and proposal efforts for strategic DoW pursuits. Throughout her career, Patience has generated millions in revenue growth, supported more than $6 billion in federal pursuits, developed strategic partnerships, and helped position organizations for significant federal contract opportunities. She has also supported the Warfighter in contingency environments by developing and managing weapons and acquisition systems. Her vast experience includes supporting customers such as the Defense Logistics Agency, U.S. Air Force, General Services Administration, U.S. Army, Department of Labor, and other Department of Defense and federal civilian organizations. Patience brings a unique perspective to NCMA, combining the government acquisition lifecycle with the industry growth and delivery lifecycle. Her expertise spans acquisition strategy, capture and proposal management, contract opportunity development, customer engagement, operational execution, and cross-functional leadership. She earned a Bachelor of Science in Business Administration and Marketing from Bowie State University and is a Project Management Professional (PMP) candidate. Through her involvement with NCMA MetroMD, Patience is committed to strengthening the contracting community, expanding professional development and networking opportunities, and fostering meaningful collaboration between government and industry.",
   },
   "bethlehem-belaineh": {
     name: "Bethlehem Belaineh",
