@@ -120,13 +120,13 @@ export const people = {
     bio: "COL Dawn Moore is an accomplished military executive, acquisition professional, and strategic leader with extensive experience in organizational leadership, federal contracting, resource management, and operational strategy. Throughout her distinguished Army career, she has demonstrated a commitment to mission readiness, fiscal stewardship, and developing high-performing teams while navigating complex organizational challenges. Her academic credentials include a Bachelor of Science in Finance, a Master of Business Administration, and a Master of Strategic Studies from the U.S. Army War College. She is also a graduate of the U.S. Army Command and General Staff College and a participant in the 2026 National Contract Management Association (NCMA) Executive Leadership Program. Beyond her military service, COL Moore is committed to professional advancement, civic engagement, and community leadership. She serves as Vice President of Government Relations and Policy for the NCMA Metro Maryland Chapter, Co-Chair of the Courtesies and Amenities Committee for the Northern Virginia Alumnae Chapter of Delta Sigma Theta Sorority, Incorporated, and as a member of the Junior League of Northern Virginia. Her leadership experience also includes service in previous chapter executive positions and regional organizational initiatives. Driven by a passion for contract law, ethical governance, and public service, COL Moore seeks to leverage her executive experience to strengthen institutions, cultivate future leaders, and create meaningful, sustainable impact across the public, private and nonprofit sectors.",
   },
   "cynthia-pace": {
-    name: "Dr. Cynthia Pace",
-    org: "C. O. Pace, “The Leadership Guru,” LLC",
+    name: "Dr. Cynthia O. Pace, Ph.D., CPF",
+    org: "Founder, The Leadership Guru, LLC",
     sector: "Industry",
     email: null,
     linkedin: "https://www.linkedin.com/in/dr-cynthia-pace-50a5b936a/",
     image: "/images/board-pace.png",
-    bio: null,
+    bio: "Dr. Cynthia O. Pace is a Certified Professional Facilitator (CPF) with more than 20 years of experience helping organizations navigate the transitions that determine whether important work survives beyond any one leader. As founder of The Leadership Guru, LLC, she has guided leadership transitions and organizational capacity-building at Fortune 500 corporations, federal agencies, and mission-driven institutions — including Northrop Grumman, the National Institutes of Health, the U.S. Navy and Marine Corps, Johns Hopkins Hospital, and the Ford Foundation. Her experience as a former community college president gives her firsthand insight into the stakes of leadership transition and institutional continuity. Dr. Pace treats facilitation as a diagnostic discipline, not a process skill. Her Leadership Alignment Framework™ examines four elements — Leadership, Trust, Process, and Behavior — to help leaders assess organizational readiness, surface where knowledge and capacity are at risk, and build deliberate plans for work to continue, evolve, transfer, or intentionally end. She brings the same rigor to every engagement, whether diagnosing alignment gaps, facilitating a high-stakes meeting, or training staff to facilitate on their own. Dr. Pace is co-author of Making Trust Happen! (2022) and Process-Based Facilitation (2015), and holds certifications including IAF™ CPF, CSM, Certified Virtual Facilitator, SLII®, and Everything DiSC® and Take Flight with DISC® Authorized Partner status. She is a former U.S. Director of the International Association of Facilitators. Her guiding principle: “Trust is infrastructure. Build it.” For organizations facing leadership transition, Dr. Pace brings both the tools and the lived experience to help executives assess readiness and chart the future of the work.",
   },
   "joye-sistrunk": {
     name: "Joye Sistrunk, CPA",
@@ -175,12 +175,12 @@ export const people = {
   },
   "serapis-irby": {
     name: "Serapis Irby",
-    org: "Oasis Global Solutions",
+    org: "President & CEO, Oasis Global Solutions, LLC",
     sector: "Industry",
     email: null,
     linkedin: "https://www.linkedin.com/in/george-serapis-irby-27b376a/",
     image: "/images/board-irby.jpeg",
-    bio: null,
+    bio: "George Serapis Irby is the President and Chief Executive Officer for Oasis Global Solutions, LLC, who brings a remarkable 18 years of seasoned experience in government service: 16 years at USAID as a Contracting Officer and Foreign Service Officer working in countries like Afghanistan, Kazakhstan and Nepal on geopolitical, post-conflict and cultural complexities which presented both profound challenges and opportunities, and 2 years working on Capitol Hill as a Legislative Assistant. Mr. Irby’s expertise in international development and legislative processes laid a strong foundation for the firm. Drawing on his leadership in acquisition, risk management, and operational oversight, Mr. Irby delivers mission-driven solutions tailored to government and global challenges.",
   },
   "qc-jones": {
     name: "QC Jones, MBA",
