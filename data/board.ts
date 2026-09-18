@@ -214,7 +214,7 @@ export const people = {
     org: "Director, Contracts and Procurement Compliance, ICF",
     sector: "Industry",
     email: null,
-    linkedin: null,
+    linkedin: "https://www.linkedin.com/in/lisa-williamson-jd-73523110/",
     image: "/images/board-williamson.jpg",
     bio: "Lisa Williamson is a Director at ICF, where she heads the Contracts and Procurement Compliance group and serves as the company’s Small Business Liaison Officer. Lisa has extensive experience in contracts, subcontracts, purchasing, and procurement transformation which she has cultivated over her 35-year career, beginning with the Department of Defense and working for companies such as Booz Allen Hamilton, Lockheed Martin, Alion, and MCI WorldCom. Her ability to analyze, distill, and communicate the meaning and impact of complex regulatory and legislative topics to all organizational levels has led to her being relied upon for compliance expertise, regulatory change management, policy and training development and implementation of third-party risk management processes. She has a BS in Economics from George Mason University, a Juris Doctor from George Mason’s Antonin Scalia Law School, and is presently working on a master’s in data analytics.",
   },
