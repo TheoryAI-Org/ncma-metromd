@@ -209,6 +209,15 @@ export const people = {
     image: "/images/board-robinson.jpeg",
     bio: "Brandon is a dynamic Talent Acquisition, Operations, and DEI leader with more than 15 years of experience driving strategic recruitment, workforce planning, employee engagement, and operational excellence across government, nonprofit, healthcare, education, and corporate sectors. Throughout his career, he has successfully led high-volume, full-cycle recruiting initiatives while partnering with executive leadership, hiring managers, and cross-functional teams to identify and secure top talent that supports organizational growth and performance. His expertise includes talent pipeline development, HR operations, onboarding, project coordination, compensation analysis, and implementing data-driven recruiting strategies that foster inclusive and high-performing workplace cultures.",
   },
+  "lisa-williamson": {
+    name: "Lisa Williamson",
+    org: "Director, Contracts and Procurement Compliance, ICF",
+    sector: "Industry",
+    email: null,
+    linkedin: null,
+    image: "/images/board-williamson.jpg",
+    bio: "Lisa Williamson is a Director at ICF, where she heads the Contracts and Procurement Compliance group and serves as the company’s Small Business Liaison Officer. Lisa has extensive experience in contracts, subcontracts, purchasing, and procurement transformation which she has cultivated over her 35-year career, beginning with the Department of Defense and working for companies such as Booz Allen Hamilton, Lockheed Martin, Alion, and MCI WorldCom. Her ability to analyze, distill, and communicate the meaning and impact of complex regulatory and legislative topics to all organizational levels has led to her being relied upon for compliance expertise, regulatory change management, policy and training development and implementation of third-party risk management processes. She has a BS in Economics from George Mason University, a Juris Doctor from George Mason’s Antonin Scalia Law School, and is presently working on a master’s in data analytics.",
+  },
   "vaneta-wills": {
     name: "Vaneta Wills",
     org: null,
@@ -359,6 +368,7 @@ export const directors: BoardMember[] = roster([
   { person: "brandon-robinson", role: "Director — Operations", id: "dir-robinson" },
   { person: "megan-sheckles", role: "Director — Networking", id: "dir-sheckles" },
   { person: "christi-venable", role: "Director — Wellness", id: "dir-venable" },
+  { person: "lisa-williamson", role: "Director — Communications", id: "dir-williamson" },
   { person: "vaneta-wills", role: "Director — Records", id: "dir-wills" },
   { person: "john-wilkinson", role: "Director — Fellows", id: "dir-wilkinsonj" },
 ]);
