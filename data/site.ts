@@ -3,6 +3,47 @@
 /** Canonical origin, used for metadata, JSON-LD and the sitemap. */
 export const SITE_URL = "https://ncmametromd.org";
 
+/**
+ * The chapter's public inbox, printed on the president's letter and the
+ * sponsorship flyer. Distinct from the board members' own addresses, which
+ * stay server-side in data/contact-routes.ts and are never rendered.
+ */
+export const CHAPTER_EMAIL = "ncmametromd@gmail.com";
+
+/**
+ * Jennifer Hanks’ signature on the president’s letter, as it appears on the
+ * printed piece. Set this to the file path once the artwork is in public/
+ * — a transparent PNG reads best against the page — and the letter shows it
+ * above her name. While it is null the sign-off falls back to type alone.
+ *
+ * e.g. "/images/jennifer-hanks-signature.png"
+ */
+export const PRESIDENT_SIGNATURE: string | null = null;
+
+/**
+ * The printed president's letter, shown at the top of /presidents-letter above
+ * the typed version. Both fields are optional and independent:
+ *
+ *   image  a raster of the poster (PNG/JPG, ~1600-2000px wide). Displays
+ *          reliably on every device and is the sharpest option for a
+ *          single-page piece.
+ *   pdf    the file itself, offered as a download. If there is no image, the
+ *          PDF is embedded instead - which several mobile browsers decline to
+ *          render inline, falling back to a button.
+ *
+ * With both null the page shows only the typed letter, as it does today.
+ */
+export const PRESIDENT_LETTER_POSTER: {
+  image: string | null;
+  pdf: string | null;
+  alt: string;
+} = {
+  image: "/letter/presidents-letter-2026-2027.png",
+  pdf: "/letter/presidents-letter-2026-2027.pdf",
+  alt: "NCMA Metro Maryland 2026-2027 president's letter: Level Up with Metro Maryland",
+};
+
+export const NCMA_HQ_URL = "https://www.ncmahq.org/";
 export const NCMA_MEMBERSHIP_URL = "https://www.ncmahq.org/membership";
 export const NCMA_CERTIFICATIONS_URL = "https://www.ncmahq.org/certifications";
 export const EVENTBRITE_ORG_URL =
@@ -22,8 +63,14 @@ export interface NavItem {
 }
 
 /**
- * The header carries exactly five links. Certifications, Insights, Highlight
- * and Advisory moved to the footer; those pages stay reachable.
+ * The header carries exactly five links. Certifications and Advisory moved
+ * to the footer; those pages stay reachable.
+ *
+ * Insights and Monthly Highlight are unpublished until they have content:
+ * linked from nowhere and kept out of the sitemap, but the routes build.
+ *
+ * Insights is unpublished until there are articles: it is linked from
+ * nowhere and kept out of the sitemap, but the route still builds.
  *
  * "Board & Advisory" opens a dropdown, but the three entries are anchors on the
  * single /board page rather than separate routes.
@@ -59,7 +106,7 @@ export const footerGroups: { heading: string; links: FooterLink[] }[] = [
       { name: "Board & Advisory", href: "/board" },
       { name: "Board of Advisors", href: "/board#advisors" },
       { name: "Sponsors", href: "/sponsors" },
-      { name: "Insights", href: "/insights" },
+      { name: "President’s Letter", href: "/presidents-letter" },
     ],
   },
   {
@@ -67,7 +114,6 @@ export const footerGroups: { heading: string; links: FooterLink[] }[] = [
     links: [
       { name: "Events", href: "/events" },
       { name: "Certifications", href: NCMA_CERTIFICATIONS_URL, external: true },
-      { name: "Monthly highlight", href: "/highlight" },
       { name: "Member sign in", href: "/login" },
       { name: "Contact", href: "/contact" },
     ],

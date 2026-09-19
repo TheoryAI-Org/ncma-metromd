@@ -1,5 +1,6 @@
 import "server-only";
 
+import { CHAPTER_EMAIL } from "@/data/site";
 import type { ContactTopic } from "@/data/site";
 
 /**
@@ -10,7 +11,16 @@ import type { ContactTopic } from "@/data/site";
  * public topic labels live in `data/site.ts`; only the mapping to a real inbox
  * lives here.
  */
-export const contactRoutes: ReadonlyArray<{
+
+/**
+ * While the chapter inbox is handling everything, every topic is delivered
+ * there rather than to the board member who owns it. Each owner is still
+ * recorded below and named in the message, so the shared inbox can pass a
+ * message on; set this to null to go back to delivering directly to them.
+ */
+const ROUTE_ALL_TO: string | null = CHAPTER_EMAIL;
+
+const owners: ReadonlyArray<{
   topic: ContactTopic;
   name: string;
   email: string;
@@ -22,3 +32,11 @@ export const contactRoutes: ReadonlyArray<{
   { topic: "Newsletter", name: "Bethlehem Belaineh", email: "be@theoryai.co" },
   { topic: "Something else", name: "Jennifer Hanks", email: "jahanks@mmcgovsolutions.com" },
 ];
+
+export const contactRoutes: ReadonlyArray<{
+  topic: ContactTopic;
+  /** The board member who owns the topic, named in the message for triage. */
+  name: string;
+  /** Where the message is actually delivered. */
+  email: string;
+}> = owners.map((o) => ({ ...o, email: ROUTE_ALL_TO ?? o.email }));

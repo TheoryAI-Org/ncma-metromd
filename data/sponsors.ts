@@ -1,23 +1,49 @@
 // Sponsorship levels and the current sponsor roll.
 
-export const sponsorLevels = [
-  {
-    name: "Platinum",
-    body: "Top billing across the season: named on every meeting, logo on the site, newsletter and all event material, a reserved table at each dinner, and a speaking slot.",
-  },
-  {
-    name: "Gold",
-    body: "Logo on the site and newsletter, recognition from the podium at every meeting, and reserved seating at dinners.",
-  },
-  {
-    name: "Silver",
-    body: "Logo on the site and in the newsletter, with recognition at the meetings you attend.",
-  },
-  {
-    name: "Bronze",
-    body: "Name listed on the site and in the newsletter. The entry point for small businesses.",
-  },
-] as const;
+/**
+ * The one-page sponsorship flyer, embedded on /sponsors so visitors see it
+ * without downloading anything. `image` is an optional raster of the same
+ * artwork: set it and the page shows that instead of the PDF embed, which is
+ * kinder to phone browsers, several of which will not render a PDF inline.
+ */
+export const sponsorshipFlyer: {
+  image: string | null;
+  pdf: string;
+  alt: string;
+} = {
+  image: "/sponsorship/ncma-metromd-sponsorship-flyer.png",
+  pdf: "/sponsorship/ncma-metromd-sponsorship-flyer.pdf",
+  alt: "NCMA Metro Maryland 2026-2027 sponsorship flyer",
+};
+
+/**
+ * The sponsor roll is hidden until the sponsorship drive closes. Flip to true
+ * to bring the "This season's sponsors" section back.
+ */
+export const showSponsorRoll = false;
+
+export interface SponsorshipTier {
+  name: string;
+  price: string;
+}
+
+/**
+ * The 2026-2027 packages, in the two groups the flyer uses. Benefits per tier
+ * are set out in the flyer PDF rather than repeated here, so the two cannot
+ * drift apart.
+ */
+export const chapterSponsorships: SponsorshipTier[] = [
+  { name: "Title Sponsor", price: "$25,000" },
+  { name: "Platinum Sponsor", price: "$10,000" },
+  { name: "Gold Sponsor", price: "$5,000" },
+];
+
+export const eventSponsorships: SponsorshipTier[] = [
+  { name: "Event Title Sponsor", price: "$5,000" },
+  { name: "Program Sponsor", price: "$2,500" },
+  { name: "Network Sponsor", price: "$1,000" },
+  { name: "Training Sponsor", price: "$500" },
+];
 
 export const sponsorshipOptions = [
   {

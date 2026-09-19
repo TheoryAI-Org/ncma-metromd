@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact-form";
+import { ContactByEmail } from "@/components/contact-email";
+import { contactIsLive } from "./actions";
 import { socials } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Contact | NCMA MetroMD",
   description:
-    "Ask the board. Pick a topic and your message goes to the board member who handles it. Most replies come within a few days.",
+    "Ask our team. Pick a topic and your message goes to the board member who handles it. Most replies come within a few days.",
   alternates: { canonical: "/contact" },
   openGraph: {
     title: "Contact | NCMA MetroMD",
@@ -14,7 +16,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ContactPage() {
+// Rendered per request so RESEND_API_KEY is read live: setting the key
+// brings the form back without a rebuild.
+export const dynamic = "force-dynamic";
+
+export default async function ContactPage() {
+  // Delivery needs a Resend key. Without one the form would refuse every
+  // message, so the page offers plain email links instead.
+  const live = await contactIsLive();
+
   return (
     <main id="main" className="pg" style={{ paddingTop: 56 }}>
       <div
@@ -23,7 +33,7 @@ export default function ContactPage() {
       >
         <div>
           <p className="kick">Contact</p>
-          <h1 style={{ maxWidth: "18ch", margin: "16px 0 20px" }}>Ask the board</h1>
+          <h1 style={{ maxWidth: "18ch", margin: "16px 0 20px" }}>Ask Our Team</h1>
           <p className="lede" style={{ fontSize: 20, maxWidth: "46ch", margin: "0 0 28px" }}>
             Pick a topic and your message goes to the board member who handles
             it. Most replies come within a few days.
@@ -62,7 +72,7 @@ export default function ContactPage() {
           </div>
         </div>
 
-        <ContactForm />
+        {live ? <ContactForm /> : <ContactByEmail />}
       </div>
     </main>
   );
