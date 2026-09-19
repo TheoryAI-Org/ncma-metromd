@@ -590,3 +590,16 @@ textarea.input { min-height: 120px; resize: vertical; }
 .pl-text-version[open] > summary::after { content: " \2212"; }
 .pl-text-version > summary:hover { color: var(--color-accent-700); }
 @media (max-width: 820px) { .pl-text-version > summary { padding-inline: 20px; } }
+
+/* LinkedIn post embeds on the home page. The iframes have a fixed aspect that
+   LinkedIn controls, so the grid gives each a column and a generous height
+   rather than trying to size to content, which cross-origin frames forbid. */
+.li-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 32px;
+}
+.li-embed {
+  width: 100%; height: 620px; border: 1px solid var(--color-neutral-300);
+  border-radius: 4px; background: var(--color-neutral-100); display: block;
+}
+@media (max-width: 1040px) { .li-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 820px)  { .li-grid { grid-template-columns: 1fr; } .li-embed { height: 560px; } }

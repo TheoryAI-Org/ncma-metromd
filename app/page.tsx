@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { BoardCard } from "@/components/board/board-card";
 import { featuredBoard } from "@/data/board";
+import { LinkedInPosts } from "@/components/linkedin-posts";
 import { CHAPTER_EMAIL, NCMA_HQ_URL, NCMA_MEMBERSHIP_URL } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -207,6 +208,8 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
+      <LinkedInPosts />
 
       <section className="pg" style={{ marginTop: 64, paddingBottom: 16 }}>
         <div
