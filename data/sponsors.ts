@@ -36,6 +36,8 @@ export const chapterSponsorships: SponsorshipTier[] = [
   { name: "Title Sponsor", price: "$25,000" },
   { name: "Platinum Sponsor", price: "$10,000" },
   { name: "Gold Sponsor", price: "$5,000" },
+  { name: "Silver Sponsor", price: "$2,000" },
+  { name: "Bronze Sponsor", price: "$1,000" },
 ];
 
 export const eventSponsorships: SponsorshipTier[] = [
