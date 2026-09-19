@@ -40,7 +40,7 @@ export const people = {
   },
   "patience-ibik": {
     name: "Patience Ibik",
-    org: "Program Director, DLA Agentic Logistics, Resolute Consulting",
+    org: "Program Director, DLA Agentic Logistics, Resolute Solutions",
     sector: "Industry",
     email: null,
     linkedin: "https://www.linkedin.com/in/patience-ibik-bb2339a1/",
@@ -121,7 +121,7 @@ export const people = {
   },
   "cynthia-pace": {
     name: "Dr. Cynthia O. Pace, Ph.D., CPF",
-    org: "C. O. Pace, “The Leadership Guru,” LLC",
+    org: "Founder, The Leadership Guru, LLC",
     sector: "Industry",
     email: null,
     linkedin: "https://www.linkedin.com/in/dr-cynthia-pace-50a5b936a/",
@@ -184,7 +184,7 @@ export const people = {
   },
   "qc-jones": {
     name: "QC Jones, MBA",
-    org: "Managing Partner, Nolan Mackenzie",
+    org: "Managing Partner, NolanMackenzie",
     sector: "Industry",
     email: null,
     linkedin: "https://www.linkedin.com/in/qc-jones-03b7511/",
@@ -265,7 +265,7 @@ export const people = {
   },
   "brittney-chappell": {
     name: "Brittney Chappell",
-    org: "Vice President of Capture, Alpha and Omega",
+    org: "Vice President of Capture, Alpha Omega",
     sector: "Industry, Former Government (Federal)",
     email: null,
     linkedin: "https://www.linkedin.com/in/brittneychappell/",
