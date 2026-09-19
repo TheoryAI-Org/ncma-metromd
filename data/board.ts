@@ -193,7 +193,7 @@ export const people = {
   },
   "oliver-queen": {
     name: "Dr. Oliver Queen, Jr., PhD, MBA, PMP",
-    org: null,
+    org: "Federal Growth Strategist and OASIS+ Subject Matter Expert, ENcompass Consulting Group",
     sector: "Government (Federal)",
     email: null,
     linkedin: "https://www.linkedin.com/in/dr-oliver-queen-jr/",
@@ -202,7 +202,7 @@ export const people = {
   },
   "brandon-robinson": {
     name: "Brandon Robinson",
-    org: null,
+    org: "Betis Group, Inc.",
     sector: "Industry",
     email: null,
     linkedin: "https://www.linkedin.com/in/brandon-r-06440859/",
@@ -220,7 +220,7 @@ export const people = {
   },
   "vaneta-wills": {
     name: "Vaneta Wills",
-    org: null,
+    org: "Associate Director, U.S. Department of Homeland Security",
     sector: "Government (Federal)",
     email: null,
     linkedin: "https://www.linkedin.com/in/vaneta-wills-920778a1/",
