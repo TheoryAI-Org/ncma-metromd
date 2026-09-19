@@ -40,7 +40,7 @@ export const people = {
   },
   "patience-ibik": {
     name: "Patience Ibik",
-    org: "Program Director, Resolute Solutions",
+    org: "Program Director, DLA Agentic Logistics, Resolute Consulting",
     sector: "Industry",
     email: null,
     linkedin: "https://www.linkedin.com/in/patience-ibik-bb2339a1/",
@@ -58,7 +58,7 @@ export const people = {
   },
   "monique-frazier": {
     name: "Monique P. Frazier, MBA, PMP",
-    org: "U.S. Practice Leader, Infosys Public Services",
+    org: "U.S. Practice Lead – Organizational Change Management & Training, Infosys Public Services",
     sector: "Industry",
     email: null,
     linkedin: "https://www.linkedin.com/in/monique-frazier-mba/",
@@ -76,7 +76,7 @@ export const people = {
   },
   "richard-hanks": {
     name: "Richard Hanks",
-    org: "MMC Government Solutions",
+    org: "Chief Business Officer, MMC Government Solutions",
     sector: "Industry, Former Government (State/Local)",
     email: null,
     linkedin: "https://www.linkedin.com/in/richarddhanksmmc/",
@@ -121,7 +121,7 @@ export const people = {
   },
   "cynthia-pace": {
     name: "Dr. Cynthia O. Pace, Ph.D., CPF",
-    org: "Founder, The Leadership Guru, LLC",
+    org: "C. O. Pace, “The Leadership Guru,” LLC",
     sector: "Industry",
     email: null,
     linkedin: "https://www.linkedin.com/in/dr-cynthia-pace-50a5b936a/",
@@ -184,7 +184,7 @@ export const people = {
   },
   "qc-jones": {
     name: "QC Jones, MBA",
-    org: "Managing Partner, NolanMackenzie",
+    org: "Managing Partner, Nolan Mackenzie",
     sector: "Industry",
     email: null,
     linkedin: "https://www.linkedin.com/in/qc-jones-03b7511/",
@@ -202,7 +202,7 @@ export const people = {
   },
   "brandon-robinson": {
     name: "Brandon Robinson",
-    org: "Betis Group, Inc.",
+    org: "Talent Acquisition Specialist, Betis Group, Inc.",
     sector: "Industry",
     email: null,
     linkedin: "https://www.linkedin.com/in/brandon-r-06440859/",
@@ -238,7 +238,7 @@ export const people = {
   },
   "christi-venable": {
     name: "Christi Venable",
-    org: "Smile Therapy Services",
+    org: "Owner, Smile Therapy Services",
     sector: "Industry",
     email: null,
     linkedin: "https://www.linkedin.com/in/christivenable/",
@@ -247,7 +247,7 @@ export const people = {
   },
   "john-wilkinson": {
     name: "Dr. John W. Wilkinson, PMP, CPCM, CFCM, Fellow",
-    org: "tHInc, LLC",
+    org: "President, tHInc, LLC",
     sector: "Industry, Former Government (Federal)",
     email: null,
     linkedin: "https://www.linkedin.com/in/dr-john-w-wilkinson-pmp-cpcm-cfcm-2a55324/",
@@ -265,7 +265,7 @@ export const people = {
   },
   "brittney-chappell": {
     name: "Brittney Chappell",
-    org: "Vice President of Capture, Alpha Omega",
+    org: "Vice President of Capture, Alpha and Omega",
     sector: "Industry, Former Government (Federal)",
     email: null,
     linkedin: "https://www.linkedin.com/in/brittneychappell/",
@@ -274,7 +274,7 @@ export const people = {
   },
   "tracy-marcinowski": {
     name: "Tracy Marcinowski",
-    org: "Strategic Acquisition Solutions, LLC",
+    org: "Managing Partner, Strategic Acquisition Solutions, LLC",
     sector: "Industry, Former Government (Federal)",
     email: null,
     linkedin: "https://www.linkedin.com/in/tracy-marcinowski-910b729/",
@@ -292,7 +292,7 @@ export const people = {
   },
   "calvin-j-mitchell": {
     name: "Calvin J. Mitchell",
-    org: "GDIT",
+    org: "Senior Director, Acquisition Strategy and Engagement, GDIT",
     sector: "Industry, Former Government (Federal)",
     email: null,
     linkedin: "https://www.linkedin.com/in/calvin-j-mitchell-jr-a705348/",
@@ -301,7 +301,7 @@ export const people = {
   },
   "jimmy-d-smith": {
     name: "Jimmy D. Smith",
-    org: "CEO, Smith Advisory Consulting",
+    org: "CEO, Smith Advisory Consulting and Executive Vice President for Strategic Programs at Strydent Autonomous Technologies",
     sector: "Industry",
     email: null,
     linkedin: "https://www.linkedin.com/in/jimmy-d-smith-72a285273/",
