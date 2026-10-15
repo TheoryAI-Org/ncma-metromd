@@ -39,7 +39,7 @@ export const eventFlyers: EventFlyer[] = [
     height: 1650,
     alt: "Flyer for the October 15, 2026 dinner meeting, Strengthening Internal Accounting and Compliance Controls, with speakers Jeff Ryder and Eric Poppe, CPA, of Aprio at the Westin National Harbor. Tickets: Government $50, NCMA Member $70, Non-Member $85, Reserved Seats $100.",
     file: "/images/NCMA MetroMD October 15, 2026 Speaker Flyer.pdf",
-    registerUrl: EVENTBRITE_ORG_URL,
+    registerUrl: "https://www.eventbrite.com/e/ncma-metromd-october-dinner-meeting-tickets-1999163545982",
     eventDates: ["2026-10-15"],
     showUntil: "2026-10-15",
   },
