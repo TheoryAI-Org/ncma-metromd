@@ -10,6 +10,7 @@ import {
   showSponsorRoll,
   type SponsorshipTier,
 } from "@/data/sponsors";
+import { DONATE_URL } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Sponsorship | NCMA MetroMD",
@@ -80,9 +81,19 @@ export default function SponsorsPage() {
         support emerging leaders, and create opportunities for meaningful
         connection across the acquisition community.
       </p>
-      <Link className="btn btn-primary btn-lg" href="/contact">
-        Become a MetroMD Partner
-      </Link>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+        <Link className="btn btn-primary btn-lg" href="/contact">
+          Become a MetroMD Partner
+        </Link>
+        <a
+          className="btn btn-secondary btn-lg"
+          href={DONATE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Donate Now
+        </a>
+      </div>
 
       <h2 className="rule-section" style={H2}>
         Chapter sponsorship packages
