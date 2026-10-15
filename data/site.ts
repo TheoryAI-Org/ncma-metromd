@@ -48,6 +48,8 @@ export const NCMA_MEMBERSHIP_URL = "https://www.ncmahq.org/membership";
 export const NCMA_CERTIFICATIONS_URL = "https://www.ncmahq.org/certifications";
 export const EVENTBRITE_ORG_URL =
   "https://www.eventbrite.com/o/metromd-chapter-of-ncma-80017286413";
+/** Where the "Donate Now" button on /sponsors sends visitors. */
+export const DONATE_URL = "https://www.paypal.com/donate?campaign_id=KCMVLV62VA28C";
 
 export const socials = [
   { name: "LinkedIn", href: "https://www.linkedin.com/company/ncma-metromd/" },
