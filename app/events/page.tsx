@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import { EventFlyers } from "@/components/events/event-flyers";
 import { NextMeeting } from "@/components/events/next-meeting";
 import { PastMeetingsTable } from "@/components/events/past-meetings-table";
 import { UpcomingEvents } from "@/components/events/upcoming-events";
 import { fetchEventbriteEvents } from "@/lib/eventbrite";
 import type { Event } from "@/types/event";
+import { currentFlyers } from "@/data/flyers";
 
 export const metadata: Metadata = {
   title: "Chapter Events | NCMA MetroMD",
@@ -42,6 +44,8 @@ export default async function EventsPage() {
     console.error("Error fetching events:", error);
     errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
   }
+
+  const flyers = currentFlyers();
 
   return (
     <main id="main" className="pg" style={{ paddingTop: 56 }}>
@@ -82,6 +86,22 @@ export default async function EventsPage() {
         ctaAsButton
         style={{ maxWidth: 760, padding: "26px 28px" }}
       />
+
+      {flyers.length > 0 && (
+        <section id="flyers" aria-labelledby="flyers-heading" style={{ scrollMarginTop: 96 }}>
+          <h2
+            id="flyers-heading"
+            className="rule-section"
+            style={{ fontSize: "clamp(24px, 4.6vw, 32px)", margin: "64px 0 4px", paddingTop: 24 }}
+          >
+            Event flyers
+          </h2>
+          <p style={{ fontSize: 17, color: "var(--color-neutral-700)", margin: 0 }}>
+            Select a flyer to open it full size.
+          </p>
+          <EventFlyers flyers={flyers} />
+        </section>
+      )}
 
       {errorMessage && (
         <p
