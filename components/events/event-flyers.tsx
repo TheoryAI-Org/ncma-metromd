@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { EventFlyer } from "@/data/flyers";
 
-/** The flyers grid on /events: each flyer opens full size, with a register link beside it. */
+/** The flyers grid on /events: each flyer links to its event page, with the full flyer one button away. */
 export function EventFlyers({ flyers }: { flyers: EventFlyer[] }) {
   return (
     <div className="grid-2" style={{ gap: 32, marginTop: 24, alignItems: "start" }}>
@@ -9,7 +9,7 @@ export function EventFlyers({ flyers }: { flyers: EventFlyer[] }) {
         const file = encodeURI(f.file ?? f.image);
         return (
           <article key={f.id}>
-            <a href={file} target="_blank" rel="noopener noreferrer" aria-label={`Open the full flyer: ${f.title}`}>
+            <a href={f.registerUrl} target="_blank" rel="noopener noreferrer" aria-label={`Event page: ${f.title}`}>
               <Image
                 src={encodeURI(f.image)}
                 alt={f.alt}

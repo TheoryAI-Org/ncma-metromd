@@ -97,7 +97,7 @@ export default async function EventsPage() {
             Event flyers
           </h2>
           <p style={{ fontSize: 17, color: "var(--color-neutral-700)", margin: 0 }}>
-            Select a flyer to open it full size.
+            Select a flyer to go to its event page.
           </p>
           <EventFlyers flyers={flyers} />
         </section>
