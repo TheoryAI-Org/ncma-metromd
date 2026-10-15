@@ -4,6 +4,7 @@ import Image from "next/image";
 import { BoardCard } from "@/components/board/board-card";
 import { featuredBoard } from "@/data/board";
 import { LinkedInPosts } from "@/components/linkedin-posts";
+import { currentFlyers } from "@/data/flyers";
 import { CHAPTER_EMAIL, NCMA_HQ_URL, NCMA_MEMBERSHIP_URL } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -20,7 +21,11 @@ const memberBenefits = [
   "Mentoring, relationship-building, and access to the MetroMD member network",
 ];
 
+// Re-checked hourly so the flyers teaser drops expired events without a redeploy.
+export const revalidate = 3600;
+
 export default function HomePage() {
+  const flyers = currentFlyers();
   return (
     <main id="main">
       <section className="hero">
@@ -95,6 +100,38 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {flyers.length > 0 && (
+        <section className="pg" style={{ paddingTop: 40 }} aria-label="Upcoming events">
+          <div
+            className="stack-md"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: 24,
+              padding: "20px 24px",
+              background: "var(--color-accent-100)",
+              borderLeft: "4px solid var(--color-accent-700)",
+            }}
+          >
+            <div>
+              <p className="kick" style={{ margin: "0 0 6px" }}>Coming up</p>
+              <ul style={{ margin: 0, padding: 0, listStyle: "none", fontSize: 18 }}>
+                {flyers.map((f) => (
+                  <li key={f.id} style={{ marginTop: 4 }}>
+                    <strong>{f.title}</strong>
+                    <span style={{ color: "var(--color-neutral-700)" }}> · {f.dateLabel}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <Link className="btn btn-primary" href="/events#flyers">
+              See the event flyers
+            </Link>
+          </div>
+        </section>
+      )}
 
       {/* Our Story replaces the metrics strip and the calendar block, both of
           which now live on /events. */}
