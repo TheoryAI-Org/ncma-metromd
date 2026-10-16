@@ -5,7 +5,7 @@ import { PastMeetingsTable } from "@/components/events/past-meetings-table";
 import { UpcomingEvents } from "@/components/events/upcoming-events";
 import { fetchEventbriteEvents } from "@/lib/eventbrite";
 import type { Event } from "@/types/event";
-import { currentFlyers } from "@/data/flyers";
+import { currentFlyers, withEventLinks } from "@/data/flyers";
 
 export const metadata: Metadata = {
   title: "Chapter Events | NCMA MetroMD",
@@ -45,7 +45,7 @@ export default async function EventsPage() {
     errorMessage = error instanceof Error ? error.message : "Unknown error occurred";
   }
 
-  const flyers = currentFlyers();
+  const flyers = withEventLinks(currentFlyers(), [...upcomingEvents, ...pastEvents]);
 
   return (
     <main id="main" className="pg" style={{ paddingTop: 56 }}>
@@ -97,7 +97,7 @@ export default async function EventsPage() {
             Event flyers
           </h2>
           <p style={{ fontSize: 17, color: "var(--color-neutral-700)", margin: 0 }}>
-            Select a flyer to open it full size.
+            Select a flyer to go to its event page.
           </p>
           <EventFlyers flyers={flyers} />
         </section>
