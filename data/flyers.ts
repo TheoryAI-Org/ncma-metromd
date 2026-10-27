@@ -30,6 +30,19 @@ export interface EventFlyer {
  */
 export const eventFlyers: EventFlyer[] = [
   {
+    id: "salute-to-service-2026",
+    title: "3rd Annual Salute to Service: Honoring Veterans, Advancing Opportunities",
+    when: "Dinner meeting · Thursday, November 12, 2026 · 5:30–8:30 PM ET · The Westin Washington National Harbor",
+    dateLabel: "Thursday, November 12",
+    image: "/images/NCMA_MetroMD_Salute_to_Service_Nov12.png",
+    width: 1024,
+    height: 1536,
+    alt: "Flyer for NCMA MetroMD's 3rd Annual Salute to Service, Honoring Veterans, Advancing Opportunities, on Thursday, November 12, 2026, 5:30 to 8:30 PM ET at The Westin Washington National Harbor, 171 Waterfront Street, National Harbor, MD. Featured speakers: Philip Christy, Chief Acquisition Officer, U.S. Department of Veterans Affairs; Chanel Bankston-Carter, VA Office of Small and Disadvantaged Business Utilization; Shannon Jackson, HHS Office of Small and Disadvantaged Business Utilization; and Danielle Davis, Compliance Manager, Maryland Veteran-Owned Small Business Enterprise Program. Bring a new, unwrapped toy for Toys for Tots.",
+    registerUrl: EVENTBRITE_ORG_URL,
+    eventDates: ["2026-11-12"],
+    showUntil: "2026-11-12",
+  },
+  {
     id: "october-2026-dinner",
     title: "Strengthening Internal Accounting and Compliance Controls",
     when: "Dinner meeting · Thursday, October 15, 2026 · 5:30–8:00 PM · Westin National Harbor",
