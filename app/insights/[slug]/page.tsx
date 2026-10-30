@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Headshot } from "@/components/shared/headshot";
 import { people } from "@/data/board";
-import { articles, bylineFor } from "@/data/insights";
+import { articles, insightsAuthors } from "@/data/insights";
 import { formatEventDateLong } from "@/lib/format";
 
 // Only articles listed in data/insights.ts exist; anything else is a 404.
@@ -35,6 +35,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const article = articles.find((a) => a.slug === slug);
   if (!article) notFound();
   const author = people[article.author];
+  const byline = insightsAuthors.find((a) => a.person === article.author);
 
   return (
     <main id="main" className="pg" style={{ paddingTop: 48, paddingBottom: 88 }}>
@@ -52,7 +53,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           </div>
           <div>
             <div style={{ fontWeight: 600 }}>{author.name}</div>
-            <div style={{ fontSize: 15, color: "var(--color-neutral-700)" }}>{bylineFor(article.author)}</div>
+            {byline && <div style={{ fontSize: 15, color: "var(--color-neutral-700)" }}>{byline.title}</div>}
+            {byline?.org && <div style={{ fontSize: 15, color: "var(--color-neutral-700)" }}>{byline.org}</div>}
             <div style={{ fontSize: 15, color: "var(--color-neutral-700)" }}>{formatEventDateLong(article.date)}</div>
           </div>
         </div>

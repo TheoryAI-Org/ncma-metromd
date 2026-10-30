@@ -3,7 +3,7 @@ import Link from "next/link";
 import { CtaRow } from "@/components/shared/cta-row";
 import { PageHeader } from "@/components/shared/page-header";
 import { NewsletterSignup } from "@/components/insights/newsletter-signup";
-import { Headshot } from "@/components/shared/headshot";
+import { AuthorCard } from "@/components/insights/author-card";
 import { people } from "@/data/board";
 import { articleFor, articles, insightsAuthors } from "@/data/insights";
 import { formatEventDateLong } from "@/lib/format";
@@ -53,32 +53,20 @@ export default async function InsightsPage() {
         </h2>
         <div className="grid-3" style={{ gap: "40px 32px" }}>
           {insightsAuthors.map((a) => {
-            const person = people[a.person];
             const article = articleFor(a.person);
             return (
-              <article key={a.person}>
-                <Headshot
-                  src={person.image}
-                  alt={person.name}
-                  sizes="(max-width: 900px) 100vw, 360px"
-                />
-                <h3 style={{ fontSize: 22, margin: "16px 0 4px" }}>{person.name}</h3>
-                <p style={{ fontSize: 16, color: "var(--color-neutral-700)", margin: "0 0 12px" }}>
-                  {a.title}
-                </p>
-                {article ? (
-                  <>
-                    <p style={{ fontSize: 14, color: "var(--color-neutral-700)", margin: "0 0 4px" }}>
-                      {formatEventDateLong(article.date)}
-                    </p>
-                    <Link className="link-rule" href={`/insights/${article.slug}`} style={{ fontSize: 18 }}>
-                      {article.title}
-                    </Link>
-                  </>
-                ) : (
-                  <span className="tag tag-accent-2">Article coming soon</span>
-                )}
-              </article>
+              <AuthorCard
+                key={a.person}
+                member={{ ...people[a.person], personId: a.person, role: a.title, id: `insights-${a.person}` }}
+                byline={a.org}
+                article={
+                  article && {
+                    href: `/insights/${article.slug}`,
+                    title: article.title,
+                    date: formatEventDateLong(article.date),
+                  }
+                }
+              />
             );
           })}
         </div>

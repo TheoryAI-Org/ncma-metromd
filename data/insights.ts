@@ -10,8 +10,10 @@ import { people, type PersonId } from "./board";
  */
 export interface InsightsAuthor {
   person: PersonId;
-  /** Byline title, as the chapter wants it printed. */
+  /** Chapter title for the byline, as the chapter wants it printed. */
   title: string;
+  /** Second byline line (e.g. their company role), when the chapter wants it shown. */
+  org?: string;
 }
 
 export const insightsAuthors: InsightsAuthor[] = [
@@ -20,12 +22,13 @@ export const insightsAuthors: InsightsAuthor[] = [
   { person: "bethlehem-belaineh", title: "VP — Communications, NCMA MetroMD" },
   {
     person: "monique-frazier",
-    title:
-      "VP — University Outreach, NCMA MetroMD · U.S. Practice Lead – Organizational Change Management & Training, Infosys Public Services",
+    title: "VP — University Outreach, NCMA MetroMD",
+    org: "U.S. Practice Lead – Organizational Change Management & Training, Infosys Public Services",
   },
   {
     person: "sonya-hopson",
-    title: "VP — Operations, NCMA MetroMD · Founder & CEO, Sage Services Group LLC",
+    title: "VP — Operations, NCMA MetroMD",
+    org: "Founder & CEO, Sage Services Group LLC",
   },
 ];
 
@@ -51,8 +54,4 @@ export function authorName(id: PersonId): string {
 
 export function articleFor(id: PersonId): Article | undefined {
   return articles.find((a) => a.author === id);
-}
-
-export function bylineFor(id: PersonId): string {
-  return insightsAuthors.find((a) => a.person === id)?.title ?? "";
 }
