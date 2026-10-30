@@ -647,3 +647,52 @@ textarea.input { min-height: 120px; resize: vertical; }
   .marquee-track { animation: none; flex-wrap: wrap; width: auto; justify-content: center; }
   .marquee-track > [aria-hidden="true"] { display: none; }
 }
+
+/* Article link under an Insights author card: reads as a link at rest
+   (accent title, arrow) and lights up on hover or keyboard focus. */
+.article-link {
+  display: block;
+  padding: 12px 14px;
+  border-left: 4px solid var(--color-accent-300);
+  background: var(--color-neutral-100);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+.article-link-kick {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent-700);
+  margin-bottom: 4px;
+}
+.article-link-title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--color-accent-800);
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent-300);
+  text-underline-offset: 4px;
+}
+.article-link-arrow { display: inline-block; margin-left: 6px; transition: transform 0.15s; }
+.article-link:hover,
+.article-link:focus-visible {
+  background: var(--color-accent-200);
+  border-left-color: var(--color-accent);
+  box-shadow: 0 4px 14px rgba(174, 24, 0, 0.14);
+}
+.article-link:hover .article-link-title,
+.article-link:focus-visible .article-link-title {
+  color: var(--color-accent-900);
+  text-decoration-color: var(--color-accent-900);
+  text-decoration-thickness: 2px;
+}
+.article-link:hover .article-link-arrow,
+.article-link:focus-visible .article-link-arrow { transform: translateX(4px); }
+@media (prefers-reduced-motion: reduce) {
+  .article-link, .article-link-arrow { transition: none; }
+  .article-link:hover .article-link-arrow { transform: none; }
+}

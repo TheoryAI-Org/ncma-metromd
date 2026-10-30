@@ -58,15 +58,14 @@ export function AuthorCard({
 
       <div style={{ marginTop: 12 }}>
         {article ? (
-          <>
-            <p style={{ fontSize: 14, color: "var(--color-neutral-700)", margin: "0 0 4px" }}>
+          <Link className="article-link" href={article.href}>
+            <span className="article-link-kick">
               {article.draft && <span className="tag tag-accent-2" style={{ marginRight: 8 }}>Draft</span>}
-              {article.date}
-            </p>
-            <Link className="link-rule" href={article.href} style={{ fontSize: 18 }}>
-              {article.title}
-            </Link>
-          </>
+              Read the article · {article.date}
+            </span>
+            <span className="article-link-title">{article.title}</span>
+            <span className="article-link-arrow" aria-hidden="true">→</span>
+          </Link>
         ) : (
           <span className="tag tag-accent-2">Article coming soon</span>
         )}
