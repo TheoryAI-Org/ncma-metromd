@@ -78,6 +78,7 @@ export interface Sponsor {
 
 export const sponsors: Sponsor[] = [
   { name: "Anivas Technology", logo: "/images/sponsors/anivas-technology.png" },
+  { name: "AURELUS", logo: "/images/sponsors/aurelus.png" },
   { name: "FORUM", logo: "/images/sponsors/forum.png" },
   { name: "Greenberg Traurig", logo: "/images/sponsors/greenberg-traurig.png" },
   { name: "MMC Government Solutions", logo: "/images/sponsors/mmc-government-solutions.png" },
