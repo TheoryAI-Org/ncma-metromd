@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArticleBody } from "@/components/insights/article-body";
 import { Headshot } from "@/components/shared/headshot";
 import { people } from "@/data/board";
 import { insightsAuthors, visibleArticles } from "@/data/insights";
@@ -22,12 +23,21 @@ export async function generateMetadata({
   const { slug } = await params;
   const article = visibleArticles().find((a) => a.slug === slug);
   if (!article) return {};
+  const author = people[article.author].name;
   const title = `${article.title} | Insights | NCMA MetroMD`;
   return {
     title,
     description: article.summary,
     alternates: { canonical: `/insights/${article.slug}` },
-    openGraph: { title, description: article.summary, url: `/insights/${article.slug}`, type: "article" },
+    authors: [{ name: author }],
+    openGraph: {
+      title,
+      description: article.summary,
+      url: `/insights/${article.slug}`,
+      type: "article",
+      publishedTime: article.date,
+      authors: [author],
+    },
     ...(article.draft && { robots: { index: false, follow: false } }),
   };
 }
@@ -38,6 +48,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   if (!article) notFound();
   const author = people[article.author];
   const byline = insightsAuthors.find((a) => a.person === article.author);
+  const editor = article.editor && insightsAuthors.find((a) => a.person === article.editor);
 
   return (
     <main id="main" className="pg" style={{ paddingTop: 48, paddingBottom: 88 }}>
@@ -73,13 +84,14 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             {byline && <div style={{ fontSize: 15, color: "var(--color-neutral-700)" }}>{byline.title}</div>}
             {byline?.org && <div style={{ fontSize: 15, color: "var(--color-neutral-700)" }}>{byline.org}</div>}
             <div style={{ fontSize: 15, color: "var(--color-neutral-700)" }}>{formatEventDateLong(article.date)}</div>
+            {editor && (
+              <div style={{ fontSize: 15, color: "var(--color-neutral-700)", fontStyle: "italic", marginTop: 4 }}>
+                Edited by {people[editor.person].name}, {editor.title}
+              </div>
+            )}
           </div>
         </div>
-        {article.body.map((para, i) => (
-          <p key={i} style={{ fontSize: 19, lineHeight: 1.65, margin: "0 0 20px" }}>
-            {para}
-          </p>
-        ))}
+        <ArticleBody blocks={article.body} />
       </article>
     </main>
   );

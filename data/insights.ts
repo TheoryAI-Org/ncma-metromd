@@ -18,7 +18,11 @@ export interface InsightsAuthor {
 
 export const insightsAuthors: InsightsAuthor[] = [
   { person: "jennifer-hanks", title: "President, NCMA MetroMD" },
-  { person: "chyanne-thomas", title: "President-Elect, NCMA MetroMD" },
+  {
+    person: "chyanne-thomas",
+    title: "President-Elect, NCMA MetroMD",
+    org: "Founder & CEO, Aurelus Solutions",
+  },
   { person: "bethlehem-belaineh", title: "VP — Communications, NCMA MetroMD" },
   {
     person: "monique-frazier",
@@ -32,6 +36,13 @@ export const insightsAuthors: InsightsAuthor[] = [
   },
 ];
 
+/**
+ * One block of article text. A plain string is a paragraph; the others are a
+ * section heading or a bulleted / numbered list. Text may use **bold**,
+ * *italic* and [link text](https://...).
+ */
+export type ArticleBlock = string | { h2: string } | { ul: string[] } | { ol: string[] };
+
 export interface Article {
   /** URL segment: /insights/<slug>. */
   slug: string;
@@ -41,8 +52,10 @@ export interface Article {
   date: string;
   /** One or two sentences for the card and search results. */
   summary: string;
-  /** The article text, one string per paragraph. */
-  body: string[];
+  /** The article text, in blocks (see ArticleBlock). */
+  body: ArticleBlock[];
+  /** Credited as "Edited by" under the byline. */
+  editor?: PersonId;
   /**
    * Draft awaiting the author's approval. Drafts show on preview builds and
    * local development only, with a "Draft" banner, and never on the live site.
@@ -67,8 +80,8 @@ export function articleFor(id: PersonId): Article | undefined {
   return visibleArticles().find((a) => a.author === id);
 }
 
-// Sample drafts written for each author to react to. Nothing here is approved:
-// each stays `draft: true` (hidden on the live site) until its author signs off.
+// Entries marked `draft: true` are samples awaiting their author's sign-off and
+// stay hidden on the live site; entries without it are approved and published.
 export const articles: Article[] = [
   {
     slug: "bridging-policy-and-execution",
@@ -88,20 +101,89 @@ export const articles: Article[] = [
     ],
   },
   {
-    slug: "leading-with-purpose",
+    slug: "quantum-is-already-here",
     author: "chyanne-thomas",
-    draft: true,
-    title: "Leading with Purpose: Lessons from Service for the Next Generation of Contracting Leaders",
-    date: "2026-11-02",
+    editor: "bethlehem-belaineh",
+    title: "Quantum Is Already Here: Why Small GovCon Firms Can't Afford to Wait",
+    date: "2026-10-30",
     summary:
-      "The principles that guide leaders in uniform, from mission focus to care for the team, translate directly to building strong contracting organizations.",
+      "Adversaries are already harvesting encrypted data to decrypt later, and federal post-quantum deadlines now reach contractors directly. Why small GovCon firms should start their migration now, and where to begin this quarter.",
     body: [
-      "Leadership is often discussed as a title, but it is better understood as a practice. In the military, that practice is built around a clear mission, a shared sense of responsibility and a commitment to the people beside you. Those same principles are just as valuable in contract management.",
-      "Start with the mission. Every acquisition exists to deliver something an agency and the public need. Leaders who keep that purpose in view help their teams make better decisions under pressure, because they know what matters most when priorities compete.",
-      "Next, take care of your people. Contracting work is detailed, deadline-driven and often unseen when it goes well. Leaders who recognize that effort, protect their team's time and invest in their growth build organizations people want to stay in.",
-      "Purpose-driven leadership also means leading yourself. Clarity about your own values and goals makes it easier to handle setbacks, give honest feedback and stay steady when the work gets hard. Personal growth and professional excellence are not separate tracks; each strengthens the other.",
-      "Veterans bring these habits into the acquisition community in large numbers, and so do many who have never served. What they share is a belief that leadership is about the people you serve and the people you lead.",
-      "As NCMA MetroMD grows, we want every member to see a place for themselves in that kind of leadership, whether they are new to the field or guiding a team of their own.",
+      { h2: "Quantum isn't coming. It's here." },
+      "We keep talking about quantum computing as a future event, a “Q-Day” somewhere over the horizon. That framing is the most dangerous thing about it. The threat to your data did not start the day a quantum computer breaks encryption. It started the day someone copied your encrypted data and decided to keep it.",
+      "Security professionals call this **“harvest now, decrypt later.”** An adversary does not need a working quantum computer today. They only need to collect your traffic, your files and your client communications now, store them cheaply, and wait. When the machine arrives, everything they saved opens at once.",
+      "So the right question is not “When will quantum be here?” It is “How long does my data need to stay secret, and is that longer than the time we have left?” For anyone holding contract data, personnel records, pricing, technical drawings or mission information, the honest answer is: we should be acting as if quantum is already here.",
+      { h2: "How much of your data has already been taken?" },
+      "Ask yourself a hard question: how much of your organization's data has already been stolen? Most small firms cannot answer it. A breach that copies encrypted files often leaves no visible damage, so it never gets reported, investigated or even noticed.",
+      "Now think about what moves between a government client and its vendors every day:",
+      {
+        ul: [
+          "Proposals, pricing and labor rates",
+          "Controlled Unclassified Information (CUI) and technical data",
+          "Personnel files, clearances and badge records",
+          "System designs, network diagrams and credentials",
+          "Email threads, contract modifications and deliverables",
+        ],
+      },
+      "Every one of those exchanges is protected today by public-key encryption, the same math a large quantum computer is expected to break. If that traffic was captured last year, it is not safe just because it was encrypted. It is simply waiting.",
+      "That makes this a shared risk. The agency can modernize its own systems, but if a subcontractor's email, file share or VPN still runs on vulnerable cryptography, the data leaks through the weakest link. In the government supply chain, small businesses are very often that link.",
+      { h2: "The federal clock is already running" },
+      "This is no longer a research topic. It is a compliance schedule, and it reaches contractors directly.",
+      "NIST published the first three post-quantum encryption standards, FIPS 203, 204 and 205, in August 2024. On June 22, 2026, the President signed the executive order *Securing the Nation Against Advanced Cryptographic Attacks*, which turned those standards into deadlines ([Crowell & Moring summary](https://www.crowell.com/en/insights/client-alerts/twin-executive-orders-seek-to-spur-quantum-leap-in-technology-and-cybersecurity)). The dates that matter to a vendor:",
+      {
+        ul: [
+          "**Around December 19, 2026:** the FAR Council's proposed rule on contractor post-quantum compliance is due, 180 days after the order.",
+          "**Around March 2027:** a second proposed FAR rule is due, requiring covered contractors to run vulnerability disclosure programs that cover cryptographic weaknesses. CISA is also defining a “cryptographic bill of materials” for hardware and software.",
+          "**December 31, 2030:** covered federal contractors must comply with NIST's post-quantum standards.",
+          "**2030 to 2031:** agencies must move their high-value and high-impact systems to post-quantum cryptography.",
+        ],
+      },
+      "Two things are still open. The order does not define “covered contractor,” and the proposed rule has not yet been published. That uncertainty is not a reason to wait. Primes will not wait for the final rule to protect their own compliance; expect them to start asking subcontractors for evidence of cryptographic readiness well before 2030.",
+      { h2: "Why small businesses feel this differently" },
+      "A large prime can treat quantum readiness as a line item. It has a CISO, a security budget and the cash to absorb a multi-year migration. Even if the price tag is large, it can spend freely and keep bidding.",
+      "A small business does not have that cushion. The same requirement can mean replacing a VPN, upgrading a firewall, renegotiating a cloud contract and retraining a two-person IT team, all while still delivering on current task orders. If the work is squeezed into the last year before a deadline, it competes with payroll.",
+      "That is exactly why small firms should start now. Spread over four years, migration becomes a series of planned refresh decisions. Compressed into one, it becomes an emergency that can cost you a recompete.",
+      "A practical cost analysis does not need to be complicated. It should answer five questions:",
+      {
+        ol: [
+          "**What do we have?** Every system, device and service that encrypts or signs data.",
+          "**What is already on a refresh cycle?** Equipment you will replace anyway before 2030 is a cheap upgrade path if you buy quantum-ready now.",
+          "**What depends on someone else?** Cloud, email, payroll and managed-service providers will do much of the work for you, but only if you confirm their roadmap.",
+          "**What can't be upgraded?** Older hardware and embedded devices may need full replacement. These are your biggest costs, so find them first.",
+          "**What does inaction cost?** A lost recompete, an ineligible bid or a breach of client data will cost far more than a planned migration.",
+        ],
+      },
+      "The cheapest quantum migration is the one you fold into purchases you were already going to make.",
+      { h2: "It's not just data: hardware, sensing and opportunity" },
+      "Encryption gets the headlines, but quantum touches far more of the business.",
+      "**Hardware.** Cryptography lives inside physical devices: routers, firewalls, badge readers, laptops with hardware security chips, IoT sensors, even printers. Many cannot be patched to new algorithms. A vendor that delivers or maintains equipment for an agency needs to know which products in its catalog are quantum-ready and which are dead ends. CISA's coming cryptographic bill of materials will make that question part of acquisition.",
+      "**Sensing and navigation.** Quantum sensors measure time, gravity and magnetic fields with extreme precision, and could offer an alternative to GPS. The June 2026 innovation order directs the Department of War to field at least three next-generation quantum sensing projects by September 30, 2028. That means new requirements for integration, testing, logistics and support.",
+      "**Opportunity.** The same orders launch a national push on quantum computing, networking, supply chain and workforce. Agencies will need help with cryptographic inventories, migration planning, training and program support. Small businesses that understand quantum now can be the vendors helping agencies and primes through the transition, not just the ones being asked to comply.",
+      { h2: "Where to start this quarter" },
+      "You do not need a quantum physicist to begin. You need a plan and an owner.",
+      {
+        ol: [
+          "**Name a quantum-readiness lead.** Federal agencies had to do this within 30 days of the order. A small business can do it this week, even if it is a part-time role.",
+          "**Build a cryptographic inventory.** List where your firm encrypts or signs anything: email, VPN, websites, file sharing, cloud storage, laptops, phones, badge systems and any equipment you deliver to clients.",
+          "**Rank by data lifespan.** Anything that must stay secret for more than five years (CUI, proposals, personnel data, technical designs) is already at risk from harvest-now, decrypt-later. Protect that first.",
+          "**Ask your providers the hard question.** Send cloud, email, MSP and hardware vendors one line: “What is your post-quantum roadmap, and when will our services support NIST FIPS 203, 204 and 205?” Their answers shape your cost analysis.",
+          "**Buy for crypto-agility.** From today on, make quantum readiness a requirement in every technology purchase, so each refresh moves you forward.",
+          "**Watch the FAR rule and comment on it.** The proposed rule due around December 2026 will define who is covered. Small businesses should make their voices heard during the comment period.",
+          "**Talk to your primes and clients.** Ask what they expect from subcontractors. Being the vendor who raises it first is a competitive advantage.",
+        ],
+      },
+      { h2: "Why wait for the risk before we mitigate it?" },
+      "We would never wait for a breach to install a firewall. We would never wait for an audit to start writing our security plan. Quantum deserves the same discipline.",
+      "The data your firm shares with government clients today could be read tomorrow by someone who saved it years ago. The rules are being written right now. The firms that start early will spread the cost, keep their eligibility and earn their clients' trust. The firms that wait will pay more, in a hurry, under pressure.",
+      "Let's position ourselves to be aware, to understand what we need to migrate, and to act as if quantum is already here. Because for our data, it already is.",
+      { h2: "Sources" },
+      {
+        ul: [
+          "[Crowell & Moring: Twin Executive Orders Seek to Spur Quantum Leap in Technology and Cybersecurity](https://www.crowell.com/en/insights/client-alerts/twin-executive-orders-seek-to-spur-quantum-leap-in-technology-and-cybersecurity) (June 25, 2026)",
+          "[Cooley: Quantum Computing EOs Create Immediate Compliance Deadlines](https://www.cooley.com/news/insight/2026/2026-07-29-quantum-computing-eos-create-immediate-compliance-deadlines-new-federal-partnership-opportunities) (July 29, 2026)",
+          "[Wiley: Key Takeaways from the Quantum and PQC Executive Orders](https://www.wiley.law/alert-The-Next-Frontier-of-Quantum-Innovation-Key-Takeaways-from-President-Trumps-Quantum-and-Post-Quantum-Cryptography-Executive-Orders) (June 30, 2026)",
+        ],
+      },
     ],
   },
   {
