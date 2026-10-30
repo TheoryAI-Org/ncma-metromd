@@ -68,11 +68,9 @@ export interface NavItem {
  * The header carries exactly five links. Certifications and Advisory moved
  * to the footer; those pages stay reachable.
  *
- * Insights and Monthly Highlight are unpublished until they have content:
- * linked from nowhere and kept out of the sitemap, but the routes build.
- *
- * Insights is unpublished until there are articles: it is linked from
- * nowhere and kept out of the sitemap, but the route still builds.
+ * Insights is linked from the footer only, under President's Letter.
+ * Monthly Highlight is unpublished until it has content: linked from
+ * nowhere and kept out of the sitemap, but the route builds.
  *
  * "Board & Advisory" opens a dropdown, but the three entries are anchors on the
  * single /board page rather than separate routes.
@@ -109,6 +107,7 @@ export const footerGroups: { heading: string; links: FooterLink[] }[] = [
       { name: "Board of Advisors", href: "/board#advisors" },
       { name: "Sponsors", href: "/sponsors" },
       { name: "President’s Letter", href: "/presidents-letter" },
+      { name: "Insights", href: "/insights" },
     ],
   },
   {
