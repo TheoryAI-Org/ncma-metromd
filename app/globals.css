@@ -626,18 +626,22 @@ textarea.input { min-height: 120px; resize: vertical; }
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 240px;
-  height: 96px;
-  padding: 0 28px;
+  width: 320px;
+  height: 140px;
+  padding: 0 32px;
 }
 .marquee-logo {
   width: auto;
   max-width: 100%;
   height: auto;
-  max-height: 72px;
+  max-height: 112px;
   object-fit: contain;
 }
 @keyframes marqueeScroll { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+@media (max-width: 820px) {
+  .marquee-item { width: 240px; height: 112px; padding: 0 24px; }
+  .marquee-logo { max-height: 88px; }
+}
 @media (prefers-reduced-motion: reduce) {
   .marquee { -webkit-mask-image: none; mask-image: none; }
   .marquee-track { animation: none; flex-wrap: wrap; width: auto; justify-content: center; }
