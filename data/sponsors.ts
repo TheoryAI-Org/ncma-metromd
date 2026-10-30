@@ -66,9 +66,9 @@ export const sponsorshipOptions = [
 ] as const;
 
 /**
- * Current sponsors. The design reserves 20 logo slots and none have been
- * supplied yet — add `{ name, logo: "/images/sponsors/acme.png", href }`
- * entries here and the grid fills in automatically.
+ * Current sponsors, shown in the "Thank you to our sponsors" strip on the home
+ * page. Add `{ name, logo: "/images/sponsors/acme.png", href }` entries here;
+ * `href` makes the logo link to the sponsor's site.
  */
 export interface Sponsor {
   name: string;
@@ -76,7 +76,14 @@ export interface Sponsor {
   href?: string;
 }
 
-export const sponsors: Sponsor[] = [];
+export const sponsors: Sponsor[] = [
+  { name: "Anivas Technology", logo: "/images/sponsors/anivas-technology.png" },
+  { name: "AURELUS", logo: "/images/sponsors/aurelus.png" },
+  { name: "FORUM", logo: "/images/sponsors/forum.png" },
+  { name: "Greenberg Traurig", logo: "/images/sponsors/greenberg-traurig.png" },
+  { name: "MMC Government Solutions", logo: "/images/sponsors/mmc-government-solutions.png" },
+  { name: "Visual Connections", logo: "/images/sponsors/visual-connections.png" },
+];
 
 /** How many empty slots to draw while the logos are being collected. */
 export const SPONSOR_PLACEHOLDER_SLOTS = 20;

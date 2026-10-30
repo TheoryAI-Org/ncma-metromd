@@ -4,6 +4,8 @@ import Image from "next/image";
 import { BoardCard } from "@/components/board/board-card";
 import { featuredBoard } from "@/data/board";
 import { LinkedInPosts } from "@/components/linkedin-posts";
+import { SponsorMarquee } from "@/components/sponsor-marquee";
+import { sponsors } from "@/data/sponsors";
 import { currentFlyers } from "@/data/flyers";
 import { CHAPTER_EMAIL, NCMA_HQ_URL, NCMA_MEMBERSHIP_URL } from "@/data/site";
 
@@ -247,6 +249,8 @@ export default function HomePage() {
       </section>
 
       <LinkedInPosts />
+
+      <SponsorMarquee sponsors={sponsors} />
 
       <section className="pg" style={{ marginTop: 64, paddingBottom: 16 }}>
         <div
