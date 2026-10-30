@@ -20,7 +20,7 @@ export function AuthorCard({
   member: BoardMember;
   /** Optional second byline line under the title on the card. */
   byline?: string;
-  article?: { href: string; title: string; date: string };
+  article?: { href: string; title: string; date: string; draft?: boolean };
 }) {
   const [open, setOpen] = useState(false);
 
@@ -60,6 +60,7 @@ export function AuthorCard({
         {article ? (
           <>
             <p style={{ fontSize: 14, color: "var(--color-neutral-700)", margin: "0 0 4px" }}>
+              {article.draft && <span className="tag tag-accent-2" style={{ marginRight: 8 }}>Draft</span>}
               {article.date}
             </p>
             <Link className="link-rule" href={article.href} style={{ fontSize: 18 }}>

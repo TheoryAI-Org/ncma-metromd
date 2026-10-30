@@ -5,7 +5,7 @@ import { PageHeader } from "@/components/shared/page-header";
 import { NewsletterSignup } from "@/components/insights/newsletter-signup";
 import { AuthorCard } from "@/components/insights/author-card";
 import { people } from "@/data/board";
-import { articleFor, articles, insightsAuthors } from "@/data/insights";
+import { articleFor, insightsAuthors, visibleArticles } from "@/data/insights";
 import { formatEventDateLong } from "@/lib/format";
 import { newsletterIsLive } from "./newsletter-actions";
 
@@ -39,7 +39,7 @@ export default async function InsightsPage() {
           Chapter leaders write on what is changing in acquisition and what it
           means at the desk, each piece with a byline and a full article page.
         </p>
-        {articles.length === 0 && (
+        {visibleArticles().every((a) => a.draft) && (
           <p style={{ fontSize: 15, color: "var(--color-neutral-700)", marginTop: 16 }}>
             <span className="tag tag-accent-2">Coming soon</span>
             &nbsp;&nbsp;Nothing publishes until the authors approve their copy.
@@ -64,6 +64,7 @@ export default async function InsightsPage() {
                     href: `/insights/${article.slug}`,
                     title: article.title,
                     date: formatEventDateLong(article.date),
+                    draft: article.draft,
                   }
                 }
               />

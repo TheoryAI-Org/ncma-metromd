@@ -3,14 +3,15 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Headshot } from "@/components/shared/headshot";
 import { people } from "@/data/board";
-import { articles, insightsAuthors } from "@/data/insights";
+import { insightsAuthors, visibleArticles } from "@/data/insights";
 import { formatEventDateLong } from "@/lib/format";
 
-// Only articles listed in data/insights.ts exist; anything else is a 404.
+// Only articles visible in this build exist (drafts are hidden on the live
+// site); anything else is a 404.
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return articles.map((a) => ({ slug: a.slug }));
+  return visibleArticles().map((a) => ({ slug: a.slug }));
 }
 
 export async function generateMetadata({
@@ -19,7 +20,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const article = articles.find((a) => a.slug === slug);
+  const article = visibleArticles().find((a) => a.slug === slug);
   if (!article) return {};
   const title = `${article.title} | Insights | NCMA MetroMD`;
   return {
@@ -27,12 +28,13 @@ export async function generateMetadata({
     description: article.summary,
     alternates: { canonical: `/insights/${article.slug}` },
     openGraph: { title, description: article.summary, url: `/insights/${article.slug}`, type: "article" },
+    ...(article.draft && { robots: { index: false, follow: false } }),
   };
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const article = articles.find((a) => a.slug === slug);
+  const article = visibleArticles().find((a) => a.slug === slug);
   if (!article) notFound();
   const author = people[article.author];
   const byline = insightsAuthors.find((a) => a.person === article.author);
@@ -43,6 +45,21 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         ← All Insights
       </Link>
       <article style={{ maxWidth: "68ch", marginTop: 28 }}>
+        {article.draft && (
+          <p
+            role="note"
+            style={{
+              background: "var(--color-accent-100)",
+              borderLeft: "4px solid var(--color-accent-700)",
+              padding: "12px 16px",
+              fontSize: 16,
+              margin: "0 0 24px",
+            }}
+          >
+            <strong>Draft for author review.</strong> This sample has not been
+            approved by the author and is not shown on the live site.
+          </p>
+        )}
         <p className="kick">Insights</p>
         <h1 style={{ fontSize: "clamp(30px, 6vw, 48px)", lineHeight: 1.1, margin: "14px 0 20px" }}>
           {article.title}
