@@ -11,6 +11,7 @@ import {
   type SponsorshipTier,
 } from "@/data/sponsors";
 import { DONATE_URL } from "@/data/site";
+import { SponsorMarquee } from "@/components/sponsor-marquee";
 
 export const metadata: Metadata = {
   title: "Sponsorship | NCMA MetroMD",
@@ -94,6 +95,8 @@ export default function SponsorsPage() {
           Donate Now
         </a>
       </div>
+
+      <SponsorMarquee sponsors={sponsors} inPage />
 
       <h2 className="rule-section" style={H2}>
         Chapter sponsorship packages

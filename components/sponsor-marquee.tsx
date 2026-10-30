@@ -7,7 +7,14 @@ import type { Sponsor } from "@/data/sponsors";
  * readers. Hovering or focusing a logo pauses it, and visitors who ask for
  * reduced motion get a still, wrapped row instead.
  */
-export function SponsorMarquee({ sponsors }: { sponsors: Sponsor[] }) {
+export function SponsorMarquee({
+  sponsors,
+  /** Set when the page already supplies the .pg container (e.g. /sponsors). */
+  inPage = false,
+}: {
+  sponsors: Sponsor[];
+  inPage?: boolean;
+}) {
   if (sponsors.length === 0) return null;
   // Slower for longer lists so each logo stays on screen about as long.
   const duration = `${Math.max(20, sponsors.length * 5)}s`;
@@ -18,8 +25,8 @@ export function SponsorMarquee({ sponsors }: { sponsors: Sponsor[] }) {
         <Image
           src={s.logo}
           alt={copy ? "" : s.name}
-          width={240}
-          height={80}
+          width={320}
+          height={128}
           unoptimized={s.logo.endsWith(".svg")}
           className="marquee-logo"
         />
@@ -38,7 +45,7 @@ export function SponsorMarquee({ sponsors }: { sponsors: Sponsor[] }) {
     });
 
   return (
-    <section className="pg" aria-labelledby="sponsor-thanks" style={{ paddingTop: 64 }}>
+    <section className={inPage ? undefined : "pg"} aria-labelledby="sponsor-thanks" style={{ paddingTop: 64 }}>
       <p className="kick">Our sponsors</p>
       <h2 id="sponsor-thanks" style={{ fontSize: "clamp(24px, 4.6vw, 32px)", margin: "12px 0 8px" }}>
         Thank you to our sponsors
