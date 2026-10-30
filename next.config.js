@@ -10,6 +10,16 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      // The redesign folds "Why join NCMA" into the chapter page; keep old links working.
+      {
+        source: '/why-join',
+        destination: '/about#why-join',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig

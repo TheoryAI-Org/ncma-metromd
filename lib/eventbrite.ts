@@ -21,6 +21,10 @@ interface EventbriteEvent {
   logo?: {
     url: string;
   };
+  online_event?: boolean;
+  venue?: {
+    name?: string;
+  } | null;
   url: string;
 }
 
@@ -51,7 +55,7 @@ export async function fetchEventbriteEvents(): Promise<{
 
   try {
     // Construct the API URL
-    const apiUrl = `${EVENTBRITE_API_BASE_URL}/organizations/${EVENTBRITE_ORGANIZATION_ID}/events/?status=live,started,ended,completed&order_by=start_desc`;
+    const apiUrl = `${EVENTBRITE_API_BASE_URL}/organizations/${EVENTBRITE_ORGANIZATION_ID}/events/?status=live,started,ended,completed&order_by=start_desc&expand=venue`;
     console.log('Fetching events from:', apiUrl);
 
     // Fetch all events for the organization
@@ -93,18 +97,24 @@ export async function fetchEventbriteEvents(): Promise<{
         'Check ticket prices on event',
       imageUrl: event.logo?.url || '',
       eventUrl: event.url,
+      venue: event.venue?.name || null,
+      isOnline: event.online_event === true,
     }));
 
-    // Split events into upcoming and past based on end date
-    const upcomingEvents = events.filter((event: Event) => {
-      const eventEndDate = new Date(`${event.date}T${event.endTime}`);
-      return eventEndDate >= new Date();
-    });
+    // Split events into upcoming and past based on end date.
+    const endsAt = (event: Event) => new Date(`${event.date}T${event.endTime}`);
+    const now = new Date();
 
-    const pastEvents = events.filter((event: Event) => {
-      const eventEndDate = new Date(`${event.date}T${event.endTime}`);
-      return eventEndDate < new Date();
-    });
+    // The API is queried start_desc, which is the order the archive wants but
+    // the reverse of what "next meeting" needs, so upcoming is re-sorted
+    // soonest-first. Without this the furthest-out listing reads as next.
+    const upcomingEvents = events
+      .filter((event: Event) => endsAt(event) >= now)
+      .sort((a: Event, b: Event) => endsAt(a).getTime() - endsAt(b).getTime());
+
+    const pastEvents = events
+      .filter((event: Event) => endsAt(event) < now)
+      .sort((a: Event, b: Event) => endsAt(b).getTime() - endsAt(a).getTime());
 
     console.log('Processed events:', {
       totalEvents: events.length,
@@ -114,7 +124,7 @@ export async function fetchEventbriteEvents(): Promise<{
 
     return {
       upcomingEvents,
-      pastEvents: pastEvents.slice(0, 10), // Limit past events to 10
+      pastEvents,
     };
   } catch (error) {
     console.error('Error fetching Eventbrite events:', error);
