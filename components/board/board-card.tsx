@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BioDialog } from "@/components/board/bio-dialog";
 import type { BoardMember } from "@/data/board";
 
@@ -27,18 +27,47 @@ export function initialsOf(name: string) {
 export function BoardCard({
   member,
   showRole = true,
+  anchor = false,
   sizes = "(max-width: 820px) 100vw, (max-width: 1040px) 50vw, 25vw",
 }: {
   member: BoardMember;
   /** Advisors show name and organisation only. */
   showRole?: boolean;
+  /**
+   * Give this card the person's link target, /board#bio-<person id>. Visiting
+   * that link scrolls here and opens the bio. Only one seat per person sets it.
+   */
+  anchor?: boolean;
   sizes?: string;
 }) {
   const [open, setOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const anchorId = `bio-${member.personId}`;
+
+  // Open the bio when the page is reached through this person's link
+  // (e.g. the byline on an Insights article), including later hash changes.
+  useEffect(() => {
+    if (!anchor) return;
+    const openFromHash = () => {
+      if (window.location.hash !== `#${anchorId}`) return;
+      buttonRef.current?.scrollIntoView({ block: "center" });
+      setOpen(true);
+    };
+    openFromHash();
+    window.addEventListener("hashchange", openFromHash);
+    return () => window.removeEventListener("hashchange", openFromHash);
+  }, [anchor, anchorId]);
 
   return (
     <>
-      <button type="button" className="person-card" onClick={() => setOpen(true)}>
+      <button
+        ref={buttonRef}
+        type="button"
+        className="person-card"
+        id={anchor ? anchorId : undefined}
+        style={{ scrollMarginTop: 96 }}
+        onClick={() => setOpen(true)}
+      >
         {member.image ? (
           <div className="frame frame-portrait">
             <Image
