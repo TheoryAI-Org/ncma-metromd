@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArticleBody } from "@/components/insights/article-body";
-import { Headshot } from "@/components/shared/headshot";
+import { AuthorByline } from "@/components/insights/author-byline";
 import { people } from "@/data/board";
 import { insightsAuthors, visibleArticles } from "@/data/insights";
 import { formatEventDateLong } from "@/lib/format";
@@ -75,22 +75,12 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         <h1 style={{ fontSize: "clamp(30px, 6vw, 48px)", lineHeight: 1.1, margin: "14px 0 20px" }}>
           {article.title}
         </h1>
-        <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 32 }}>
-          <div style={{ width: 64, flex: "none" }}>
-            <Headshot src={author.image} alt={author.name} sizes="64px" />
-          </div>
-          <div>
-            <div style={{ fontWeight: 600 }}>{author.name}</div>
-            {byline && <div style={{ fontSize: 15, color: "var(--color-neutral-700)" }}>{byline.title}</div>}
-            {byline?.org && <div style={{ fontSize: 15, color: "var(--color-neutral-700)" }}>{byline.org}</div>}
-            <div style={{ fontSize: 15, color: "var(--color-neutral-700)" }}>{formatEventDateLong(article.date)}</div>
-            {editor && (
-              <div style={{ fontSize: 15, color: "var(--color-neutral-700)", fontStyle: "italic", marginTop: 4 }}>
-                Edited by {people[editor.person].name}, {editor.title}
-              </div>
-            )}
-          </div>
-        </div>
+        <AuthorByline
+          member={{ ...author, personId: article.author, role: byline?.title ?? "", id: `article-${article.author}` }}
+          org={byline?.org}
+          date={formatEventDateLong(article.date)}
+          editor={editor ? `${people[editor.person].name}, ${editor.title}` : undefined}
+        />
         <ArticleBody blocks={article.body} />
       </article>
     </main>

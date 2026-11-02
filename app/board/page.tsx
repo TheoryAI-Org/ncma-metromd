@@ -15,6 +15,16 @@ export const metadata: Metadata = {
   },
 };
 
+/**
+ * Each person's /board#bio-<person id> link points at their first seat, in
+ * page order, so someone on two rosters (e.g. officer and advisor) gets one.
+ */
+const anchorSeats = new Set(
+  [...officers, ...directors, ...advisors]
+    .filter((m, i, all) => all.findIndex((x) => x.personId === m.personId) === i)
+    .map((m) => m.id),
+);
+
 function Section({
   id,
   heading,
@@ -56,7 +66,7 @@ function Section({
       )}
       <div className="grid-4 grid-people" style={{ gap: "36px 32px" }}>
         {people.map((m) => (
-          <BoardCard key={m.id} member={m} showRole={showRole} />
+          <BoardCard key={m.id} member={m} showRole={showRole} anchor={anchorSeats.has(m.id)} />
         ))}
       </div>
     </>
