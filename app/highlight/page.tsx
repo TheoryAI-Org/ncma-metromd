@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Headshot } from "@/components/shared/headshot";
 import { PageHeader } from "@/components/shared/page-header";
@@ -104,6 +105,24 @@ function Spotlight() {
           </Link>
         </div>
       </div>
+
+      {h.image && (
+        <figure style={{ margin: "48px 0 0", maxWidth: 720 }}>
+          <a href={h.image.src} target="_blank" rel="noopener noreferrer" aria-label="Open the collage full size">
+            <Image
+              src={h.image.src}
+              alt={h.image.alt}
+              width={h.image.width}
+              height={h.image.height}
+              sizes="(max-width: 820px) 100vw, 720px"
+              style={{ width: "100%", height: "auto", display: "block", borderRadius: "var(--radius-md)" }}
+            />
+          </a>
+          <figcaption style={{ fontSize: 15, color: "var(--color-neutral-700)", marginTop: 10 }}>
+            Select the collage to view it full size.
+          </figcaption>
+        </figure>
+      )}
 
       <div style={{ maxWidth: "68ch", marginTop: 48 }}>
         <h3 style={{ fontSize: "clamp(22px, 4vw, 28px)", margin: "0 0 20px" }}>{h.wordsHeading}</h3>

@@ -18,6 +18,8 @@ export interface MemberHighlight {
   words: string[];
   /** Attribution under their words. */
   signature: string;
+  /** Optional collage or graphic shown between the introduction and their words. */
+  image?: { src: string; width: number; height: number; alt: string };
 }
 
 export const currentHighlight: MemberHighlight | null = {
@@ -44,4 +46,10 @@ export const currentHighlight: MemberHighlight | null = {
     "To my battle buddies who are no longer with us: thank you for the time we had. I miss you. I’m proud I got to serve beside you.",
   ],
   signature: "Chyanne Thomas, U.S. Army Veteran",
+  image: {
+    src: "/images/highlights/chyanne-thomas-veterans-month-2026.webp",
+    width: 1080,
+    height: 1350,
+    alt: "Veterans Month collage for Chyanne Thomas, U.S. Army Veteran, Sergeant First Class, President-Elect of NCMA MetroMD. A portrait in Army dress uniform, with photos labeled 2006 \u00b7 Where it began, Bataan Memorial Death March, 95th Civil Affairs Brigade (Airborne), Community outreach, Kuwait, and As Rosie the Riveter, with the SMA. Quotes: \u201cLife is hard, so you have to be harder. Love fiercely and live boldly.\u201d \u201cWhen I think about what it means to be a veteran, I think about the people first.\u201d \u201cYou will forever be a veteran.\u201d \u201cI needed to hear that then. Some days, I still do.\u201d \u201cTo my battle buddies who are no longer with us: thank you for the time we had. I miss you.\u201d Signed Chyanne T. Thomas.",
+  },
 };
