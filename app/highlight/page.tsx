@@ -5,6 +5,8 @@ import { Headshot } from "@/components/shared/headshot";
 import { PageHeader } from "@/components/shared/page-header";
 import { people } from "@/data/board";
 import { currentHighlight } from "@/data/highlights";
+import { HighlightForm } from "@/components/highlight-form";
+import { highlightIsLive } from "./actions";
 
 export const metadata: Metadata = {
   title: "Member Highlight | NCMA MetroMD",
@@ -19,10 +21,10 @@ export const metadata: Metadata = {
   },
 };
 
-const FORM_URL =
-  "https://docs.google.com/forms/d/e/1FAIpQLSeD5xywj1I6ipFoBkv58rCnCgjUmgCrVxE92YZrw8ajPKJQFg/viewform";
+export default async function HighlightPage() {
+  // Disabled with a "Coming soon" note until email delivery is configured.
+  const live = await highlightIsLive();
 
-export default function HighlightPage() {
   return (
     <main id="main" className="pg" style={{ paddingTop: 48, paddingBottom: 88 }}>
       <PageHeader kicker="Members" title="Member Highlight">
@@ -44,31 +46,17 @@ export default function HighlightPage() {
         </h2>
         <p style={{ fontSize: 19, lineHeight: 1.6, maxWidth: "62ch", margin: "0 0 12px" }}>
           Share your story and be featured on our social media platforms. We love to showcase
-          our members — fill out the form below by the <strong>15th of each month</strong>.
+          our amazing members (individual or business) — fill out the form below by
+          the <strong>15th of each month</strong>.
         </p>
         <p style={{ fontSize: 17, color: "var(--color-neutral-700)", maxWidth: "62ch", margin: 0 }}>
           Tell us about your professional journey, your accomplishments, and how NCMA Metro
           Maryland has contributed to your career growth. We look forward to highlighting
           your story.
         </p>
-      <div style={{ marginTop: 48 }}>
-        <iframe
-          src={`${FORM_URL}?embedded=true`}
-          title="Member Highlight submission form"
-          width={640}
-          height={978}
-          style={{ border: 0, maxWidth: "100%" }}
-        >
-          Loading…
-        </iframe>
-        <p style={{ fontSize: 15, color: "var(--color-neutral-600)", marginTop: 16 }}>
-          Form not loading?{" "}
-          <a href={FORM_URL} target="_blank" rel="noopener noreferrer">
-            Open it in a new tab
-          </a>
-          .
-        </p>
-      </div>
+        <div style={{ marginTop: 32 }}>
+          <HighlightForm live={live} />
+        </div>
       </section>
     </main>
   );
