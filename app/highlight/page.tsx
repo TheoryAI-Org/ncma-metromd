@@ -2,13 +2,15 @@ import type { Metadata } from "next";
 import { PageHeader } from "@/components/shared/page-header";
 
 export const metadata: Metadata = {
-  title: "Monthly Highlight | NCMA MetroMD",
+  title: "Member Highlight | NCMA MetroMD",
   description:
     "Share your story and be featured on the NCMA MetroMD social media platforms. Submissions are due by the 15th of each month.",
   alternates: { canonical: "/highlight" },
-  // Unpublished until there is content to show: linked from nowhere and kept
-  // out of the sitemap, so it should not be indexed either.
-  robots: { index: false, follow: false },
+  openGraph: {
+    title: "Member Highlight | NCMA MetroMD",
+    description: "Share your story and be featured on the NCMA MetroMD social media platforms.",
+    url: "/highlight",
+  },
 };
 
 const FORM_URL =
@@ -17,7 +19,7 @@ const FORM_URL =
 export default function HighlightPage() {
   return (
     <main id="main" className="pg" style={{ paddingTop: 48, paddingBottom: 88 }}>
-      <PageHeader kicker="Members" title="Monthly Highlight">
+      <PageHeader kicker="Members" title="Member Highlight">
         <p className="lede">
           Share your story and be featured on our social media platforms. We love to showcase
           our members — fill out the form below by the <strong>15th of each month</strong>.
@@ -32,7 +34,7 @@ export default function HighlightPage() {
       <div style={{ marginTop: 48 }}>
         <iframe
           src={`${FORM_URL}?embedded=true`}
-          title="Monthly Highlight submission form"
+          title="Member Highlight submission form"
           width={640}
           height={978}
           style={{ border: 0, maxWidth: "100%" }}

@@ -3,8 +3,7 @@ import { SITE_URL } from "@/data/site";
 
 /**
  * Every live route, including the four outside the UI refresh. /admin and
- * /login are omitted: neither is meant to be indexed, and neither is
- * /highlight while it is unpublished.
+ * /login are omitted: neither is meant to be indexed.
  */
 const routes = [
   { path: "/", priority: 1 },
@@ -14,6 +13,7 @@ const routes = [
   { path: "/sponsors", priority: 0.7 },
   { path: "/presidents-letter", priority: 0.6 },
   { path: "/insights", priority: 0.5 },
+  { path: "/highlight", priority: 0.5 },
   { path: "/contact", priority: 0.7 },
   { path: "/certs", priority: 0.6 },
 ];
